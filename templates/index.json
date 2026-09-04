@@ -241,27 +241,6 @@
                 "padding-inline-end": 14
               },
               "blocks": {
-                "set": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<p>{{ closest.product.type }}</p>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "h6",
-                    "font": "var(--font-body--family)",
-                    "font_size": "",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "name": "t:names.text"
-                },
                 "title": {
                   "type": "product-title",
                   "name": "t:names.product_title",
@@ -312,7 +291,6 @@
                 }
               },
               "block_order": [
-                "set",
                 "title",
                 "price"
               ]

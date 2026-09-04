@@ -251,77 +251,10 @@
                     "product_title_X4Hxci",
                     "price_r3D933"
                   ]
-                },
-                "group_HnURV7": {
-                  "type": "_product-card-group",
-                  "name": "t:names.group",
-                  "settings": {
-                    "content_direction": "column",
-                    "vertical_on_mobile": true,
-                    "horizontal_alignment": "flex-start",
-                    "vertical_alignment": "center",
-                    "align_baseline": false,
-                    "horizontal_alignment_flex_direction_column": "flex-start",
-                    "vertical_alignment_flex_direction_column": "flex-start",
-                    "gap": 12,
-                    "width": "fit-content",
-                    "custom_width": 100,
-                    "width_mobile": "fill",
-                    "custom_width_mobile": 25,
-                    "height": "fit",
-                    "custom_height": 100,
-                    "background_media": "none",
-                    "video_position": "cover",
-                    "background_image_position": "cover",
-                    "border": "none",
-                    "border_width": 1,
-                    "border_opacity": 100,
-                    "border_radius": 0,
-                    "toggle_overlay": false,
-                    "overlay_color": "#00000026",
-                    "overlay_style": "solid",
-                    "gradient_direction": "to top",
-                    "open_in_new_tab": false,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {
-                    "text_yYkK7E": {
-                      "type": "text",
-                      "name": "t:names.text",
-                      "settings": {
-                        "text": "<p>{{ closest.product.type }}</p>",
-                        "width": "fit-content",
-                        "max_width": "none",
-                        "alignment": "left",
-                        "type_preset": "h6",
-                        "font": "var(--font-body--family)",
-                        "font_size": "1rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "wrap": "pretty",
-                        "background": false,
-                        "background_color": "#00000026",
-                        "corner_radius": 0,
-                        "padding-block-start": 0,
-                        "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
-                      },
-                      "blocks": {}
-                    }
-                  },
-                  "block_order": [
-                    "text_yYkK7E"
-                  ]
                 }
               },
               "block_order": [
-                "group_i9KeQ7",
-                "group_HnURV7"
+                "group_i9KeQ7"
               ]
             }
           },

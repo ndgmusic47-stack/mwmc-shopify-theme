@@ -242,27 +242,6 @@
               },
               "block_order": []
             },
-            "product_type": {
-              "type": "text",
-              "settings": {
-                "text": "<p>{{ closest.product.type }}</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h6",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "name": "t:names.text"
-            },
             "inventory": {
               "type": "product-inventory",
               "name": "t:names.product_inventory",
@@ -424,7 +403,6 @@
             }
           },
           "block_order": [
-            "product_type",
             "text_tefwj7",
             "price_a7krng",
             "inventory",
@@ -618,80 +596,10 @@
                     "product_title_wWUJwp",
                     "price_NpRMFV"
                   ]
-                },
-                "group_HTthnM": {
-                  "type": "_product-card-group",
-                  "name": "t:names.group",
-                  "settings": {
-                    "content_direction": "column",
-                    "vertical_on_mobile": true,
-                    "horizontal_alignment": "flex-start",
-                    "vertical_alignment": "center",
-                    "align_baseline": false,
-                    "horizontal_alignment_flex_direction_column": "flex-start",
-                    "vertical_alignment_flex_direction_column": "flex-start",
-                    "gap": 12,
-                    "width": "fill",
-                    "custom_width": 100,
-                    "width_mobile": "custom",
-                    "custom_width_mobile": 25,
-                    "height": "fit",
-                    "custom_height": 100,
-                    "background_media": "none",
-                    "background_color": "",
-                    "video_position": "cover",
-                    "background_image_position": "cover",
-                    "toggle_overlay": false,
-                    "overlay_color": "#00000026",
-                    "overlay_style": "solid",
-                    "gradient_direction": "to top",
-                    "border": "none",
-                    "border_width": 1,
-                    "border_opacity": 100,
-                    "border_color": "",
-                    "border_radius": 0,
-                    "open_in_new_tab": false,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {
-                    "text_Dj8eVT": {
-                      "type": "text",
-                      "name": "t:names.text",
-                      "settings": {
-                        "text": "<p>{{ closest.product.type }}</p>",
-                        "width": "100%",
-                        "max_width": "normal",
-                        "alignment": "left",
-                        "type_preset": "h6",
-                        "font": "var(--font-body--family)",
-                        "font_size": "1rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "wrap": "pretty",
-                        "text_color": "",
-                        "background": false,
-                        "background_color": "#00000026",
-                        "corner_radius": 0,
-                        "padding-block-start": 0,
-                        "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
-                      },
-                      "blocks": {}
-                    }
-                  },
-                  "block_order": [
-                    "text_Dj8eVT"
-                  ]
                 }
               },
               "block_order": [
-                "group_3RWczc",
-                "group_HTthnM"
+                "group_3RWczc"
               ]
             }
           },
