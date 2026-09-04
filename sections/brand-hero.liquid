@@ -1,0 +1,274 @@
+{% comment %}
+  Brand hero.
+
+  Renders the supplied "Mum, Where's My Cards" banner artwork at its own natural
+  aspect ratio so the mascot and the full wordmark are never cropped, stretched or
+  covered. The brand colour sits behind the artwork, so any spare space on wide or
+  narrow viewports reads as part of the banner rather than as a gap.
+
+  The calls to action are placed underneath the artwork rather than over it, so they
+  can never obscure the lettering or the mascot at any breakpoint.
+
+  The artwork ships as a theme asset (WebP with a PNG fallback). An optional image
+  picker overrides it, which lets the banner be swapped from the theme editor later
+  without touching this file.
+{% endcomment %}
+
+{% liquid
+  assign s = section.settings
+  assign alt = s.alt_text
+  if alt == blank
+    assign alt = shop.name
+  endif
+
+  # Intrinsic size of the bundled artwork. Only used for the asset fallback path,
+  # where Liquid cannot read the dimensions of a theme asset. Update both values
+  # if assets/mwmc-brand-banner.* is ever replaced with art of a different size.
+  assign fallback_width = 1672
+  assign fallback_height = 941
+
+  assign pad_start = section.settings["padding-block-start"]
+  assign pad_end = section.settings["padding-block-end"]
+
+  # sizes has to be built up front: filters cannot be piped inside a tag argument list.
+  assign hero_sizes = "(min-width: 750px) min(100vw, " | append: s.max_width | append: "px), 100vw"
+%}
+
+<div
+  class="section section--page-width brand-hero-section"
+  style="--brand-hero-max-width: {{ s.max_width }}px; {% if s.background_color != blank %}background-color: {{ s.background_color }};{% endif %} padding-block-start: {{ pad_start }}px; padding-block-end: {{ pad_end }}px;"
+>
+  <div class="brand-hero">
+    {%- if s.heading != blank -%}
+      <h1 class="visually-hidden">{{ s.heading }}</h1>
+    {%- endif -%}
+
+    <div class="brand-hero__media">
+      {%- if s.image != blank -%}
+        {{
+          s.image
+          | image_url: width: 2400
+          | image_tag:
+            widths: '480, 720, 960, 1280, 1600, 2000, 2400',
+            sizes: hero_sizes,
+            alt: alt,
+            class: 'brand-hero__image',
+            width: s.image.width,
+            height: s.image.height,
+            loading: 'eager',
+            fetchpriority: 'high'
+        }}
+      {%- else -%}
+        <picture>
+          <source type="image/webp" srcset="{{ 'mwmc-brand-banner.webp' | asset_url }}">
+          <img
+            src="{{ 'mwmc-brand-banner.png' | asset_url }}"
+            alt="{{ alt | escape }}"
+            class="brand-hero__image"
+            width="{{ fallback_width }}"
+            height="{{ fallback_height }}"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          >
+        </picture>
+      {%- endif -%}
+    </div>
+
+    {%- if s.strapline != blank -%}
+      <p class="brand-hero__strapline">{{ s.strapline }}</p>
+    {%- endif -%}
+
+    {%- if s.primary_label != blank or s.secondary_label != blank -%}
+      <div class="brand-hero__actions">
+        {%- if s.primary_label != blank -%}
+          <a
+            class="button brand-hero__button"
+            {% if s.primary_link != blank %}
+              href="{{ s.primary_link }}"
+            {% else %}
+              role="link" aria-disabled="true"
+            {% endif %}
+          >{{ s.primary_label }}</a>
+        {%- endif -%}
+        {%- if s.secondary_label != blank -%}
+          <a
+            class="button button-secondary brand-hero__button"
+            {% if s.secondary_link != blank %}
+              href="{{ s.secondary_link }}"
+            {% else %}
+              role="link" aria-disabled="true"
+            {% endif %}
+          >{{ s.secondary_label }}</a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .brand-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .brand-hero__media {
+    width: 100%;
+    max-width: var(--brand-hero-max-width, 1200px);
+    margin-inline: auto;
+  }
+
+  /* height: auto with an intrinsic width/height pair on the <img> preserves the
+     artwork's aspect ratio exactly and reserves its space before it loads. */
+  .brand-hero__image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .brand-hero__strapline {
+    max-width: 52ch;
+    margin: 0 auto;
+    text-wrap: pretty;
+  }
+
+  .brand-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .brand-hero__button {
+    text-align: center;
+  }
+
+  @media screen and (max-width: 749px) {
+    .brand-hero {
+      gap: 20px;
+    }
+
+    /* Full-width stacked buttons read better than two cramped pills on a phone. */
+    .brand-hero__actions {
+      width: 100%;
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Brand hero",
+  "class": "section-wrapper",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "The bundled brand banner is used unless an image is chosen here."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Banner image"
+    },
+    {
+      "type": "text",
+      "id": "alt_text",
+      "label": "Banner alt text",
+      "default": "Mum, Where's My Cards"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Page heading (for screen readers and SEO)",
+      "info": "Not shown on screen — the banner artwork carries the wordmark visually.",
+      "default": "Mum, Where's My Cards"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "strapline",
+      "label": "Strapline",
+      "default": "Pokémon singles, sealed product and graded cards. Buying, selling and consignment in the UK."
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum banner width",
+      "min": 600,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "default": 1100
+    },
+    {
+      "type": "header",
+      "content": "Calls to action"
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary button label",
+      "default": "Shop cards"
+    },
+    {
+      "type": "url",
+      "id": "primary_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary button label",
+      "default": "Sell your collection"
+    },
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#fdc802"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand hero",
+      "category": "Storytelling"
+    }
+  ]
+}
+{% endschema %}

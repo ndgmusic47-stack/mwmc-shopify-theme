@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "search": {
       "type": "search-header",
@@ -79,20 +80,21 @@
           "settings": {
             "product_card_gap": 8,
             "background_color": "{{ settings.color_palette.background }}",
-            "border": "none",
-            "border_width": 1,
+            "border": "solid",
+            "border_width": 2,
             "border_opacity": 100,
-            "border_radius": 0,
+            "border_radius": 8,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "border_color": "{{ settings.color_palette.foreground }}"
           },
           "blocks": {
             "card-gallery": {
               "type": "_product-card-gallery",
               "settings": {
-                "image_ratio": "square",
+                "image_ratio": "portrait",
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
@@ -208,13 +210,15 @@
                         "show_sale_price_first": true,
                         "show_installments": false,
                         "show_tax_info": false,
-                        "type_preset": "paragraph",
+                        "type_preset": "custom",
                         "width": "fit-content",
                         "alignment": "right",
                         "padding-block-start": 0,
                         "padding-block-end": 0,
                         "padding-inline-start": 0,
-                        "padding-inline-end": 0
+                        "padding-inline-end": 0,
+                        "font": "var(--font-subheading--family)",
+                        "font_size": "1.125rem"
                       },
                       "blocks": {}
                     }
@@ -264,11 +268,11 @@
                       "type": "text",
                       "name": "t:names.text",
                       "settings": {
-                        "text": "<p>{{ closest.product.metafields.descriptors.subtitle.value }}</p>",
+                        "text": "<p>{{ closest.product.type }}</p>",
                         "width": "fit-content",
                         "max_width": "normal",
                         "alignment": "left",
-                        "type_preset": "custom",
+                        "type_preset": "h6",
                         "font": "var(--font-body--family)",
                         "font_size": "1rem",
                         "line_height": "normal",

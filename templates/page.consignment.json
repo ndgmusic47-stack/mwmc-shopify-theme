@@ -3,30 +3,20 @@
     "main": {
       "type": "main-page",
       "blocks": {
-        "heading": {
-          "type": "text",
-          "name": "t:names.title",
-          "settings": {
-            "text": "<h1>{{ closest.page.title }}</h1>",
-            "width": "100%",
-            "type_preset": "h2"
-          }
-        },
         "page-content": {
           "type": "page-content",
           "settings": {}
         }
       },
       "block_order": [
-        "heading",
         "page-content"
       ],
       "settings": {
         "content_direction": "column",
-        "gap": 32,
+        "gap": 24,
         "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 40,
-        "padding-block-end": 24
+        "padding-block-start": 24,
+        "padding-block-end": 0
       }
     },
     "intro": {
@@ -39,7 +29,7 @@
         "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "flex-start",
         "vertical_alignment_flex_direction_column": "center",
-        "gap": 24,
+        "gap": 16,
         "section_width": "page-width",
         "section_height": "",
         "section_height_custom": 50,
@@ -55,18 +45,40 @@
         "border_opacity": 100,
         "border_color": "",
         "border_radius": 0,
-        "padding-block-start": 40,
-        "padding-block-end": 40
+        "padding-block-start": 64,
+        "padding-block-end": 64,
+        "background_color": "{{ settings.color_palette.color1 }}"
       },
       "blocks": {
+        "eyebrow": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Consignment</p>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h6",
+            "font": "var(--font-body--family)",
+            "font_size": "",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "name": "t:names.caption"
+        },
         "heading": {
           "type": "text",
           "settings": {
-            "text": "<h2>Consign with us</h2>",
-            "width": "fit-content",
-            "max_width": "narrow",
+            "text": "<h1>Let us find the right buyer</h1>",
+            "width": "100%",
+            "max_width": "normal",
             "alignment": "left",
-            "type_preset": "h2",
+            "type_preset": "h1",
             "font": "var(--font-body--family)",
             "font_size": "",
             "line_height": "normal",
@@ -79,10 +91,10 @@
             "padding-inline-end": 0
           }
         },
-        "text": {
+        "body": {
           "type": "text",
           "settings": {
-            "text": "<p>[Placeholder — one short paragraph on who consignment is for and the headline benefit]</p>",
+            "text": "<p>Consignment means we sell your cards on your behalf rather than buying them from you. You keep ownership until a card sells, and you get the benefit of us photographing, describing, pricing and listing it properly. It suits collections worth taking time over — and it takes longer than selling to us outright.</p>",
             "width": "100%",
             "max_width": "narrow",
             "alignment": "left",
@@ -99,24 +111,79 @@
             "padding-inline-end": 0
           }
         },
-        "button": {
-          "type": "button",
+        "actions": {
+          "type": "group",
           "settings": {
-            "label": "Enquire about consignment",
-            "link": "",
-            "open_in_new_tab": false,
-            "style_class": "button",
+            "content_direction": "row",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "flex-start",
+            "gap": 12,
             "width": "fit-content",
             "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
-          }
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "open_in_new_tab": false,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "primary": {
+              "type": "button",
+              "settings": {
+                "label": "Enquire about consignment",
+                "link": "#consignment-enquiry",
+                "open_in_new_tab": false,
+                "style_class": "button",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              }
+            },
+            "secondary": {
+              "type": "button",
+              "settings": {
+                "label": "Prefer a straight sale?",
+                "link": "/pages/sell-to-us",
+                "open_in_new_tab": false,
+                "style_class": "button-secondary",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              }
+            }
+          },
+          "block_order": [
+            "primary",
+            "secondary"
+          ]
         }
       },
       "block_order": [
+        "eyebrow",
         "heading",
-        "text",
-        "button"
+        "body",
+        "actions"
       ]
     },
     "how_it_works": {
@@ -127,9 +194,9 @@
         "horizontal_alignment": "flex-start",
         "vertical_alignment": "center",
         "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
+        "horizontal_alignment_flex_direction_column": "center",
         "vertical_alignment_flex_direction_column": "center",
-        "gap": 32,
+        "gap": 36,
         "section_width": "page-width",
         "section_height": "",
         "section_height_custom": 50,
@@ -145,9 +212,8 @@
         "border_opacity": 100,
         "border_color": "",
         "border_radius": 0,
-        "padding-block-start": 56,
-        "padding-block-end": 56,
-        "background_color": "{{ settings.color_palette.color2 }}"
+        "padding-block-start": 72,
+        "padding-block-end": 72
       },
       "blocks": {
         "heading": {
@@ -157,7 +223,7 @@
             "width": "100%",
             "max_width": "normal",
             "alignment": "center",
-            "type_preset": "h3",
+            "type_preset": "h2",
             "font": "var(--font-body--family)",
             "font_size": "",
             "line_height": "normal",
@@ -179,8 +245,8 @@
             "vertical_alignment": "center",
             "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "center",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 16,
+            "vertical_alignment_flex_direction_column": "flex-start",
+            "gap": 14,
             "width": "fill",
             "custom_width": 100,
             "width_mobile": "fill",
@@ -190,10 +256,15 @@
             "background_media": "none",
             "video_position": "cover",
             "background_image_position": "cover",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
             "border_radius": 0,
+            "open_in_new_tab": false,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -203,7 +274,7 @@
             "icon": {
               "type": "icon",
               "settings": {
-                "icon": "box",
+                "icon": "clipboard",
                 "width": 32,
                 "link": ""
               }
@@ -218,7 +289,7 @@
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "flex-start",
                 "vertical_alignment_flex_direction_column": "flex-start",
-                "gap": 4,
+                "gap": 6,
                 "width": "fill",
                 "custom_width": 100,
                 "width_mobile": "fill",
@@ -228,10 +299,15 @@
                 "background_media": "none",
                 "video_position": "cover",
                 "background_image_position": "cover",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
                 "border_radius": 0,
+                "open_in_new_tab": false,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -241,7 +317,7 @@
                 "heading": {
                   "type": "text",
                   "settings": {
-                    "text": "<h3>Send your cards in</h3>",
+                    "text": "<h3>Tell us what you have</h3>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -261,7 +337,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[Placeholder — describe intake, minimum value and what you accept.]</p>",
+                    "text": "<p>Send the card name, set, card number and condition for each item, with clear photos. We'll tell you whether consignment is the right route or whether you'd be better off selling to us outright.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -300,8 +376,8 @@
             "vertical_alignment": "center",
             "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "center",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 16,
+            "vertical_alignment_flex_direction_column": "flex-start",
+            "gap": 14,
             "width": "fill",
             "custom_width": 100,
             "width_mobile": "fill",
@@ -311,10 +387,15 @@
             "background_media": "none",
             "video_position": "cover",
             "background_image_position": "cover",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
             "border_radius": 0,
+            "open_in_new_tab": false,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -324,7 +405,7 @@
             "icon": {
               "type": "icon",
               "settings": {
-                "icon": "price_tag",
+                "icon": "box",
                 "width": 32,
                 "link": ""
               }
@@ -339,7 +420,7 @@
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "flex-start",
                 "vertical_alignment_flex_direction_column": "flex-start",
-                "gap": 4,
+                "gap": 6,
                 "width": "fill",
                 "custom_width": 100,
                 "width_mobile": "fill",
@@ -349,10 +430,15 @@
                 "background_media": "none",
                 "video_position": "cover",
                 "background_image_position": "cover",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
                 "border_radius": 0,
+                "open_in_new_tab": false,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -362,7 +448,7 @@
                 "heading": {
                   "type": "text",
                   "settings": {
-                    "text": "<h3>We photograph, list and sell</h3>",
+                    "text": "<h3>Send your cards in</h3>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -382,7 +468,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[Placeholder — describe listing, pricing and the sales channels used.]</p>",
+                    "text": "<p>Once we've agreed what we're taking, we'll confirm how to package and send your cards, and what happens when they arrive.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -421,8 +507,8 @@
             "vertical_alignment": "center",
             "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "center",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 16,
+            "vertical_alignment_flex_direction_column": "flex-start",
+            "gap": 14,
             "width": "fill",
             "custom_width": 100,
             "width_mobile": "fill",
@@ -432,10 +518,15 @@
             "background_media": "none",
             "video_position": "cover",
             "background_image_position": "cover",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
             "border_radius": 0,
+            "open_in_new_tab": false,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -445,7 +536,7 @@
             "icon": {
               "type": "icon",
               "settings": {
-                "icon": "check_box",
+                "icon": "price_tag",
                 "width": 32,
                 "link": ""
               }
@@ -460,7 +551,7 @@
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "flex-start",
                 "vertical_alignment_flex_direction_column": "flex-start",
-                "gap": 4,
+                "gap": 6,
                 "width": "fill",
                 "custom_width": 100,
                 "width_mobile": "fill",
@@ -470,10 +561,15 @@
                 "background_media": "none",
                 "video_position": "cover",
                 "background_image_position": "cover",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
                 "border_radius": 0,
+                "open_in_new_tab": false,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -483,7 +579,7 @@
                 "heading": {
                   "type": "text",
                   "settings": {
-                    "text": "<h3>You get paid</h3>",
+                    "text": "<h3>We photograph, price and list</h3>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -503,7 +599,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[Placeholder — describe payout timing and how the split works.]</p>",
+                    "text": "<p>We shoot each card, describe its condition, price it against the current market and put it in front of buyers.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -567,308 +663,19 @@
         "border_opacity": 100,
         "border_color": "",
         "border_radius": 0,
-        "padding-block-start": 56,
-        "padding-block-end": 56
+        "padding-block-start": 72,
+        "padding-block-end": 72,
+        "background_color": "{{ settings.color_palette.color2 }}"
       },
       "blocks": {
         "heading": {
           "type": "text",
           "settings": {
-            "text": "<h2>Terms at a glance</h2>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h3",
-            "font": "var(--font-body--family)",
-            "font_size": "",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          }
-        },
-        "column_1": {
-          "type": "group",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "flex-start",
-            "gap": 8,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 10,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "heading": {
-              "type": "text",
-              "settings": {
-                "text": "<h3>Commission</h3>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            },
-            "text": {
-              "type": "text",
-              "settings": {
-                "text": "<p>[Placeholder — commission rates or tiers.]</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            }
-          },
-          "block_order": [
-            "heading",
-            "text"
-          ],
-          "name": "t:names.column"
-        },
-        "column_2": {
-          "type": "group",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "flex-start",
-            "gap": 8,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 10,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "heading": {
-              "type": "text",
-              "settings": {
-                "text": "<h3>What we accept</h3>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            },
-            "text": {
-              "type": "text",
-              "settings": {
-                "text": "<p>[Placeholder — minimum card value, categories, condition rules.]</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            }
-          },
-          "block_order": [
-            "heading",
-            "text"
-          ],
-          "name": "t:names.column"
-        },
-        "column_3": {
-          "type": "group",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "flex-start",
-            "gap": 8,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 10,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "heading": {
-              "type": "text",
-              "settings": {
-                "text": "<h3>Insurance and handling</h3>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            },
-            "text": {
-              "type": "text",
-              "settings": {
-                "text": "<p>[Placeholder — how cards are stored, insured and returned.]</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            }
-          },
-          "block_order": [
-            "heading",
-            "text"
-          ],
-          "name": "t:names.column"
-        }
-      },
-      "block_order": [
-        "heading",
-        "column_1",
-        "column_2",
-        "column_3"
-      ]
-    },
-    "enquiry": {
-      "type": "section",
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 24,
-        "section_width": "page-width",
-        "section_height": "",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_color": "",
-        "border_radius": 0,
-        "padding-block-start": 56,
-        "padding-block-end": 56,
-        "background_color": "{{ settings.color_palette.color3 }}"
-      },
-      "blocks": {
-        "heading": {
-          "type": "text",
-          "settings": {
-            "text": "<h2>Start a consignment</h2>",
+            "text": "<h2>The terms that matter</h2>",
             "width": "100%",
             "max_width": "normal",
-            "alignment": "center",
-            "type_preset": "h3",
+            "alignment": "left",
+            "type_preset": "h2",
             "font": "var(--font-body--family)",
             "font_size": "",
             "line_height": "normal",
@@ -884,7 +691,641 @@
         "note": {
           "type": "text",
           "settings": {
-            "text": "<p>[Placeholder — tell the consignor what to include — rough value, number of cards, notable items]</p>",
+            "text": "<p>Anything marked <strong>[To confirm]</strong> is still being finalised. We'd rather leave it blank than publish a number we might have to change — ask us and we'll tell you where it stands.</p>",
+            "width": "100%",
+            "max_width": "narrow",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          }
+        },
+        "cards": {
+          "type": "group",
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "flex-start",
+            "gap": 16,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "open_in_new_tab": false,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "card_1": {
+              "type": "group",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 8,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "border": "solid",
+                "border_width": 2,
+                "border_opacity": 100,
+                "border_radius": 8,
+                "open_in_new_tab": false,
+                "padding-block-start": 24,
+                "padding-block-end": 24,
+                "padding-inline-start": 24,
+                "padding-inline-end": 24,
+                "background_color": "{{ settings.color_palette.color2 }}",
+                "border_color": "{{ settings.color_palette.foreground }}"
+              },
+              "blocks": {
+                "heading": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<h3>Commission</h3>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "h4",
+                    "font": "var(--font-body--family)",
+                    "font_size": "",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                },
+                "text": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>[To confirm — commission rate or tiers.] We'll agree the rate with you in writing before anything is listed, so you know exactly what you'll receive on a sale.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                }
+              },
+              "block_order": [
+                "heading",
+                "text"
+              ],
+              "name": "t:names.column"
+            },
+            "card_2": {
+              "type": "group",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 8,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "border": "solid",
+                "border_width": 2,
+                "border_opacity": 100,
+                "border_radius": 8,
+                "open_in_new_tab": false,
+                "padding-block-start": 24,
+                "padding-block-end": 24,
+                "padding-inline-start": 24,
+                "padding-inline-end": 24,
+                "background_color": "{{ settings.color_palette.color2 }}",
+                "border_color": "{{ settings.color_palette.foreground }}"
+              },
+              "blocks": {
+                "heading": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<h3>What we take</h3>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "h4",
+                    "font": "var(--font-body--family)",
+                    "font_size": "",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                },
+                "text": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>[To confirm — minimum value and accepted categories.] As a guide we're most useful for cards that need a buyer who knows what they're looking at, rather than bulk.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                }
+              },
+              "block_order": [
+                "heading",
+                "text"
+              ],
+              "name": "t:names.column"
+            },
+            "card_3": {
+              "type": "group",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 8,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "border": "solid",
+                "border_width": 2,
+                "border_opacity": 100,
+                "border_radius": 8,
+                "open_in_new_tab": false,
+                "padding-block-start": 24,
+                "padding-block-end": 24,
+                "padding-inline-start": 24,
+                "padding-inline-end": 24,
+                "background_color": "{{ settings.color_palette.color2 }}",
+                "border_color": "{{ settings.color_palette.foreground }}"
+              },
+              "blocks": {
+                "heading": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<h3>Pricing and repricing</h3>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "h4",
+                    "font": "var(--font-body--family)",
+                    "font_size": "",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                },
+                "text": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>You'll agree a starting price with us. If a card sits without interest we'll come back to you before changing anything — we won't quietly discount your card.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                }
+              },
+              "block_order": [
+                "heading",
+                "text"
+              ],
+              "name": "t:names.column"
+            },
+            "card_4": {
+              "type": "group",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 8,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "border": "solid",
+                "border_width": 2,
+                "border_opacity": 100,
+                "border_radius": 8,
+                "open_in_new_tab": false,
+                "padding-block-start": 24,
+                "padding-block-end": 24,
+                "padding-inline-start": 24,
+                "padding-inline-end": 24,
+                "background_color": "{{ settings.color_palette.color2 }}",
+                "border_color": "{{ settings.color_palette.foreground }}"
+              },
+              "blocks": {
+                "heading": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<h3>Getting paid</h3>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "h4",
+                    "font": "var(--font-body--family)",
+                    "font_size": "",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                },
+                "text": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>[To confirm — payout method and schedule.] We'll set out how and when you're paid after a sale before you send anything in.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                }
+              },
+              "block_order": [
+                "heading",
+                "text"
+              ],
+              "name": "t:names.column"
+            },
+            "card_5": {
+              "type": "group",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 8,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "border": "solid",
+                "border_width": 2,
+                "border_opacity": 100,
+                "border_radius": 8,
+                "open_in_new_tab": false,
+                "padding-block-start": 24,
+                "padding-block-end": 24,
+                "padding-inline-start": 24,
+                "padding-inline-end": 24,
+                "background_color": "{{ settings.color_palette.color2 }}",
+                "border_color": "{{ settings.color_palette.foreground }}"
+              },
+              "blocks": {
+                "heading": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<h3>If a card doesn't sell</h3>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "h4",
+                    "font": "var(--font-body--family)",
+                    "font_size": "",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                },
+                "text": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>[To confirm — unsold card policy and any return postage costs.] Your cards stay yours throughout, and you can ask for them back.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                }
+              },
+              "block_order": [
+                "heading",
+                "text"
+              ],
+              "name": "t:names.column"
+            },
+            "card_6": {
+              "type": "group",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 8,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "border": "solid",
+                "border_width": 2,
+                "border_opacity": 100,
+                "border_radius": 8,
+                "open_in_new_tab": false,
+                "padding-block-start": 24,
+                "padding-block-end": 24,
+                "padding-inline-start": 24,
+                "padding-inline-end": 24,
+                "background_color": "{{ settings.color_palette.color2 }}",
+                "border_color": "{{ settings.color_palette.foreground }}"
+              },
+              "blocks": {
+                "heading": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<h3>Looking after your cards</h3>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "h4",
+                    "font": "var(--font-body--family)",
+                    "font_size": "",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                },
+                "text": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>[To confirm — storage and insurance arrangements.] We won't claim cover we haven't arranged, so this will be spelled out in your agreement rather than implied here.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                }
+              },
+              "block_order": [
+                "heading",
+                "text"
+              ],
+              "name": "t:names.column"
+            }
+          },
+          "block_order": [
+            "card_1",
+            "card_2",
+            "card_3",
+            "card_4",
+            "card_5",
+            "card_6"
+          ],
+          "name": "t:names.group"
+        }
+      },
+      "block_order": [
+        "heading",
+        "note",
+        "cards"
+      ]
+    },
+    "enquiry": {
+      "type": "section",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 20,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_color": "",
+        "border_radius": 0,
+        "padding-block-start": 72,
+        "padding-block-end": 72
+      },
+      "blocks": {
+        "anchor": {
+          "type": "custom-liquid",
+          "name": "Anchor target",
+          "settings": {
+            "custom_liquid": "<span id=\"consignment-enquiry\" aria-hidden=\"true\"></span>"
+          }
+        },
+        "heading": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>Start a consignment enquiry</h2>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "center",
+            "type_preset": "h2",
+            "font": "var(--font-body--family)",
+            "font_size": "",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          }
+        },
+        "note": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Tell us roughly what you have — how many cards, which sets or eras, and anything you think stands out. This form doesn't take attachments, so send what you can here and we'll reply so you can share photos. Getting in touch doesn't commit you to anything.</p>",
             "width": "100%",
             "max_width": "narrow",
             "alignment": "center",
@@ -905,12 +1346,12 @@
           "type": "contact-form",
           "settings": {
             "width": "custom",
-            "custom_width": 60,
+            "custom_width": 70,
             "width_mobile": "custom",
             "custom_width_mobile": 100,
             "input_style": "default",
-            "border_width": 1,
-            "border_radius": 0,
+            "border_width": 2,
+            "border_radius": 8,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -934,6 +1375,7 @@
         }
       },
       "block_order": [
+        "anchor",
         "heading",
         "note",
         "form"
@@ -949,7 +1391,7 @@
         "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "flex-start",
         "vertical_alignment_flex_direction_column": "center",
-        "gap": 32,
+        "gap": 28,
         "section_width": "page-width",
         "section_height": "",
         "section_height_custom": 50,
@@ -965,18 +1407,19 @@
         "border_opacity": 100,
         "border_color": "",
         "border_radius": 0,
-        "padding-block-start": 56,
-        "padding-block-end": 64
+        "padding-block-start": 72,
+        "padding-block-end": 80,
+        "background_color": "{{ settings.color_palette.color2 }}"
       },
       "blocks": {
         "heading": {
           "type": "text",
           "settings": {
-            "text": "<h2>Consignment FAQs</h2>",
-            "width": "fit-content",
+            "text": "<h2>Consignment questions</h2>",
+            "width": "100%",
             "max_width": "narrow",
             "alignment": "left",
-            "type_preset": "h3",
+            "type_preset": "h2",
             "font": "var(--font-body--family)",
             "font_size": "",
             "line_height": "normal",
@@ -1009,7 +1452,7 @@
               "type": "_accordion-row",
               "name": "t:names.accordion_row",
               "settings": {
-                "heading": "What commission do you charge?",
+                "heading": "Should I consign or sell outright?",
                 "open_by_default": false,
                 "icon": "none",
                 "width": 20
@@ -1018,7 +1461,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[Placeholder — commission structure]</p>",
+                    "text": "<p>Selling outright is faster and simpler: we make an offer, you accept or decline, and it's done. Consignment usually suits cards that need the right buyer to come along. Tell us what you have and we'll say honestly which one we think fits — including when we think you'd do better selling to us.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1044,7 +1487,7 @@
               "type": "_accordion-row",
               "name": "t:names.accordion_row",
               "settings": {
-                "heading": "What is the minimum card value?",
+                "heading": "Do I still own my cards?",
                 "open_by_default": false,
                 "icon": "none",
                 "width": 20
@@ -1053,7 +1496,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[Placeholder — minimum value policy]</p>",
+                    "text": "<p>Yes. Consigned cards remain yours until they sell. Nothing changes hands in ownership terms just because a card is listed.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1079,7 +1522,7 @@
               "type": "_accordion-row",
               "name": "t:names.accordion_row",
               "settings": {
-                "heading": "How long until my cards sell?",
+                "heading": "How long does it take to sell?",
                 "open_by_default": false,
                 "icon": "none",
                 "width": 20
@@ -1088,7 +1531,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[Placeholder — typical selling timescales]</p>",
+                    "text": "<p>There's no fixed answer, and we won't invent one. It depends entirely on the card, the price you've agreed and who's looking at the time. We'll keep you updated rather than leave you guessing.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1114,7 +1557,7 @@
               "type": "_accordion-row",
               "name": "t:names.accordion_row",
               "settings": {
-                "heading": "What if a card doesn't sell?",
+                "heading": "Can I take my cards back?",
                 "open_by_default": false,
                 "icon": "none",
                 "width": 20
@@ -1123,7 +1566,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[Placeholder — unsold card policy]</p>",
+                    "text": "<p>Yes. If you want to withdraw a card, tell us and we'll arrange it. [To confirm — any notice period and who covers return postage.]</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1149,7 +1592,7 @@
               "type": "_accordion-row",
               "name": "t:names.accordion_row",
               "settings": {
-                "heading": "Are my cards insured while with you?",
+                "heading": "What commission do you charge?",
                 "open_by_default": false,
                 "icon": "none",
                 "width": 20
@@ -1158,7 +1601,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[Placeholder — insurance and storage policy]</p>",
+                    "text": "<p>[To confirm — commission rate or tiers.] Whatever we agree will be confirmed in writing before your cards are listed. You'll never find out what you're paying after the fact.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1197,8 +1640,8 @@
     }
   },
   "order": [
-    "main",
     "intro",
+    "main",
     "how_it_works",
     "terms",
     "enquiry",

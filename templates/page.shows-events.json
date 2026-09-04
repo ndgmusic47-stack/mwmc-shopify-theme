@@ -3,30 +3,20 @@
     "main": {
       "type": "main-page",
       "blocks": {
-        "heading": {
-          "type": "text",
-          "name": "t:names.title",
-          "settings": {
-            "text": "<h1>{{ closest.page.title }}</h1>",
-            "width": "100%",
-            "type_preset": "h2"
-          }
-        },
         "page-content": {
           "type": "page-content",
           "settings": {}
         }
       },
       "block_order": [
-        "heading",
         "page-content"
       ],
       "settings": {
         "content_direction": "column",
-        "gap": 32,
+        "gap": 24,
         "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 40,
-        "padding-block-end": 24
+        "padding-block-start": 24,
+        "padding-block-end": 0
       }
     },
     "intro": {
@@ -55,17 +45,116 @@
         "border_opacity": 100,
         "border_color": "",
         "border_radius": 0,
-        "padding-block-start": 40,
-        "padding-block-end": 32
+        "padding-block-start": 64,
+        "padding-block-end": 64,
+        "background_color": "{{ settings.color_palette.color1 }}"
+      },
+      "blocks": {
+        "eyebrow": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Shows &amp; events</p>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h6",
+            "font": "var(--font-body--family)",
+            "font_size": "",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "name": "t:names.caption"
+        },
+        "heading": {
+          "type": "text",
+          "settings": {
+            "text": "<h1>Where to find us</h1>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h1",
+            "font": "var(--font-body--family)",
+            "font_size": "",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          }
+        },
+        "body": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We take a table at UK card shows and events. It's the best way to go through the binders properly, talk cards with someone who actually collects, and get an opinion on something you've brought with you.</p>",
+            "width": "100%",
+            "max_width": "narrow",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          }
+        }
+      },
+      "block_order": [
+        "eyebrow",
+        "heading",
+        "body"
+      ]
+    },
+    "upcoming": {
+      "type": "section",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 28,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_color": "",
+        "border_radius": 0,
+        "padding-block-start": 72,
+        "padding-block-end": 72
       },
       "blocks": {
         "heading": {
           "type": "text",
           "settings": {
-            "text": "<h2>Where to find us</h2>",
-            "width": "fit-content",
-            "max_width": "narrow",
-            "alignment": "left",
+            "text": "<h2>Upcoming dates</h2>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "center",
             "type_preset": "h2",
             "font": "var(--font-body--family)",
             "font_size": "",
@@ -79,425 +168,171 @@
             "padding-inline-end": 0
           }
         },
-        "text": {
-          "type": "text",
+        "empty": {
+          "type": "group",
           "settings": {
-            "text": "<p>[Placeholder — one short paragraph on the shows and events MWMC attends]</p>",
-            "width": "100%",
-            "max_width": "narrow",
-            "alignment": "left",
-            "type_preset": "rte",
-            "font": "var(--font-body--family)",
-            "font_size": "",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          }
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "flex-start",
+            "gap": 14,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "border": "solid",
+            "border_width": 2,
+            "border_opacity": 100,
+            "border_radius": 8,
+            "open_in_new_tab": false,
+            "padding-block-start": 48,
+            "padding-block-end": 48,
+            "padding-inline-start": 24,
+            "padding-inline-end": 24,
+            "background_color": "{{ settings.color_palette.color2 }}",
+            "border_color": "{{ settings.color_palette.foreground }}"
+          },
+          "blocks": {
+            "icon": {
+              "type": "icon",
+              "settings": {
+                "icon": "map_pin",
+                "width": 40,
+                "link": ""
+              }
+            },
+            "title": {
+              "type": "text",
+              "settings": {
+                "text": "<h3>New dates coming soon</h3>",
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "center",
+                "type_preset": "h4",
+                "font": "var(--font-body--family)",
+                "font_size": "",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              }
+            },
+            "body": {
+              "type": "text",
+              "settings": {
+                "text": "<p>We haven't got a confirmed date in the diary right now. As soon as one is booked it'll be listed here — sign up below and we'll email you when it is.</p>",
+                "width": "100%",
+                "max_width": "narrow",
+                "alignment": "center",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              }
+            },
+            "actions": {
+              "type": "group",
+              "settings": {
+                "content_direction": "row",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "center",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 12,
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "open_in_new_tab": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "a": {
+                  "type": "button",
+                  "settings": {
+                    "label": "Get show dates by email",
+                    "link": "#shows-signup",
+                    "open_in_new_tab": false,
+                    "style_class": "button",
+                    "width": "fit-content",
+                    "custom_width": 100,
+                    "width_mobile": "fit-content",
+                    "custom_width_mobile": 100
+                  }
+                },
+                "b": {
+                  "type": "button",
+                  "settings": {
+                    "label": "Shop online instead",
+                    "link": "shopify://collections/all",
+                    "open_in_new_tab": false,
+                    "style_class": "button-secondary",
+                    "width": "fit-content",
+                    "custom_width": 100,
+                    "width_mobile": "fit-content",
+                    "custom_width_mobile": 100
+                  }
+                }
+              },
+              "block_order": [
+                "a",
+                "b"
+              ]
+            }
+          },
+          "block_order": [
+            "icon",
+            "title",
+            "body",
+            "actions"
+          ],
+          "name": "t:names.group"
         }
       },
       "block_order": [
         "heading",
-        "text"
-      ]
-    },
-    "upcoming": {
-      "type": "section",
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 24,
-        "section_width": "page-width",
-        "section_height": "",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_color": "",
-        "border_radius": 0,
-        "padding-block-start": 56,
-        "padding-block-end": 56,
-        "background_color": "{{ settings.color_palette.color2 }}"
-      },
-      "blocks": {
-        "heading": {
-          "type": "text",
-          "settings": {
-            "text": "<h2>Upcoming events</h2>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h3",
-            "font": "var(--font-body--family)",
-            "font_size": "",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          }
-        },
-        "event_1": {
-          "type": "group",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "flex-start",
-            "gap": 8,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 10,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "date": {
-              "type": "text",
-              "settings": {
-                "text": "<p>[Date]</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h6",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            },
-            "name": {
-              "type": "text",
-              "settings": {
-                "text": "<h3>[Event name]</h3>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            },
-            "details": {
-              "type": "text",
-              "settings": {
-                "text": "<p>[Placeholder — venue, town, opening times, table number.]</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            },
-            "link": {
-              "type": "button",
-              "settings": {
-                "label": "Event details",
-                "link": "",
-                "open_in_new_tab": false,
-                "style_class": "button-secondary",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              }
-            }
-          },
-          "block_order": [
-            "date",
-            "name",
-            "details",
-            "link"
-          ],
-          "name": "t:names.column"
-        },
-        "event_2": {
-          "type": "group",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "flex-start",
-            "gap": 8,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 10,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "date": {
-              "type": "text",
-              "settings": {
-                "text": "<p>[Date]</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h6",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            },
-            "name": {
-              "type": "text",
-              "settings": {
-                "text": "<h3>[Event name]</h3>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            },
-            "details": {
-              "type": "text",
-              "settings": {
-                "text": "<p>[Placeholder — venue, town, opening times, table number.]</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            },
-            "link": {
-              "type": "button",
-              "settings": {
-                "label": "Event details",
-                "link": "",
-                "open_in_new_tab": false,
-                "style_class": "button-secondary",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              }
-            }
-          },
-          "block_order": [
-            "date",
-            "name",
-            "details",
-            "link"
-          ],
-          "name": "t:names.column"
-        },
-        "event_3": {
-          "type": "group",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "flex-start",
-            "gap": 8,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 10,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "date": {
-              "type": "text",
-              "settings": {
-                "text": "<p>[Date]</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h6",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            },
-            "name": {
-              "type": "text",
-              "settings": {
-                "text": "<h3>[Event name]</h3>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            },
-            "details": {
-              "type": "text",
-              "settings": {
-                "text": "<p>[Placeholder — venue, town, opening times, table number.]</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            },
-            "link": {
-              "type": "button",
-              "settings": {
-                "label": "Event details",
-                "link": "",
-                "open_in_new_tab": false,
-                "style_class": "button-secondary",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              }
-            }
-          },
-          "block_order": [
-            "date",
-            "name",
-            "details",
-            "link"
-          ],
-          "name": "t:names.column"
-        }
-      },
-      "block_order": [
-        "heading",
-        "event_1",
-        "event_2",
-        "event_3"
+        "empty"
       ]
     },
     "attending": {
@@ -510,7 +345,7 @@
         "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "flex-start",
         "vertical_alignment_flex_direction_column": "center",
-        "gap": 24,
+        "gap": 28,
         "section_width": "page-width",
         "section_height": "",
         "section_height_custom": 50,
@@ -526,38 +361,19 @@
         "border_opacity": 100,
         "border_color": "",
         "border_radius": 0,
-        "padding-block-start": 56,
-        "padding-block-end": 56
+        "padding-block-start": 72,
+        "padding-block-end": 72,
+        "background_color": "{{ settings.color_palette.color2 }}"
       },
       "blocks": {
         "heading": {
           "type": "text",
           "settings": {
             "text": "<h2>Coming to see us?</h2>",
-            "width": "fit-content",
+            "width": "100%",
             "max_width": "normal",
             "alignment": "left",
-            "type_preset": "h3",
-            "font": "var(--font-body--family)",
-            "font_size": "",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>[Placeholder — what to expect at the table — buying at shows, trades, pre-orders, collection]</p>",
-            "width": "100%",
-            "max_width": "narrow",
-            "alignment": "left",
-            "type_preset": "rte",
+            "type_preset": "h2",
             "font": "var(--font-body--family)",
             "font_size": "",
             "line_height": "normal",
@@ -599,7 +415,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[Placeholder — buying-at-shows policy]</p>",
+                    "text": "<p>Bring what you'd like us to look at and we'll go through it with you. The same things decide an offer at a table as online: condition, authenticity, demand and current market value. If you'd rather get an answer before you travel, send us the details first.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -625,7 +441,7 @@
               "type": "_accordion-row",
               "name": "t:names.accordion_row",
               "settings": {
-                "heading": "Can I collect an online order at a show?",
+                "heading": "What will you have on the table?",
                 "open_by_default": false,
                 "icon": "none",
                 "width": 20
@@ -634,7 +450,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[Placeholder — click-and-collect policy]</p>",
+                    "text": "<p>Singles, sealed product and graded cards — the same stock you'll find online, plus whatever has come in too recently to be listed.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -660,7 +476,7 @@
               "type": "_accordion-row",
               "name": "t:names.accordion_row",
               "settings": {
-                "heading": "Do you take card payments at events?",
+                "heading": "Can I collect an online order at a show?",
                 "open_by_default": false,
                 "icon": "none",
                 "width": 20
@@ -669,7 +485,42 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[Placeholder — payment methods accepted on the table]</p>",
+                    "text": "<p>[To confirm — whether collection at events is offered.] Ask us before you order and we'll tell you what's possible for that particular date.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                }
+              },
+              "block_order": [
+                "text"
+              ]
+            },
+            "row_4": {
+              "type": "_accordion-row",
+              "name": "t:names.accordion_row",
+              "settings": {
+                "heading": "Which payment methods do you take at events?",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>[To confirm — payment methods accepted at the table.]</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -695,82 +546,15 @@
           "block_order": [
             "row_1",
             "row_2",
-            "row_3"
+            "row_3",
+            "row_4"
           ]
         }
       },
       "block_order": [
         "heading",
-        "text",
         "accordion"
       ]
-    },
-    "news": {
-      "type": "featured-blog-posts",
-      "blocks": {
-        "static-blog-title": {
-          "type": "_featured-blog-posts-title",
-          "name": "t:names.title",
-          "static": true,
-          "settings": {
-            "text": "<h3>Latest from the shows</h3>",
-            "type_preset": "rte"
-          }
-        },
-        "static-blog-post-card": {
-          "type": "_featured-blog-posts-card",
-          "name": "t:names.blog_card",
-          "static": true,
-          "settings": {},
-          "blocks": {
-            "title": {
-              "type": "_heading",
-              "name": "t:names.title",
-              "static": true,
-              "settings": {
-                "text": "<h4>{{ closest.article.title }}</h4>",
-                "show_alignment": false
-              }
-            },
-            "blog-post-info-text": {
-              "type": "_blog-post-info-text",
-              "name": "t:names.details",
-              "static": true,
-              "settings": {
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "show_alignment": false
-              }
-            },
-            "blog-post-description": {
-              "type": "_blog-post-description",
-              "name": "t:names.excerpt",
-              "static": true,
-              "settings": {
-                "padding-block-start": 8,
-                "padding-block-end": 0
-              }
-            }
-          }
-        }
-      },
-      "settings": {
-        "blog": "",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "post_limit": 3,
-        "columns": 3,
-        "mobile_columns": "2",
-        "columns_gap": 8,
-        "rows_gap": 8,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "gap": 12,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 56,
-        "padding-block-end": 56
-      }
     },
     "signup": {
       "type": "section",
@@ -798,11 +582,17 @@
         "border_opacity": 100,
         "border_color": "",
         "border_radius": 0,
-        "padding-block-start": 48,
-        "padding-block-end": 48,
-        "background_color": "{{ settings.color_palette.color3 }}"
+        "padding-block-start": 64,
+        "padding-block-end": 80
       },
       "blocks": {
+        "anchor": {
+          "type": "custom-liquid",
+          "name": "Anchor target",
+          "settings": {
+            "custom_liquid": "<span id=\"shows-signup\" aria-hidden=\"true\"></span>"
+          }
+        },
         "heading": {
           "type": "text",
           "settings": {
@@ -810,7 +600,7 @@
             "width": "100%",
             "max_width": "normal",
             "alignment": "center",
-            "type_preset": "h3",
+            "type_preset": "h2",
             "font": "var(--font-body--family)",
             "font_size": "",
             "line_height": "normal",
@@ -823,10 +613,10 @@
             "padding-inline-end": 0
           }
         },
-        "text": {
+        "body": {
           "type": "text",
           "settings": {
-            "text": "<p>[Placeholder — one line on what subscribers get and how often]</p>",
+            "text": "<p>We'll email you when a new date is confirmed. Unsubscribe any time.</p>",
             "width": "100%",
             "max_width": "narrow",
             "alignment": "center",
@@ -843,31 +633,42 @@
             "padding-inline-end": 0
           }
         },
-        "email_signup": {
+        "form": {
           "type": "email-signup",
           "settings": {
             "width": "custom",
-            "custom_width": 50,
-            "style_class": "button-unstyled",
-            "display_type": "arrow",
+            "custom_width": 60,
+            "style_class": "button",
+            "display_type": "text",
             "label": "Sign up",
-            "integrated_button": true
+            "integrated_button": false,
+            "border_style": "all",
+            "input_style": "default",
+            "border_width": 2,
+            "border_radius": 8,
+            "input_type_preset": "paragraph",
+            "button_type_preset": "paragraph",
+            "heading_preset": "h4",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
           }
         }
       },
       "block_order": [
+        "anchor",
         "heading",
-        "text",
-        "email_signup"
+        "body",
+        "form"
       ]
     }
   },
   "order": [
-    "main",
     "intro",
+    "main",
     "upcoming",
     "attending",
-    "news",
     "signup"
   ]
 }

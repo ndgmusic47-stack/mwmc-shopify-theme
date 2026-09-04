@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "collection_list_Y66Rtq": {
       "type": "main-collection-list",
@@ -86,10 +87,11 @@
             "vertical_alignment": "center",
             "collection_card_gap": 1,
             "background_color": "rgba(0,0,0,0)",
-            "border": "none",
-            "border_width": 1,
+            "border": "solid",
+            "border_width": 2,
             "border_opacity": 100,
-            "border_radius": 0
+            "border_radius": 8,
+            "border_color": "{{ settings.color_palette.foreground }}"
           },
           "blocks": {
             "collection_title_UTMT6J": {

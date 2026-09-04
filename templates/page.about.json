@@ -3,30 +3,20 @@
     "main": {
       "type": "main-page",
       "blocks": {
-        "heading": {
-          "type": "text",
-          "name": "t:names.title",
-          "settings": {
-            "text": "<h1>{{ closest.page.title }}</h1>",
-            "width": "100%",
-            "type_preset": "h2"
-          }
-        },
         "page-content": {
           "type": "page-content",
           "settings": {}
         }
       },
       "block_order": [
-        "heading",
         "page-content"
       ],
       "settings": {
         "content_direction": "column",
-        "gap": 32,
+        "gap": 24,
         "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 40,
-        "padding-block-end": 24
+        "padding-block-start": 24,
+        "padding-block-end": 0
       }
     },
     "intro": {
@@ -55,16 +45,115 @@
         "border_opacity": 100,
         "border_color": "",
         "border_radius": 0,
-        "padding-block-start": 40,
-        "padding-block-end": 32
+        "padding-block-start": 64,
+        "padding-block-end": 64,
+        "background_color": "{{ settings.color_palette.color1 }}"
+      },
+      "blocks": {
+        "eyebrow": {
+          "type": "text",
+          "settings": {
+            "text": "<p>About us</p>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h6",
+            "font": "var(--font-body--family)",
+            "font_size": "",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "name": "t:names.caption"
+        },
+        "heading": {
+          "type": "text",
+          "settings": {
+            "text": "<h1>Mum, Where's My Cards</h1>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h1",
+            "font": "var(--font-body--family)",
+            "font_size": "",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          }
+        },
+        "body": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We're a UK trading card business, run by collectors. We buy and sell Pokémon cards — singles, sealed product and graded slabs — and we help people move collections on when the time comes. One Piece is on the way.</p>",
+            "width": "100%",
+            "max_width": "narrow",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          }
+        }
+      },
+      "block_order": [
+        "eyebrow",
+        "heading",
+        "body"
+      ]
+    },
+    "story": {
+      "type": "section",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 16,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_color": "",
+        "border_radius": 0,
+        "padding-block-start": 72,
+        "padding-block-end": 72
       },
       "blocks": {
         "heading": {
           "type": "text",
           "settings": {
-            "text": "<h2>About Mum Where's My Cards</h2>",
-            "width": "fit-content",
-            "max_width": "narrow",
+            "text": "<h2>What we're for</h2>",
+            "width": "100%",
+            "max_width": "normal",
             "alignment": "left",
             "type_preset": "h2",
             "font": "var(--font-body--family)",
@@ -79,10 +168,50 @@
             "padding-inline-end": 0
           }
         },
-        "text": {
+        "p1": {
           "type": "text",
           "settings": {
-            "text": "<p>[Placeholder — one short paragraph introducing the business]</p>",
+            "text": "<p>Most people come to us for one of two reasons: they're chasing a card they can't find, or they've got a collection they don't know what to do with. We're built around both.</p>",
+            "width": "100%",
+            "max_width": "narrow",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          }
+        },
+        "p2": {
+          "type": "text",
+          "settings": {
+            "text": "<p>On the buying side, that means describing cards honestly, pricing them against what the market is actually doing, and being reachable if you want to ask something before you commit.</p>",
+            "width": "100%",
+            "max_width": "narrow",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          }
+        },
+        "p3": {
+          "type": "text",
+          "settings": {
+            "text": "<p>On the selling side it means explaining how we've reached an offer rather than just handing you a number — and being clear that asking us costs you nothing and commits you to nothing.</p>",
             "width": "100%",
             "max_width": "narrow",
             "alignment": "left",
@@ -102,139 +231,10 @@
       },
       "block_order": [
         "heading",
-        "text"
+        "p1",
+        "p2",
+        "p3"
       ]
-    },
-    "story": {
-      "type": "media-with-content",
-      "blocks": {
-        "media": {
-          "type": "_media-without-appearance",
-          "static": true,
-          "settings": {}
-        },
-        "content": {
-          "type": "_content-without-appearance",
-          "static": true,
-          "settings": {
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center"
-          },
-          "blocks": {
-            "caption": {
-              "type": "text",
-              "settings": {
-                "text": "<p>Our story</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h6",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "name": "t:names.caption"
-            },
-            "group": {
-              "type": "group",
-              "settings": {
-                "content_direction": "column",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "center",
-                "align_baseline": false,
-                "horizontal_alignment_flex_direction_column": "flex-start",
-                "vertical_alignment_flex_direction_column": "flex-start",
-                "gap": 12,
-                "width": "fill",
-                "custom_width": 100,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
-                "custom_height": 100,
-                "background_media": "none",
-                "video_position": "cover",
-                "background_image_position": "cover",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "heading": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<h2>[Placeholder — story headline]</h2>",
-                    "width": "fit-content",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "h3",
-                    "font": "var(--font-body--family)",
-                    "font_size": "",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  }
-                },
-                "text": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<p>[Placeholder — two or three sentences on how MWMC started and who runs it]</p>",
-                    "width": "100%",
-                    "max_width": "narrow",
-                    "alignment": "left",
-                    "type_preset": "rte",
-                    "font": "var(--font-body--family)",
-                    "font_size": "",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  }
-                }
-              },
-              "block_order": [
-                "heading",
-                "text"
-              ]
-            }
-          },
-          "block_order": [
-            "caption",
-            "group"
-          ]
-        }
-      },
-      "settings": {
-        "media_position": "left",
-        "media_width": "medium",
-        "media_height": "60svh",
-        "section_width": "full-width",
-        "extend_media": true,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
     },
     "values": {
       "type": "section",
@@ -244,9 +244,9 @@
         "horizontal_alignment": "flex-start",
         "vertical_alignment": "center",
         "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
+        "horizontal_alignment_flex_direction_column": "center",
         "vertical_alignment_flex_direction_column": "center",
-        "gap": 32,
+        "gap": 36,
         "section_width": "page-width",
         "section_height": "",
         "section_height_custom": 50,
@@ -262,19 +262,19 @@
         "border_opacity": 100,
         "border_color": "",
         "border_radius": 0,
-        "padding-block-start": 56,
-        "padding-block-end": 56,
+        "padding-block-start": 72,
+        "padding-block-end": 72,
         "background_color": "{{ settings.color_palette.color2 }}"
       },
       "blocks": {
         "heading": {
           "type": "text",
           "settings": {
-            "text": "<h2>What we care about</h2>",
+            "text": "<h2>How we work</h2>",
             "width": "100%",
             "max_width": "normal",
             "alignment": "center",
-            "type_preset": "h3",
+            "type_preset": "h2",
             "font": "var(--font-body--family)",
             "font_size": "",
             "line_height": "normal",
@@ -296,8 +296,8 @@
             "vertical_alignment": "center",
             "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "center",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 16,
+            "vertical_alignment_flex_direction_column": "flex-start",
+            "gap": 14,
             "width": "fill",
             "custom_width": 100,
             "width_mobile": "fill",
@@ -307,10 +307,15 @@
             "background_media": "none",
             "video_position": "cover",
             "background_image_position": "cover",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
             "border_radius": 0,
+            "open_in_new_tab": false,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -320,7 +325,7 @@
             "icon": {
               "type": "icon",
               "settings": {
-                "icon": "heart",
+                "icon": "silhouette",
                 "width": 32,
                 "link": ""
               }
@@ -335,7 +340,7 @@
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "flex-start",
                 "vertical_alignment_flex_direction_column": "flex-start",
-                "gap": 4,
+                "gap": 6,
                 "width": "fill",
                 "custom_width": 100,
                 "width_mobile": "fill",
@@ -345,10 +350,15 @@
                 "background_media": "none",
                 "video_position": "cover",
                 "background_image_position": "cover",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
                 "border_radius": 0,
+                "open_in_new_tab": false,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -358,7 +368,7 @@
                 "heading": {
                   "type": "text",
                   "settings": {
-                    "text": "<h3>[Value one]</h3>",
+                    "text": "<h3>Collector-led</h3>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -378,7 +388,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[Placeholder — what MWMC stands for, in one or two sentences.]</p>",
+                    "text": "<p>We collect. That's where this started, and it's still how we decide what's worth stocking and what a card is really worth.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -417,8 +427,8 @@
             "vertical_alignment": "center",
             "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "center",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 16,
+            "vertical_alignment_flex_direction_column": "flex-start",
+            "gap": 14,
             "width": "fill",
             "custom_width": 100,
             "width_mobile": "fill",
@@ -428,10 +438,15 @@
             "background_media": "none",
             "video_position": "cover",
             "background_image_position": "cover",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
             "border_radius": 0,
+            "open_in_new_tab": false,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -441,7 +456,7 @@
             "icon": {
               "type": "icon",
               "settings": {
-                "icon": "check_box",
+                "icon": "chat_bubble",
                 "width": 32,
                 "link": ""
               }
@@ -456,7 +471,7 @@
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "flex-start",
                 "vertical_alignment_flex_direction_column": "flex-start",
-                "gap": 4,
+                "gap": 6,
                 "width": "fill",
                 "custom_width": 100,
                 "width_mobile": "fill",
@@ -466,10 +481,15 @@
                 "background_media": "none",
                 "video_position": "cover",
                 "background_image_position": "cover",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
                 "border_radius": 0,
+                "open_in_new_tab": false,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -479,7 +499,7 @@
                 "heading": {
                   "type": "text",
                   "settings": {
-                    "text": "<h3>[Value two]</h3>",
+                    "text": "<h3>Straight answers</h3>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -499,7 +519,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[Placeholder — what MWMC stands for, in one or two sentences.]</p>",
+                    "text": "<p>We'd rather tell you a card isn't for you than talk you into it. If we don't know something, we'll say so.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -538,8 +558,8 @@
             "vertical_alignment": "center",
             "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "center",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 16,
+            "vertical_alignment_flex_direction_column": "flex-start",
+            "gap": 14,
             "width": "fill",
             "custom_width": 100,
             "width_mobile": "fill",
@@ -549,10 +569,15 @@
             "background_media": "none",
             "video_position": "cover",
             "background_image_position": "cover",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
             "border_radius": 0,
+            "open_in_new_tab": false,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -562,7 +587,7 @@
             "icon": {
               "type": "icon",
               "settings": {
-                "icon": "silhouette",
+                "icon": "map_pin",
                 "width": 32,
                 "link": ""
               }
@@ -577,7 +602,7 @@
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "flex-start",
                 "vertical_alignment_flex_direction_column": "flex-start",
-                "gap": 4,
+                "gap": 6,
                 "width": "fill",
                 "custom_width": 100,
                 "width_mobile": "fill",
@@ -587,10 +612,15 @@
                 "background_media": "none",
                 "video_position": "cover",
                 "background_image_position": "cover",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
                 "border_radius": 0,
+                "open_in_new_tab": false,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -600,7 +630,7 @@
                 "heading": {
                   "type": "text",
                   "settings": {
-                    "text": "<h3>[Value three]</h3>",
+                    "text": "<h3>UK-focused</h3>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -620,7 +650,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[Placeholder — what MWMC stands for, in one or two sentences.]</p>",
+                    "text": "<p>Based in the UK and built around UK collectors, online and at shows.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -668,7 +698,7 @@
         "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "center",
         "vertical_alignment_flex_direction_column": "center",
-        "gap": 20,
+        "gap": 16,
         "section_width": "page-width",
         "section_height": "",
         "section_height_custom": 50,
@@ -684,19 +714,19 @@
         "border_opacity": 100,
         "border_color": "",
         "border_radius": 0,
-        "padding-block-start": 56,
-        "padding-block-end": 56,
-        "background_color": "{{ settings.color_palette.color3 }}"
+        "padding-block-start": 72,
+        "padding-block-end": 72,
+        "background_color": "{{ settings.color_palette.color1 }}"
       },
       "blocks": {
         "heading": {
           "type": "text",
           "settings": {
-            "text": "<h2>Get in touch</h2>",
+            "text": "<h2>Have a look, or get in touch</h2>",
             "width": "100%",
             "max_width": "normal",
             "alignment": "center",
-            "type_preset": "h3",
+            "type_preset": "h2",
             "font": "var(--font-body--family)",
             "font_size": "",
             "line_height": "normal",
@@ -709,10 +739,10 @@
             "padding-inline-end": 0
           }
         },
-        "text": {
+        "body": {
           "type": "text",
           "settings": {
-            "text": "<p>[Placeholder — one line pointing people to the right next step]</p>",
+            "text": "<p>Browse what's in stock, send us a collection to value, or just ask us a question.</p>",
             "width": "100%",
             "max_width": "narrow",
             "alignment": "center",
@@ -729,7 +759,7 @@
             "padding-inline-end": 0
           }
         },
-        "buttons": {
+        "actions": {
           "type": "group",
           "settings": {
             "content_direction": "row",
@@ -749,17 +779,22 @@
             "background_media": "none",
             "video_position": "cover",
             "background_image_position": "cover",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
             "border_radius": 0,
+            "open_in_new_tab": false,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
           "blocks": {
-            "shop": {
+            "a": {
               "type": "button",
               "settings": {
                 "label": "Shop cards",
@@ -772,11 +807,11 @@
                 "custom_width_mobile": 100
               }
             },
-            "sell": {
+            "b": {
               "type": "button",
               "settings": {
                 "label": "Sell to us",
-                "link": "",
+                "link": "/pages/sell-to-us",
                 "open_in_new_tab": false,
                 "style_class": "button-secondary",
                 "width": "fit-content",
@@ -785,11 +820,11 @@
                 "custom_width_mobile": 100
               }
             },
-            "consign": {
+            "c": {
               "type": "button",
               "settings": {
-                "label": "Consignment",
-                "link": "",
+                "label": "Contact us",
+                "link": "/pages/contact",
                 "open_in_new_tab": false,
                 "style_class": "button-secondary",
                 "width": "fit-content",
@@ -800,22 +835,22 @@
             }
           },
           "block_order": [
-            "shop",
-            "sell",
-            "consign"
+            "a",
+            "b",
+            "c"
           ]
         }
       },
       "block_order": [
         "heading",
-        "text",
-        "buttons"
+        "body",
+        "actions"
       ]
     }
   },
   "order": [
-    "main",
     "intro",
+    "main",
     "story",
     "values",
     "cta"

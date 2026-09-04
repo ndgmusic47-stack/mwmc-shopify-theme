@@ -3,30 +3,20 @@
     "main": {
       "type": "main-page",
       "blocks": {
-        "heading": {
-          "type": "text",
-          "name": "t:names.title",
-          "settings": {
-            "text": "<h1>{{ closest.page.title }}</h1>",
-            "width": "100%",
-            "type_preset": "h2"
-          }
-        },
         "page-content": {
           "type": "page-content",
           "settings": {}
         }
       },
       "block_order": [
-        "heading",
         "page-content"
       ],
       "settings": {
         "content_direction": "column",
-        "gap": 32,
+        "gap": 24,
         "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 40,
-        "padding-block-end": 24
+        "padding-block-start": 24,
+        "padding-block-end": 0
       }
     },
     "intro": {
@@ -39,7 +29,7 @@
         "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "flex-start",
         "vertical_alignment_flex_direction_column": "center",
-        "gap": 24,
+        "gap": 16,
         "section_width": "page-width",
         "section_height": "",
         "section_height_custom": 50,
@@ -55,18 +45,40 @@
         "border_opacity": 100,
         "border_color": "",
         "border_radius": 0,
-        "padding-block-start": 40,
-        "padding-block-end": 40
+        "padding-block-start": 64,
+        "padding-block-end": 64,
+        "background_color": "{{ settings.color_palette.color1 }}"
       },
       "blocks": {
+        "eyebrow": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Sell to us</p>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h6",
+            "font": "var(--font-body--family)",
+            "font_size": "",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "name": "t:names.caption"
+        },
         "heading": {
           "type": "text",
           "settings": {
-            "text": "<h2>Sell your cards to us</h2>",
-            "width": "fit-content",
-            "max_width": "narrow",
+            "text": "<h1>Tell us what you've got</h1>",
+            "width": "100%",
+            "max_width": "normal",
             "alignment": "left",
-            "type_preset": "h2",
+            "type_preset": "h1",
             "font": "var(--font-body--family)",
             "font_size": "",
             "line_height": "normal",
@@ -79,10 +91,10 @@
             "padding-inline-end": 0
           }
         },
-        "text": {
+        "body": {
           "type": "text",
           "settings": {
-            "text": "<p>[Placeholder — one short paragraph on why selling to MWMC is easy and fair]</p>",
+            "text": "<p>We buy Pokémon cards, sealed product, graded cards and full collections from sellers across the UK. Send us the details and clear photos of what you have, and we'll come back to you with an offer based on condition, authenticity, demand and current market value. There's no obligation to accept.</p>",
             "width": "100%",
             "max_width": "narrow",
             "alignment": "left",
@@ -99,24 +111,65 @@
             "padding-inline-end": 0
           }
         },
-        "button": {
-          "type": "button",
+        "actions": {
+          "type": "group",
           "settings": {
-            "label": "Start a valuation",
-            "link": "",
-            "open_in_new_tab": false,
-            "style_class": "button",
+            "content_direction": "row",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "flex-start",
+            "gap": 12,
             "width": "fit-content",
             "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
-          }
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "open_in_new_tab": false,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "primary": {
+              "type": "button",
+              "settings": {
+                "label": "Start a valuation",
+                "link": "#sell-to-us-enquiry",
+                "open_in_new_tab": false,
+                "style_class": "button",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              }
+            }
+          },
+          "block_order": [
+            "primary"
+          ]
         }
       },
       "block_order": [
+        "eyebrow",
         "heading",
-        "text",
-        "button"
+        "body",
+        "actions"
       ]
     },
     "how_it_works": {
@@ -127,9 +180,9 @@
         "horizontal_alignment": "flex-start",
         "vertical_alignment": "center",
         "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
+        "horizontal_alignment_flex_direction_column": "center",
         "vertical_alignment_flex_direction_column": "center",
-        "gap": 32,
+        "gap": 36,
         "section_width": "page-width",
         "section_height": "",
         "section_height_custom": 50,
@@ -145,9 +198,8 @@
         "border_opacity": 100,
         "border_color": "",
         "border_radius": 0,
-        "padding-block-start": 56,
-        "padding-block-end": 56,
-        "background_color": "{{ settings.color_palette.color2 }}"
+        "padding-block-start": 72,
+        "padding-block-end": 72
       },
       "blocks": {
         "heading": {
@@ -157,7 +209,7 @@
             "width": "100%",
             "max_width": "normal",
             "alignment": "center",
-            "type_preset": "h3",
+            "type_preset": "h2",
             "font": "var(--font-body--family)",
             "font_size": "",
             "line_height": "normal",
@@ -179,8 +231,8 @@
             "vertical_alignment": "center",
             "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "center",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 16,
+            "vertical_alignment_flex_direction_column": "flex-start",
+            "gap": 14,
             "width": "fill",
             "custom_width": 100,
             "width_mobile": "fill",
@@ -190,10 +242,15 @@
             "background_media": "none",
             "video_position": "cover",
             "background_image_position": "cover",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
             "border_radius": 0,
+            "open_in_new_tab": false,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -218,7 +275,7 @@
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "flex-start",
                 "vertical_alignment_flex_direction_column": "flex-start",
-                "gap": 4,
+                "gap": 6,
                 "width": "fill",
                 "custom_width": 100,
                 "width_mobile": "fill",
@@ -228,10 +285,15 @@
                 "background_media": "none",
                 "video_position": "cover",
                 "background_image_position": "cover",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
                 "border_radius": 0,
+                "open_in_new_tab": false,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -241,7 +303,7 @@
                 "heading": {
                   "type": "text",
                   "settings": {
-                    "text": "<h3>Tell us what you have</h3>",
+                    "text": "<h3>Send us the details</h3>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -261,7 +323,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[Placeholder — describe how a customer submits their list or photos.]</p>",
+                    "text": "<p>Use the form below to tell us the card name, set, card number and condition for every item you'd like to sell.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -300,8 +362,8 @@
             "vertical_alignment": "center",
             "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "center",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 16,
+            "vertical_alignment_flex_direction_column": "flex-start",
+            "gap": 14,
             "width": "fill",
             "custom_width": 100,
             "width_mobile": "fill",
@@ -311,10 +373,15 @@
             "background_media": "none",
             "video_position": "cover",
             "background_image_position": "cover",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
             "border_radius": 0,
+            "open_in_new_tab": false,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -339,7 +406,7 @@
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "flex-start",
                 "vertical_alignment_flex_direction_column": "flex-start",
-                "gap": 4,
+                "gap": 6,
                 "width": "fill",
                 "custom_width": 100,
                 "width_mobile": "fill",
@@ -349,10 +416,15 @@
                 "background_media": "none",
                 "video_position": "cover",
                 "background_image_position": "cover",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
                 "border_radius": 0,
+                "open_in_new_tab": false,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -362,7 +434,7 @@
                 "heading": {
                   "type": "text",
                   "settings": {
-                    "text": "<h3>We make you an offer</h3>",
+                    "text": "<h3>We check and value</h3>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -382,7 +454,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[Placeholder — describe the valuation process and turnaround time.]</p>",
+                    "text": "<p>We look at condition, authenticity, demand and current market value, then come back to you with an offer and the reasoning behind it.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -421,8 +493,8 @@
             "vertical_alignment": "center",
             "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "center",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 16,
+            "vertical_alignment_flex_direction_column": "flex-start",
+            "gap": 14,
             "width": "fill",
             "custom_width": 100,
             "width_mobile": "fill",
@@ -432,10 +504,15 @@
             "background_media": "none",
             "video_position": "cover",
             "background_image_position": "cover",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
             "border_radius": 0,
+            "open_in_new_tab": false,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -460,7 +537,7 @@
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "flex-start",
                 "vertical_alignment_flex_direction_column": "flex-start",
-                "gap": 4,
+                "gap": 6,
                 "width": "fill",
                 "custom_width": 100,
                 "width_mobile": "fill",
@@ -470,10 +547,15 @@
                 "background_media": "none",
                 "video_position": "cover",
                 "background_image_position": "cover",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
                 "border_radius": 0,
+                "open_in_new_tab": false,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -483,7 +565,7 @@
                 "heading": {
                   "type": "text",
                   "settings": {
-                    "text": "<h3>Get paid</h3>",
+                    "text": "<h3>You decide</h3>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -503,7 +585,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[Placeholder — describe payment methods and timescales.]</p>",
+                    "text": "<p>Happy with the offer? We'll agree postage and payment with you. Not for you? That's absolutely fine — nothing is committed until you say so.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -551,7 +633,7 @@
         "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "flex-start",
         "vertical_alignment_flex_direction_column": "center",
-        "gap": 24,
+        "gap": 28,
         "section_width": "page-width",
         "section_height": "",
         "section_height_custom": 50,
@@ -567,18 +649,19 @@
         "border_opacity": 100,
         "border_color": "",
         "border_radius": 0,
-        "padding-block-start": 56,
-        "padding-block-end": 56
+        "padding-block-start": 72,
+        "padding-block-end": 72,
+        "background_color": "{{ settings.color_palette.color2 }}"
       },
       "blocks": {
         "heading": {
           "type": "text",
           "settings": {
             "text": "<h2>What we buy</h2>",
-            "width": "fit-content",
+            "width": "100%",
             "max_width": "normal",
             "alignment": "left",
-            "type_preset": "h3",
+            "type_preset": "h2",
             "font": "var(--font-body--family)",
             "font_size": "",
             "line_height": "normal",
@@ -591,17 +674,17 @@
             "padding-inline-end": 0
           }
         },
-        "column_1": {
+        "cards": {
           "type": "group",
           "settings": {
-            "content_direction": "column",
+            "content_direction": "row",
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
             "vertical_alignment": "center",
             "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "flex-start",
             "vertical_alignment_flex_direction_column": "flex-start",
-            "gap": 8,
+            "gap": 16,
             "width": "fill",
             "custom_width": 100,
             "width_mobile": "fill",
@@ -611,223 +694,285 @@
             "background_media": "none",
             "video_position": "cover",
             "background_image_position": "cover",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
             "border_radius": 0,
-            "padding-block-start": 10,
+            "open_in_new_tab": false,
+            "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
           "blocks": {
-            "heading": {
-              "type": "text",
+            "card_1": {
+              "type": "group",
               "settings": {
-                "text": "<h3>Sealed product</h3>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 8,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "border": "solid",
+                "border_width": 2,
+                "border_opacity": 100,
+                "border_radius": 8,
+                "open_in_new_tab": false,
+                "padding-block-start": 24,
+                "padding-block-end": 24,
+                "padding-inline-start": 24,
+                "padding-inline-end": 24,
+                "background_color": "{{ settings.color_palette.color2 }}",
+                "border_color": "{{ settings.color_palette.foreground }}"
+              },
+              "blocks": {
+                "heading": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<h3>Sealed product</h3>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "h4",
+                    "font": "var(--font-body--family)",
+                    "font_size": "",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                },
+                "text": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Booster boxes, elite trainer boxes, tins, bundles and other sealed items. They need to be genuinely unopened and undamaged — photos of all sides help us confirm that.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                }
+              },
+              "block_order": [
+                "heading",
+                "text"
+              ],
+              "name": "t:names.column"
             },
-            "text": {
-              "type": "text",
+            "card_2": {
+              "type": "group",
               "settings": {
-                "text": "<p>[Placeholder — which sealed products you buy, and any condition rules.]</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 8,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "border": "solid",
+                "border_width": 2,
+                "border_opacity": 100,
+                "border_radius": 8,
+                "open_in_new_tab": false,
+                "padding-block-start": 24,
+                "padding-block-end": 24,
+                "padding-inline-start": 24,
+                "padding-inline-end": 24,
+                "background_color": "{{ settings.color_palette.color2 }}",
+                "border_color": "{{ settings.color_palette.foreground }}"
+              },
+              "blocks": {
+                "heading": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<h3>Single cards</h3>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "h4",
+                    "font": "var(--font-body--family)",
+                    "font_size": "",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                },
+                "text": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Raw Pokémon singles from any era. Condition makes a real difference to value, so an honest description plus photos of the front and back is what we need to give you a proper answer.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                }
+              },
+              "block_order": [
+                "heading",
+                "text"
+              ],
+              "name": "t:names.column"
+            },
+            "card_3": {
+              "type": "group",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 8,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "border": "solid",
+                "border_width": 2,
+                "border_opacity": 100,
+                "border_radius": 8,
+                "open_in_new_tab": false,
+                "padding-block-start": 24,
+                "padding-block-end": 24,
+                "padding-inline-start": 24,
+                "padding-inline-end": 24,
+                "background_color": "{{ settings.color_palette.color2 }}",
+                "border_color": "{{ settings.color_palette.foreground }}"
+              },
+              "blocks": {
+                "heading": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<h3>Graded cards and collections</h3>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "h4",
+                    "font": "var(--font-body--family)",
+                    "font_size": "",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                },
+                "text": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Slabbed cards from the recognised grading companies — tell us the grader, grade and certification number. We'll also look at binders, job lots and whole collections rather than only the standout cards.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                }
+              },
+              "block_order": [
+                "heading",
+                "text"
+              ],
+              "name": "t:names.column"
             }
           },
           "block_order": [
-            "heading",
-            "text"
+            "card_1",
+            "card_2",
+            "card_3"
           ],
-          "name": "t:names.column"
-        },
-        "column_2": {
-          "type": "group",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "flex-start",
-            "gap": 8,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 10,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "heading": {
-              "type": "text",
-              "settings": {
-                "text": "<h3>Singles</h3>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            },
-            "text": {
-              "type": "text",
-              "settings": {
-                "text": "<p>[Placeholder — which singles you buy, minimum values, sets of interest.]</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            }
-          },
-          "block_order": [
-            "heading",
-            "text"
-          ],
-          "name": "t:names.column"
-        },
-        "column_3": {
-          "type": "group",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "flex-start",
-            "gap": 8,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 10,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "heading": {
-              "type": "text",
-              "settings": {
-                "text": "<h3>Graded slabs</h3>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            },
-            "text": {
-              "type": "text",
-              "settings": {
-                "text": "<p>[Placeholder — which graded cards you buy and which graders you accept.]</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            }
-          },
-          "block_order": [
-            "heading",
-            "text"
-          ],
-          "name": "t:names.column"
+          "name": "t:names.group"
         }
       },
       "block_order": [
         "heading",
-        "column_1",
-        "column_2",
-        "column_3"
+        "cards"
       ]
     },
     "enquiry": {
@@ -840,7 +985,7 @@
         "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "center",
         "vertical_alignment_flex_direction_column": "center",
-        "gap": 24,
+        "gap": 20,
         "section_width": "page-width",
         "section_height": "",
         "section_height_custom": 50,
@@ -856,11 +1001,17 @@
         "border_opacity": 100,
         "border_color": "",
         "border_radius": 0,
-        "padding-block-start": 56,
-        "padding-block-end": 56,
-        "background_color": "{{ settings.color_palette.color3 }}"
+        "padding-block-start": 72,
+        "padding-block-end": 72
       },
       "blocks": {
+        "anchor": {
+          "type": "custom-liquid",
+          "name": "Anchor target",
+          "settings": {
+            "custom_liquid": "<span id=\"sell-to-us-enquiry\" aria-hidden=\"true\"></span>"
+          }
+        },
         "heading": {
           "type": "text",
           "settings": {
@@ -868,7 +1019,7 @@
             "width": "100%",
             "max_width": "normal",
             "alignment": "center",
-            "type_preset": "h3",
+            "type_preset": "h2",
             "font": "var(--font-body--family)",
             "font_size": "",
             "line_height": "normal",
@@ -884,7 +1035,7 @@
         "note": {
           "type": "text",
           "settings": {
-            "text": "<p>[Placeholder — tell the customer exactly what to include — set, card, number, condition, quantity, photos]</p>",
+            "text": "<p>For each item, give us the card name, set, card number and condition. This form doesn't take attachments, so send what you can here and we'll reply so you can share clear photos of the front and back. Sending an enquiry doesn't commit you to selling anything.</p>",
             "width": "100%",
             "max_width": "narrow",
             "alignment": "center",
@@ -905,12 +1056,12 @@
           "type": "contact-form",
           "settings": {
             "width": "custom",
-            "custom_width": 60,
+            "custom_width": 70,
             "width_mobile": "custom",
             "custom_width_mobile": 100,
             "input_style": "default",
-            "border_width": 1,
-            "border_radius": 0,
+            "border_width": 2,
+            "border_radius": 8,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -934,6 +1085,7 @@
         }
       },
       "block_order": [
+        "anchor",
         "heading",
         "note",
         "form"
@@ -949,7 +1101,7 @@
         "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "flex-start",
         "vertical_alignment_flex_direction_column": "center",
-        "gap": 32,
+        "gap": 28,
         "section_width": "page-width",
         "section_height": "",
         "section_height_custom": 50,
@@ -965,18 +1117,19 @@
         "border_opacity": 100,
         "border_color": "",
         "border_radius": 0,
-        "padding-block-start": 56,
-        "padding-block-end": 64
+        "padding-block-start": 72,
+        "padding-block-end": 80,
+        "background_color": "{{ settings.color_palette.color2 }}"
       },
       "blocks": {
         "heading": {
           "type": "text",
           "settings": {
-            "text": "<h2>Buying FAQs</h2>",
-            "width": "fit-content",
+            "text": "<h2>Questions about selling</h2>",
+            "width": "100%",
             "max_width": "narrow",
             "alignment": "left",
-            "type_preset": "h3",
+            "type_preset": "h2",
             "font": "var(--font-body--family)",
             "font_size": "",
             "line_height": "normal",
@@ -1009,7 +1162,7 @@
               "type": "_accordion-row",
               "name": "t:names.accordion_row",
               "settings": {
-                "heading": "How do you value my cards?",
+                "heading": "How do you decide what to offer?",
                 "open_by_default": false,
                 "icon": "none",
                 "width": 20
@@ -1018,7 +1171,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[Placeholder — valuation method]</p>",
+                    "text": "<p>Every offer comes down to four things: condition, authenticity, demand and current market value. Prices in this hobby move constantly, so an offer reflects where the market sits when we look at your cards rather than a fixed price list. We'll always explain how we got there.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1044,7 +1197,7 @@
               "type": "_accordion-row",
               "name": "t:names.accordion_row",
               "settings": {
-                "heading": "How long does an offer take?",
+                "heading": "What do I need to send with my enquiry?",
                 "open_by_default": false,
                 "icon": "none",
                 "width": 20
@@ -1053,7 +1206,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[Placeholder — turnaround time]</p>",
+                    "text": "<p>For each item: the card name, the set it's from, the card number and an honest description of condition. Clear, well-lit photos of the front and back make a big difference, particularly for corners, edges and surface. For a large collection, a rough summary plus photos of the notable cards is a good starting point.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1079,7 +1232,7 @@
               "type": "_accordion-row",
               "name": "t:names.accordion_row",
               "settings": {
-                "heading": "How do I send my cards in?",
+                "heading": "Does sending an enquiry commit me to selling?",
                 "open_by_default": false,
                 "icon": "none",
                 "width": 20
@@ -1088,7 +1241,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[Placeholder — postage and packing instructions]</p>",
+                    "text": "<p>No. An enquiry is the start of a conversation, nothing more. You're under no obligation to accept an offer, and you're free to sell elsewhere or simply keep your cards.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1123,7 +1276,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[Placeholder — payment methods and timescales]</p>",
+                    "text": "<p>We'll agree the amount and the payment method with you before anything is sent, and confirm it in writing. We don't quote fixed timescales up front because it depends on the deal and how the cards arrive — but you'll know what to expect before you commit to anything.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1149,7 +1302,7 @@
               "type": "_accordion-row",
               "name": "t:names.accordion_row",
               "settings": {
-                "heading": "Do you buy collections and bulk?",
+                "heading": "Do you buy whole collections and bulk?",
                 "open_by_default": false,
                 "icon": "none",
                 "width": 20
@@ -1158,7 +1311,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[Placeholder — bulk and collection policy]</p>",
+                    "text": "<p>Yes. Binders, boxes, job lots and full collections are all welcome, and we're happy to look at everything rather than cherry-picking. Send a rough idea of the size and era, along with photos of anything you think stands out.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1197,8 +1350,8 @@
     }
   },
   "order": [
-    "main",
     "intro",
+    "main",
     "how_it_works",
     "what_we_buy",
     "enquiry",
