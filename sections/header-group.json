@@ -67,9 +67,9 @@
             "featured_collections_aspect_ratio": "16 / 9",
             "image_border_radius": 8,
             "navigation_bar": false,
-            "drawer_accordion": true,
+            "drawer_accordion": false,
             "drawer_accordion_expand_first": false,
-            "drawer_dividers": true
+            "drawer_dividers": false
           },
           "blocks": {}
         }
