@@ -485,7 +485,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[To confirm — whether collection at events is offered.] Ask us before you order and we'll tell you what's possible for that particular date.</p>",
+                    "text": "<p>Ask us before you order and we'll tell you what's possible for that particular date. It depends on the event and on what we're able to bring with us, so we'd rather confirm it with you directly than promise it here.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -520,7 +520,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[To confirm — payment methods accepted at the table.]</p>",
+                    "text": "<p>Ask us ahead of a show and we'll confirm what we'll be able to take on the day. We'd rather tell you directly than list something here that turns out not to be available at a particular venue.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",

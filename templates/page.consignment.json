@@ -691,7 +691,7 @@
         "note": {
           "type": "text",
           "settings": {
-            "text": "<p>Anything marked <strong>[To confirm]</strong> is still being finalised. We'd rather leave it blank than publish a number we might have to change — ask us and we'll tell you where it stands.</p>",
+            "text": "<p>Consignment terms are agreed per collection rather than set from a fixed price list, because what we can do depends on what you're sending. Everything below — the commission, what we're able to take, how you're paid, and what happens to anything that doesn't sell — is confirmed with you in writing before you send a single card.</p>",
             "width": "100%",
             "max_width": "narrow",
             "alignment": "left",
@@ -803,7 +803,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[To confirm — commission rate or tiers.] We'll agree the rate with you in writing before anything is listed, so you know exactly what you'll receive on a sale.</p>",
+                    "text": "<p>We agree your commission with you in writing before anything is listed, so you know exactly what you'll receive on a sale. It's set per collection rather than from a fixed price list, because it depends on what you're consigning and what's involved in selling it.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -887,7 +887,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[To confirm — minimum value and accepted categories.] As a guide we're most useful for cards that need a buyer who knows what they're looking at, rather than bulk.</p>",
+                    "text": "<p>Tell us what you have and we'll say honestly whether consignment is the right route for it. We're most useful for cards that need a buyer who knows what they're looking at, rather than bulk. What we can take, and any minimum value, is confirmed with you in writing before you send anything.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1055,7 +1055,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[To confirm — payout method and schedule.] We'll set out how and when you're paid after a sale before you send anything in.</p>",
+                    "text": "<p>How and when you're paid after a sale is set out in writing before your cards come to us. We don't quote a payout timescale here because it depends on the deal — but you'll have it in writing in advance, not after the fact.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1139,7 +1139,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[To confirm — unsold card policy and any return postage costs.] Your cards stay yours throughout, and you can ask for them back.</p>",
+                    "text": "<p>Your cards stay yours throughout, and you can ask for them back. What happens to anything that hasn't sold, including who covers return postage, is agreed in writing before you send them — so there's nothing to negotiate later.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1223,7 +1223,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[To confirm — storage and insurance arrangements.] We won't claim cover we haven't arranged, so this will be spelled out in your agreement rather than implied here.</p>",
+                    "text": "<p>How your cards are stored, and what cover is in place while they're with us, is set out in your written agreement before you send anything. We won't claim cover we haven't arranged, so you'll see the actual arrangement rather than a reassuring phrase.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1566,7 +1566,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Yes. If you want to withdraw a card, tell us and we'll arrange it. [To confirm — any notice period and who covers return postage.]</p>",
+                    "text": "<p>Yes. If you want to withdraw a card, tell us and we'll arrange it. Any notice period, and who covers return postage, is agreed in writing before your cards come to us — so you'll know where you stand before anything leaves your hands.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1601,7 +1601,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>[To confirm — commission rate or tiers.] Whatever we agree will be confirmed in writing before your cards are listed. You'll never find out what you're paying after the fact.</p>",
+                    "text": "<p>We agree it with you in writing before your cards are listed. There's no fixed price list, because the rate depends on what you're consigning and what's involved in selling it — but you'll always know the figure before anything goes live, never afterwards.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
