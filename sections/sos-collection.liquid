@@ -1,0 +1,184 @@
+{% comment %}
+  Sultan of Statues — luxury collection gallery.
+
+  Renders real products when a collection is chosen and stocked. While the
+  catalogue is empty it falls back to editor-defined showcase cards built from
+  real statue photography, so the layout can be reviewed truthfully. No prices
+  are invented: showcase cards carry whatever the merchant types, defaulting to
+  "Price on request".
+{% endcomment %}
+
+{%- liquid
+  assign s = section.settings
+  assign coll = s.collection
+  assign limit = s.products_to_show
+  assign has_products = false
+  if coll != blank and coll.products_count > 0
+    assign has_products = true
+  endif
+-%}
+
+<div class="sos">
+  <section class="sos-collection">
+    <div class="sos-wrap">
+
+      <div class="sos-collection__head">
+        <div>
+          {%- if s.eyebrow != blank -%}
+            <p class="sos-eyebrow">{{ s.eyebrow }}</p>
+          {%- endif -%}
+          {%- if s.heading != blank -%}
+            <h2 class="sos-display sos-collection__title">{{ s.heading }}</h2>
+          {%- endif -%}
+        </div>
+        {%- if s.link_label != blank -%}
+          <a class="sos-textlink" href="{{ s.link_url | default: routes.all_products_collection_url }}">
+            {{ s.link_label }}
+            {% render 'sos-icon', name: 'arrow' %}
+          </a>
+        {%- endif -%}
+      </div>
+
+      <div class="sos-grid">
+        {%- if has_products -%}
+
+          {%- for product in coll.products limit: limit -%}
+            <a class="sos-card" href="{{ product.url }}">
+              <div class="sos-card__frame">
+                {%- if product.featured_media -%}
+                  {{ product.featured_media
+                     | image_url: width: 1200
+                     | image_tag:
+                       class: 'sos-card__img',
+                       widths: '400, 600, 900, 1200',
+                       sizes: '(max-width: 760px) 92vw, (max-width: 1024px) 46vw, 31vw',
+                       loading: 'lazy',
+                       alt: product.featured_media.alt | default: product.title }}
+                {%- endif -%}
+                <span class="sos-card__veil" aria-hidden="true"></span>
+                {%- if product.available == false -%}
+                  <span class="sos-card__tag">Acquired</span>
+                {%- endif -%}
+              </div>
+              <div class="sos-card__body">
+                {%- if product.vendor != blank -%}
+                  <span class="sos-card__maker">{{ product.vendor }}</span>
+                {%- endif -%}
+                <h3 class="sos-card__name">{{ product.title }}</h3>
+                <div class="sos-card__meta">
+                  <span class="sos-card__scale">{{ product.type | default: 'Collectible statue' }}</span>
+                  <span class="sos-card__price">{{ product.price | money }}</span>
+                </div>
+              </div>
+            </a>
+          {%- endfor -%}
+
+        {%- elsif section.blocks.size > 0 -%}
+
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign img = ''
+              if block.settings.image == blank and block.settings.image_asset != blank
+                assign img = block.settings.image_asset | asset_url
+              endif
+            -%}
+            <a class="sos-card" href="{{ block.settings.link | default: routes.all_products_collection_url }}" {{ block.shopify_attributes }}>
+              <div class="sos-card__frame">
+                {%- if block.settings.image != blank -%}
+                  {{ block.settings.image
+                     | image_url: width: 1200
+                     | image_tag:
+                       class: 'sos-card__img',
+                       widths: '400, 600, 900, 1200',
+                       sizes: '(max-width: 760px) 92vw, (max-width: 1024px) 46vw, 31vw',
+                       loading: 'lazy',
+                       alt: block.settings.name }}
+                {%- elsif img != blank -%}
+                  <img class="sos-card__img" src="{{ img }}" alt="{{ block.settings.name | escape }}" width="1200" height="1500" loading="lazy">
+                {%- endif -%}
+                <span class="sos-card__veil" aria-hidden="true"></span>
+                {%- if block.settings.tag != blank -%}
+                  <span class="sos-card__tag">{{ block.settings.tag }}</span>
+                {%- endif -%}
+              </div>
+              <div class="sos-card__body">
+                {%- if block.settings.maker != blank -%}
+                  <span class="sos-card__maker">{{ block.settings.maker }}</span>
+                {%- endif -%}
+                <h3 class="sos-card__name">{{ block.settings.name }}</h3>
+                <div class="sos-card__meta">
+                  <span class="sos-card__scale">{{ block.settings.scale }}</span>
+                  <span class="sos-card__price"><em>{{ block.settings.price_note }}</em></span>
+                </div>
+              </div>
+            </a>
+          {%- endfor -%}
+
+        {%- else -%}
+
+          <div class="sos-empty">
+            <h3>{{ s.empty_heading }}</h3>
+            <p>{{ s.empty_body }}</p>
+          </div>
+
+        {%- endif -%}
+      </div>
+
+      {%- if s.foot_label != blank -%}
+        <div class="sos-collection__foot">
+          <a class="sos-btn sos-btn--ghost" href="{{ s.foot_url | default: routes.all_products_collection_url }}">
+            {{ s.foot_label }}
+            {% render 'sos-icon', name: 'arrow' %}
+          </a>
+        </div>
+      {%- endif -%}
+
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Collection gallery",
+  "tag": "section",
+  "class": "sos-collection-section",
+  "max_blocks": 9,
+  "settings": [
+    { "type": "header", "content": "Heading" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Collection" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Discover the collection" },
+    { "type": "text", "id": "link_label", "label": "Top link label", "default": "View all statues" },
+    { "type": "url", "id": "link_url", "label": "Top link" },
+
+    { "type": "header", "content": "Products" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "products_to_show", "label": "Products to show", "min": 3, "max": 12, "step": 3, "default": 6 },
+    { "type": "paragraph", "content": "When the chosen collection has products they are shown. Until then the showcase cards below are used." },
+
+    { "type": "header", "content": "Empty state" },
+    { "type": "text", "id": "empty_heading", "label": "Empty heading", "default": "A collection in the making" },
+    { "type": "text", "id": "empty_body", "label": "Empty body", "default": "New pieces will appear here. Visit the gallery again soon." },
+
+    { "type": "header", "content": "Footer link" },
+    { "type": "text", "id": "foot_label", "label": "Button label" },
+    { "type": "url", "id": "foot_url", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "showcase",
+      "name": "Showcase statue",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photograph" },
+        { "type": "text", "id": "image_asset", "label": "Or a theme asset filename" },
+        { "type": "text", "id": "maker", "label": "Maker", "default": "Studio" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Statue name" },
+        { "type": "text", "id": "scale", "label": "Scale or material", "default": "1/6 Scale — Resin" },
+        { "type": "text", "id": "price_note", "label": "Price note", "default": "Price on request" },
+        { "type": "text", "id": "tag", "label": "Corner tag" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Collection gallery" }]
+}
+{% endschema %}

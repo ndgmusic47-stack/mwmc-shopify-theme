@@ -1,0 +1,137 @@
+{% comment %}
+  Sultan of Statues — cinematic palace hero.
+
+  Environment: uses the supplied palace plate when one is set. Until then it
+  renders a crafted architectural fallback (marble, arcade, daylight) so the
+  section is never a grey box and never invents product photography.
+  Focal statue: a real product photograph, presented in a lit alcove above a
+  stone pedestal.
+{% endcomment %}
+
+{%- liquid
+  assign s = section.settings
+  assign statue_src = ''
+  if s.statue_image == blank and s.statue_asset != blank
+    assign statue_src = s.statue_asset | asset_url
+  endif
+-%}
+
+<div class="sos">
+  <section class="sos-hero">
+
+    {%- if s.background_image != blank -%}
+      <div class="sos-hero__plate">
+        {{ s.background_image | image_url: width: 2400 | image_tag:
+             widths: '750, 1100, 1500, 1900, 2400',
+             sizes: '100vw',
+             loading: 'eager',
+             fetchpriority: 'high',
+             alt: '' }}
+      </div>
+    {%- else -%}
+      <div class="sos-hero__env" aria-hidden="true">
+        <div class="sos-hero__arcade"><span></span><span></span><span></span></div>
+        <div class="sos-hero__shaft"></div>
+      </div>
+    {%- endif -%}
+
+    <div class="sos-wrap sos-hero__inner">
+
+      <div class="sos-hero__copy">
+        {%- if s.eyebrow != blank -%}
+          <p class="sos-eyebrow">{{ s.eyebrow }}</p>
+        {%- endif -%}
+
+        {%- if s.heading != blank -%}
+          <h1 class="sos-display sos-hero__title">{{ s.heading }}</h1>
+        {%- endif -%}
+
+        {%- if s.body != blank -%}
+          <p class="sos-lede">{{ s.body }}</p>
+        {%- endif -%}
+
+        {%- if s.button_label != blank or s.button2_label != blank -%}
+          <div class="sos-hero__actions">
+            {%- if s.button_label != blank -%}
+              <a class="sos-btn sos-btn--primary" href="{{ s.button_link | default: routes.all_products_collection_url }}">
+                {{ s.button_label }}
+                {% render 'sos-icon', name: 'arrow' %}
+              </a>
+            {%- endif -%}
+            {%- if s.button2_label != blank -%}
+              <a class="sos-btn sos-btn--ghost" href="{{ s.button2_link | default: routes.root_url }}">
+                {{ s.button2_label }}
+              </a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="sos-hero__stage">
+        <div class="sos-alcove">
+          {%- if s.statue_image != blank -%}
+            {{ s.statue_image | image_url: width: 1400 | image_tag:
+                 class: 'sos-alcove__img',
+                 widths: '500, 760, 1000, 1400',
+                 sizes: '(max-width: 760px) 92vw, 46vw',
+                 loading: 'eager',
+                 alt: s.statue_alt | default: '' }}
+          {%- elsif statue_src != blank -%}
+            <img
+              class="sos-alcove__img"
+              src="{{ statue_src }}"
+              alt="{{ s.statue_alt | escape }}"
+              width="1600" height="1188"
+              loading="eager">
+          {%- endif -%}
+          <span class="sos-alcove__glow" aria-hidden="true"></span>
+        </div>
+
+        {%- if s.show_pedestal -%}
+          <div class="sos-pedestal" aria-hidden="true">
+            <div class="sos-pedestal__top"></div>
+            <div class="sos-pedestal__body">
+              {%- if s.plaque != blank -%}
+                <span class="sos-pedestal__plaque">{{ s.plaque }}</span>
+              {%- endif -%}
+            </div>
+            <div class="sos-pedestal__base"></div>
+          </div>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Palace hero",
+  "tag": "section",
+  "class": "sos-hero-section",
+  "settings": [
+    { "type": "header", "content": "Copy" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Sultan's Collection" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "A collection worth crossing kingdoms for." },
+    { "type": "textarea", "id": "body", "label": "Supporting line", "default": "Rare collectible statues, acquired from private collections across the UK." },
+
+    { "type": "header", "content": "Buttons" },
+    { "type": "text", "id": "button_label", "label": "Primary button", "default": "Explore the collection" },
+    { "type": "url", "id": "button_link", "label": "Primary button link" },
+    { "type": "text", "id": "button2_label", "label": "Secondary button" },
+    { "type": "url", "id": "button2_link", "label": "Secondary button link" },
+
+    { "type": "header", "content": "Palace environment" },
+    { "type": "image_picker", "id": "background_image", "label": "Background plate" },
+    { "type": "paragraph", "content": "Leave empty to use the built-in architectural backdrop. Add the approved Modern Palace plate here when it is ready." },
+
+    { "type": "header", "content": "Focal statue" },
+    { "type": "image_picker", "id": "statue_image", "label": "Statue photograph" },
+    { "type": "text", "id": "statue_asset", "label": "Or a theme asset filename", "default": "sos-statue-luffy-gear5.webp" },
+    { "type": "text", "id": "statue_alt", "label": "Statue image description", "default": "Gear 5 Luffy resin statue by Anikingdom x Jimei Palace" },
+    { "type": "checkbox", "id": "show_pedestal", "label": "Show stone pedestal", "default": true },
+    { "type": "text", "id": "plaque", "label": "Pedestal plaque", "default": "Gear 5 Luffy — 1/6 Scale" }
+  ],
+  "presets": [{ "name": "Palace hero" }]
+}
+{% endschema %}

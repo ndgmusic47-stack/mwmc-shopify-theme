@@ -1,0 +1,69 @@
+{% comment %}
+  Sultan of Statues — assurance bar.
+  Four blocks beneath the hero. Copy is editable; nothing is asserted by
+  default that the business has not confirmed.
+{% endcomment %}
+
+<div class="sos">
+  <section class="sos-assurance">
+    <div class="sos-wrap">
+      <div class="sos-assurance__grid">
+        {%- for block in section.blocks -%}
+          <div class="sos-assurance__item" {{ block.shopify_attributes }}>
+            <span class="sos-assurance__icon">
+              {% render 'sos-icon', name: block.settings.icon, size: 26 %}
+            </span>
+            <span>
+              <span class="sos-assurance__title">{{ block.settings.title }}</span>
+              {%- if block.settings.note != blank -%}
+                <span class="sos-assurance__note">{{ block.settings.note }}</span>
+              {%- endif -%}
+            </span>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Assurance bar",
+  "tag": "section",
+  "class": "sos-assurance-section",
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Assurance",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "shield", "label": "Shield" },
+            { "value": "layers", "label": "Layers" },
+            { "value": "parcel", "label": "Parcel" },
+            { "value": "gem", "label": "Gem" }
+          ],
+          "default": "shield"
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Authentic collectibles" },
+        { "type": "text", "id": "note", "label": "Note", "default": "Genuine, verified pieces" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Assurance bar",
+      "blocks": [
+        { "type": "item", "settings": { "icon": "shield", "title": "Authentic collectibles", "note": "Genuine, verified pieces" } },
+        { "type": "item", "settings": { "icon": "layers", "title": "Curated selection", "note": "Hand-picked, high-quality statues" } },
+        { "type": "item", "settings": { "icon": "parcel", "title": "UK based", "note": "Secure shipping & collection" } },
+        { "type": "item", "settings": { "icon": "gem", "title": "Sell your collection", "note": "Turn your statues into value" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

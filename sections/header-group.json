@@ -40,7 +40,8 @@
         "divider_color": "",
         "padding-block-start": 10,
         "padding-block-end": 10
-      }
+      },
+      "disabled": true
     },
     "header_section": {
       "type": "header",
@@ -125,9 +126,23 @@
         "collection_inverse_logo": false,
         "text_color_transparent_collection": ""
       }
+    },
+    "palace_header": {
+      "type": "sos-header",
+      "settings": {
+        "logo_height": 46,
+        "logo_lead": "Sultan",
+        "logo_join": "of",
+        "logo_tail": "Statues",
+        "menu": "main-menu",
+        "sticky": true,
+        "show_search": true,
+        "show_account": true
+      }
     }
   },
   "order": [
+    "palace_header",
     "announcement_bar",
     "header_section"
   ]

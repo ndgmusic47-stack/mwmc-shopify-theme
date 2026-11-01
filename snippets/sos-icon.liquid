@@ -1,0 +1,68 @@
+{% comment %}
+  Sultan of Statues icon set.
+  Usage: {% render 'sos-icon', name: 'search', size: 20 %}
+{% endcomment %}
+
+{%- liquid
+  assign s = size | default: 20
+-%}
+
+{%- case name -%}
+
+  {%- when 'search' -%}
+    <svg width="{{ s }}" height="{{ s }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true" focusable="false">
+      <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/>
+    </svg>
+
+  {%- when 'account' -%}
+    <svg width="{{ s }}" height="{{ s }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true" focusable="false">
+      <circle cx="12" cy="8.5" r="3.9"/><path d="M4.5 20.2a7.8 7.8 0 0115 0"/>
+    </svg>
+
+  {%- when 'bag' -%}
+    <svg width="{{ s }}" height="{{ s }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <path d="M5.2 7.5h13.6l-1.1 12.3H6.3L5.2 7.5z"/><path d="M9 9.4V6.6a3 3 0 016 0v2.8"/>
+    </svg>
+
+  {%- when 'menu' -%}
+    <svg width="{{ s }}" height="{{ s }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true" focusable="false">
+      <path d="M4 7h16M4 12h16M4 17h16"/>
+    </svg>
+
+  {%- when 'close' -%}
+    <svg width="{{ s }}" height="{{ s }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true" focusable="false">
+      <path d="M6 6l12 12M18 6L6 18"/>
+    </svg>
+
+  {%- when 'caret' -%}
+    <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <path d="M2.5 4.5L6 8l3.5-3.5"/>
+    </svg>
+
+  {%- when 'arrow' -%}
+    <svg width="18" height="12" viewBox="0 0 20 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <path d="M0.5 6h18M14 1.5L18.5 6 14 10.5"/>
+    </svg>
+
+  {%- when 'shield' -%}
+    <svg width="{{ s }}" height="{{ s }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <path d="M12 2.8l7.4 2.7v6c0 4.4-3 8.3-7.4 9.7-4.4-1.4-7.4-5.3-7.4-9.7v-6L12 2.8z"/>
+      <path d="M8.7 12.1l2.3 2.3 4.3-4.6" stroke-linecap="round"/>
+    </svg>
+
+  {%- when 'layers' -%}
+    <svg width="{{ s }}" height="{{ s }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <path d="M12 2.9l9 4.6-9 4.6-9-4.6 9-4.6z"/><path d="M3.4 12.3L12 16.7l8.6-4.4"/><path d="M3.4 16.6L12 21l8.6-4.4"/>
+    </svg>
+
+  {%- when 'parcel' -%}
+    <svg width="{{ s }}" height="{{ s }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <path d="M3.4 7.6L12 3.2l8.6 4.4v8.8L12 20.8l-8.6-4.4V7.6z"/><path d="M3.4 7.6L12 12l8.6-4.4M12 12v8.8"/>
+    </svg>
+
+  {%- when 'gem' -%}
+    <svg width="{{ s }}" height="{{ s }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <path d="M6.6 3.6h10.8L21 9.2 12 20.6 3 9.2l3.6-5.6z"/><path d="M3 9.2h18M9.3 9.2L12 20.6l2.7-11.4M6.6 3.6l2.7 5.6m5.4 0l2.7-5.6"/>
+    </svg>
+
+{%- endcase -%}
