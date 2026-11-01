@@ -1,88 +1,77 @@
 {% comment %}
-  Sultan of Statues — cinematic palace hero.
+  Sultan of Statues — palace hero.
 
-  Environment: uses the supplied palace plate when one is set. Until then it
-  renders a crafted architectural fallback (marble, arcade, daylight) so the
-  section is never a grey box and never invents product photography.
-  Focal statue: a real product photograph, presented in a lit alcove above a
-  stone pedestal.
+  v2 handoff: the photographic palace plate supplied in claude-handoff is the
+  architectural setting. All previously CSS-drawn scenery (arcade, light
+  shaft, arched alcove, stone plinth) has been removed — the artwork contains
+  its own pedestal, and nothing is drawn over it.
+
+  The plate is delivered as AVIF -> WebP -> JPEG, desktop and mobile chosen by
+  media query so only one is fetched, eager with high priority, with intrinsic
+  dimensions reserved so there is no layout shift.
+
+  The headline, supporting line and CTA are live HTML — no UI is baked into
+  the artwork.
 {% endcomment %}
 
 {%- liquid
   assign s = section.settings
-  assign statue_src = ''
-  if s.statue_image == blank and s.statue_asset != blank
-    assign statue_src = s.statue_asset | asset_url
-  endif
+  assign dw = s.desktop_widths | split: ','
+  assign mw = s.mobile_widths | split: ','
 -%}
 
 <div class="sos">
   <section class="sos-hero">
 
-    {%- liquid
-      assign plate_d = ''
-      assign plate_m = ''
-      if s.background_image != blank
-        assign plate_d = s.background_image | image_url: width: 2400
-      elsif s.hero_asset_desktop != blank
-        assign plate_d = s.hero_asset_desktop | asset_url
-      endif
-      if s.background_image_mobile != blank
-        assign plate_m = s.background_image_mobile | image_url: width: 1200
-      elsif s.hero_asset_mobile != blank
-        assign plate_m = s.hero_asset_mobile | asset_url
-      endif
-      assign pair_class = ''
-      if plate_m != blank
-        assign pair_class = ' has-mobile-pair'
-      endif
-    -%}
+    {%- if s.plate_desktop != blank or s.desktop_stem != blank -%}
+      <div class="sos-hero__media">
+        <picture>
+          {%- if s.plate_mobile != blank -%}
+            <source media="(max-width: 1000px)"
+                    srcset="{{ s.plate_mobile | image_url: width: 1024 }}"
+                    type="image/jpeg">
+          {%- elsif s.mobile_stem != blank -%}
+            <source media="(max-width: 1000px)" type="image/avif" srcset="
+              {%- for w in mw -%}{{ s.mobile_stem | append: '-' | append: w | append: '.avif' | asset_url }} {{ w }}w{% unless forloop.last %}, {% endunless %}{%- endfor -%}"
+              sizes="100vw">
+            <source media="(max-width: 1000px)" type="image/webp" srcset="
+              {%- for w in mw -%}{{ s.mobile_stem | append: '-' | append: w | append: '.webp' | asset_url }} {{ w }}w{% unless forloop.last %}, {% endunless %}{%- endfor -%}"
+              sizes="100vw">
+            <source media="(max-width: 1000px)"
+                    srcset="{{ s.mobile_stem | append: '-' | append: mw.last | append: '.jpg' | asset_url }}">
+          {%- endif -%}
 
-    {%- if plate_d != blank or plate_m != blank -%}
-      {%- comment -%}
-        The plate is absolutely positioned and object-fit covered, so the
-        width/height attributes below are decode hints only — they never
-        affect layout.
-      {%- endcomment -%}
-      {%- if plate_d != blank -%}
-        <div class="sos-hero__plate sos-hero__plate--desktop{{ pair_class }}" style="--sos-hero-focus: {{ s.focal_point }};">
-          {%- if s.background_image != blank -%}
-            {{ s.background_image | image_url: width: 2400 | image_tag:
-                 widths: '900, 1300, 1700, 2100, 2400', sizes: '100vw',
-                 loading: 'eager', fetchpriority: 'high', alt: '' }}
+          {%- if s.plate_desktop != blank -%}
+            <source srcset="{{ s.plate_desktop | image_url: width: 2000 }}" type="image/jpeg">
+            <img
+              src="{{ s.plate_desktop | image_url: width: 2000 }}"
+              alt="{{ s.plate_alt | escape }}"
+              width="{{ s.plate_desktop.width }}" height="{{ s.plate_desktop.height }}"
+              fetchpriority="high" decoding="async"
+              style="--sos-hero-focus: {{ s.focal_point }};">
           {%- else -%}
-            <img src="{{ plate_d }}" alt="" width="2400" height="1350" loading="eager" fetchpriority="high" decoding="async">
+            <source type="image/avif" srcset="
+              {%- for w in dw -%}{{ s.desktop_stem | append: '-' | append: w | append: '.avif' | asset_url }} {{ w }}w{% unless forloop.last %}, {% endunless %}{%- endfor -%}"
+              sizes="100vw">
+            <source type="image/webp" srcset="
+              {%- for w in dw -%}{{ s.desktop_stem | append: '-' | append: w | append: '.webp' | asset_url }} {{ w }}w{% unless forloop.last %}, {% endunless %}{%- endfor -%}"
+              sizes="100vw">
+            <img
+              src="{{ s.desktop_stem | append: '-' | append: dw.last | append: '.jpg' | asset_url }}"
+              alt="{{ s.plate_alt | escape }}"
+              width="{{ s.plate_width }}" height="{{ s.plate_height }}"
+              fetchpriority="high" decoding="async"
+              style="--sos-hero-focus: {{ s.focal_point }};">
           {%- endif -%}
-        </div>
-      {%- endif -%}
-      {%- if plate_m != blank -%}
-        <div class="sos-hero__plate sos-hero__plate--mobile">
-          {%- if s.background_image_mobile != blank -%}
-            {{ s.background_image_mobile | image_url: width: 1200 | image_tag:
-                 widths: '420, 600, 900, 1200', sizes: '100vw',
-                 loading: 'eager', alt: '' }}
-          {%- else -%}
-            <img src="{{ plate_m }}" alt="" width="1200" height="1600" loading="eager" decoding="async">
-          {%- endif -%}
-        </div>
-      {%- endif -%}
+        </picture>
+      </div>
+
       {%- if s.show_scrim -%}
         <div class="sos-hero__scrim" aria-hidden="true"></div>
       {%- endif -%}
-    {%- else -%}
-      {%- comment -%}
-        No approved hero plate yet. This is a structural limestone-and-arches
-        placeholder so the layout can be reviewed — not a substitute palace
-        design. It disappears the moment a plate is set above.
-      {%- endcomment -%}
-      <div class="sos-hero__env" aria-hidden="true">
-        <div class="sos-hero__arcade"><span></span><span></span><span></span></div>
-        <div class="sos-hero__shaft"></div>
-      </div>
     {%- endif -%}
 
-    <div class="sos-wrap sos-hero__inner">
-
+    <div class="sos-hero__copywrap">
       <div class="sos-hero__copy">
         {%- if s.eyebrow != blank -%}
           <p class="sos-eyebrow">{{ s.eyebrow }}</p>
@@ -112,41 +101,8 @@
           </div>
         {%- endif -%}
       </div>
-
-      <div class="sos-hero__stage">
-        <div class="sos-alcove">
-          {%- if s.statue_image != blank -%}
-            {{ s.statue_image | image_url: width: 1400 | image_tag:
-                 class: 'sos-alcove__img',
-                 widths: '500, 760, 1000, 1400',
-                 sizes: '(max-width: 760px) 92vw, 46vw',
-                 loading: 'eager',
-                 alt: s.statue_alt | default: '' }}
-          {%- elsif statue_src != blank -%}
-            <img
-              class="sos-alcove__img"
-              src="{{ statue_src }}"
-              alt="{{ s.statue_alt | escape }}"
-              width="1600" height="1188"
-              loading="eager">
-          {%- endif -%}
-          <span class="sos-alcove__glow" aria-hidden="true"></span>
-        </div>
-
-        {%- if s.show_pedestal -%}
-          <div class="sos-pedestal" aria-hidden="true">
-            <div class="sos-pedestal__top"></div>
-            <div class="sos-pedestal__body">
-              {%- if s.plaque != blank -%}
-                <span class="sos-pedestal__plaque">{{ s.plaque }}</span>
-              {%- endif -%}
-            </div>
-            <div class="sos-pedestal__base"></div>
-          </div>
-        {%- endif -%}
-      </div>
-
     </div>
+
   </section>
 </div>
 
@@ -168,31 +124,29 @@
     { "type": "url", "id": "button2_link", "label": "Secondary button link" },
 
     { "type": "header", "content": "Palace plate" },
-    { "type": "image_picker", "id": "background_image", "label": "Desktop plate" },
-    { "type": "text", "id": "hero_asset_desktop", "label": "Or a theme asset — homepage-hero-desktop.jpg" },
-    { "type": "image_picker", "id": "background_image_mobile", "label": "Mobile plate" },
-    { "type": "text", "id": "hero_asset_mobile", "label": "Or a theme asset — homepage-hero-mobile.jpg" },
+    { "type": "paragraph", "content": "By default the theme serves the supplied handoff plates as AVIF, WebP and JPEG derivatives. Only use the pickers below to override with a newer plate." },
+    { "type": "text", "id": "desktop_stem", "label": "Desktop asset stem", "default": "sos-hero-desktop" },
+    { "type": "text", "id": "desktop_widths", "label": "Desktop widths", "default": "900,1280,1774" },
+    { "type": "text", "id": "mobile_stem", "label": "Mobile asset stem", "default": "sos-hero-mobile" },
+    { "type": "text", "id": "mobile_widths", "label": "Mobile widths", "default": "640,860,1024" },
+    { "type": "range", "id": "plate_width", "label": "Desktop plate intrinsic width", "min": 800, "max": 3000, "step": 2, "unit": "px", "default": 1774 },
+    { "type": "range", "id": "plate_height", "label": "Desktop plate intrinsic height", "min": 400, "max": 2000, "step": 1, "unit": "px", "default": 887 },
+    { "type": "image_picker", "id": "plate_desktop", "label": "Override — desktop plate" },
+    { "type": "image_picker", "id": "plate_mobile", "label": "Override — mobile plate" },
+    { "type": "text", "id": "plate_alt", "label": "Plate description", "default": "Sunlit ivory limestone palace gallery with an empty stone display pedestal" },
     {
       "type": "select",
       "id": "focal_point",
       "label": "Desktop focal point",
       "options": [
-        { "value": "center", "label": "Centre" },
-        { "value": "left center", "label": "Left" },
-        { "value": "right center", "label": "Right" },
-        { "value": "center top", "label": "Top" }
+        { "value": "50% 62%", "label": "Hold the pedestal (default)" },
+        { "value": "50% 50%", "label": "Centre" },
+        { "value": "62% 62%", "label": "Right of centre" },
+        { "value": "50% 100%", "label": "Floor" }
       ],
-      "default": "center"
+      "default": "50% 62%"
     },
-    { "type": "checkbox", "id": "show_scrim", "label": "Scrim behind the editorial column", "default": true },
-    { "type": "paragraph", "content": "With no plate set, a structural limestone-and-arches placeholder is drawn so the layout can be reviewed. It is replaced entirely as soon as a plate is added." },
-
-    { "type": "header", "content": "Focal statue" },
-    { "type": "image_picker", "id": "statue_image", "label": "Statue photograph" },
-    { "type": "text", "id": "statue_asset", "label": "Or a theme asset filename", "default": "sos-statue-luffy-gear5.webp" },
-    { "type": "text", "id": "statue_alt", "label": "Statue image description", "default": "Gear 5 Luffy resin statue by Anikingdom x Jimei Palace" },
-    { "type": "checkbox", "id": "show_pedestal", "label": "Show stone pedestal", "default": true },
-    { "type": "text", "id": "plaque", "label": "Pedestal plaque", "default": "Gear 5 Luffy — 1/6 Scale" }
+    { "type": "checkbox", "id": "show_scrim", "label": "Scrim behind the editorial column", "default": true }
   ],
   "presets": [{ "name": "Palace hero" }]
 }

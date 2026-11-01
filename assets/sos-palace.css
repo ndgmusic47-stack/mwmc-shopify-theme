@@ -3,37 +3,39 @@
    Design system + bespoke sections. Layered on Savor; does not modify it.
    ========================================================================== */
 
-/* Palette sampled from 02-REFERENCE/approved-modern-palace-homepage.png.
-   Text tones are adjusted to clear WCAG AA (4.5:1) on their own surface;
-   the lighter golds are kept for rules, borders and icons only. */
+/* Brand tokens fixed by CLAUDE-NEXT.md:
+   espresso #2a1f16, ivory #f7f1e7, antique gold #b08c4a, terracotta #b4481c.
+   Small gold TEXT on light surfaces fails WCAG AA at #b08c4a (2.4:1), so a
+   darker companion is used for those few strings only; the brand gold stays
+   on rules, borders, icons and type over espresso. */
 :root {
   /* Surfaces */
-  --sos-espresso:        #271e16;  /* header bar, sampled */
-  --sos-espresso-deep:   #1a130d;
+  --sos-espresso:        #2a1f16;
+  --sos-espresso-deep:   #1b130d;
   --sos-espresso-soft:   #3a2d21;
-  --sos-ivory:           #f3eae0;  /* collection ground, sampled */
-  --sos-ivory-warm:      #f2e8de;  /* trust strip, sampled */
-  --sos-parchment:       #e4d2c2;  /* limestone wall, sampled */
-  --sos-stone:           #d8c6b2;
+  --sos-ivory:           #f7f1e7;
+  --sos-ivory-warm:      #fbf6ee;
+  --sos-parchment:       #efe3d4;
+  --sos-stone:           #ddcdb8;
   --sos-stone-deep:      #c2ac92;
 
-  /* Accents — decorative */
-  --sos-gold:            #a9793f;  /* rules, borders, icons */
-  --sos-gold-light:      #c6a062;  /* wordmark on espresso, 6.7:1 */
-  --sos-gold-pale:       #ddc495;
-  --sos-terracotta:      #9c3306;  /* CTA, sampled */
-  --sos-terracotta-deep: #7e2802;
+  /* Accents — brand */
+  --sos-gold:            #b08c4a;
+  --sos-gold-light:      #c9a35f;
+  --sos-gold-pale:       #e2cda2;
+  --sos-terracotta:      #b4481c;
+  --sos-terracotta-deep: #8d3411;
 
-  /* Accents — text (AA on light surfaces) */
-  --sos-gold-text:       #744d1d;  /* 5.07:1 on limestone, 6.26:1 on ivory */
-  --sos-bronze-text:     #86591f;  /* 5.10:1 on ivory */
+  /* Accents — text companions (AA on light surfaces) */
+  --sos-gold-text:       #7a5420;
+  --sos-bronze-text:     #8a5d20;
 
   /* Ink */
-  --sos-ink:             #2a2118;  /* 10.8:1 on limestone */
-  --sos-ink-soft:        #5f5040;  /* 5.28:1 on limestone */
-  --sos-ink-faint:       #6d5f4d;  /* 5.20:1 on ivory */
-  --sos-on-dark:         #f4ece0;
-  --sos-on-dark-soft:    #c6b49a;
+  --sos-ink:             #2a2118;
+  --sos-ink-soft:        #5d4e3e;
+  --sos-ink-faint:       #6b5d4b;
+  --sos-on-dark:         #f7f1e7;
+  --sos-on-dark-soft:    #c9b79c;
 
   /* Type */
   --sos-display: "Cormorant Garamond", "Times New Roman", serif;
@@ -432,6 +434,9 @@
 }
 
 /* =============================================================  2. HERO  === */
+/* Photographic palace plate supplied in the v2 handoff. All previously
+   CSS-drawn scenery — arcade, light shaft, arched alcove and stone plinth —
+   has been removed; the artwork contains its own pedestal. */
 
 .sos-hero {
   position: relative;
@@ -440,190 +445,50 @@
   isolation: isolate;
 }
 
-/* Environment: supplied plate, or a crafted palace fallback */
-.sos-hero__plate {
-  position: absolute;
-  inset: 0;
+/* The plate is in flow and sets the hero's height, so the 2:1 composition is
+   fitted rather than cropped — the pedestal is never cut away. The copy is
+   positioned over it. */
+.sos-hero__media {
+  position: relative;
   z-index: 0;
-}
-.sos-hero__plate img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: var(--sos-hero-focus, center);
   display: block;
 }
-.sos-hero__plate--mobile { display: none; }
-@media (max-width: 760px) {
-  .sos-hero__plate--desktop.has-mobile-pair { display: none; }
-  .sos-hero__plate--mobile { display: block; }
+.sos-hero__media picture { display: block; }
+.sos-hero__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: var(--sos-hero-focus, 50% 62%);
 }
-/* Scrim: keeps the editorial column legible over a photographic plate.
-   Only rendered when a plate is present. */
+
+/* Scrim: only where HTML copy sits over the plate (desktop/tablet). */
 .sos-hero__scrim {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(100deg,
-    rgba(244, 235, 223, 0.94) 0%,
-    rgba(244, 235, 223, 0.82) 26%,
-    rgba(244, 235, 223, 0.28) 48%,
-    rgba(244, 235, 223, 0) 64%);
   pointer-events: none;
-}
-@media (max-width: 1100px) {
-  .sos-hero__scrim {
-    background: linear-gradient(180deg,
-      rgba(244, 235, 223, 0.95) 0%,
-      rgba(244, 235, 223, 0.86) 38%,
-      rgba(244, 235, 223, 0.35) 62%,
-      rgba(244, 235, 223, 0.1) 100%);
-  }
+  background: linear-gradient(97deg,
+    rgba(249, 243, 233, 0.95) 0%,
+    rgba(249, 243, 233, 0.90) 24%,
+    rgba(249, 243, 233, 0.58) 38%,
+    rgba(249, 243, 233, 0.12) 50%,
+    rgba(249, 243, 233, 0) 60%);
 }
 
-.sos-hero__env { position: absolute; inset: 0; z-index: 0; }
-.sos-hero__env::before {
-  /* marble wall + warm daylight */
-  content: "";
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(120% 90% at 78% 8%, rgba(255, 248, 232, 0.95) 0%, rgba(255,248,232,0) 55%),
-    radial-gradient(70% 60% at 18% 85%, rgba(205, 184, 152, 0.4) 0%, rgba(205,184,152,0) 70%),
-    linear-gradient(176deg, #ece0d2 0%, #e4d2c2 46%, #d6bfa6 100%);
-}
-.sos-hero__env::after {
-  /* floor plane */
-  content: "";
-  position: absolute;
-  inset-inline: 0;
-  bottom: 0;
-  height: 26%;
-  background: linear-gradient(180deg, rgba(176, 152, 116, 0.28) 0%, rgba(140, 118, 86, 0.42) 100%);
-}
-.sos-hero__arcade {
-  position: absolute;
-  inset-block: 0;
-  right: 0;
-  width: 58%;
-  display: flex;
-  align-items: flex-end;
-  gap: 3%;
-  padding: 0 2% 8%;
-  opacity: 0.55;
-}
-.sos-hero__arcade span {
-  flex: 1;
-  height: 72%;
-  border-radius: 50% 50% 0 0 / 34% 34% 0 0;
-  background: linear-gradient(180deg, rgba(255, 250, 238, 0.85), rgba(214, 194, 162, 0.35));
-  box-shadow: inset 0 0 0 1px rgba(176, 140, 74, 0.28);
-}
-.sos-hero__arcade span:nth-child(2) { height: 86%; }
-.sos-hero__shaft {
-  position: absolute;
-  top: -10%; right: 12%;
-  width: 34%; height: 120%;
-  background: linear-gradient(196deg, rgba(255, 246, 225, 0.75), rgba(255, 246, 225, 0) 62%);
-  transform: rotate(8deg);
-  filter: blur(22px);
-  pointer-events: none;
-}
-
-.sos-hero__inner {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-  align-items: center;
-  gap: clamp(2rem, 4vw, 5rem);
-  min-height: clamp(560px, 64vw, 760px);
-  padding-block: clamp(3rem, 5vw, 5rem);
-}
-
-.sos-hero__copy { max-width: 36rem; }
-.sos-hero__title { font-size: var(--sos-fs-h1); }
-.sos-hero__actions { margin-top: clamp(1.75rem, 3vw, 2.75rem); display: flex; flex-wrap: wrap; gap: 1rem; }
-
-/* Alcove + pedestal */
-.sos-hero__stage {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  height: 100%;
-  min-height: clamp(420px, 46vw, 660px);
-}
-.sos-alcove {
-  position: relative;
-  width: min(100%, 540px);
-  flex: 1 1 auto;
-  border-radius: 50% 50% 0 0 / 30% 30% 0 0;
-  overflow: hidden;
-  background: var(--sos-espresso-deep);
-  box-shadow:
-    0 0 0 1px rgba(176, 140, 74, 0.55),
-    0 0 0 7px rgba(250, 245, 237, 0.75),
-    0 0 0 8px rgba(176, 140, 74, 0.35),
-    0 44px 60px -34px rgba(27, 19, 13, 0.8);
-}
-.sos-alcove__img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: center 42%;
-  display: block;
-}
-.sos-alcove__glow {
+.sos-hero__copywrap {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(60% 40% at 50% 4%, rgba(255, 236, 196, 0.42), rgba(255,236,196,0) 70%),
-    linear-gradient(180deg, rgba(27,19,13,0) 55%, rgba(27,19,13,0.55) 100%);
-  pointer-events: none;
-}
-.sos-pedestal {
-  position: relative;
-  width: min(108%, 620px);
-  margin-top: 8px;
-}
-.sos-pedestal::before {
-  /* contact shadow where the alcove meets the plinth */
-  content: "";
-  position: absolute;
-  left: 12%; right: 12%;
-  top: -10px;
-  height: 18px;
-  background: radial-gradient(60% 100% at 50% 100%, rgba(74, 56, 32, 0.4), rgba(74,56,32,0) 72%);
-  filter: blur(3px);
-}
-.sos-pedestal__top {
-  position: relative;
-  height: 16px;
-  background: linear-gradient(180deg, #f8f1e4 0%, #e3d4ba 55%, #cdb997 100%);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 1px 0 rgba(120, 96, 60, 0.25);
-}
-.sos-pedestal__body {
-  position: relative;
-  height: clamp(62px, 8vw, 104px);
-  margin-inline: 8%;
-  background:
-    repeating-linear-gradient(90deg, rgba(255,255,255,0.22) 0 1px, rgba(255,255,255,0) 1px 34px),
-    linear-gradient(180deg, #efe4d1 0%, #d7c5a6 58%, #c0ab8a 100%);
-  box-shadow: inset 2px 0 0 rgba(255,255,255,0.45), inset -2px 0 0 rgba(90, 70, 42, 0.12);
+  z-index: 2;
   display: grid;
-  place-items: center;
+  /* Copy occupies roughly x = 8–40% of the hero, per the brief. */
+  grid-template-columns: 8% minmax(min(320px, 84%), 32%) 1fr;
+  align-items: center;
+  padding-block: clamp(1.25rem, 2.4vw, 2.75rem);
 }
-.sos-pedestal__base {
-  height: 15px;
-  background: linear-gradient(180deg, #d6c4a4, #ad9671);
-  box-shadow: 0 10px 22px -12px rgba(74, 56, 32, 0.55);
-}
-.sos-pedestal__plaque {
-  font-family: var(--sos-sans);
-  font-size: 0.58rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: rgba(88, 68, 40, 0.85);
-}
+.sos-hero__copy { grid-column: 2; }
+.sos-hero__title { font-size: var(--sos-fs-h1); }
+.sos-hero__actions { margin-top: clamp(1.5rem, 2.6vw, 2.5rem); display: flex; flex-wrap: wrap; gap: 1rem; }
 
 /* ========================================================  3. ASSURANCE  === */
 
@@ -776,16 +641,88 @@
 .sos-empty h3 { font-family: var(--sos-display); font-size: var(--sos-fs-h2); font-weight: 500; margin: 0; color: var(--sos-ink); }
 .sos-empty p { font-family: var(--sos-display); font-style: italic; color: var(--sos-ink-soft); margin: 0.75rem 0 0; }
 
+/* ====================================================  5. FEATURED PIECE  == */
+/* Interim treatment. The genuine seller photograph is shown whole, in a
+   restrained editorial panel beside the architectural setting — not
+   composited onto the pedestal, and with no decorative arch around it. */
+
+.sos-featured {
+  background: var(--sos-ivory-warm);
+  border-bottom: 1px solid rgba(176, 140, 74, 0.22);
+  padding-block: var(--sos-section-y);
+}
+.sos-featured__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: clamp(1.75rem, 4vw, 4.5rem);
+  align-items: center;
+}
+.sos-featured__frame {
+  background: var(--sos-espresso-deep);
+  border: 1px solid rgba(176, 140, 74, 0.38);
+  padding: clamp(0.6rem, 1.1vw, 1rem);
+  box-shadow: 0 30px 56px -34px rgba(27, 19, 13, 0.6);
+}
+.sos-featured__frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  /* contain, never cover: the source already crops some effects and the
+     base, so no further pixels are lost. */
+  object-fit: contain;
+  background: var(--sos-espresso-deep);
+}
+.sos-featured__name { font-size: var(--sos-fs-h2); }
+.sos-featured__specs {
+  margin: clamp(1.25rem, 2.4vw, 2rem) 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.1rem;
+}
+.sos-featured__specs div {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.7rem 0;
+  border-top: 1px solid rgba(176, 140, 74, 0.28);
+}
+.sos-featured__specs dt {
+  font-family: var(--sos-sans);
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--sos-bronze-text);
+  margin: 0;
+}
+.sos-featured__specs dd {
+  margin: 0;
+  font-family: var(--sos-display);
+  font-size: 1.08rem;
+  color: var(--sos-ink);
+  text-align: right;
+}
+.sos-featured__note {
+  margin: clamp(1.25rem, 2.4vw, 1.75rem) 0 0;
+  padding-left: 0.9rem;
+  border-left: 2px solid var(--sos-gold);
+  font-family: var(--sos-display);
+  font-style: italic;
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: var(--sos-ink-soft);
+}
+.sos-featured__actions { margin-top: clamp(1.5rem, 2.6vw, 2.25rem); display: flex; flex-wrap: wrap; gap: 1rem; }
+
+@media (max-width: 1000px) {
+  .sos-featured__grid { grid-template-columns: 1fr; gap: 1.75rem; }
+  .sos-featured__actions .sos-btn { width: 100%; justify-content: center; }
+}
+
 /* ======================================================  RESPONSIVE  ======= */
 
 @media (max-width: 1100px) {
-  .sos-hero__inner { grid-template-columns: 1fr; min-height: 0; }
-  .sos-hero__copy { max-width: none; }
-  .sos-hero__stage { min-height: clamp(380px, 70vw, 520px); }
-  .sos-hero__arcade { width: 100%; opacity: 0.35; }
-}
-
-@media (max-width: 1024px) {
   .sos-nav { display: none; }
   .sos-burger { display: inline-flex; }
   .sos-header__bar { grid-template-columns: minmax(0, 1fr) auto; gap: 0.75rem; min-height: 72px; }
@@ -798,18 +735,42 @@
   .sos-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
+/* Narrow layouts: HTML copy first, then the showroom plate as a block image.
+   The desktop arrangement is never squeezed into a narrow crop, and the
+   headline does not consume the whole first screen. */
+@media (max-width: 1000px) {
+  .sos-hero { display: flex; flex-direction: column; }
+  .sos-hero__media { order: 2; }
+  .sos-hero__copywrap { position: static; }
+  /* Portrait plate, lightly cropped to 4:5 and biased low so the pedestal
+     stays within the first screen rather than falling below the fold. */
+  .sos-hero__media img { height: auto; aspect-ratio: 4 / 5; object-position: 50% 86%; }
+  .sos-hero__scrim { display: none; }
+  .sos-hero__copywrap {
+    order: 1;
+    grid-template-columns: 1fr;
+    padding-inline: var(--sos-gutter);
+    padding-block: clamp(1.75rem, 5vw, 2.75rem);
+  }
+  .sos-hero__copy { grid-column: 1; max-width: 34rem; }
+  .sos-hero__title { font-size: clamp(1.85rem, 1.05rem + 3.2vw, 2.9rem); }
+}
+
+@media (max-width: 760px) {
+  /* Keep the copy block compact so the showroom plate is on screen with it. */
+  .sos-hero__copywrap { padding-block: 1.4rem 1.6rem; }
+  .sos-hero .sos-eyebrow { margin-bottom: 0.7rem; }
+  .sos-hero .sos-lede { margin-top: 0.85rem; }
+  .sos-hero__actions { margin-top: 1.25rem; }
+}
+
 @media (max-width: 760px) {
   .sos-logo__word { font-size: 0.95rem; letter-spacing: 0.1em; }
   .sos-logo__img { height: 34px !important; }
   .sos-util { width: 36px; height: 36px; }
   .sos-util svg { width: 19px; height: 19px; }
   .sos-header__bar { min-height: 64px; }
-  .sos-hero__inner { padding-block: 2.5rem 0; gap: 2rem; }
-  .sos-hero__arcade { display: none; }
   .sos-hero__actions .sos-btn { width: 100%; justify-content: center; }
-  .sos-pedestal { width: 100%; }
-  .sos-hero__stage { min-height: 0; }
-  .sos-alcove { width: 100%; aspect-ratio: 4 / 5; flex: none; box-shadow: 0 0 0 1px rgba(176,140,74,0.5), 0 0 0 6px rgba(247,241,231,0.55), 0 24px 44px -26px rgba(27,19,13,0.7); }
   .sos-assurance__grid { grid-template-columns: 1fr; }
   .sos-assurance__item::before { display: none !important; }
   .sos-assurance__item + .sos-assurance__item { border-top: 1px solid rgba(176, 140, 74, 0.22); }

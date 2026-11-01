@@ -10,21 +10,109 @@
         "button_link": "/collections/all",
         "button2_label": "",
         "button2_link": "",
-        "statue_asset": "sos-statue-luffy-gear5.webp",
-        "statue_alt": "Gear 5 Luffy resin statue by Anikingdom x Jimei Palace, displayed in a lit alcove",
-        "show_pedestal": true,
-        "plaque": "Gear 5 Luffy — 1/6 Scale"
+        "desktop_stem": "sos-hero-desktop",
+        "desktop_widths": "900,1280,1774",
+        "mobile_stem": "sos-hero-mobile",
+        "mobile_widths": "640,860,1024",
+        "plate_width": 1774,
+        "plate_height": 887,
+        "plate_alt": "Sunlit ivory limestone palace gallery with an empty stone display pedestal",
+        "focal_point": "50% 62%",
+        "show_scrim": true
+      }
+    },
+    "featured": {
+      "type": "sos-featured",
+      "blocks": {
+        "b1": {
+          "type": "spec",
+          "settings": {
+            "label": "Maker",
+            "value": "Anikingdom x Jimei Palace"
+          }
+        },
+        "b2": {
+          "type": "spec",
+          "settings": {
+            "label": "Scale",
+            "value": "1/6"
+          }
+        },
+        "b3": {
+          "type": "spec",
+          "settings": {
+            "label": "Material",
+            "value": "Resin"
+          }
+        },
+        "b4": {
+          "type": "spec",
+          "settings": {
+            "label": "Availability",
+            "value": "Enquire"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ],
+      "settings": {
+        "image_asset": "sos-statue-luffy-gear5.webp",
+        "image_width": 1600,
+        "image_height": 1188,
+        "image_alt": "Gear 5 Luffy resin statue, seller photograph",
+        "eyebrow": "The featured piece",
+        "name": "Gear 5 Luffy",
+        "note": "Seller photograph, shown whole and uncropped. Presented as a standalone study while the integrated showroom composite is prepared.",
+        "button_label": "Enquire about this piece",
+        "button_link": "/pages/contact"
       }
     },
     "assurance": {
       "type": "sos-assurance",
       "blocks": {
-        "a1": { "type": "item", "settings": { "icon": "shield", "title": "Authentic collectibles", "note": "Genuine, verified pieces" } },
-        "a2": { "type": "item", "settings": { "icon": "layers", "title": "Curated selection", "note": "Hand-picked, high-quality statues" } },
-        "a3": { "type": "item", "settings": { "icon": "parcel", "title": "UK based", "note": "Secure shipping & collection" } },
-        "a4": { "type": "item", "settings": { "icon": "gem", "title": "Sell your collection", "note": "Turn your statues into value" } }
+        "a1": {
+          "type": "item",
+          "settings": {
+            "icon": "shield",
+            "title": "Authentic collectibles",
+            "note": "Genuine, verified pieces"
+          }
+        },
+        "a2": {
+          "type": "item",
+          "settings": {
+            "icon": "layers",
+            "title": "Curated selection",
+            "note": "Hand-picked, high-quality statues"
+          }
+        },
+        "a3": {
+          "type": "item",
+          "settings": {
+            "icon": "parcel",
+            "title": "UK based",
+            "note": "Secure shipping & collection"
+          }
+        },
+        "a4": {
+          "type": "item",
+          "settings": {
+            "icon": "gem",
+            "title": "Sell your collection",
+            "note": "Turn your statues into value"
+          }
+        }
       },
-      "block_order": ["a1", "a2", "a3", "a4"],
+      "block_order": [
+        "a1",
+        "a2",
+        "a3",
+        "a4"
+      ],
       "settings": {}
     },
     "gallery": {
@@ -97,7 +185,14 @@
           }
         }
       },
-      "block_order": ["s1", "s2", "s3", "s4", "s5", "s6"],
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
       "settings": {
         "eyebrow": "The Collection",
         "heading": "Discover the collection",
@@ -111,5 +206,10 @@
       }
     }
   },
-  "order": ["palace_hero", "assurance", "gallery"]
+  "order": [
+    "palace_hero",
+    "featured",
+    "assurance",
+    "gallery"
+  ]
 }
