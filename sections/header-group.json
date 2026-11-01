@@ -137,7 +137,10 @@
         "menu": "main-menu",
         "sticky": true,
         "show_search": true,
-        "show_account": true
+        "show_account": true,
+        "logo_mode": "lockup",
+        "emblem_asset": "sos-logo-emblem.png",
+        "emblem_height": 52
       }
     }
   },

@@ -3,28 +3,35 @@
    Design system + bespoke sections. Layered on Savor; does not modify it.
    ========================================================================== */
 
+/* Palette sampled from 02-REFERENCE/approved-modern-palace-homepage.png.
+   Text tones are adjusted to clear WCAG AA (4.5:1) on their own surface;
+   the lighter golds are kept for rules, borders and icons only. */
 :root {
   /* Surfaces */
-  --sos-espresso:        #2a1f16;
-  --sos-espresso-deep:   #1b130d;
+  --sos-espresso:        #271e16;  /* header bar, sampled */
+  --sos-espresso-deep:   #1a130d;
   --sos-espresso-soft:   #3a2d21;
-  --sos-ivory:           #f7f1e7;
-  --sos-ivory-warm:      #fbf7f0;
-  --sos-parchment:       #efe5d6;
-  --sos-stone:           #ded2c0;
-  --sos-stone-deep:      #c9bba6;
+  --sos-ivory:           #f3eae0;  /* collection ground, sampled */
+  --sos-ivory-warm:      #f2e8de;  /* trust strip, sampled */
+  --sos-parchment:       #e4d2c2;  /* limestone wall, sampled */
+  --sos-stone:           #d8c6b2;
+  --sos-stone-deep:      #c2ac92;
 
-  /* Accents */
-  --sos-gold:            #b08c4a;
-  --sos-gold-light:      #cfa963;
-  --sos-gold-pale:       #e3cfa3;
-  --sos-terracotta:      #b4481c;
-  --sos-terracotta-deep: #8f3512;
+  /* Accents — decorative */
+  --sos-gold:            #a9793f;  /* rules, borders, icons */
+  --sos-gold-light:      #c6a062;  /* wordmark on espresso, 6.7:1 */
+  --sos-gold-pale:       #ddc495;
+  --sos-terracotta:      #9c3306;  /* CTA, sampled */
+  --sos-terracotta-deep: #7e2802;
+
+  /* Accents — text (AA on light surfaces) */
+  --sos-gold-text:       #744d1d;  /* 5.07:1 on limestone, 6.26:1 on ivory */
+  --sos-bronze-text:     #86591f;  /* 5.10:1 on ivory */
 
   /* Ink */
-  --sos-ink:             #2a2118;
-  --sos-ink-soft:        #6b5c4c;
-  --sos-ink-faint:       #93836f;
+  --sos-ink:             #2a2118;  /* 10.8:1 on limestone */
+  --sos-ink-soft:        #5f5040;  /* 5.28:1 on limestone */
+  --sos-ink-faint:       #6d5f4d;  /* 5.20:1 on ivory */
   --sos-on-dark:         #f4ece0;
   --sos-on-dark-soft:    #c6b49a;
 
@@ -69,7 +76,7 @@
   font-weight: 500;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--sos-gold);
+  color: var(--sos-gold-text);
   margin: 0 0 1.1rem;
 }
 .sos-eyebrow::after {
@@ -197,6 +204,7 @@
 
 /* Logo lockup */
 .sos-logo {
+  justify-self: start;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
@@ -217,7 +225,7 @@
   font-style: normal;
   font-size: 0.62em;
   letter-spacing: 0.16em;
-  color: var(--sos-gold);
+  color: #c0954f;
 }
 .sos-logo__rule {
   display: flex;
@@ -238,6 +246,19 @@
   transform: rotate(45deg);
 }
 .sos-logo__img { display: block; height: 46px; width: auto; }
+
+/* Compact lockup: approved emblem + typographic wordmark.
+   The supplied logo-wordmark.png is stacked and wide-format, so per the asset
+   brief it is never squashed into the nav bar — the wordmark here is live text. */
+.sos-logo--lockup { flex-direction: row; align-items: center; gap: 0.72rem; }
+.sos-logo__emblem {
+  display: block;
+  width: auto;
+  flex: none;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+}
+.sos-logo__stack { display: flex; flex-direction: column; align-items: flex-start; gap: 0.28rem; min-width: 0; }
+.sos-logo--lockup .sos-logo__rule { justify-content: flex-start; }
 
 /* Primary nav */
 .sos-nav { justify-self: center; }
@@ -428,8 +449,35 @@
 .sos-hero__plate img {
   width: 100%; height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: var(--sos-hero-focus, center);
   display: block;
+}
+.sos-hero__plate--mobile { display: none; }
+@media (max-width: 760px) {
+  .sos-hero__plate--desktop.has-mobile-pair { display: none; }
+  .sos-hero__plate--mobile { display: block; }
+}
+/* Scrim: keeps the editorial column legible over a photographic plate.
+   Only rendered when a plate is present. */
+.sos-hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(100deg,
+    rgba(244, 235, 223, 0.94) 0%,
+    rgba(244, 235, 223, 0.82) 26%,
+    rgba(244, 235, 223, 0.28) 48%,
+    rgba(244, 235, 223, 0) 64%);
+  pointer-events: none;
+}
+@media (max-width: 1100px) {
+  .sos-hero__scrim {
+    background: linear-gradient(180deg,
+      rgba(244, 235, 223, 0.95) 0%,
+      rgba(244, 235, 223, 0.86) 38%,
+      rgba(244, 235, 223, 0.35) 62%,
+      rgba(244, 235, 223, 0.1) 100%);
+  }
 }
 
 .sos-hero__env { position: absolute; inset: 0; z-index: 0; }
@@ -440,7 +488,7 @@
   background:
     radial-gradient(120% 90% at 78% 8%, rgba(255, 248, 232, 0.95) 0%, rgba(255,248,232,0) 55%),
     radial-gradient(70% 60% at 18% 85%, rgba(205, 184, 152, 0.4) 0%, rgba(205,184,152,0) 70%),
-    linear-gradient(176deg, #f3ebdd 0%, #e9dcc8 48%, #ddcdb3 100%);
+    linear-gradient(176deg, #ece0d2 0%, #e4d2c2 46%, #d6bfa6 100%);
 }
 .sos-hero__env::after {
   /* floor plane */
@@ -682,7 +730,7 @@
   font-size: 0.64rem;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--sos-gold);
+  color: var(--sos-bronze-text);
 }
 .sos-card__name {
   font-family: var(--sos-display);
@@ -772,9 +820,11 @@
 
 @media (max-width: 400px) {
   .sos-logo { align-items: flex-start; }
-  .sos-logo__word { white-space: normal; font-size: 0.88rem; line-height: 1.2; }
+  .sos-logo--lockup { gap: 0.45rem; align-items: center; }
+  .sos-logo__emblem { height: 32px !important; }
+  .sos-logo__word { white-space: normal; font-size: 0.8rem; line-height: 1.18; letter-spacing: 0.08em; }
   .sos-logo__rule { display: none; }
-  .sos-util { width: 34px; height: 34px; }
+  .sos-util { width: 33px; height: 33px; }
   .sos-util svg { width: 18px; height: 18px; }
 }
 

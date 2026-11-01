@@ -30,20 +30,70 @@
   >
     <div class="sos-wrap sos-header__bar">
 
-      <a class="sos-logo" href="{{ routes.root_url }}">
-        {%- if section.settings.logo != blank -%}
-          {%- assign logo_alt = shop.name | escape -%}
-          {{ section.settings.logo
-             | image_url: width: 600
-             | image_tag:
-               class: 'sos-logo__img',
-               alt: logo_alt,
-               widths: '200, 300, 400, 600',
-               style: 'height: ' | append: section.settings.logo_height | append: 'px;' }}
-        {%- else -%}
-          <span class="sos-logo__word">{{ section.settings.logo_lead }} <em>{{ section.settings.logo_join }}</em> {{ section.settings.logo_tail }}</span>
-          <span class="sos-logo__rule" aria-hidden="true"><i></i><b></b><i></i></span>
-        {%- endif -%}
+      {%- liquid
+        assign mode = section.settings.logo_mode
+        if mode == 'image' and section.settings.logo == blank
+          assign mode = 'wordmark'
+        endif
+        assign emblem_src = ''
+        if section.settings.emblem != blank
+          assign emblem_src = section.settings.emblem | image_url: width: 320
+        elsif section.settings.emblem_asset != blank
+          assign emblem_src = section.settings.emblem_asset | asset_url
+        endif
+        if mode == 'lockup' and emblem_src == blank
+          assign mode = 'wordmark'
+        endif
+        assign logo_class = 'sos-logo'
+        if mode == 'lockup'
+          assign logo_class = 'sos-logo sos-logo--lockup'
+        endif
+      -%}
+
+      <a class="{{ logo_class }}" href="{{ routes.root_url }}">
+        {%- case mode -%}
+
+          {%- when 'image' -%}
+            {%- assign logo_alt = shop.name | escape -%}
+            {{ section.settings.logo
+               | image_url: width: 900
+               | image_tag:
+                 class: 'sos-logo__img',
+                 alt: logo_alt,
+                 widths: '200, 300, 450, 600, 900',
+                 style: 'height: ' | append: section.settings.logo_height | append: 'px;' }}
+
+          {%- when 'lockup' -%}
+            {%- if section.settings.emblem != blank -%}
+              {{ section.settings.emblem
+                 | image_url: width: 320
+                 | image_tag:
+                   class: 'sos-logo__emblem',
+                   alt: '',
+                   widths: '80, 120, 160, 240, 320',
+                   style: 'height: ' | append: section.settings.emblem_height | append: 'px;' }}
+            {%- else -%}
+              {%- comment -%} Intrinsic size of the supplied emblem asset; CSS controls the rendered height. {%- endcomment -%}
+              <img
+                class="sos-logo__emblem"
+                src="{{ emblem_src }}"
+                alt=""
+                width="295"
+                height="320"
+                style="height: {{ section.settings.emblem_height }}px;"
+                loading="eager"
+                decoding="async">
+            {%- endif -%}
+            <span class="sos-logo__stack">
+              <span class="sos-logo__word">{{ section.settings.logo_lead }} <em>{{ section.settings.logo_join }}</em> {{ section.settings.logo_tail }}</span>
+              <span class="sos-logo__rule" aria-hidden="true"><i></i><b></b><i></i></span>
+            </span>
+
+          {%- else -%}
+            <span class="sos-logo__word">{{ section.settings.logo_lead }} <em>{{ section.settings.logo_join }}</em> {{ section.settings.logo_tail }}</span>
+            <span class="sos-logo__rule" aria-hidden="true"><i></i><b></b><i></i></span>
+
+        {%- endcase -%}
       </a>
 
       {%- if menu != blank and menu.links.size > 0 -%}
@@ -151,12 +201,26 @@
   "class": "sos-header-section",
   "settings": [
     { "type": "header", "content": "Logo" },
-    { "type": "image_picker", "id": "logo", "label": "Logo image" },
-    { "type": "range", "id": "logo_height", "label": "Logo height", "min": 24, "max": 96, "step": 2, "unit": "px", "default": 46 },
-    { "type": "paragraph", "content": "Leave the logo image empty to use the typographic wordmark below." },
+    {
+      "type": "select",
+      "id": "logo_mode",
+      "label": "Logo style",
+      "options": [
+        { "value": "wordmark", "label": "Typographic wordmark" },
+        { "value": "lockup", "label": "Emblem + wordmark" },
+        { "value": "image", "label": "Uploaded image" }
+      ],
+      "default": "wordmark"
+    },
+    { "type": "paragraph", "content": "The supplied logo-wordmark.png is stacked and wide-format, so it is not used in the nav bar. The wordmark here is live text, which stays crisp at every size." },
     { "type": "text", "id": "logo_lead", "label": "Wordmark — first word", "default": "Sultan" },
     { "type": "text", "id": "logo_join", "label": "Wordmark — joining word", "default": "of" },
     { "type": "text", "id": "logo_tail", "label": "Wordmark — last word", "default": "Statues" },
+    { "type": "image_picker", "id": "emblem", "label": "Emblem image" },
+    { "type": "text", "id": "emblem_asset", "label": "Or an emblem theme asset", "default": "sos-logo-emblem.png" },
+    { "type": "range", "id": "emblem_height", "label": "Emblem height", "min": 28, "max": 80, "step": 2, "unit": "px", "default": 52 },
+    { "type": "image_picker", "id": "logo", "label": "Logo image" },
+    { "type": "range", "id": "logo_height", "label": "Logo image height", "min": 24, "max": 96, "step": 2, "unit": "px", "default": 46 },
 
     { "type": "header", "content": "Navigation" },
     { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },

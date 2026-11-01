@@ -19,16 +19,62 @@
 <div class="sos">
   <section class="sos-hero">
 
-    {%- if s.background_image != blank -%}
-      <div class="sos-hero__plate">
-        {{ s.background_image | image_url: width: 2400 | image_tag:
-             widths: '750, 1100, 1500, 1900, 2400',
-             sizes: '100vw',
-             loading: 'eager',
-             fetchpriority: 'high',
-             alt: '' }}
-      </div>
+    {%- liquid
+      assign plate_d = ''
+      assign plate_m = ''
+      if s.background_image != blank
+        assign plate_d = s.background_image | image_url: width: 2400
+      elsif s.hero_asset_desktop != blank
+        assign plate_d = s.hero_asset_desktop | asset_url
+      endif
+      if s.background_image_mobile != blank
+        assign plate_m = s.background_image_mobile | image_url: width: 1200
+      elsif s.hero_asset_mobile != blank
+        assign plate_m = s.hero_asset_mobile | asset_url
+      endif
+      assign pair_class = ''
+      if plate_m != blank
+        assign pair_class = ' has-mobile-pair'
+      endif
+    -%}
+
+    {%- if plate_d != blank or plate_m != blank -%}
+      {%- comment -%}
+        The plate is absolutely positioned and object-fit covered, so the
+        width/height attributes below are decode hints only — they never
+        affect layout.
+      {%- endcomment -%}
+      {%- if plate_d != blank -%}
+        <div class="sos-hero__plate sos-hero__plate--desktop{{ pair_class }}" style="--sos-hero-focus: {{ s.focal_point }};">
+          {%- if s.background_image != blank -%}
+            {{ s.background_image | image_url: width: 2400 | image_tag:
+                 widths: '900, 1300, 1700, 2100, 2400', sizes: '100vw',
+                 loading: 'eager', fetchpriority: 'high', alt: '' }}
+          {%- else -%}
+            <img src="{{ plate_d }}" alt="" width="2400" height="1350" loading="eager" fetchpriority="high" decoding="async">
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+      {%- if plate_m != blank -%}
+        <div class="sos-hero__plate sos-hero__plate--mobile">
+          {%- if s.background_image_mobile != blank -%}
+            {{ s.background_image_mobile | image_url: width: 1200 | image_tag:
+                 widths: '420, 600, 900, 1200', sizes: '100vw',
+                 loading: 'eager', alt: '' }}
+          {%- else -%}
+            <img src="{{ plate_m }}" alt="" width="1200" height="1600" loading="eager" decoding="async">
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+      {%- if s.show_scrim -%}
+        <div class="sos-hero__scrim" aria-hidden="true"></div>
+      {%- endif -%}
     {%- else -%}
+      {%- comment -%}
+        No approved hero plate yet. This is a structural limestone-and-arches
+        placeholder so the layout can be reviewed — not a substitute palace
+        design. It disappears the moment a plate is set above.
+      {%- endcomment -%}
       <div class="sos-hero__env" aria-hidden="true">
         <div class="sos-hero__arcade"><span></span><span></span><span></span></div>
         <div class="sos-hero__shaft"></div>
@@ -121,9 +167,25 @@
     { "type": "text", "id": "button2_label", "label": "Secondary button" },
     { "type": "url", "id": "button2_link", "label": "Secondary button link" },
 
-    { "type": "header", "content": "Palace environment" },
-    { "type": "image_picker", "id": "background_image", "label": "Background plate" },
-    { "type": "paragraph", "content": "Leave empty to use the built-in architectural backdrop. Add the approved Modern Palace plate here when it is ready." },
+    { "type": "header", "content": "Palace plate" },
+    { "type": "image_picker", "id": "background_image", "label": "Desktop plate" },
+    { "type": "text", "id": "hero_asset_desktop", "label": "Or a theme asset — homepage-hero-desktop.jpg" },
+    { "type": "image_picker", "id": "background_image_mobile", "label": "Mobile plate" },
+    { "type": "text", "id": "hero_asset_mobile", "label": "Or a theme asset — homepage-hero-mobile.jpg" },
+    {
+      "type": "select",
+      "id": "focal_point",
+      "label": "Desktop focal point",
+      "options": [
+        { "value": "center", "label": "Centre" },
+        { "value": "left center", "label": "Left" },
+        { "value": "right center", "label": "Right" },
+        { "value": "center top", "label": "Top" }
+      ],
+      "default": "center"
+    },
+    { "type": "checkbox", "id": "show_scrim", "label": "Scrim behind the editorial column", "default": true },
+    { "type": "paragraph", "content": "With no plate set, a structural limestone-and-arches placeholder is drawn so the layout can be reviewed. It is replaced entirely as soon as a plate is added." },
 
     { "type": "header", "content": "Focal statue" },
     { "type": "image_picker", "id": "statue_image", "label": "Statue photograph" },
