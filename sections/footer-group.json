@@ -20,11 +20,11 @@
             "content_direction": "row",
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
+            "vertical_alignment": "flex-start",
             "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "flex-start",
             "vertical_alignment_flex_direction_column": "flex-start",
-            "gap": 32,
+            "gap": 48,
             "width": "fill",
             "custom_width": 100,
             "width_mobile": "fill",
@@ -64,7 +64,8 @@
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "width": "fill"
               }
             },
             "explore_menu": {
@@ -82,7 +83,8 @@
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "width": "fill"
               }
             },
             "about_text": {
@@ -145,7 +147,7 @@
                 "body": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>A UK collectible statue business. We buy, sell and take statues on consignment.</p>",
+                    "text": "<p>A UK collectible statue business. We buy and sell collectible statues — resin and polystone display pieces from specialist studios.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -304,13 +306,10 @@
       "type": "footer-utilities",
       "blocks": {
         "copyright": {
-          "type": "footer-copyright",
+          "type": "custom-liquid",
           "settings": {
-            "show_powered_by": false,
-            "font_size": "0.75rem",
-            "case": "none"
-          },
-          "blocks": {}
+            "custom_liquid": "<span class=\"sos-copy\">© {{ 'now' | date: '%Y' }} Sultan of Statues</span>"
+          }
         },
         "policies": {
           "type": "footer-policy-list",

@@ -50,6 +50,24 @@
           <button type="submit" class="sos-btn sos-btn--primary">{{ s.submit | default: 'Send enquiry' }}{% render 'sos-icon', name: 'arrow' %}</button>
           {%- if s.photo_note != blank -%}<p class="sos-form__hint">{{ s.photo_note }}</p>{%- endif -%}
         {%- endform -%}
+        <script>
+          (function(){
+            var piece = new URLSearchParams(location.search).get('piece');
+            if (!piece) return;
+            var pretty = piece.replace(/-/g,' ').replace(/\b\w/g, function(c){ return c.toUpperCase(); });
+            var root = document.getElementById({{ s.anchor | default: 'enquiry' | json }});
+            if (!root) return;
+            var field = root.querySelector('input[name="contact[Character or piece]"]');
+            if (field) { field.value = pretty; }
+            var intro = root.querySelector('.sos-enquiry__intro');
+            if (intro) {
+              var p = document.createElement('p');
+              p.className = 'sos-enquiry__subject';
+              p.textContent = 'Enquiring about: ' + pretty;
+              intro.appendChild(p);
+            }
+          })();
+        </script>
       </div>
     </div>
   </section>

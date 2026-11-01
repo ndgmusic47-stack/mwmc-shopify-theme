@@ -9,227 +9,124 @@
  */
 {
   "sections": {
-    "section": {
+    "banner": {
       "type": "sos-page-hero",
       "settings": {
         "eyebrow": "The Collection",
         "heading": "The collection",
-        "body": "Collectible statues, distinctive sculpts and remarkable display pieces."
+        "body": "Pieces currently with us. Each one is individually selected — enquire for availability and price."
       }
     },
-    "main": {
-      "type": "main-collection",
+    "pieces": {
+      "type": "sos-collection",
       "blocks": {
-        "filters": {
-          "type": "filters",
-          "static": true,
+        "s1": {
+          "type": "showcase",
           "settings": {
-            "enable_filtering": true,
-            "filter_style": "horizontal",
-            "filter_width": "full-width",
-            "text_label_case": "default",
-            "show_swatch_label": false,
-            "show_filter_label": false,
-            "enable_sorting": true,
-            "enable_grid_density": false,
-            "background_color": "{{ settings.color_palette.color1 }}",
-            "padding-block-start": 8,
-            "padding-block-end": 8,
-            "padding-inline-start": 40,
-            "padding-inline-end": 40,
-            "facets_margin_bottom": 0,
-            "facets_margin_right": 0
-          },
-          "blocks": {}
+            "image_asset": "sos-statue-luffy-gear5.webp",
+            "maker": "Anikingdom x Jimei Palace",
+            "name": "Gear 5 Luffy",
+            "scale": "1/6 scale — resin",
+            "price_note": "Enquire",
+            "link": "/pages/contact?piece=gear-5-luffy",
+            "tag": ""
+          }
         },
-        "product-card": {
-          "type": "_product-card",
-          "static": true,
+        "s2": {
+          "type": "showcase",
           "settings": {
-            "product_card_gap": 0,
-            "background_color": "{{ settings.color_palette.background }}",
-            "border": "solid",
-            "border_width": 2,
-            "border_opacity": 100,
-            "border_radius": 8,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0,
-            "border_color": "{{ settings.color_palette.foreground }}"
-          },
-          "blocks": {
-            "product_card_gallery_68C7TN": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "portrait",
-                "border": "solid",
-                "border_width": 0,
-                "border_opacity": 0,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "group_JNegy4": {
-              "type": "_product-card-group",
-              "name": "t:names.group",
-              "settings": {
-                "content_direction": "column",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "space-between",
-                "vertical_alignment": "flex-start",
-                "align_baseline": false,
-                "horizontal_alignment_flex_direction_column": "flex-start",
-                "vertical_alignment_flex_direction_column": "space-between",
-                "gap": 4,
-                "width": "fill",
-                "custom_width": 100,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
-                "custom_height": 100,
-                "background_media": "none",
-                "background_color": "{{ settings.color_palette.background }}",
-                "video_position": "cover",
-                "background_image_position": "cover",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "open_in_new_tab": false,
-                "padding-block-start": 12,
-                "padding-block-end": 12,
-                "padding-inline-start": 12,
-                "padding-inline-end": 12
-              },
-              "blocks": {
-                "group_i9KeQ7": {
-                  "type": "_product-card-group",
-                  "name": "t:names.group",
-                  "settings": {
-                    "content_direction": "row",
-                    "vertical_on_mobile": true,
-                    "horizontal_alignment": "space-between",
-                    "vertical_alignment": "center",
-                    "align_baseline": false,
-                    "horizontal_alignment_flex_direction_column": "flex-start",
-                    "vertical_alignment_flex_direction_column": "flex-start",
-                    "gap": 8,
-                    "width": "fill",
-                    "custom_width": 75,
-                    "width_mobile": "fill",
-                    "custom_width_mobile": 75,
-                    "height": "fit",
-                    "custom_height": 100,
-                    "background_media": "none",
-                    "video_position": "cover",
-                    "background_image_position": "cover",
-                    "border": "none",
-                    "border_width": 1,
-                    "border_opacity": 100,
-                    "border_radius": 0,
-                    "toggle_overlay": false,
-                    "overlay_color": "#00000026",
-                    "overlay_style": "solid",
-                    "gradient_direction": "to top",
-                    "open_in_new_tab": false,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {
-                    "product_title_X4Hxci": {
-                      "type": "product-title",
-                      "name": "t:names.product_title",
-                      "settings": {
-                        "width": "fit-content",
-                        "max_width": "normal",
-                        "alignment": "left",
-                        "type_preset": "h5",
-                        "font": "var(--font-body--family)",
-                        "font_size": "1rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "wrap": "pretty",
-                        "background": false,
-                        "background_color": "#00000026",
-                        "corner_radius": 0,
-                        "padding-block-start": 0,
-                        "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
-                      },
-                      "blocks": {}
-                    },
-                    "price_r3D933": {
-                      "type": "price",
-                      "name": "t:names.product_price",
-                      "settings": {
-                        "show_sale_price_first": true,
-                        "show_installments": false,
-                        "show_tax_info": false,
-                        "type_preset": "custom",
-                        "width": "fit-content",
-                        "alignment": "right",
-                        "font": "var(--font-subheading--family)",
-                        "font_size": "1.125rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "padding-block-start": 0,
-                        "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
-                      },
-                      "blocks": {}
-                    }
-                  },
-                  "block_order": [
-                    "product_title_X4Hxci",
-                    "price_r3D933"
-                  ]
-                }
-              },
-              "block_order": [
-                "group_i9KeQ7"
-              ]
-            }
-          },
-          "block_order": [
-            "product_card_gallery_68C7TN",
-            "group_JNegy4"
-          ]
+            "image_asset": "sos-statue-mihawk.webp",
+            "maker": "LX Studio",
+            "name": "Dracule Mihawk",
+            "scale": "Resin",
+            "price_note": "Enquire",
+            "link": "/pages/contact?piece=dracule-mihawk",
+            "tag": ""
+          }
+        },
+        "s3": {
+          "type": "showcase",
+          "settings": {
+            "image_asset": "sos-statue-king.webp",
+            "maker": "",
+            "name": "King",
+            "scale": "Resin",
+            "price_note": "Enquire",
+            "link": "/pages/contact?piece=king",
+            "tag": ""
+          }
+        },
+        "s4": {
+          "type": "showcase",
+          "settings": {
+            "image_asset": "sos-statue-law.webp",
+            "maker": "",
+            "name": "Trafalgar Law",
+            "scale": "Resin",
+            "price_note": "Enquire",
+            "link": "/pages/contact?piece=trafalgar-law",
+            "tag": ""
+          }
+        },
+        "s5": {
+          "type": "showcase",
+          "settings": {
+            "image_asset": "sos-statue-luffy-redroc.webp",
+            "maker": "",
+            "name": "Red Roc Luffy",
+            "scale": "Resin",
+            "price_note": "Enquire",
+            "link": "/pages/contact?piece=red-roc-luffy",
+            "tag": ""
+          }
+        },
+        "s6": {
+          "type": "showcase",
+          "settings": {
+            "image_asset": "sos-statue-sabo.webp",
+            "maker": "Jimei Palace",
+            "name": "Sabo",
+            "scale": "Resin",
+            "price_note": "Enquire",
+            "link": "/pages/contact?piece=sabo",
+            "tag": ""
+          }
         }
       },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
       "settings": {
-        "layout_type": "grid",
-        "product_card_size": "large",
-        "mobile_product_card_size": "small",
-        "product_grid_width": "full-width",
-        "full_width_on_mobile": true,
-        "columns_gap_horizontal": 1,
-        "columns_gap_vertical": 1,
-        "padding-inline-start": 0,
-        "padding-inline-end": 0,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 0,
-        "padding-block-end": 1
+        "eyebrow": "",
+        "heading": "",
+        "link_label": "",
+        "link_url": "",
+        "products_to_show": 6,
+        "empty_heading": "The collection is being prepared",
+        "empty_body": "Contact us to enquire about a featured piece.",
+        "foot_label": "",
+        "foot_url": ""
+      }
+    },
+    "ask": {
+      "type": "sos-prose",
+      "settings": {
+        "tint": true,
+        "heading": "Looking for something specific?",
+        "body": "<p>Tell us the character and studio you are after and we will let you know if we can source it.</p>",
+        "button_label": "Contact us",
+        "button_link": "/pages/contact"
       }
     }
   },
   "order": [
-    "section",
-    "main"
+    "banner",
+    "pieces",
+    "ask"
   ]
 }

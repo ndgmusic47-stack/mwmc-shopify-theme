@@ -42,6 +42,10 @@
              style="--sos-hero-focus: {{ s.focal_point }};">
       </picture>
 
+      {%- if s.plate_caption != blank -%}
+        <p class="sos-hero__plaque">{{ s.plate_caption }}</p>
+      {%- endif -%}
+
       {%- if s.piece_stem != blank -%}
         <div class="sos-hero__piece"
              style="--piece-x: {{ s.piece_x }}%; --piece-bottom: {{ s.piece_bottom }}%; --piece-w: {{ s.piece_w }}%; --piece-x-m: {{ s.piece_x_m }}%; --piece-bottom-m: {{ s.piece_bottom_m }}%; --piece-w-m: {{ s.piece_w_m }}%;">
@@ -109,7 +113,8 @@
     { "type": "text", "id": "mobile_widths", "label": "Mobile widths", "default": "640,860,1024" },
     { "type": "number", "id": "plate_width", "label": "Plate intrinsic width (px)", "default": 1774 },
     { "type": "number", "id": "plate_height", "label": "Plate intrinsic height (px)", "default": 887 },
-    { "type": "text", "id": "plate_alt", "label": "Plate description", "default": "Sunlit limestone palace gallery with a stone display pedestal" },
+    { "type": "text", "id": "plate_alt", "label": "Plate description", "default": "Gear 5 Luffy statue displayed on a stone pedestal in a sunlit palace gallery" },
+    { "type": "text", "id": "plate_caption", "label": "Plaque caption", "default": "Gear 5 Luffy — Anikingdom x Jimei Palace — 1/6 scale" },
     {
       "type": "select", "id": "focal_point", "label": "Desktop focal point",
       "options": [
@@ -121,7 +126,7 @@
     },
 
     { "type": "header", "content": "Featured piece on the pedestal" },
-    { "type": "text", "id": "piece_stem", "label": "Piece asset stem", "default": "sos-piece-luffy" },
+    { "type": "text", "id": "piece_stem", "label": "Piece asset stem", "default": "" },
     { "type": "text", "id": "piece_widths", "label": "Piece widths", "default": "760,1100,1520" },
     { "type": "number", "id": "piece_width", "label": "Piece intrinsic width (px)", "default": 1600 },
     { "type": "number", "id": "piece_height", "label": "Piece intrinsic height (px)", "default": 1188 },

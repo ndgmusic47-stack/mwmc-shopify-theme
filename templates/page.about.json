@@ -12,7 +12,7 @@
       "type": "sos-prose",
       "settings": {
         "heading": "What we do",
-        "body": "<p>We buy, sell and take collectible statues on consignment — resin and polystone display pieces from specialist studios.</p><p>Every piece is described as accurately as we can. Where we do not yet know a detail — edition size, exact scale, the full contents of a box — we say so rather than guess.</p><p>Explore the collection or contact us about buying, selling or consignment.</p>",
+        "body": "<p>Sultan of Statues is a UK-based collectible statue business. We buy and sell collectible statues — resin and polystone display pieces from specialist studios.</p><p>Every piece is described as accurately as we can. Where we do not yet know a detail — edition size, exact scale, the full contents of a box — we say so rather than guess.</p>",
         "button_label": "Explore the collection",
         "button_link": "/collections/all"
       }
@@ -23,7 +23,7 @@
         "tint": true,
         "eyebrow": "Get in touch",
         "heading": "Talk to us about a piece",
-        "body": "<p>Questions about a statue, an order, selling your collection or consignment are all welcome.</p>",
+        "body": "<p>Questions about a statue, an order or selling your statues are all welcome.</p>",
         "button_label": "Contact us",
         "button_link": "/pages/contact"
       }

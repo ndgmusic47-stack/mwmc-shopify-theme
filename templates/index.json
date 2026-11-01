@@ -16,20 +16,10 @@
         "mobile_widths": "640,860,1024",
         "plate_width": 1774,
         "plate_height": 887,
-        "plate_alt": "Sunlit limestone palace gallery with a stone display pedestal",
+        "plate_alt": "Gear 5 Luffy statue displayed on a stone pedestal in a sunlit palace gallery",
         "focal_point": "50% 62%",
-        "piece_stem": "sos-piece-luffy",
-        "piece_widths": "760,1100,1520",
-        "piece_width": 1600,
-        "piece_height": 1188,
-        "piece_alt": "Gear 5 Luffy resin statue by Anikingdom x Jimei Palace",
-        "piece_caption": "Gear 5 Luffy — Anikingdom x Jimei Palace — 1/6 scale",
-        "piece_x": 63,
-        "piece_bottom": 19,
-        "piece_w": 30,
-        "piece_x_m": 50,
-        "piece_bottom_m": 13,
-        "piece_w_m": 62
+        "piece_stem": "",
+        "plate_caption": "Gear 5 Luffy — Anikingdom x Jimei Palace — 1/6 scale"
       }
     },
     "assurance": {
@@ -38,17 +28,17 @@
         "a1": {
           "type": "item",
           "settings": {
-            "icon": "shield",
-            "title": "Authentic collectibles",
-            "note": "Genuine, verified pieces"
+            "icon": "gem",
+            "title": "Collectible statues",
+            "note": "Resin and polystone display pieces"
           }
         },
         "a2": {
           "type": "item",
           "settings": {
             "icon": "layers",
-            "title": "Curated selection",
-            "note": "Hand-picked, high-quality statues"
+            "title": "Individually selected",
+            "note": "Each piece chosen by hand"
           }
         },
         "a3": {
@@ -56,15 +46,15 @@
           "settings": {
             "icon": "parcel",
             "title": "UK based",
-            "note": "Secure shipping & collection"
+            "note": "Buying and selling in the UK"
           }
         },
         "a4": {
           "type": "item",
           "settings": {
-            "icon": "gem",
-            "title": "Sell your collection",
-            "note": "Turn your statues into value"
+            "icon": "shield",
+            "title": "We buy outright",
+            "note": "Tell us what you have"
           }
         }
       },
@@ -171,11 +161,23 @@
         "foot_label": "",
         "foot_url": ""
       }
+    },
+    "sell": {
+      "type": "sos-prose",
+      "settings": {
+        "tint": true,
+        "eyebrow": "Sell your statues",
+        "heading": "A new home for your collection",
+        "body": "<p>We buy statues outright. Tell us what you have, where you are based and its condition — include the studio, scale if known, original packaging and any repairs or missing parts.</p>",
+        "button_label": "Tell us about your collection",
+        "button_link": "/pages/sell-to-us"
+      }
     }
   },
   "order": [
     "palace_hero",
     "assurance",
-    "gallery"
+    "gallery",
+    "sell"
   ]
 }

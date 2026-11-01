@@ -5,7 +5,7 @@
       "settings": {
         "eyebrow": "Contact",
         "heading": "Get in touch",
-        "body": "Ask about a statue, an order, selling your collection or consignment."
+        "body": "Ask about a statue, an order, or selling your statues."
       }
     },
     "enquiry": {
@@ -14,13 +14,21 @@
         "f1": {
           "type": "field",
           "settings": {
+            "label": "Character or piece",
+            "hint": "e.g. Gear 5 Luffy"
+          }
+        },
+        "f2": {
+          "type": "field",
+          "settings": {
             "label": "What is this about",
-            "hint": "Statue enquiry, order, selling, or consignment"
+            "hint": "Statue enquiry, an order, or selling"
           }
         }
       },
       "block_order": [
-        "f1"
+        "f1",
+        "f2"
       ],
       "settings": {
         "anchor": "enquiry",

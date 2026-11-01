@@ -905,3 +905,89 @@
   .sos-enquiry__inner { grid-template-columns: 1fr; }
   .sos-pagehero__inner { padding-block: clamp(2rem, 7vw, 3.25rem); }
 }
+
+/* Plaque for the composite plate */
+.sos-hero__plaque {
+  position: absolute;
+  z-index: 2;
+  left: 50%; translate: -50% 0;
+  bottom: 3.5%;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  background: rgba(42, 31, 22, 0.62);
+  border: 1px solid rgba(176, 140, 74, 0.5);
+  font-family: var(--sos-sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--sos-gold-pale);
+  white-space: nowrap;
+}
+@media (max-width: 1000px) { .sos-hero__plaque { bottom: 2.5%; font-size: 0.54rem; letter-spacing: 0.16em; } }
+@media (max-width: 420px) { .sos-hero__plaque { white-space: normal; text-align: center; max-width: 86%; } }
+
+/* ==========================================  7. SAVOR SURFACE OVERRIDES  ==
+   Collection, search, bag, policy and account pages are rendered by Savor.
+   These bring them onto the Sultan palette, type and spacing without
+   touching Savor's own files. */
+
+.shopify-section, .shopify-section * { font-feature-settings: inherit; }
+
+main h1, main h2, main h3,
+.collection__title, .search__title, .cart__title,
+.shopify-policy__title h1, .shopify-policy__body h2 {
+  font-family: var(--sos-display) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.01em !important;
+  text-transform: none !important;
+  color: var(--sos-ink) !important;
+}
+.shopify-policy__container { max-width: 68ch; padding-inline: var(--sos-gutter); }
+.shopify-policy__body { font-family: var(--sos-display); font-size: 1.1rem; line-height: 1.62; color: var(--sos-ink-soft); }
+.shopify-policy__body a { color: var(--sos-terracotta); }
+
+/* Sorting / filter bar: no yellow band, no pills */
+.facets, .facets__wrapper, .collection__filters, .facets-container,
+[class*="facets"], [class*="sort-by"] {
+  background: var(--sos-ivory-warm) !important;
+  border-block: 1px solid rgba(176, 140, 74, 0.24) !important;
+}
+[class*="facets"] button, [class*="sort-by"] button,
+[class*="facets"] select, [class*="sort-by"] select {
+  border-radius: 0 !important;
+  font-family: var(--sos-sans) !important;
+  font-size: 0.74rem !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+  color: var(--sos-ink) !important;
+}
+
+/* Savor buttons -> Sultan */
+main .button, main button[type="submit"], main .shopify-payment-button__button {
+  border-radius: 0 !important;
+  font-family: var(--sos-sans) !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+}
+
+/* Footer: even columns, readable description measure */
+.shopify-section-group-footer-group .sos-footer-fix { display: contents; }
+footer [class*="group"] > * { min-width: 0; }
+footer p, footer h3 { max-width: 46ch; }
+@media (min-width: 1001px) {
+  footer [class*="group"][class*="row"] { align-items: flex-start !important; }
+}
+
+.sos-enquiry__subject {
+  margin-top: 1rem;
+  display: inline-block;
+  padding: 0.5rem 0.9rem;
+  background: rgba(176, 140, 74, 0.14);
+  border: 1px solid var(--sos-gold);
+  font-family: var(--sos-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sos-bronze-text);
+}
+.sos-copy { font-family: var(--sos-sans); font-size: 0.75rem; letter-spacing: 0.08em; color: var(--sos-on-dark-soft); }
