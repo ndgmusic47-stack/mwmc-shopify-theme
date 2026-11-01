@@ -1,0 +1,48 @@
+{% comment %} Sultan of Statues — editorial copy, optionally with numbered steps. {% endcomment %}
+<div class="sos">
+  <section class="sos-prose{% if section.settings.tint %} sos-prose--tint{% endif %}">
+    <div class="sos-wrap">
+      {%- if section.settings.eyebrow != blank -%}<p class="sos-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="sos-display sos-prose__title">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.body != blank -%}<div class="sos-prose__body">{{ section.settings.body }}</div>{%- endif -%}
+      {%- if section.blocks.size > 0 -%}
+        <ol class="sos-steps">
+          {%- for block in section.blocks -%}
+            <li {{ block.shopify_attributes }}>
+              <span class="sos-steps__n">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+              <div>
+                <h3 class="sos-steps__h">{{ block.settings.title }}</h3>
+                {%- if block.settings.text != blank -%}<p class="sos-steps__p">{{ block.settings.text }}</p>{%- endif -%}
+              </div>
+            </li>
+          {%- endfor -%}
+        </ol>
+      {%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <div class="sos-prose__actions">
+          <a class="sos-btn sos-btn--ghost" href="{{ section.settings.button_link | default: routes.root_url }}">
+            {{ section.settings.button_label }}{% render 'sos-icon', name: 'arrow' %}
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+</div>
+{% schema %}
+{
+  "name": "Editorial copy", "tag": "section", "class": "sos-prose-section", "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "richtext", "id": "body", "label": "Body" },
+    { "type": "text", "id": "button_label", "label": "Button" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "checkbox", "id": "tint", "label": "Tinted background", "default": false }
+  ],
+  "blocks": [{ "type": "step", "name": "Step", "settings": [
+    { "type": "text", "id": "title", "label": "Title" },
+    { "type": "textarea", "id": "text", "label": "Text" }
+  ]}],
+  "presets": [{ "name": "Editorial copy" }]
+}
+{% endschema %}

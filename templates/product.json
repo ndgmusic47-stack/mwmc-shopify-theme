@@ -327,7 +327,7 @@
                   "type": "_accordion-row",
                   "name": "t:names.accordion_row",
                   "settings": {
-                    "heading": "Graded cards",
+                    "heading": "collectible statues",
                     "open_by_default": false,
                     "icon": "none",
                     "width": 20
@@ -336,7 +336,7 @@
                     "text": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>Where a card is graded, the grader, grade and certification number are given in the listing so you can verify it yourself with the grading company.</p>",
+                        "text": "<p>Where a statue is graded, the specialists, grade and certification number are given in the listing so you can verify it yourself with the condition assessment company.</p>",
                         "width": "100%",
                         "max_width": "normal",
                         "alignment": "left",
@@ -362,7 +362,7 @@
                   "type": "_accordion-row",
                   "name": "t:names.accordion_row",
                   "settings": {
-                    "heading": "Questions about this card",
+                    "heading": "Questions about this statue",
                     "open_by_default": false,
                     "icon": "none",
                     "width": 20
@@ -371,7 +371,7 @@
                     "text": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>Ask before you buy — we'd rather answer a question than have a card come back. Use the contact page and mention the card name and set.</p>",
+                        "text": "<p>Ask before you buy — we'd rather answer a question than have a statue come back. Use the contact page and mention the statue name and set.</p>",
                         "width": "100%",
                         "max_width": "normal",
                         "alignment": "left",
@@ -627,7 +627,8 @@
         "background_color": "{{ settings.color_palette.background }}",
         "padding-block-start": 1,
         "padding-block-end": 1
-      }
+      },
+      "disabled": true
     }
   },
   "order": [

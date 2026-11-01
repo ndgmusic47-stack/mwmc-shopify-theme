@@ -1,0 +1,31 @@
+{% comment %} Sultan of Statues — page banner. {% endcomment %}
+<div class="sos">
+  <section class="sos-pagehero{% if section.settings.dark %} sos-pagehero--dark{% endif %}">
+    <div class="sos-wrap sos-pagehero__inner">
+      {%- if section.settings.eyebrow != blank -%}<p class="sos-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h1 class="sos-display sos-pagehero__title">{{ section.settings.heading | default: page.title }}</h1>
+      {%- if section.settings.body != blank -%}<p class="sos-lede sos-pagehero__lede">{{ section.settings.body }}</p>{%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <div class="sos-pagehero__actions">
+          <a class="sos-btn sos-btn--primary" href="{{ section.settings.button_link | default: routes.root_url }}">
+            {{ section.settings.button_label }}{% render 'sos-icon', name: 'arrow' %}
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+</div>
+{% schema %}
+{
+  "name": "Page banner", "tag": "section", "class": "sos-pagehero-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "textarea", "id": "body", "label": "Supporting line" },
+    { "type": "text", "id": "button_label", "label": "Button" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "checkbox", "id": "dark", "label": "Espresso background", "default": false }
+  ],
+  "presets": [{ "name": "Page banner" }]
+}
+{% endschema %}

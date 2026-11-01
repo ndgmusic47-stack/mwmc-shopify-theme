@@ -5,7 +5,7 @@
       "settings": {
         "eyebrow": "The Sultan's Collection",
         "heading": "A collection worth crossing kingdoms for.",
-        "body": "Rare collectible statues, acquired from private collections across the UK.",
+        "body": "Discover collectible statues, distinctive sculpts and remarkable display pieces.",
         "button_label": "Explore the collection",
         "button_link": "/collections/all",
         "button2_label": "",
@@ -16,59 +16,20 @@
         "mobile_widths": "640,860,1024",
         "plate_width": 1774,
         "plate_height": 887,
-        "plate_alt": "Sunlit ivory limestone palace gallery with an empty stone display pedestal",
+        "plate_alt": "Sunlit limestone palace gallery with a stone display pedestal",
         "focal_point": "50% 62%",
-        "show_scrim": true
-      }
-    },
-    "featured": {
-      "type": "sos-featured",
-      "blocks": {
-        "b1": {
-          "type": "spec",
-          "settings": {
-            "label": "Maker",
-            "value": "Anikingdom x Jimei Palace"
-          }
-        },
-        "b2": {
-          "type": "spec",
-          "settings": {
-            "label": "Scale",
-            "value": "1/6"
-          }
-        },
-        "b3": {
-          "type": "spec",
-          "settings": {
-            "label": "Material",
-            "value": "Resin"
-          }
-        },
-        "b4": {
-          "type": "spec",
-          "settings": {
-            "label": "Availability",
-            "value": "Enquire"
-          }
-        }
-      },
-      "block_order": [
-        "b1",
-        "b2",
-        "b3",
-        "b4"
-      ],
-      "settings": {
-        "image_asset": "sos-statue-luffy-gear5.webp",
-        "image_width": 1600,
-        "image_height": 1188,
-        "image_alt": "Gear 5 Luffy resin statue, seller photograph",
-        "eyebrow": "The featured piece",
-        "name": "Gear 5 Luffy",
-        "note": "Seller photograph, shown whole and uncropped. Presented as a standalone study while the integrated showroom composite is prepared.",
-        "button_label": "Enquire about this piece",
-        "button_link": "/pages/contact"
+        "piece_stem": "sos-piece-luffy",
+        "piece_widths": "760,1100,1520",
+        "piece_width": 1600,
+        "piece_height": 1188,
+        "piece_alt": "Gear 5 Luffy resin statue by Anikingdom x Jimei Palace",
+        "piece_caption": "Gear 5 Luffy — Anikingdom x Jimei Palace — 1/6 scale",
+        "piece_x": 63,
+        "piece_bottom": 19,
+        "piece_w": 30,
+        "piece_x_m": 50,
+        "piece_bottom_m": 13,
+        "piece_w_m": 62
       }
     },
     "assurance": {
@@ -124,9 +85,10 @@
             "image_asset": "sos-statue-luffy-gear5.webp",
             "maker": "Anikingdom x Jimei Palace",
             "name": "Gear 5 Luffy",
-            "scale": "1/6 Scale — Resin",
-            "price_note": "Price on request",
-            "link": "/collections/all"
+            "scale": "1/6 scale — resin",
+            "price_note": "Enquire",
+            "link": "/pages/contact",
+            "tag": ""
           }
         },
         "s2": {
@@ -135,42 +97,46 @@
             "image_asset": "sos-statue-mihawk.webp",
             "maker": "LX Studio",
             "name": "Dracule Mihawk",
-            "scale": "Resin — Limited edition",
-            "price_note": "Price on request",
-            "link": "/collections/all"
+            "scale": "Resin",
+            "price_note": "Enquire",
+            "link": "/pages/contact",
+            "tag": ""
           }
         },
         "s3": {
           "type": "showcase",
           "settings": {
             "image_asset": "sos-statue-king.webp",
-            "maker": "Studio piece",
+            "maker": "",
             "name": "King",
-            "scale": "Resin — Display piece",
-            "price_note": "Price on request",
-            "link": "/collections/all"
+            "scale": "Resin",
+            "price_note": "Enquire",
+            "link": "/pages/contact",
+            "tag": ""
           }
         },
         "s4": {
           "type": "showcase",
           "settings": {
             "image_asset": "sos-statue-law.webp",
-            "maker": "Studio piece",
+            "maker": "",
             "name": "Trafalgar Law",
-            "scale": "1/6 Scale — Resin",
-            "price_note": "Price on request",
-            "link": "/collections/all"
+            "scale": "Resin",
+            "price_note": "Enquire",
+            "link": "/pages/contact",
+            "tag": ""
           }
         },
         "s5": {
           "type": "showcase",
           "settings": {
             "image_asset": "sos-statue-luffy-redroc.webp",
-            "maker": "Studio piece",
+            "maker": "",
             "name": "Red Roc Luffy",
-            "scale": "1/6 Scale — Resin",
-            "price_note": "Price on request",
-            "link": "/collections/all"
+            "scale": "Resin",
+            "price_note": "Enquire",
+            "link": "/pages/contact",
+            "tag": ""
           }
         },
         "s6": {
@@ -179,9 +145,10 @@
             "image_asset": "sos-statue-sabo.webp",
             "maker": "Jimei Palace",
             "name": "Sabo",
-            "scale": "1/6 Scale — Resin",
-            "price_note": "Price on request",
-            "link": "/collections/all"
+            "scale": "Resin",
+            "price_note": "Enquire",
+            "link": "/pages/contact",
+            "tag": ""
           }
         }
       },
@@ -195,12 +162,12 @@
       ],
       "settings": {
         "eyebrow": "The Collection",
-        "heading": "Discover the collection",
-        "link_label": "View all statues",
-        "link_url": "/collections/all",
+        "heading": "Pieces in the collection",
+        "link_label": "Enquire about a piece",
+        "link_url": "/pages/contact",
         "products_to_show": 6,
-        "empty_heading": "A collection in the making",
-        "empty_body": "New pieces will appear here. Visit the gallery again soon.",
+        "empty_heading": "The collection is being prepared",
+        "empty_body": "Contact us to enquire about a featured piece.",
         "foot_label": "",
         "foot_url": ""
       }
@@ -208,7 +175,6 @@
   },
   "order": [
     "palace_hero",
-    "featured",
     "assurance",
     "gallery"
   ]

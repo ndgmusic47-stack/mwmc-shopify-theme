@@ -123,7 +123,7 @@
                 "heading": {
                   "type": "text",
                   "settings": {
-                    "text": "<h3>Mum, Where's My Cards</h3>",
+                    "text": "<h3>Sultan of Statues</h3>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -145,7 +145,7 @@
                 "body": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>A collector-led UK trading card business. We buy, sell and take cards on consignment — Pokémon now, One Piece to follow.</p>",
+                    "text": "<p>A UK collectible statue business. We buy, sell and take statues on consignment.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -216,7 +216,7 @@
             "heading": {
               "type": "text",
               "settings": {
-                "text": "<h3>Card drops and show dates</h3>",
+                "text": "<h3>Collection updates</h3>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
@@ -238,7 +238,7 @@
             "body": {
               "type": "text",
               "settings": {
-                "text": "<p>New stock and event news by email. Unsubscribe any time.</p>",
+                "text": "<p>Occasional news about pieces joining the collection. Unsubscribe any time.</p>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",

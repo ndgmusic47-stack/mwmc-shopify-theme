@@ -434,61 +434,97 @@
 }
 
 /* =============================================================  2. HERO  === */
-/* Photographic palace plate supplied in the v2 handoff. All previously
-   CSS-drawn scenery — arcade, light shaft, arched alcove and stone plinth —
-   has been removed; the artwork contains its own pedestal. */
+/* Photographic palace plate + the genuine seller photograph of the piece,
+   mounted as a display panel standing on the plate's own stone pedestal.
+   No CSS-drawn scenery, no arch, no cutout, no redrawn pixels. */
 
-.sos-hero {
-  position: relative;
-  background: var(--sos-parchment);
-  overflow: hidden;
-  isolation: isolate;
-}
+.sos-hero { position: relative; background: var(--sos-parchment); isolation: isolate; }
 
-/* The plate is in flow and sets the hero's height, so the 2:1 composition is
-   fitted rather than cropped — the pedestal is never cut away. The copy is
-   positioned over it. */
-.sos-hero__media {
-  position: relative;
-  z-index: 0;
-  display: block;
-}
+.sos-hero__media { position: relative; z-index: 0; display: block; }
 .sos-hero__media picture { display: block; }
 .sos-hero__media img {
-  display: block;
-  width: 100%;
-  height: auto;
+  display: block; width: 100%; height: auto;
   object-fit: cover;
   object-position: var(--sos-hero-focus, 50% 62%);
 }
 
-/* Scrim: only where HTML copy sits over the plate (desktop/tablet). */
-.sos-hero__scrim {
+/* The piece, standing on the pedestal. Positions are percentages of the
+   plate, which is fitted not cropped, so they track the artwork exactly. */
+.sos-hero__piece {
   position: absolute;
-  inset: 0;
-  z-index: 1;
+  z-index: 2;
+  left: var(--piece-x, 63%);
+  bottom: var(--piece-bottom, 19%);
+  width: var(--piece-w, 30%);
+  transform: translateX(-50%);
   pointer-events: none;
-  background: linear-gradient(97deg,
-    rgba(249, 243, 233, 0.95) 0%,
-    rgba(249, 243, 233, 0.90) 24%,
-    rgba(249, 243, 233, 0.58) 38%,
-    rgba(249, 243, 233, 0.12) 50%,
-    rgba(249, 243, 233, 0) 60%);
+}
+.sos-hero__piece figure { margin: 0; position: relative; }
+.sos-hero__piece img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid rgba(176, 140, 74, 0.55);
+  box-shadow:
+    0 0 0 6px rgba(42, 31, 22, 0.92),
+    0 0 0 7px rgba(176, 140, 74, 0.45),
+    0 34px 46px -26px rgba(58, 42, 22, 0.68);
+}
+/* Contact shadow where the panel meets the stone. */
+.sos-hero__piece::after {
+  content: "";
+  position: absolute;
+  left: 4%; right: 4%;
+  bottom: -14px;
+  height: 26px;
+  background: radial-gradient(55% 100% at 50% 0%, rgba(74, 54, 30, 0.55), rgba(74, 54, 30, 0) 75%);
+  filter: blur(4px);
+}
+.sos-hero__caption {
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+  bottom: -2.6rem;
+  width: max-content;
+  max-width: 120%;
+  text-align: center;
+  font-family: var(--sos-sans);
+  font-size: 0.62rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: #5a4428;
 }
 
+/* Copy. No scrim wash: a soft local gradient only under the text column. */
 .sos-hero__copywrap {
   position: absolute;
   inset: 0;
-  z-index: 2;
+  z-index: 3;
   display: grid;
-  /* Copy occupies roughly x = 8–40% of the hero, per the brief. */
-  grid-template-columns: 8% minmax(min(320px, 84%), 32%) 1fr;
+  grid-template-columns: 8% minmax(min(330px, 84%), 34%) 1fr;
   align-items: center;
-  padding-block: clamp(1.25rem, 2.4vw, 2.75rem);
+  padding-block: clamp(1rem, 2vw, 2.25rem);
 }
-.sos-hero__copy { grid-column: 2; }
-.sos-hero__title { font-size: var(--sos-fs-h1); }
-.sos-hero__actions { margin-top: clamp(1.5rem, 2.6vw, 2.5rem); display: flex; flex-wrap: wrap; gap: 1rem; }
+.sos-hero__copy { grid-column: 2; position: relative; }
+.sos-hero__copy::before {
+  content: "";
+  position: absolute;
+  inset: -8% -14% -10% -16%;
+  z-index: -1;
+  background: radial-gradient(68% 62% at 42% 50%,
+    rgba(250, 245, 236, 0.9) 0%,
+    rgba(250, 245, 236, 0.74) 46%,
+    rgba(250, 245, 236, 0) 78%);
+}
+.sos-hero__title {
+  /* Three intentional lines at desktop. Never break inside a word. */
+  font-size: clamp(2rem, 0.75rem + 2.6vw, 3.5rem);
+  line-height: 1.05;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+}
+.sos-hero__actions { margin-top: clamp(1.1rem, 2vw, 2rem); display: flex; flex-wrap: wrap; gap: 1rem; }
 
 /* ========================================================  3. ASSURANCE  === */
 
@@ -735,25 +771,30 @@
   .sos-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
-/* Narrow layouts: HTML copy first, then the showroom plate as a block image.
-   The desktop arrangement is never squeezed into a narrow crop, and the
-   headline does not consume the whole first screen. */
+/* Narrow layouts: art-directed stack — copy, then the showroom with the
+   piece still standing on the pedestal. Not a bare architecture crop. */
 @media (max-width: 1000px) {
   .sos-hero { display: flex; flex-direction: column; }
   .sos-hero__media { order: 2; }
-  .sos-hero__copywrap { position: static; }
-  /* Portrait plate, lightly cropped to 4:5 and biased low so the pedestal
-     stays within the first screen rather than falling below the fold. */
   .sos-hero__media img { height: auto; aspect-ratio: 4 / 5; object-position: 50% 86%; }
-  .sos-hero__scrim { display: none; }
   .sos-hero__copywrap {
+    position: static;
     order: 1;
     grid-template-columns: 1fr;
     padding-inline: var(--sos-gutter);
-    padding-block: clamp(1.75rem, 5vw, 2.75rem);
+    padding-block: clamp(1.5rem, 4vw, 2.5rem);
   }
   .sos-hero__copy { grid-column: 1; max-width: 34rem; }
-  .sos-hero__title { font-size: clamp(1.85rem, 1.05rem + 3.2vw, 2.9rem); }
+  .sos-hero__copy::before { display: none; }
+  .sos-hero__title { font-size: clamp(1.8rem, 1rem + 3.2vw, 2.8rem); }
+  .sos-hero__piece {
+    left: var(--piece-x-m, 50%);
+    bottom: var(--piece-bottom-m, 13%);
+    width: var(--piece-w-m, 62%);
+  }
+  .sos-hero__caption { bottom: -2.1rem; font-size: 0.56rem; letter-spacing: 0.2em; }
+  .sos-featured__grid { grid-template-columns: 1fr; gap: 1.75rem; }
+  .sos-featured__actions .sos-btn { width: 100%; justify-content: center; }
 }
 
 @media (max-width: 760px) {
@@ -811,4 +852,56 @@
 .sos button:focus-visible {
   outline: 2px solid var(--sos-gold-light);
   outline-offset: 3px;
+}
+
+/* ===============================================  6. SULTAN PAGE PARTS  === */
+
+.sos-pagehero { background: var(--sos-parchment); border-bottom: 1px solid rgba(176,140,74,0.22); }
+.sos-pagehero--dark { background: var(--sos-espresso); border-bottom-color: rgba(176,140,74,0.35); }
+.sos-pagehero__inner { padding-block: clamp(2.75rem, 6vw, 6rem); max-width: 60rem; }
+.sos-pagehero__title { font-size: var(--sos-fs-h2); }
+.sos-pagehero__lede { max-width: 46ch; }
+.sos-pagehero--dark .sos-pagehero__title { color: var(--sos-on-dark); }
+.sos-pagehero--dark .sos-pagehero__lede { color: var(--sos-on-dark-soft); }
+.sos-pagehero--dark .sos-eyebrow { color: var(--sos-gold-light); }
+.sos-pagehero__actions { margin-top: clamp(1.5rem, 3vw, 2.25rem); }
+
+.sos-prose { background: var(--sos-ivory); padding-block: var(--sos-section-y); }
+.sos-prose--tint { background: var(--sos-ivory-warm); }
+.sos-prose__title { font-size: var(--sos-fs-h2); margin-bottom: 1.25rem; }
+.sos-prose__body { max-width: 62ch; font-family: var(--sos-display); font-size: 1.16rem; line-height: 1.62; color: var(--sos-ink-soft); }
+.sos-prose__body p { margin: 0 0 1em; }
+.sos-prose__body a { color: var(--sos-terracotta); }
+.sos-prose__body strong { color: var(--sos-ink); font-weight: 600; }
+.sos-prose__actions { margin-top: clamp(1.5rem, 3vw, 2.25rem); }
+
+.sos-steps { list-style: none; margin: clamp(1.75rem, 4vw, 3rem) 0 0; padding: 0; display: grid; gap: 0; max-width: 72ch; }
+.sos-steps li { display: grid; grid-template-columns: auto 1fr; gap: 1.25rem; padding: 1.4rem 0; border-top: 1px solid rgba(176,140,74,0.28); }
+.sos-steps li:last-child { border-bottom: 1px solid rgba(176,140,74,0.28); }
+.sos-steps__n { font-family: var(--sos-sans); font-size: 0.7rem; letter-spacing: 0.22em; color: var(--sos-bronze-text); padding-top: 0.35rem; }
+.sos-steps__h { font-family: var(--sos-display); font-size: 1.35rem; font-weight: 500; color: var(--sos-ink); margin: 0; }
+.sos-steps__p { font-family: var(--sos-display); font-size: 1.05rem; line-height: 1.55; color: var(--sos-ink-soft); margin: 0.4rem 0 0; max-width: 58ch; }
+
+.sos-enquiry { background: var(--sos-ivory-warm); border-top: 1px solid rgba(176,140,74,0.22); padding-block: var(--sos-section-y); }
+.sos-enquiry__inner { display: grid; grid-template-columns: minmax(0,0.95fr) minmax(0,1.05fr); gap: clamp(2rem,5vw,5rem); align-items: start; }
+.sos-enquiry__title { font-size: var(--sos-fs-h2); margin-bottom: 1.1rem; }
+.sos-enquiry__note { margin-top: 1.25rem; padding-left: 0.9rem; border-left: 2px solid var(--sos-gold); font-family: var(--sos-display); font-style: italic; color: var(--sos-ink-soft); }
+
+.sos-form__row { display: grid; gap: 0.45rem; margin-bottom: 1.1rem; }
+.sos-form label { font-family: var(--sos-sans); font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sos-bronze-text); }
+.sos-form input, .sos-form textarea {
+  font-family: var(--sos-display); font-size: 1.05rem; color: var(--sos-ink);
+  background: #fffdf9; border: 1px solid rgba(176,140,74,0.5); border-radius: 0;
+  padding: 0.85rem 0.95rem; width: 100%;
+}
+.sos-form input:focus-visible, .sos-form textarea:focus-visible { outline: 2px solid var(--sos-gold); outline-offset: 1px; }
+.sos-form textarea { resize: vertical; }
+.sos-form button { margin-top: 0.5rem; }
+.sos-form__hint { margin-top: 1rem; font-family: var(--sos-display); font-style: italic; font-size: 0.98rem; color: var(--sos-ink-soft); }
+.sos-form__ok { background: rgba(176,140,74,0.14); border: 1px solid var(--sos-gold); padding: 0.9rem 1rem; font-family: var(--sos-display); color: var(--sos-ink); margin: 0 0 1.25rem; }
+.sos-form__err { background: rgba(180,72,28,0.1); border: 1px solid var(--sos-terracotta); padding: 0.9rem 1rem; font-family: var(--sos-display); color: var(--sos-terracotta-deep); margin: 0 0 1.25rem; }
+
+@media (max-width: 1000px) {
+  .sos-enquiry__inner { grid-template-columns: 1fr; }
+  .sos-pagehero__inner { padding-block: clamp(2rem, 7vw, 3.25rem); }
 }
