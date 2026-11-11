@@ -306,9 +306,11 @@
       "type": "footer-utilities",
       "blocks": {
         "copyright": {
-          "type": "custom-liquid",
+          "type": "footer-copyright",
           "settings": {
-            "custom_liquid": "<span class=\"sos-copy\">© {{ 'now' | date: '%Y' }} Sultan of Statues</span>"
+            "show_powered_by": false,
+            "font_size": "0.75rem",
+            "case": "none"
           }
         },
         "policies": {
