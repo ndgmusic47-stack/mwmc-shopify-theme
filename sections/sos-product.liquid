@@ -1,0 +1,158 @@
+{% comment %}
+  Sultan of Statues — product page.
+
+  Real Shopify product data throughout: media gallery, price, availability,
+  stock, and a native product form posting to /cart/add. Nothing about price
+  or availability is typed into the theme.
+
+  Single-variant pieces (one statue, one of it) render without a variant
+  picker; if a piece ever has options, the picker appears automatically.
+{% endcomment %}
+
+{%- liquid
+  assign s = section.settings
+  assign p = product
+  assign v = p.selected_or_first_available_variant
+  assign sold_out = false
+  unless p.available
+    assign sold_out = true
+  endunless
+-%}
+
+<div class="sos">
+  <section class="sos-product">
+    <div class="sos-wrap">
+
+      <nav class="sos-crumb" aria-label="Breadcrumb">
+        <a href="{{ routes.all_products_collection_url }}">{{ s.back_label }}</a>
+        <span aria-hidden="true">/</span>
+        <span>{{ p.title }}</span>
+      </nav>
+
+      <div class="sos-product__grid">
+
+        <div class="sos-product__media">
+          {%- if p.media.size > 0 -%}
+            {%- for media in p.media -%}
+              {%- liquid
+                assign loading = 'lazy'
+                if forloop.first
+                  assign loading = 'eager'
+                endif
+              -%}
+              <figure class="sos-product__shot{% if forloop.first %} is-lead{% endif %}">
+                {{ media
+                   | image_url: width: 1600
+                   | image_tag:
+                     widths: '500, 760, 1100, 1600',
+                     sizes: '(max-width: 1000px) 94vw, 52vw',
+                     loading: loading,
+                     alt: media.alt | default: p.title }}
+              </figure>
+            {%- endfor -%}
+          {%- else -%}
+            <div class="sos-product__nomedia">
+              <p>Photographs of this piece are being prepared.</p>
+            </div>
+          {%- endif -%}
+        </div>
+
+        <div class="sos-product__panel">
+          <div class="sos-product__sticky">
+
+            {%- if p.vendor != blank -%}
+              <p class="sos-eyebrow">{{ p.vendor }}</p>
+            {%- endif -%}
+
+            <h1 class="sos-display sos-product__title">{{ p.title }}</h1>
+
+            <div class="sos-product__priceline">
+              <span class="sos-product__price">{{ v.price | money }}</span>
+              {%- if v.compare_at_price > v.price -%}
+                <s class="sos-product__was">{{ v.compare_at_price | money }}</s>
+              {%- endif -%}
+            </div>
+
+            {%- comment -%} Availability, straight from Shopify inventory. {%- endcomment -%}
+            <p class="sos-product__avail{% if sold_out %} is-sold{% endif %}">
+              {%- if sold_out -%}
+                <span class="sos-dot" aria-hidden="true"></span>Sold
+              {%- elsif v.inventory_management == 'shopify' and v.inventory_quantity > 0 -%}
+                <span class="sos-dot" aria-hidden="true"></span>
+                In stock{% if v.inventory_quantity == 1 %} — one only{% else %} — {{ v.inventory_quantity }} available{% endif %}
+              {%- else -%}
+                <span class="sos-dot" aria-hidden="true"></span>In stock
+              {%- endif -%}
+            </p>
+
+            {%- if sold_out -%}
+              <div class="sos-product__soldbox">
+                <p>This piece has been sold.</p>
+                <a class="sos-btn sos-btn--ghost" href="{{ routes.all_products_collection_url }}">
+                  See what else is in the collection{% render 'sos-icon', name: 'arrow' %}
+                </a>
+                <a class="sos-textlink" href="/pages/contact?piece={{ p.title | url_param_escape }}">
+                  Ask us to look out for one{% render 'sos-icon', name: 'arrow' %}
+                </a>
+              </div>
+            {%- else -%}
+              {%- form 'product', p, id: 'sos-add', class: 'sos-product__form' -%}
+                {%- unless p.has_only_default_variant -%}
+                  <div class="sos-product__variants">
+                    <label class="sos-field__label" for="sos-variant">Option</label>
+                    <select id="sos-variant" name="id" class="sos-select">
+                      {%- for variant in p.variants -%}
+                        <option value="{{ variant.id }}"
+                          {% if variant == v %}selected{% endif %}
+                          {% unless variant.available %}disabled{% endunless %}>
+                          {{ variant.title }} — {{ variant.price | money }}{% unless variant.available %} (sold){% endunless %}
+                        </option>
+                      {%- endfor -%}
+                    </select>
+                  </div>
+                {%- else -%}
+                  <input type="hidden" name="id" value="{{ v.id }}">
+                {%- endunless -%}
+
+                <input type="hidden" name="quantity" value="1">
+
+                <button type="submit" name="add" class="sos-btn sos-btn--primary sos-product__add">
+                  {{ s.add_label }}{% render 'sos-icon', name: 'arrow' %}
+                </button>
+              {%- endform -%}
+
+              <a class="sos-textlink sos-product__ask" href="/pages/contact?piece={{ p.title | url_param_escape }}">
+                {{ s.ask_label }}{% render 'sos-icon', name: 'arrow' %}
+              </a>
+            {%- endif -%}
+
+            {%- if p.description != blank -%}
+              <div class="sos-product__desc sos-prose__body">{{ p.description }}</div>
+            {%- endif -%}
+
+            {%- if s.note != blank -%}
+              <p class="sos-product__note">{{ s.note }}</p>
+            {%- endif -%}
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Palace product",
+  "tag": "section",
+  "class": "sos-product-section",
+  "settings": [
+    { "type": "text", "id": "back_label", "label": "Breadcrumb label", "default": "The Collection" },
+    { "type": "text", "id": "add_label", "label": "Add button", "default": "Add to bag" },
+    { "type": "text", "id": "ask_label", "label": "Enquiry link", "default": "Ask a question about this piece" },
+    { "type": "textarea", "id": "note", "label": "Panel note" }
+  ],
+  "enabled_on": { "templates": ["product"] }
+}
+{% endschema %}

@@ -776,7 +776,15 @@
 @media (max-width: 1000px) {
   .sos-hero { display: flex; flex-direction: column; }
   .sos-hero__media { order: 2; }
-  .sos-hero__media img { height: auto; aspect-ratio: 4 / 5; object-position: 50% 86%; }
+  /* The mobile asset is already art-directed around the piece (crop measured
+     from the composite: statue + effects with margin on all four sides).
+     Render it at its own aspect so nothing is cropped a second time. */
+  .sos-hero__media img {
+    height: auto;
+    aspect-ratio: var(--sos-hero-m-aspect, 860 / 887);
+    object-fit: contain;
+    object-position: center;
+  }
   .sos-hero__copywrap {
     position: static;
     order: 1;
@@ -970,12 +978,108 @@ main .button, main button[type="submit"], main .shopify-payment-button__button {
   text-transform: uppercase !important;
 }
 
-/* Footer: even columns, readable description measure */
-.shopify-section-group-footer-group .sos-footer-fix { display: contents; }
+/* Safety net for Savor's own footer if it is ever re-enabled. The bespoke
+   .sos-footer below is what staging actually renders.
+   `break-word`, not `anywhere`: anywhere will split an ordinary word mid-
+   character even when the line could simply wrap. */
 footer [class*="group"] > * { min-width: 0; }
-footer p, footer h3 { max-width: 46ch; }
+footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
 @media (min-width: 1001px) {
   footer [class*="group"][class*="row"] { align-items: flex-start !important; }
+}
+
+/* ==============================================  8. PALACE FOOTER  ======= */
+
+.sos-footer {
+  background: var(--sos-espresso);
+  color: var(--sos-on-dark, #efe3d4);
+  padding-block: clamp(2.75rem, 5vw, 4.25rem) clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.sos-footer__grid {
+  display: grid;
+  /* The brand column is given the widest track and every track may shrink,
+     so the description wraps on its own words instead of being squeezed. */
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1.75rem, 4vw, 3.5rem);
+  align-items: start;
+}
+.sos-footer__grid > * { min-width: 0; }
+
+.sos-footer__word { color: var(--sos-ivory); font-size: 1.15rem; }
+.sos-footer__word em { color: var(--sos-gold-light, #d8b877); }
+
+.sos-footer__desc {
+  margin: 1rem 0 0;
+  /* A real measure, so the line length is chosen by the text not the track. */
+  max-width: 44ch;
+  font-family: var(--sos-display);
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: var(--sos-on-dark-soft, #cdbda6);
+  overflow-wrap: break-word;
+  text-wrap: pretty;
+}
+.sos-footer__note {
+  margin: 0.75rem 0 0;
+  font-family: var(--sos-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sos-gold-light, #d8b877);
+}
+
+.sos-footer__h {
+  margin: 0 0 0.9rem;
+  font-family: var(--sos-sans);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--sos-gold-light, #d8b877);
+}
+.sos-footer__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+.sos-footer__list a {
+  font-family: var(--sos-display);
+  font-size: 1.02rem;
+  color: var(--sos-on-dark-soft, #cdbda6);
+  text-decoration: none;
+  overflow-wrap: break-word;
+  transition: color 0.2s ease;
+}
+.sos-footer__list a:hover { color: var(--sos-ivory); }
+
+.sos-footer__base {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  padding-top: 1.35rem;
+  border-top: 1px solid rgba(176, 140, 74, 0.3);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.75rem;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.sos-footer__copy,
+.sos-footer__policies {
+  margin: 0;
+  font-family: var(--sos-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--sos-on-dark-soft, #cdbda6);
+}
+.sos-footer__policies { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem; }
+.sos-footer__policies a { color: inherit; text-decoration: none; }
+.sos-footer__policies a:hover { color: var(--sos-ivory); text-decoration: underline; }
+
+@media (max-width: 900px) {
+  .sos-footer__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .sos-footer__brand { grid-column: 1 / -1; }
+}
+@media (max-width: 560px) {
+  .sos-footer__grid { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+  .sos-footer__brand { grid-column: auto; }
+  .sos-footer__desc { max-width: none; }
+  .sos-footer__base { flex-direction: column; align-items: flex-start; }
 }
 
 .sos-enquiry__subject {
@@ -991,3 +1095,194 @@ footer p, footer h3 { max-width: 46ch; }
   color: var(--sos-bronze-text);
 }
 .sos-copy { font-family: var(--sos-sans); font-size: 0.75rem; letter-spacing: 0.08em; color: var(--sos-on-dark-soft); }
+
+/* ===================================  9. BUYING JOURNEY SURFACES  ======= */
+/* Product, search and bag, built as bespoke Sultan sections rather than
+   restyled Savor pages, so the palette, type and spacing are the same
+   system used on the homepage. */
+
+/* Card states ------------------------------------------------------------ */
+.sos-card--sold .sos-card__img { filter: saturate(0.55) brightness(0.94); }
+.sos-card__tag--sold {
+  background: var(--sos-espresso);
+  color: var(--sos-on-dark);
+  border-color: var(--sos-gold);
+}
+.sos-card--await .sos-card__price em {
+  font-style: normal;
+  font-family: var(--sos-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sos-bronze-text);
+}
+
+/* Breadcrumb ------------------------------------------------------------- */
+.sos-crumb {
+  display: flex; flex-wrap: wrap; gap: 0.5rem;
+  padding-block: clamp(1.25rem, 3vw, 2rem) 0;
+  font-family: var(--sos-sans);
+  font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--sos-ink-faint);
+}
+.sos-crumb a { color: var(--sos-bronze-text); text-decoration: none; }
+.sos-crumb a:hover { text-decoration: underline; }
+
+/* Product ---------------------------------------------------------------- */
+.sos-product { background: var(--sos-ivory); padding-block: 0 var(--sos-section-y); }
+.sos-product__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(1.75rem, 4vw, 4rem);
+  align-items: start;
+  margin-top: clamp(1.25rem, 3vw, 2.25rem);
+}
+.sos-product__media { display: grid; gap: clamp(0.75rem, 2vw, 1.25rem); }
+.sos-product__shot { margin: 0; background: var(--sos-parchment); border: 1px solid rgba(176,140,74,0.22); }
+.sos-product__shot img { display: block; width: 100%; height: auto; }
+.sos-product__nomedia {
+  aspect-ratio: 4 / 5; display: grid; place-items: center;
+  background: var(--sos-parchment); border: 1px solid rgba(176,140,74,0.3);
+  font-family: var(--sos-display); color: var(--sos-ink-soft);
+}
+
+.sos-product__sticky { position: sticky; top: 104px; }
+.sos-product__title { font-size: var(--sos-fs-h2); margin: 0.35rem 0 0; }
+.sos-product__priceline { display: flex; align-items: baseline; gap: 0.85rem; margin-top: 1rem; }
+.sos-product__price {
+  font-family: var(--sos-display);
+  font-size: clamp(1.6rem, 1.2rem + 1.1vw, 2.2rem);
+  color: var(--sos-ink);
+}
+.sos-product__was { font-family: var(--sos-display); font-size: 1.15rem; color: var(--sos-ink-faint); }
+
+.sos-product__avail {
+  display: flex; align-items: center; gap: 0.55rem;
+  margin: 0.85rem 0 0;
+  font-family: var(--sos-sans);
+  font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--sos-bronze-text);
+}
+.sos-dot { width: 7px; height: 7px; border-radius: 50%; background: #3f7d4e; display: inline-block; }
+.sos-product__avail.is-sold { color: var(--sos-ink-faint); }
+.sos-product__avail.is-sold .sos-dot { background: var(--sos-ink-faint); }
+
+.sos-product__form { margin-top: clamp(1.4rem, 3vw, 2rem); display: grid; gap: 1rem; }
+.sos-product__add { width: 100%; justify-content: center; }
+.sos-product__ask { margin-top: 1rem; display: inline-flex; }
+.sos-product__desc { margin-top: clamp(1.75rem, 4vw, 2.5rem); max-width: 54ch; font-size: 1.06rem; }
+.sos-product__note {
+  margin-top: 1.25rem; font-family: var(--sos-sans); font-size: 0.78rem;
+  line-height: 1.6; color: var(--sos-ink-faint);
+}
+.sos-product__soldbox {
+  margin-top: clamp(1.4rem, 3vw, 2rem);
+  padding: 1.35rem 1.5rem;
+  background: var(--sos-parchment);
+  border: 1px solid rgba(176,140,74,0.35);
+  display: grid; gap: 0.9rem; justify-items: start;
+}
+.sos-product__soldbox p { margin: 0; font-family: var(--sos-display); font-size: 1.1rem; color: var(--sos-ink); }
+
+.sos-select {
+  width: 100%; padding: 0.85rem 1rem;
+  background: #fff; color: var(--sos-ink);
+  border: 1px solid rgba(42,33,24,0.3); border-radius: 0;
+  font-family: var(--sos-sans); font-size: 0.92rem;
+}
+.sos-field__label {
+  display: block; margin-bottom: 0.45rem;
+  font-family: var(--sos-sans); font-size: 0.68rem;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--sos-bronze-text);
+}
+
+/* Search ----------------------------------------------------------------- */
+.sos-search { background: var(--sos-ivory); padding-block: var(--sos-section-y); }
+.sos-search__title { font-size: var(--sos-fs-h2); margin: 0.4rem 0 0; }
+.sos-search__form {
+  margin-top: clamp(1.25rem, 3vw, 2rem);
+  display: flex; flex-wrap: wrap; gap: 0.75rem;
+  max-width: 44rem;
+}
+.sos-search__form input[type="search"] {
+  flex: 1 1 16rem; min-width: 0;
+  padding: 0.95rem 1.1rem;
+  background: #fff; color: var(--sos-ink);
+  border: 1px solid rgba(42,33,24,0.3); border-radius: 0;
+  font-family: var(--sos-sans); font-size: 0.95rem;
+}
+.sos-search__count {
+  margin-top: clamp(1.4rem, 3vw, 2rem);
+  font-family: var(--sos-sans); font-size: 0.72rem;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--sos-bronze-text);
+}
+.sos-search__grid { margin-top: 1.25rem; }
+.sos-search__empty { margin-top: 1.5rem; }
+.sos-pager { margin-top: clamp(2rem, 4vw, 3rem); font-family: var(--sos-sans); font-size: 0.85rem; }
+.sos-pager a { color: var(--sos-bronze-text); }
+
+/* Bag -------------------------------------------------------------------- */
+.sos-cart { background: var(--sos-ivory); padding-block: var(--sos-section-y); }
+.sos-cart__title { font-size: var(--sos-fs-h2); margin: 0.4rem 0 clamp(1.5rem, 3vw, 2.5rem); }
+.sos-cart__list { list-style: none; margin: 0; padding: 0; }
+.sos-cart__line {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr) auto auto;
+  gap: clamp(1rem, 2.5vw, 2rem);
+  align-items: start;
+  padding: clamp(1.25rem, 3vw, 2rem) 0;
+  border-top: 1px solid rgba(176,140,74,0.28);
+}
+.sos-cart__line:last-child { border-bottom: 1px solid rgba(176,140,74,0.28); }
+.sos-cart__thumb { display: block; background: var(--sos-parchment); }
+.sos-cart__thumb img { display: block; width: 100%; height: auto; }
+.sos-cart__maker {
+  font-family: var(--sos-sans); font-size: 0.65rem;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--sos-bronze-text);
+}
+.sos-cart__name { font-family: var(--sos-display); font-size: 1.3rem; font-weight: 500; margin: 0.3rem 0 0; }
+.sos-cart__name a { color: var(--sos-ink); text-decoration: none; }
+.sos-cart__name a:hover { text-decoration: underline; }
+.sos-cart__variant, .sos-cart__unit {
+  margin: 0.4rem 0 0; font-family: var(--sos-sans);
+  font-size: 0.8rem; color: var(--sos-ink-faint);
+}
+.sos-cart__qty { display: grid; gap: 0.5rem; justify-items: start; }
+.sos-cart__qty input {
+  width: 4.5rem; padding: 0.6rem 0.65rem;
+  background: #fff; border: 1px solid rgba(42,33,24,0.3); border-radius: 0;
+  font-family: var(--sos-sans); font-size: 0.9rem; color: var(--sos-ink);
+}
+.sos-cart__remove {
+  font-family: var(--sos-sans); font-size: 0.68rem;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--sos-terracotta); text-decoration: none;
+}
+.sos-cart__remove:hover { text-decoration: underline; }
+.sos-cart__line-total { margin: 0; font-family: var(--sos-display); font-size: 1.25rem; color: var(--sos-ink); white-space: nowrap; }
+
+.sos-cart__foot {
+  margin-top: clamp(1.75rem, 4vw, 2.75rem);
+  display: flex; flex-wrap: wrap; gap: 1.5rem 2.5rem;
+  justify-content: space-between; align-items: flex-end;
+}
+.sos-cart__row { display: flex; gap: 1.5rem; align-items: baseline; font-family: var(--sos-display); font-size: 1.35rem; color: var(--sos-ink); }
+.sos-cart__note { margin: 0.6rem 0 0; font-family: var(--sos-sans); font-size: 0.75rem; color: var(--sos-ink-faint); }
+.sos-cart__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.sos-cart__checkout { min-width: 13rem; justify-content: center; }
+.sos-cart__back { margin-top: clamp(1.5rem, 3vw, 2.25rem); display: inline-flex; }
+.sos-cart__emptyactions { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+@media (max-width: 1000px) {
+  .sos-product__grid { grid-template-columns: minmax(0, 1fr); }
+  .sos-product__sticky { position: static; }
+}
+@media (max-width: 760px) {
+  .sos-cart__line { grid-template-columns: 88px minmax(0, 1fr); row-gap: 0.9rem; }
+  .sos-cart__qty { grid-column: 2; }
+  .sos-cart__line-total { grid-column: 2; }
+  .sos-cart__foot { flex-direction: column; align-items: stretch; }
+  .sos-cart__actions .sos-btn { width: 100%; justify-content: center; }
+  .sos-search__form .sos-btn { width: 100%; justify-content: center; }
+  .sos-cart__emptyactions .sos-btn { width: 100%; justify-content: center; }
+}

@@ -134,7 +134,10 @@
     "palette_selected_variant_border": "{{ settings.color_palette.foreground }}",
     "variant_button_border_width": 2,
     "variant_button_radius": 8,
-    "variant_button_width": "equal-width-buttons"
+    "variant_button_width": "equal-width-buttons",
+    "sos_brand_name": "Sultan of Statues",
+    "sos_home_title": "Sultan of Statues — Collectible Statues Bought and Sold in the UK",
+    "sos_meta_description": "Sultan of Statues buys and sells collectible resin and polystone statues in the United Kingdom."
   },
   "presets": {
     "Savor": {

@@ -1,0 +1,125 @@
+{% comment %}
+  Sultan of Statues — Modern Palace footer.
+
+  Bespoke because Savor's footer draws its columns from the store-level
+  "footer" and "main-menu" link lists, which still carry the card-shop and
+  consignment links and cannot be rewritten without touching live. This
+  section owns its links, its description measure and its copyright line, so
+  staging is correct while the shared menus are still the old ones.
+
+  The description sits in its own column with a max measure in ch, so it
+  wraps on its own words at every width instead of being squeezed into a
+  narrow track by a flex row.
+{% endcomment %}
+
+{%- liquid
+  assign s = section.settings
+  assign nav_items = section.blocks | where: 'type', 'nav_item'
+  assign year = 'now' | date: '%Y'
+  assign biz = s.business_name | default: 'Sultan of Statues'
+-%}
+
+<div class="sos">
+  <footer class="sos-footer" role="contentinfo">
+    <div class="sos-wrap">
+
+      <div class="sos-footer__grid">
+
+        <div class="sos-footer__brand">
+          <span class="sos-logo__word sos-footer__word">
+            {{ s.logo_lead }} <em>{{ s.logo_join }}</em> {{ s.logo_tail }}
+          </span>
+          {%- if s.description != blank -%}
+            <p class="sos-footer__desc">{{ s.description }}</p>
+          {%- endif -%}
+          {%- if s.location_note != blank -%}
+            <p class="sos-footer__note">{{ s.location_note }}</p>
+          {%- endif -%}
+        </div>
+
+        {%- if nav_items.size > 0 -%}
+          <nav class="sos-footer__col" aria-label="Footer">
+            <h2 class="sos-footer__h">{{ s.nav_heading }}</h2>
+            <ul class="sos-footer__list">
+              {%- for block in nav_items -%}
+                <li {{ block.shopify_attributes }}>
+                  <a href="{{ block.settings.url | default: routes.root_url }}">{{ block.settings.label }}</a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          </nav>
+        {%- endif -%}
+
+        <div class="sos-footer__col">
+          <h2 class="sos-footer__h">{{ s.contact_heading }}</h2>
+          <ul class="sos-footer__list">
+            {%- if s.contact_email != blank -%}
+              <li><a href="mailto:{{ s.contact_email }}">{{ s.contact_email }}</a></li>
+            {%- endif -%}
+            <li><a href="{{ s.contact_link | default: '/pages/contact' }}">{{ s.contact_link_label }}</a></li>
+            <li><a href="{{ s.sell_link | default: '/pages/sell-to-us' }}">{{ s.sell_link_label }}</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="sos-footer__base">
+        <p class="sos-footer__copy">&copy; {{ year }} {{ biz }}{% if s.legal_note != blank %}. {{ s.legal_note }}{% endif %}</p>
+
+        {%- if shop.policies.size > 0 or s.show_policies -%}
+          <ul class="sos-footer__policies">
+            {%- for policy in shop.policies -%}
+              {%- if policy != blank -%}
+                <li><a href="{{ policy.url }}">{{ policy.title }}</a></li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </footer>
+</div>
+
+{% schema %}
+{
+  "name": "Palace footer",
+  "tag": "section",
+  "class": "sos-footer-section",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "header", "content": "Brand" },
+    { "type": "text", "id": "logo_lead", "label": "Wordmark — first word", "default": "Sultan" },
+    { "type": "text", "id": "logo_join", "label": "Wordmark — joining word", "default": "of" },
+    { "type": "text", "id": "logo_tail", "label": "Wordmark — last word", "default": "Statues" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "We buy and sell collectible statues in the United Kingdom — resin and polystone display pieces from specialist studios." },
+    { "type": "text", "id": "location_note", "label": "Location note", "default": "United Kingdom" },
+
+    { "type": "header", "content": "Links" },
+    { "type": "text", "id": "nav_heading", "label": "Links heading", "default": "Browse" },
+    { "type": "text", "id": "contact_heading", "label": "Contact heading", "default": "Get in touch" },
+    { "type": "text", "id": "contact_email", "label": "Contact email" },
+    { "type": "text", "id": "contact_link_label", "label": "Contact link label", "default": "Contact us" },
+    { "type": "url", "id": "contact_link", "label": "Contact link" },
+    { "type": "text", "id": "sell_link_label", "label": "Sell link label", "default": "Sell your statues" },
+    { "type": "url", "id": "sell_link", "label": "Sell link" },
+
+    { "type": "header", "content": "Base line" },
+    { "type": "text", "id": "business_name", "label": "Business name for copyright", "default": "Sultan of Statues" },
+    { "type": "paragraph", "content": "This is the theme's own copyright name. Shopify's stock copyright prints the store name from Settings, which is still the old card-shop name until that is changed." },
+    { "type": "text", "id": "legal_note", "label": "Legal note" },
+    { "type": "checkbox", "id": "show_policies", "label": "Show policy links", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "nav_item",
+      "name": "Footer link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "The Collection" },
+        { "type": "url", "id": "url", "label": "Link" }
+      ]
+    }
+  ],
+  "enabled_on": { "groups": ["footer"] }
+}
+{% endschema %}

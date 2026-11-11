@@ -19,10 +19,27 @@
 >
 
 {%- liquid
+  comment
+    Sultan of Statues: shop.name, the store SEO title and the store
+    description are store-level and still say "Mum Where's My Cards". The
+    theme substitutes its own brand name so staging never shows the old
+    card-shop identity. Remove this once the store itself is renamed.
+  endcomment
+  assign sos_brand = settings.sos_brand_name | default: shop.name
+
   assign og_title = page_title | default: shop.name
+  assign og_title = og_title | replace: shop.name, sos_brand
+  if request.page_type == 'index' and settings.sos_home_title != blank
+    assign og_title = settings.sos_home_title
+  endif
+
   assign og_url = canonical_url | default: request.origin
   assign og_type = 'website'
   assign og_description = page_description | default: shop.description | default: shop.name
+  assign og_description = og_description | replace: shop.name, sos_brand
+  if request.page_type == 'index' and settings.sos_meta_description != blank
+    assign og_description = settings.sos_meta_description
+  endif
 
   if request.page_type == 'product'
     assign og_type = 'product'
@@ -35,7 +52,7 @@
 
 <meta
   property="og:site_name"
-  content="{{ shop.name }}"
+  content="{{ sos_brand }}"
 >
 <meta
   property="og:url"
@@ -104,10 +121,10 @@
 >
 
 <title>
-  {{ page_title }}
+  {{ og_title }}
   {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
   {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
-  {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+  {%- unless og_title contains sos_brand %} &ndash; {{ sos_brand }}{% endunless -%}
 </title>
 
 <link
@@ -115,9 +132,9 @@
   href="{{ canonical_url }}"
 >
 
-{% if page_description %}
+{% if og_description != blank %}
   <meta
     name="description"
-    content="{{ page_description | escape }}"
+    content="{{ og_description | escape }}"
   >
 {% endif %}

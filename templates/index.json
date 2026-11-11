@@ -13,13 +13,15 @@
         "desktop_stem": "sos-hero-desktop",
         "desktop_widths": "900,1280,1774",
         "mobile_stem": "sos-hero-mobile",
-        "mobile_widths": "640,860,1024",
+        "mobile_widths": "480,672,860",
         "plate_width": 1774,
         "plate_height": 887,
         "plate_alt": "Gear 5 Luffy statue displayed on a stone pedestal in a sunlit palace gallery",
         "focal_point": "50% 62%",
         "piece_stem": "",
-        "plate_caption": "Gear 5 Luffy — Anikingdom x Jimei Palace — 1/6 scale"
+        "plate_caption": "Gear 5 Luffy — Anikingdom x Jimei Palace",
+        "mobile_width": 860,
+        "mobile_height": 887
       }
     },
     "assurance": {
@@ -75,10 +77,11 @@
             "image_asset": "sos-statue-luffy-gear5.webp",
             "maker": "Anikingdom x Jimei Palace",
             "name": "Gear 5 Luffy",
-            "scale": "1/6 scale — resin",
+            "scale": "Resin",
             "price_note": "Enquire",
             "link": "/pages/contact",
-            "tag": ""
+            "tag": "",
+            "product_handle": "gear-5-luffy-anikingdom-jimei-palace"
           }
         },
         "s2": {
@@ -90,43 +93,47 @@
             "scale": "Resin",
             "price_note": "Enquire",
             "link": "/pages/contact",
-            "tag": ""
+            "tag": "",
+            "product_handle": "dracule-mihawk-lx-studio"
           }
         },
         "s3": {
           "type": "showcase",
           "settings": {
             "image_asset": "sos-statue-king.webp",
-            "maker": "",
+            "maker": "Monkey D Studio",
             "name": "King",
             "scale": "Resin",
             "price_note": "Enquire",
             "link": "/pages/contact",
-            "tag": ""
+            "tag": "",
+            "product_handle": "king-monkey-d-studio"
           }
         },
         "s4": {
           "type": "showcase",
           "settings": {
             "image_asset": "sos-statue-law.webp",
-            "maker": "",
+            "maker": "Monkey D Studio",
             "name": "Trafalgar Law",
-            "scale": "Resin",
+            "scale": "1/6 scale — resin",
             "price_note": "Enquire",
             "link": "/pages/contact",
-            "tag": ""
+            "tag": "",
+            "product_handle": "trafalgar-law-monkey-d-studio"
           }
         },
         "s5": {
           "type": "showcase",
           "settings": {
             "image_asset": "sos-statue-luffy-redroc.webp",
-            "maker": "",
+            "maker": "Monkey D Studio",
             "name": "Red Roc Luffy",
-            "scale": "Resin",
+            "scale": "1/6 scale — resin",
             "price_note": "Enquire",
             "link": "/pages/contact",
-            "tag": ""
+            "tag": "",
+            "product_handle": "red-roc-luffy-monkey-d-studio"
           }
         },
         "s6": {
@@ -135,10 +142,11 @@
             "image_asset": "sos-statue-sabo.webp",
             "maker": "Jimei Palace",
             "name": "Sabo",
-            "scale": "Resin",
+            "scale": "1/6 scale — resin",
             "price_note": "Enquire",
             "link": "/pages/contact",
-            "tag": ""
+            "tag": "",
+            "product_handle": "sabo-jimei-palace"
           }
         }
       },

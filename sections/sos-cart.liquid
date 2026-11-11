@@ -1,0 +1,132 @@
+{% comment %}
+  Sultan of Statues — the bag.
+
+  Posts to Shopify's own /cart endpoints, so checkout is Shopify's hosted
+  guest checkout. Quantities are capped at the line item's own limit so a
+  one-only piece cannot be ordered twice.
+
+  An empty bag is a dead end unless it offers a way out, so it carries a
+  route back to the collection.
+{% endcomment %}
+
+{%- liquid
+  assign s = section.settings
+-%}
+
+<div class="sos">
+  <section class="sos-cart">
+    <div class="sos-wrap">
+
+      <p class="sos-eyebrow">{{ s.eyebrow }}</p>
+      <h1 class="sos-display sos-cart__title">{{ s.heading }}</h1>
+
+      {%- if cart.item_count == 0 -%}
+
+        <div class="sos-empty sos-cart__empty">
+          <h2>{{ s.empty_heading }}</h2>
+          <p>{{ s.empty_body }}</p>
+          <div class="sos-cart__emptyactions">
+            <a class="sos-btn sos-btn--primary" href="{{ routes.all_products_collection_url }}">
+              {{ s.empty_cta }}{% render 'sos-icon', name: 'arrow' %}
+            </a>
+            <a class="sos-btn sos-btn--ghost" href="{{ routes.root_url }}">{{ s.empty_cta2 }}</a>
+          </div>
+        </div>
+
+      {%- else -%}
+
+        <form action="{{ routes.cart_url }}" method="post" novalidate class="sos-cart__form">
+          <ul class="sos-cart__list">
+            {%- for line in cart.items -%}
+              <li class="sos-cart__line">
+                <a class="sos-cart__thumb" href="{{ line.url }}">
+                  {%- if line.image -%}
+                    {{ line.image | image_url: width: 400 | image_tag:
+                       widths: '160, 240, 400', sizes: '120px',
+                       loading: 'lazy', alt: line.title }}
+                  {%- endif -%}
+                </a>
+
+                <div class="sos-cart__info">
+                  {%- if line.product.vendor != blank -%}
+                    <span class="sos-cart__maker">{{ line.product.vendor }}</span>
+                  {%- endif -%}
+                  <h2 class="sos-cart__name"><a href="{{ line.url }}">{{ line.product.title }}</a></h2>
+                  {%- unless line.product.has_only_default_variant -%}
+                    <p class="sos-cart__variant">{{ line.variant.title }}</p>
+                  {%- endunless -%}
+                  <p class="sos-cart__unit">{{ line.original_price | money }} each</p>
+                </div>
+
+                <div class="sos-cart__qty">
+                  <label class="sos-visually-hidden" for="qty-{{ line.index | plus: 1 }}">Quantity</label>
+                  <input id="qty-{{ line.index | plus: 1 }}"
+                         type="number"
+                         name="updates[]"
+                         value="{{ line.quantity }}"
+                         min="0"
+                         {% if line.variant.inventory_management == 'shopify' and line.variant.inventory_policy == 'deny' %}max="{{ line.variant.inventory_quantity }}"{% endif %}
+                         inputmode="numeric">
+                  <a class="sos-cart__remove" href="{{ line.url_to_remove }}">Remove</a>
+                </div>
+
+                <p class="sos-cart__line-total">{{ line.original_line_price | money }}</p>
+              </li>
+            {%- endfor -%}
+          </ul>
+
+          <div class="sos-cart__foot">
+            <div class="sos-cart__totals">
+              <div class="sos-cart__row">
+                <span>Subtotal</span>
+                <strong>{{ cart.total_price | money }}</strong>
+              </div>
+              {%- if s.tax_note != blank -%}
+                <p class="sos-cart__note">{{ s.tax_note }}</p>
+              {%- endif -%}
+              {%- if s.delivery_note != blank -%}
+                <p class="sos-cart__note">{{ s.delivery_note }}</p>
+              {%- endif -%}
+            </div>
+
+            <div class="sos-cart__actions">
+              <button type="submit" name="update" class="sos-btn sos-btn--ghost">{{ s.update_label }}</button>
+              <button type="submit" name="checkout" class="sos-btn sos-btn--primary sos-cart__checkout">
+                {{ s.checkout_label }}{% render 'sos-icon', name: 'arrow' %}
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <a class="sos-textlink sos-cart__back" href="{{ routes.all_products_collection_url }}">
+          {{ s.continue_label }}{% render 'sos-icon', name: 'arrow' %}
+        </a>
+
+      {%- endif -%}
+
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Palace bag",
+  "tag": "section",
+  "class": "sos-cart-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Your bag" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Your bag" },
+    { "type": "text", "id": "update_label", "label": "Update button", "default": "Update" },
+    { "type": "text", "id": "checkout_label", "label": "Checkout button", "default": "Checkout" },
+    { "type": "text", "id": "continue_label", "label": "Continue link", "default": "Continue browsing the collection" },
+    { "type": "textarea", "id": "tax_note", "label": "Tax note", "default": "Taxes included where applicable." },
+    { "type": "textarea", "id": "delivery_note", "label": "Delivery note", "default": "Delivery or collection is confirmed at checkout." },
+    { "type": "header", "content": "Empty bag" },
+    { "type": "text", "id": "empty_heading", "label": "Empty heading", "default": "Your bag is empty" },
+    { "type": "text", "id": "empty_body", "label": "Empty body", "default": "Nothing here yet. The collection is a good place to start." },
+    { "type": "text", "id": "empty_cta", "label": "Empty button", "default": "Browse the collection" },
+    { "type": "text", "id": "empty_cta2", "label": "Empty secondary button", "default": "Back to the homepage" }
+  ],
+  "enabled_on": { "templates": ["cart"] }
+}
+{% endschema %}

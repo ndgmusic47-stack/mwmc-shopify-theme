@@ -20,6 +20,18 @@
 {%- liquid
   assign menu = section.settings.menu
   assign sticky = section.settings.sticky
+
+  comment
+    Navigation source. The shared Shopify menus (main-menu, footer) are
+    store-level and still carry the card-shop and consignment links, so the
+    theme owns its own navigation by default. Switch nav_source to "shopify"
+    only after the live menus have been rewritten.
+  endcomment
+  assign nav_items = section.blocks | where: 'type', 'nav_item'
+  assign use_theme_nav = false
+  if section.settings.nav_source == 'theme' and nav_items.size > 0
+    assign use_theme_nav = true
+  endif
 -%}
 
 <div class="sos" data-sos-header>
@@ -96,7 +108,17 @@
         {%- endcase -%}
       </a>
 
-      {%- if menu != blank and menu.links.size > 0 -%}
+      {%- if use_theme_nav -%}
+        <nav class="sos-nav" aria-label="Primary">
+          <ul class="sos-nav__list">
+            {%- for block in nav_items -%}
+              <li class="sos-nav__item" {{ block.shopify_attributes }}>
+                <a class="sos-nav__link" href="{{ block.settings.url | default: routes.root_url }}">{{ block.settings.label }}</a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      {%- elsif menu != blank and menu.links.size > 0 -%}
         <nav class="sos-nav" aria-label="Primary">
           <ul class="sos-nav__list">
             {%- for link in menu.links -%}
@@ -174,7 +196,13 @@
         </button>
       </div>
 
-      {%- if menu != blank and menu.links.size > 0 -%}
+      {%- if use_theme_nav -%}
+        <ul class="sos-drawer__list">
+          {%- for block in nav_items -%}
+            <li><a href="{{ block.settings.url | default: routes.root_url }}">{{ block.settings.label }}</a></li>
+          {%- endfor -%}
+        </ul>
+      {%- elsif menu != blank and menu.links.size > 0 -%}
         <ul class="sos-drawer__list">
           {%- for link in menu.links -%}
             <li>
@@ -223,12 +251,32 @@
     { "type": "range", "id": "logo_height", "label": "Logo image height", "min": 24, "max": 96, "step": 2, "unit": "px", "default": 46 },
 
     { "type": "header", "content": "Navigation" },
-    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    {
+      "type": "select", "id": "nav_source", "label": "Navigation source",
+      "options": [
+        { "value": "theme", "label": "Theme links (set below)" },
+        { "value": "shopify", "label": "Shopify menu" }
+      ],
+      "default": "theme"
+    },
+    { "type": "paragraph", "content": "The shared Shopify menus are store-level and still carry the old card-shop and consignment links. Theme links keep staging correct without editing the live menus. Switch to the Shopify menu only once those menus have been rewritten." },
+    { "type": "link_list", "id": "menu", "label": "Shopify menu (fallback)", "default": "main-menu" },
 
     { "type": "header", "content": "Options" },
     { "type": "checkbox", "id": "sticky", "label": "Stick to top on scroll", "default": true },
     { "type": "checkbox", "id": "show_search", "label": "Show search", "default": true },
     { "type": "checkbox", "id": "show_account", "label": "Show account", "default": true }
+  ],
+  "max_blocks": 8,
+  "blocks": [
+    {
+      "type": "nav_item",
+      "name": "Navigation link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "The Collection" },
+        { "type": "url", "id": "url", "label": "Link" }
+      ]
+    }
   ],
   "enabled_on": { "groups": ["header"] }
 }

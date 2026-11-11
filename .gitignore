@@ -1,1 +1,4 @@
 .preview/
+
+# Local render harness output (not part of the theme)
+.harness/

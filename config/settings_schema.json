@@ -2116,5 +2116,32 @@
         "default": "equal-width-buttons"
       }
     ]
+  },
+  {
+    "name": "Sultan of Statues branding",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Shopify prints the store name from Settings > Store details in page titles, Open Graph tags and the stock copyright. That name is shared with the live store, so the theme carries its own brand name here until the store is renamed at cutover."
+      },
+      {
+        "type": "text",
+        "id": "sos_brand_name",
+        "label": "Brand name",
+        "default": "Sultan of Statues"
+      },
+      {
+        "type": "text",
+        "id": "sos_home_title",
+        "label": "Homepage title tag",
+        "default": "Sultan of Statues — Collectible Statues Bought and Sold in the UK"
+      },
+      {
+        "type": "textarea",
+        "id": "sos_meta_description",
+        "label": "Homepage meta description",
+        "default": "Sultan of Statues buys and sells collectible resin and polystone statues in the United Kingdom."
+      }
+    ]
   }
 ]

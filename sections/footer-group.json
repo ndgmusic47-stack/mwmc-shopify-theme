@@ -300,7 +300,8 @@
         "background_color": "{{ settings.color_palette.foreground }}",
         "padding-block-start": 56,
         "padding-block-end": 40
-      }
+      },
+      "disabled": true
     },
     "utilities": {
       "type": "footer-utilities",
@@ -348,10 +349,68 @@
         "background_color": "{{ settings.color_palette.foreground }}",
         "padding-block-start": 20,
         "padding-block-end": 28
+      },
+      "disabled": true
+    },
+    "sos_footer": {
+      "type": "sos-footer",
+      "blocks": {
+        "nav1": {
+          "type": "nav_item",
+          "settings": {
+            "label": "The Collection",
+            "url": "/collections/all"
+          }
+        },
+        "nav2": {
+          "type": "nav_item",
+          "settings": {
+            "label": "Sell Your Statues",
+            "url": "/pages/sell-to-us"
+          }
+        },
+        "nav3": {
+          "type": "nav_item",
+          "settings": {
+            "label": "About",
+            "url": "/pages/about"
+          }
+        },
+        "nav4": {
+          "type": "nav_item",
+          "settings": {
+            "label": "Contact",
+            "url": "/pages/contact"
+          }
+        }
+      },
+      "block_order": [
+        "nav1",
+        "nav2",
+        "nav3",
+        "nav4"
+      ],
+      "settings": {
+        "logo_lead": "Sultan",
+        "logo_join": "of",
+        "logo_tail": "Statues",
+        "description": "We buy and sell collectible statues in the United Kingdom — resin and polystone display pieces from specialist studios.",
+        "location_note": "United Kingdom",
+        "nav_heading": "Browse",
+        "contact_heading": "Get in touch",
+        "contact_email": "",
+        "contact_link_label": "Contact us",
+        "contact_link": "/pages/contact",
+        "sell_link_label": "Sell your statues",
+        "sell_link": "/pages/sell-to-us",
+        "business_name": "Sultan of Statues",
+        "legal_note": "",
+        "show_policies": true
       }
     }
   },
   "order": [
+    "sos_footer",
     "footer_main",
     "utilities"
   ]

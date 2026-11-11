@@ -1,17 +1,35 @@
 {% comment %}
   Sultan of Statues — luxury collection gallery.
 
-  Renders real products when a collection is chosen and stocked. While the
-  catalogue is empty it falls back to editor-defined showcase cards built from
-  real statue photography, so the layout can be reviewed truthfully. No prices
-  are invented: showcase cards carry whatever the merchant types, defaulting to
-  "Price on request".
+  Each showcase block names a STABLE product handle. The block resolves that
+  handle against the catalogue every render:
+
+    - product found      -> real card: Shopify price, real availability,
+                            sold-out state, link to the product page.
+    - product not found  -> awaiting card: the genuine photograph, the piece
+      (draft/not imported)  name, and a piece-specific enquiry link that
+                            prefills Contact. No invented price.
+
+  So the same template is correct before and after the import, and the cards
+  start leading to real product pages the moment the products go live. A
+  chosen collection still takes priority when one is set.
 {% endcomment %}
 
 {%- liquid
   assign s = section.settings
   assign coll = s.collection
   assign limit = s.products_to_show
+
+  comment
+    On a collection template with no explicit collection chosen, use the
+    collection being viewed. This is what makes /collections/all show the
+    real catalogue the moment the products are published, while the same
+    section still falls back to the showcase blocks until then.
+  endcomment
+  if coll == blank and collection != blank
+    assign coll = collection
+  endif
+
   assign has_products = false
   if coll != blank and coll.products_count > 0
     assign has_products = true
@@ -43,75 +61,64 @@
         {%- if has_products -%}
 
           {%- for product in coll.products limit: limit -%}
-            <a class="sos-card" href="{{ product.url }}">
-              <div class="sos-card__frame">
-                {%- if product.featured_media -%}
-                  {{ product.featured_media
-                     | image_url: width: 1200
-                     | image_tag:
-                       class: 'sos-card__img',
-                       widths: '400, 600, 900, 1200',
-                       sizes: '(max-width: 760px) 92vw, (max-width: 1024px) 46vw, 31vw',
-                       loading: 'lazy',
-                       alt: product.featured_media.alt | default: product.title }}
-                {%- endif -%}
-                <span class="sos-card__veil" aria-hidden="true"></span>
-                {%- if product.available == false -%}
-                  <span class="sos-card__tag">Acquired</span>
-                {%- endif -%}
-              </div>
-              <div class="sos-card__body">
-                {%- if product.vendor != blank -%}
-                  <span class="sos-card__maker">{{ product.vendor }}</span>
-                {%- endif -%}
-                <h3 class="sos-card__name">{{ product.title }}</h3>
-                <div class="sos-card__meta">
-                  <span class="sos-card__scale">{{ product.type | default: 'Collectible statue' }}</span>
-                  <span class="sos-card__price">{{ product.price | money }}</span>
-                </div>
-              </div>
-            </a>
+            {% render 'sos-product-card', product: product %}
           {%- endfor -%}
 
         {%- elsif section.blocks.size > 0 -%}
 
           {%- for block in section.blocks -%}
             {%- liquid
-              assign img = ''
-              if block.settings.image == blank and block.settings.image_asset != blank
-                assign img = block.settings.image_asset | asset_url
+              assign linked = null
+              if block.settings.product_handle != blank
+                assign linked = all_products[block.settings.product_handle]
               endif
             -%}
-            <a class="sos-card" href="{{ block.settings.link | default: routes.all_products_collection_url }}" {{ block.shopify_attributes }}>
-              <div class="sos-card__frame">
-                {%- if block.settings.image != blank -%}
-                  {{ block.settings.image
-                     | image_url: width: 1200
-                     | image_tag:
-                       class: 'sos-card__img',
-                       widths: '400, 600, 900, 1200',
-                       sizes: '(max-width: 760px) 92vw, (max-width: 1024px) 46vw, 31vw',
-                       loading: 'lazy',
-                       alt: block.settings.name }}
-                {%- elsif img != blank -%}
-                  <img class="sos-card__img" src="{{ img }}" alt="{{ block.settings.name | escape }}" width="1200" height="1500" loading="lazy">
-                {%- endif -%}
-                <span class="sos-card__veil" aria-hidden="true"></span>
-                {%- if block.settings.tag != blank -%}
-                  <span class="sos-card__tag">{{ block.settings.tag }}</span>
-                {%- endif -%}
-              </div>
-              <div class="sos-card__body">
-                {%- if block.settings.maker != blank -%}
-                  <span class="sos-card__maker">{{ block.settings.maker }}</span>
-                {%- endif -%}
-                <h3 class="sos-card__name">{{ block.settings.name }}</h3>
-                <div class="sos-card__meta">
-                  <span class="sos-card__scale">{{ block.settings.scale }}</span>
-                  <span class="sos-card__price"><em>{{ block.settings.price_note }}</em></span>
+
+            {%- if linked != blank and linked.id -%}
+              {% render 'sos-product-card',
+                 product: linked,
+                 fallback_image: block.settings.image_asset,
+                 attrs: block.shopify_attributes %}
+            {%- else -%}
+              {%- liquid
+                assign img = ''
+                if block.settings.image == blank and block.settings.image_asset != blank
+                  assign img = block.settings.image_asset | asset_url
+                endif
+                assign enquiry = block.settings.link | default: '/pages/contact'
+                assign enquiry = enquiry | append: '?piece=' | append: block.settings.name | url_param_escape
+              -%}
+              <a class="sos-card sos-card--await" href="{{ enquiry }}" {{ block.shopify_attributes }}>
+                <div class="sos-card__frame">
+                  {%- if block.settings.image != blank -%}
+                    {{ block.settings.image
+                       | image_url: width: 1200
+                       | image_tag:
+                         class: 'sos-card__img',
+                         widths: '400, 600, 900, 1200',
+                         sizes: '(max-width: 760px) 92vw, (max-width: 1024px) 46vw, 31vw',
+                         loading: 'lazy',
+                         alt: block.settings.name }}
+                  {%- elsif img != blank -%}
+                    <img class="sos-card__img" src="{{ img }}" alt="{{ block.settings.name | escape }}" width="1200" height="1500" loading="lazy">
+                  {%- endif -%}
+                  <span class="sos-card__veil" aria-hidden="true"></span>
+                  {%- if block.settings.tag != blank -%}
+                    <span class="sos-card__tag">{{ block.settings.tag }}</span>
+                  {%- endif -%}
                 </div>
-              </div>
-            </a>
+                <div class="sos-card__body">
+                  {%- if block.settings.maker != blank -%}
+                    <span class="sos-card__maker">{{ block.settings.maker }}</span>
+                  {%- endif -%}
+                  <h3 class="sos-card__name">{{ block.settings.name }}</h3>
+                  <div class="sos-card__meta">
+                    <span class="sos-card__scale">{{ block.settings.scale }}</span>
+                    <span class="sos-card__price"><em>{{ block.settings.price_note }}</em></span>
+                  </div>
+                </div>
+              </a>
+            {%- endif -%}
           {%- endfor -%}
 
         {%- else -%}
@@ -142,7 +149,7 @@
   "name": "Collection gallery",
   "tag": "section",
   "class": "sos-collection-section",
-  "max_blocks": 9,
+  "max_blocks": 12,
   "settings": [
     { "type": "header", "content": "Heading" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Collection" },
@@ -153,7 +160,7 @@
     { "type": "header", "content": "Products" },
     { "type": "collection", "id": "collection", "label": "Collection" },
     { "type": "range", "id": "products_to_show", "label": "Products to show", "min": 3, "max": 12, "step": 3, "default": 6 },
-    { "type": "paragraph", "content": "When the chosen collection has products they are shown. Until then the showcase cards below are used." },
+    { "type": "paragraph", "content": "When a collection is chosen and stocked it is used. Otherwise each showcase block below resolves its product handle: once that product exists it becomes a real card with live price and availability, and until then it shows an enquiry card." },
 
     { "type": "header", "content": "Empty state" },
     { "type": "text", "id": "empty_heading", "label": "Empty heading", "default": "A collection in the making" },
@@ -168,14 +175,15 @@
       "type": "showcase",
       "name": "Showcase statue",
       "settings": [
+        { "type": "text", "id": "product_handle", "label": "Product handle", "info": "The stable handle from the import CSV, e.g. sabo-jimei-palace." },
         { "type": "image_picker", "id": "image", "label": "Photograph" },
         { "type": "text", "id": "image_asset", "label": "Or a theme asset filename" },
         { "type": "text", "id": "maker", "label": "Maker", "default": "Studio" },
         { "type": "text", "id": "name", "label": "Name", "default": "Statue name" },
-        { "type": "text", "id": "scale", "label": "Scale or material", "default": "1/6 Scale — Resin" },
-        { "type": "text", "id": "price_note", "label": "Price note", "default": "Price on request" },
+        { "type": "text", "id": "scale", "label": "Scale or material", "default": "Resin" },
+        { "type": "text", "id": "price_note", "label": "Price note while awaiting import", "default": "Enquire" },
         { "type": "text", "id": "tag", "label": "Corner tag" },
-        { "type": "url", "id": "link", "label": "Link" }
+        { "type": "url", "id": "link", "label": "Enquiry link while awaiting import" }
       ]
     }
   ],

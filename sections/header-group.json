@@ -140,8 +140,45 @@
         "show_account": true,
         "logo_mode": "lockup",
         "emblem_asset": "sos-logo-emblem.png",
-        "emblem_height": 52
-      }
+        "emblem_height": 52,
+        "nav_source": "theme"
+      },
+      "blocks": {
+        "nav1": {
+          "type": "nav_item",
+          "settings": {
+            "label": "The Collection",
+            "url": "/collections/all"
+          }
+        },
+        "nav2": {
+          "type": "nav_item",
+          "settings": {
+            "label": "Sell Your Statues",
+            "url": "/pages/sell-to-us"
+          }
+        },
+        "nav3": {
+          "type": "nav_item",
+          "settings": {
+            "label": "About",
+            "url": "/pages/about"
+          }
+        },
+        "nav4": {
+          "type": "nav_item",
+          "settings": {
+            "label": "Contact",
+            "url": "/pages/contact"
+          }
+        }
+      },
+      "block_order": [
+        "nav1",
+        "nav2",
+        "nav3",
+        "nav4"
+      ]
     }
   },
   "order": [

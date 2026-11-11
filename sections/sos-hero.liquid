@@ -22,7 +22,7 @@
 <div class="sos">
   <section class="sos-hero">
 
-    <div class="sos-hero__media">
+    <div class="sos-hero__media" style="--sos-hero-m-aspect: {{ s.mobile_width }} / {{ s.mobile_height }};">
       <picture>
         {%- if s.mobile_stem != blank -%}
           <source media="(max-width: 1000px)" type="image/avif" srcset="
@@ -110,11 +110,13 @@
     { "type": "text", "id": "desktop_stem", "label": "Desktop asset stem", "default": "sos-hero-desktop" },
     { "type": "text", "id": "desktop_widths", "label": "Desktop widths", "default": "900,1280,1774" },
     { "type": "text", "id": "mobile_stem", "label": "Mobile asset stem", "default": "sos-hero-mobile" },
-    { "type": "text", "id": "mobile_widths", "label": "Mobile widths", "default": "640,860,1024" },
+    { "type": "text", "id": "mobile_widths", "label": "Mobile widths", "default": "480,672,860" },
+    { "type": "number", "id": "mobile_width", "label": "Mobile crop width (px)", "default": 860 },
+    { "type": "number", "id": "mobile_height", "label": "Mobile crop height (px)", "default": 887 },
     { "type": "number", "id": "plate_width", "label": "Plate intrinsic width (px)", "default": 1774 },
     { "type": "number", "id": "plate_height", "label": "Plate intrinsic height (px)", "default": 887 },
     { "type": "text", "id": "plate_alt", "label": "Plate description", "default": "Gear 5 Luffy statue displayed on a stone pedestal in a sunlit palace gallery" },
-    { "type": "text", "id": "plate_caption", "label": "Plaque caption", "default": "Gear 5 Luffy — Anikingdom x Jimei Palace — 1/6 scale" },
+    { "type": "text", "id": "plate_caption", "label": "Plaque caption", "default": "Gear 5 Luffy — Anikingdom x Jimei Palace" },
     {
       "type": "select", "id": "focal_point", "label": "Desktop focal point",
       "options": [
@@ -131,7 +133,7 @@
     { "type": "number", "id": "piece_width", "label": "Piece intrinsic width (px)", "default": 1600 },
     { "type": "number", "id": "piece_height", "label": "Piece intrinsic height (px)", "default": 1188 },
     { "type": "text", "id": "piece_alt", "label": "Piece description", "default": "Gear 5 Luffy resin statue by Anikingdom x Jimei Palace" },
-    { "type": "text", "id": "piece_caption", "label": "Plaque caption", "default": "Gear 5 Luffy — Anikingdom x Jimei Palace — 1/6 scale" },
+    { "type": "text", "id": "piece_caption", "label": "Plaque caption", "default": "Gear 5 Luffy — Anikingdom x Jimei Palace" },
     { "type": "range", "id": "piece_x", "label": "Desktop — horizontal", "min": 40, "max": 85, "step": 1, "unit": "%", "default": 63 },
     { "type": "range", "id": "piece_bottom", "label": "Desktop — sits above base", "min": 5, "max": 45, "step": 1, "unit": "%", "default": 19 },
     { "type": "range", "id": "piece_w", "label": "Desktop — width", "min": 14, "max": 46, "step": 1, "unit": "%", "default": 30 },

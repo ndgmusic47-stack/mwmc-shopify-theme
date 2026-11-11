@@ -1,0 +1,99 @@
+{% comment %}
+  Sultan of Statues — search.
+
+  Renders Shopify's real search results. The count printed is search.results
+  _count, the same number the loop below renders, so the two can never
+  disagree. No static gallery is appended: a shopper searching "Luffy" sees
+  the pieces that matched and nothing else.
+{% endcomment %}
+
+{%- liquid
+  assign s = section.settings
+  assign terms = search.terms
+  assign n = search.results_count
+-%}
+
+<div class="sos">
+  <section class="sos-search">
+    <div class="sos-wrap">
+
+      <p class="sos-eyebrow">{{ s.eyebrow }}</p>
+      <h1 class="sos-display sos-search__title">
+        {%- if search.performed and terms != blank -%}
+          {{ s.heading_results }} &ldquo;{{ terms }}&rdquo;
+        {%- else -%}
+          {{ s.heading_idle }}
+        {%- endif -%}
+      </h1>
+
+      <form class="sos-search__form" action="{{ routes.search_url }}" method="get" role="search">
+        <label class="sos-visually-hidden" for="sos-q">{{ s.field_label }}</label>
+        <input type="search" id="sos-q" name="q" value="{{ terms | escape }}"
+               placeholder="{{ s.placeholder | escape }}" autocomplete="off">
+        <input type="hidden" name="type" value="product">
+        <button type="submit" class="sos-btn sos-btn--primary">
+          {{ s.submit }}{% render 'sos-icon', name: 'arrow' %}
+        </button>
+      </form>
+
+      {%- if search.performed -%}
+        <p class="sos-search__count">
+          {%- if n == 0 -%}
+            No pieces matched.
+          {%- elsif n == 1 -%}
+            1 piece found.
+          {%- else -%}
+            {{ n }} pieces found.
+          {%- endif -%}
+        </p>
+
+        {%- if n > 0 -%}
+          {%- paginate search.results by 24 -%}
+            <div class="sos-grid sos-search__grid">
+              {%- for item in search.results -%}
+                {%- if item.object_type == 'product' -%}
+                  {% render 'sos-product-card', product: item %}
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+
+            {%- if paginate.pages > 1 -%}
+              <nav class="sos-pager" aria-label="Pagination">
+                {{ paginate | default_pagination }}
+              </nav>
+            {%- endif -%}
+          {%- endpaginate -%}
+        {%- else -%}
+          <div class="sos-empty sos-search__empty">
+            <h2>{{ s.empty_heading }}</h2>
+            <p>{{ s.empty_body }}</p>
+            <a class="sos-btn sos-btn--ghost" href="{{ routes.all_products_collection_url }}">
+              {{ s.empty_cta }}{% render 'sos-icon', name: 'arrow' %}
+            </a>
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Palace search",
+  "tag": "section",
+  "class": "sos-search-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Search" },
+    { "type": "text", "id": "heading_idle", "label": "Heading before a search", "default": "Find a piece" },
+    { "type": "text", "id": "heading_results", "label": "Heading prefix with results", "default": "Results for" },
+    { "type": "text", "id": "field_label", "label": "Field label", "default": "Search the collection" },
+    { "type": "text", "id": "placeholder", "label": "Placeholder", "default": "Character, studio or scale" },
+    { "type": "text", "id": "submit", "label": "Submit label", "default": "Search" },
+    { "type": "text", "id": "empty_heading", "label": "Empty heading", "default": "Nothing matched that" },
+    { "type": "text", "id": "empty_body", "label": "Empty body", "default": "Try a character name such as Luffy, or a studio such as Jimei Palace." },
+    { "type": "text", "id": "empty_cta", "label": "Empty button", "default": "Browse the whole collection" }
+  ],
+  "enabled_on": { "templates": ["search"] }
+}
+{% endschema %}
