@@ -91,7 +91,7 @@
                 <a class="sos-btn sos-btn--ghost" href="{{ routes.all_products_collection_url }}">
                   See what else is in the collection{% render 'sos-icon', name: 'arrow' %}
                 </a>
-                <a class="sos-textlink" href="/pages/contact?piece={{ p.title | url_param_escape }}">
+                <a class="sos-textlink" href="{{ s.enquiry_page | default: '/pages/contact' }}?piece={{ p.title | url_param_escape }}">
                   Ask us to look out for one{% render 'sos-icon', name: 'arrow' %}
                 </a>
               </div>
@@ -121,7 +121,7 @@
                 </button>
               {%- endform -%}
 
-              <a class="sos-textlink sos-product__ask" href="/pages/contact?piece={{ p.title | url_param_escape }}">
+              <a class="sos-textlink sos-product__ask" href="{{ s.enquiry_page | default: '/pages/contact' }}?piece={{ p.title | url_param_escape }}">
                 {{ s.ask_label }}{% render 'sos-icon', name: 'arrow' %}
               </a>
             {%- endif -%}
@@ -151,6 +151,8 @@
     { "type": "text", "id": "back_label", "label": "Breadcrumb label", "default": "The Collection" },
     { "type": "text", "id": "add_label", "label": "Add button", "default": "Add to bag" },
     { "type": "text", "id": "ask_label", "label": "Enquiry link", "default": "Ask a question about this piece" },
+    { "type": "url", "id": "enquiry_page", "label": "Enquiry page" },
+    { "type": "paragraph", "content": "Where the enquiry links point. Left blank it uses /pages/contact." },
     { "type": "textarea", "id": "note", "label": "Panel note" }
   ],
   "enabled_on": { "templates": ["product"] }

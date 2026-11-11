@@ -1,25 +1,42 @@
-# Sultan of Statues — activation sequence
+# Sultan of Statues — launch runbook
 
-Everything in the theme is done and validated. What remains is Shopify
-admin work that cannot be done from the theme repo. This is the shortest
-path from here to taking a guest order.
+Theme work is complete and validated. What remains is Shopify admin work
+that cannot be done from the repo.
 
 Staging theme: **207040217429** (`mwmc-shopify-theme/staging`, Draft)
 Preview: `https://www.mumwheresmycards.com/?preview_theme_id=207040217429`
-
 Live theme `203190042965` (`main`) is untouched.
 
 ---
 
-## Step 1 — Import the six products
+## 0. The single reason the store looks unfinished
 
-1. Products → Import → upload `data/sultan-products.csv`.
-2. The CSV sets `Status: draft` and `Published: FALSE` on every row **on
-   purpose**: the live storefront is still the card shop, and an active
-   product appears on `/collections/all` there immediately. Keep them draft
-   until you are ready.
-3. Upload the photographs (the CSV leaves `Image Src` empty so nothing
-   depends on a public URL). Mapping:
+**No products exist in the store.** Verified on the live storefront:
+
+- all six product handles return **404**
+- `/collections/all/products.json` returns **0 products**
+- `/search/suggest.json?q=Luffy` returns **nothing**
+- there is no product sitemap
+
+So the six cards showing "Enquire" and a Luffy search finding nothing are
+not bugs — that is the designed fallback behaving correctly while the
+catalogue is empty. The handles are verified to match exactly across the
+CSV, `templates/index.json` and `templates/collection.json`. Nothing in the
+theme needs changing for the cards to go live; they flip to real product
+cards with price, stock and Add to Bag the moment the products exist and
+are published to the Online Store channel.
+
+---
+
+## 1. Import the products
+
+**CSV path: `data/sultan-products.csv`** (regenerate with
+`python tools/build_product_csv.py`).
+
+1. Products → Import → upload the CSV.
+2. Rows are `Status: draft`, `Published: FALSE` by design — an active
+   product appears on the *live* card-shop storefront immediately.
+3. Upload photographs (the CSV leaves `Image Src` empty):
 
    | Product handle | Photo in the repo |
    |---|---|
@@ -30,92 +47,130 @@ Live theme `203190042965` (`main`) is untouched.
    | `red-roc-luffy-monkey-d-studio` | `assets/sos-statue-luffy-redroc.webp` |
    | `sabo-jimei-palace` | `assets/sos-statue-sabo.webp` |
 
-   In your clone these are at
-   `C:\Users\ncpow\Downloads\New folder\label_in_a_box\mwmc-shopify-theme\assets\`.
+4. Add all six to a collection. The gallery picks up the collection being
+   viewed automatically; no theme change needed.
+5. **Online Store availability** — each product must be published to the
+   Online Store sales channel, or `all_products[handle]` returns nothing in
+   Liquid and the card stays on the enquiry fallback. This is the step most
+   easily missed: draft → active is not the same as published to a channel.
 
-4. Add all six to a collection so `/collections/all` and the collection page
-   fill. The theme needs no change for this — the gallery picks up the
-   collection being viewed automatically.
+### Fields still awaiting confirmation
 
-The handles above are what the theme's homepage and collection cards point
-at. Do not rename them; if you do, change `product_handle` in
-`templates/index.json` and `templates/collection.json` to match.
+| Field | State | Consequence if left |
+|---|---|---|
+| `Variant Inventory Qty` | assumed **1** each | wrong stock count |
+| `Variant Grams` | **0** on every row | weight-based delivery rates cannot compute |
+| Box and inclusions | **unknown for all six** | `[CONFIRM BEFORE PUBLISHING]` marker shows to buyers |
+| Condition detail | only Gear 5 Luffy has a seller note | five pieces say "Used" and nothing more |
+| Delivery charge / collection | **not set** | `[CONFIRM BEFORE PUBLISHING]` marker shows to buyers |
 
-## Step 2 — Fill the three gaps before publishing
-
-Each product description carries a visible `[CONFIRM BEFORE PUBLISHING]`
-marker. That is deliberate — it fails loudly rather than quietly shipping a
-claim nothing supports. Resolve all three per piece:
-
-1. **Quantity.** The CSV sets 1 each with tracking on and overselling
-   denied. Correct any that are not 1.
-2. **Box and inclusions.** No source listing stated this. Five of the six
-   have no condition detail at all beyond "Used"; only Gear 5 Luffy carries
-   a seller note ("Opened and assembled only to check for issues. No
-   flaws.").
-3. **Weight.** Every row has `Variant Grams: 0`. Weight-based delivery rates
-   cannot compute correctly until these are real. Weigh each boxed piece.
-
-## Step 3 — Delivery or collection
-
-Nothing in the theme states a delivery price, because nothing confirmed one.
-Set up in Settings → Shipping and delivery, then remove the
-`[CONFIRM BEFORE PUBLISHING]` delivery line from each description.
-
-Note: the inherited shipping policy still describes **card** parcel rates,
-including the £4.99 charge and the free-shipping threshold. Those terms do
-not fit a £1,100 resin statue and must be rewritten before any statue is
-purchasable. See the store-wide list below.
-
-## Step 4 — Payments
-
-Settings → Payments. Confirm a provider is active and accepts guest
-payment. This could not be verified from here (admin requires sign-in).
-
-## Step 5 — Guest checkout check
-
-Settings → Checkout → set customer accounts to optional, so a guest can buy
-without an account.
-
-Then, with the six products temporarily set to Active, on the staging
-preview URL:
-
-1. Collection → open a piece → Add to bag.
-2. Check the bag shows the right price and the right line total.
-3. Checkout → confirm the delivery or collection option appears, the final
-   total is right, and a payment method is offered.
-4. Place one real low-value test order if you want order creation, order
-   confirmation, merchant notification and stock decrement verified
-   end to end — then refund and restock it. **This spends real money on a
-   real payment method, so it is your call, not something to run
-   automatically.**
-5. Confirm the sold piece now shows "Sold" and is not orderable.
+Prices, handles, vendors, SKUs, titles, types and tags are confirmed and
+need no further input.
 
 ---
 
-## Store-wide items a buyer would still see
+## 2. Domain and URL readiness
 
-These are shared with the live store. None can be changed from the theme,
-and each is visible to a customer at checkout or in email.
+### Theme audit result: clean
 
-| What | Where | Currently |
+No hardcoded `mumwheresmycards.com`, `cdsyvp-8x` or `.myshopify.com`
+references anywhere in the theme. No absolute internal links. Internal
+navigation uses Shopify route objects (`routes.root_url`,
+`routes.all_products_collection_url`, `routes.search_url`,
+`routes.cart_url`, `routes.account_url`) with relative paths only for the
+four content pages, which are editor-settable. The product page's enquiry
+target is now a theme setting rather than a hardcoded path.
+
+This means the theme follows whatever primary domain the store is set to —
+no theme change is needed when the domain changes.
+
+### Redirects for retired URLs
+
+Taken from the live sitemap, so this is what is actually indexed today.
+Set these up in Online Store → Navigation → URL Redirects.
+
+| Retired URL | Redirect to | Reason |
 |---|---|---|
-| Store name | Settings → Store details | "Mum Where's My Cards" — appears in checkout, order emails, and Shopify's own copyright |
-| Store contact / sender email | Settings → Store details and Notifications | Unverified. **The enquiry forms post to Shopify's native contact form, so they deliver to whatever address is set here — possibly the old card-shop inbox.** Check before relying on enquiries. |
-| Shipping policy | Settings → Policies | Card parcel rates, £4.99, free-shipping threshold |
-| Refund / privacy / terms | Settings → Policies | Written for a card business |
-| Order confirmation emails | Settings → Notifications | Card-shop branding |
-| Main menu + footer menu | Navigation | Still contain the card-shop and consignment links |
-| Homepage SEO title | Online Store → Preferences | Pokémon storefront title |
+| `/pages/consignment` | `/pages/sell-to-us` | Closest intent — we buy outright now |
+| `/pages/shows-events` | `/` | No equivalent in the new business |
+| `/collections/frontpage` | `/collections/all` | Shopify default collection, currently empty |
+| `/blogs/news` | `/` | Blog has zero articles |
 
-The theme already works around the three that would otherwise show on
-staging: it carries its own navigation, its own footer with its own
-copyright, and its own brand name for `<title>` and Open Graph. Those
-workarounds can be removed once the store itself is renamed — the header's
-"Navigation source" setting switches back to the Shopify menu, and the
-`Sultan of Statues branding` theme settings can be cleared.
+Both retired pages are **still live and indexed right now**, rendering with
+the headings "Consignment" and "Shows & Events" under Sultan branding,
+because their page records still exist at store level even though their
+templates were removed. Redirect them, then delete or unpublish the page
+records so they leave the sitemap.
 
-## Not done tonight, by scope
+No product redirects are needed — the store has never had products.
 
-- Customer account styling (explicitly out of scope).
-- Live switch — the draft stays unpublished until you approve it.
+### Old-domain references outside the theme
+
+| Where | What |
+|---|---|
+| Settings → Store details | Store name is still "Mum Where's My Cards" |
+| Apple Pay / payment sheet | `merchantName: "Mum Where's My Cards"` — visible at the payment step |
+| Shopify analytics payload | `shop.name` still the old name |
+| `.myshopify.com` domain | `cdsyvp-8x.myshopify.com` — permanent, cannot be changed |
+| Policies | Written for a card business |
+| Order emails | Card-shop branding |
+
+The theme already substitutes its own brand name for `<title>`, Open Graph
+and the footer copyright, so staging never shows the old name in page
+chrome. Checkout and email are Shopify's, not the theme's, and need the
+store rename.
+
+**If the business is moving to a new domain** (e.g. a sultanofstatues
+domain), add it under Settings → Domains, set it as primary, and keep
+`mumwheresmycards.com` connected and redirecting so existing links and
+search results do not break. Do not remove the old domain.
+
+---
+
+## 3. Short activation sequence
+
+1. **Import** `data/sultan-products.csv`; upload the six photos.
+2. **Fill the gaps** — quantities, weights, box/inclusions, condition; then
+   delete each `[CONFIRM BEFORE PUBLISHING]` line from the descriptions.
+3. **Delivery** — Settings → Shipping and delivery. Set real statue rates or
+   collection-only terms.
+4. **Rewrite the shipping policy.** Settings → Policies currently states the
+   **£4.99 rate and free delivery over £50**. Those are card parcel terms.
+   A £1,100 resin statue cannot ship on them, and a customer who checks out
+   against that published policy has a reasonable claim to it. This is the
+   single most important pre-launch text change.
+5. **Payments** — Settings → Payments, confirm a provider is active.
+6. **Guest checkout** — Settings → Checkout → customer accounts **optional**,
+   so a buyer can order without an account.
+7. **Publish to Online Store** — set the six products active and published
+   to the Online Store channel.
+8. **Redirects** — add the four above; delete or unpublish the two retired
+   pages.
+9. **Test** — on the preview URL: collection → product → Add to bag → bag →
+   checkout. Confirm price, delivery option, total and a payment method.
+   One real low-value order verifies order creation, confirmation, merchant
+   notification and stock decrement end to end; refund and restock after.
+   That spends real money, so it is your call.
+10. **Store rename** — Settings → Store details. This is what clears the old
+    name from checkout, the payment sheet and order emails.
+11. **Live switch** — publish the staging theme. Your approval only.
+
+Customer account styling is out of scope.
+
+---
+
+## 4. Known theme issue
+
+`sections/sos-hero.liquid` is not syncing to the theme from GitHub. The
+committed file on `origin/staging` is correct (verified by reading the
+blob), and every other file in the same commit synced, but the served HTML
+lacks two markers that file contains: the `--sos-hero-m-aspect` attribute
+and the `sos-hero__plaque` caption.
+
+Impact is cosmetic — the hero caption plaque does not render. The mobile
+crop itself is correct because the CSS carries
+`aspect-ratio: var(--sos-hero-m-aspect, 860 / 887)` as a fallback.
+
+It matters because no future hero change will land either. The per-file
+reason is in Admin → Online Store → Themes → `207040217429` → GitHub sync
+log, which cannot be read without admin access.
