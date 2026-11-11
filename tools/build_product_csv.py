@@ -105,9 +105,11 @@ PIECES = [
     ),
 ]
 
-CONFIRM = ("<p><strong>[CONFIRM BEFORE PUBLISHING]</strong> Original box and inner "
-           "packaging, and exactly what is included (nameplate, spare parts, LED unit, "
-           "certificate). The source listing does not state this.</p>")
+# Condition confirmed by the owner: every piece has its original box and is
+# in great condition. This is a second-hand business and the listings say so.
+BOX_NOTE = ("<p>Second-hand, supplied with its original box, in great condition. "
+            "This is a second-hand business: pieces have been owned and displayed "
+            "before. Ask us for extra photographs of any detail before you buy.</p>")
 
 
 def ceil_pound(amount: Decimal) -> int:
@@ -123,16 +125,13 @@ def body_html(p) -> str:
     bits.append(f"<p>{spec}. Cast resin collectible display statue.</p>")
 
     bits.append("<p><strong>Condition</strong></p>")
+    bits.append(BOX_NOTE)
     if p["condition_note"]:
-        bits.append(f"<p>Used. Seller's description: &ldquo;{p['condition_note']}&rdquo;</p>")
-    else:
-        bits.append("<p>Used. No further condition detail was recorded for this piece.</p>")
-    bits.append(CONFIRM)
+        bits.append(f"<p>Seller's note on this piece: &ldquo;{p['condition_note']}&rdquo;</p>")
 
-    bits.append("<p><strong>Delivery</strong></p>")
-    bits.append("<p>[CONFIRM BEFORE PUBLISHING] Delivery charge or collection terms. "
-                "Resin statues of this size are heavy and fragile; the source listing "
-                "gave postage as &ldquo;varies&rdquo;.</p>")
+    # Delivery is deliberately NOT described here. No rates are configured yet,
+    # and an unsupported delivery claim on the product page is worse than none;
+    # Shopify shows the real cost at checkout once rates exist.
     bits.append("<p>One only. Once sold, this piece is gone.</p>")
     return "".join(bits)
 
