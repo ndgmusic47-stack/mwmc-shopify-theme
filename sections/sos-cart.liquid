@@ -55,7 +55,8 @@
                   {%- unless line.product.has_only_default_variant -%}
                     <p class="sos-cart__variant">{{ line.variant.title }}</p>
                   {%- endunless -%}
-                  <p class="sos-cart__unit">{{ line.original_price | money }} each</p>
+                  <p class="sos-cart__unit">{{ line.original_price | money }}</p>
+                  <p class="sos-cart__next">{{ s.handover_note }}</p>
                 </div>
 
                 <div class="sos-cart__qty">
@@ -94,6 +95,16 @@
               <button type="submit" name="checkout" class="sos-btn sos-btn--primary sos-cart__checkout">
                 {{ s.checkout_label }}{% render 'sos-icon', name: 'arrow' %}
               </button>
+
+              {%- comment -%}
+                The guarantee's strongest moment is here, next to the button
+                that takes the money — not buried on a policy page. Inline on
+                desktop and mobile alike; the full wording lives on the
+                Delivery & Guarantee page and is identical, from one snippet.
+              {%- endcomment -%}
+              <div class="sos-cart__guarantee">
+                {% render 'sos-guarantee', variant: 'inline' %}
+              </div>
             </div>
           </div>
         </form>
@@ -120,7 +131,8 @@
     { "type": "text", "id": "checkout_label", "label": "Checkout button", "default": "Checkout" },
     { "type": "text", "id": "continue_label", "label": "Continue link", "default": "Continue browsing the collection" },
     { "type": "textarea", "id": "tax_note", "label": "Tax note", "default": "Taxes included where applicable." },
-    { "type": "textarea", "id": "delivery_note", "label": "Delivery note", "default": "Delivery or collection is confirmed at checkout." },
+    { "type": "textarea", "id": "delivery_note", "label": "Delivery note", "default": "Free collection in London, chosen at checkout. Not in London? Ask us for a delivery price before you pay." },
+    { "type": "text", "id": "handover_note", "label": "Per-line handover note", "default": "Free London collection — usually ready in 24 hours" },
     { "type": "header", "content": "Empty bag" },
     { "type": "text", "id": "empty_heading", "label": "Empty heading", "default": "Your bag is empty" },
     { "type": "text", "id": "empty_body", "label": "Empty body", "default": "Nothing here yet. The collection is a good place to start." },

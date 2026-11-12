@@ -3,17 +3,23 @@
   Bespoke section. Independent of Savor's stock header; both can coexist.
 {% endcomment %}
 
-{%- comment -%} Brand faces, self-hosted. No third-party font request. {%- endcomment -%}
+{%- comment -%}
+  Cal Sans, self-hosted. One variable file carries weight 400-700 and optical
+  size 8-45, which is where the hierarchy between statue names, prices and
+  supporting text comes from — no second family needed.
+  SIL Open Font License 1.1; licence shipped alongside as sos-calsans-OFL.txt.
+{%- endcomment -%}
 {% style %}
-  @font-face { font-family: "Cormorant Garamond"; font-style: normal; font-weight: 400; font-display: swap; src: url({{ 'sos-cormorant-400.woff2' | asset_url }}) format("woff2"); }
-  @font-face { font-family: "Cormorant Garamond"; font-style: normal; font-weight: 500; font-display: swap; src: url({{ 'sos-cormorant-500.woff2' | asset_url }}) format("woff2"); }
-  @font-face { font-family: "Cormorant Garamond"; font-style: normal; font-weight: 600; font-display: swap; src: url({{ 'sos-cormorant-600.woff2' | asset_url }}) format("woff2"); }
-  @font-face { font-family: "Cormorant Garamond"; font-style: italic; font-weight: 400; font-display: swap; src: url({{ 'sos-cormorant-400-italic.woff2' | asset_url }}) format("woff2"); }
-  @font-face { font-family: "Cormorant Garamond"; font-style: italic; font-weight: 500; font-display: swap; src: url({{ 'sos-cormorant-500-italic.woff2' | asset_url }}) format("woff2"); }
-  @font-face { font-family: "Jost"; font-style: normal; font-weight: 400; font-display: swap; src: url({{ 'sos-jost-400.woff2' | asset_url }}) format("woff2"); }
-  @font-face { font-family: "Jost"; font-style: normal; font-weight: 500; font-display: swap; src: url({{ 'sos-jost-500.woff2' | asset_url }}) format("woff2"); }
-  @font-face { font-family: "Jost"; font-style: normal; font-weight: 600; font-display: swap; src: url({{ 'sos-jost-600.woff2' | asset_url }}) format("woff2"); }
+  @font-face {
+    font-family: "Cal Sans";
+    font-style: normal;
+    font-weight: 400 700;
+    font-display: swap;
+    src: url({{ 'sos-calsans.woff2' | asset_url }}) format("woff2-variations"),
+         url({{ 'sos-calsans.woff2' | asset_url }}) format("woff2");
+  }
 {% endstyle %}
+{{ 'sos-calsans.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: true }}
 {{ 'sos-palace.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'sos-palace.js' | asset_url }}" defer></script>
 
@@ -85,15 +91,21 @@
                    widths: '80, 120, 160, 240, 320',
                    style: 'height: ' | append: section.settings.emblem_height | append: 'px;' }}
             {%- else -%}
-              {%- comment -%} Intrinsic size of the supplied emblem asset; CSS controls the rendered height. {%- endcomment -%}
+              {%- comment -%}
+                The Sultan emblem, cut out of its black plate. 1x/2x/3x so it
+                stays sharp on high-density screens; intrinsic size is the 1x
+                asset and CSS controls the rendered height.
+              {%- endcomment -%}
               <img
                 class="sos-logo__emblem"
-                src="{{ emblem_src }}"
+                src="{{ 'sos-emblem.png' | asset_url }}"
+                srcset="{{ 'sos-emblem.png' | asset_url }} 1x, {{ 'sos-emblem@2x.png' | asset_url }} 2x, {{ 'sos-emblem@3x.png' | asset_url }} 3x"
                 alt=""
-                width="295"
-                height="320"
+                width="82"
+                height="72"
                 style="height: {{ section.settings.emblem_height }}px;"
                 loading="eager"
+                fetchpriority="high"
                 decoding="async">
             {%- endif -%}
             <span class="sos-logo__stack">
@@ -245,7 +257,7 @@
     { "type": "text", "id": "logo_join", "label": "Wordmark — joining word", "default": "of" },
     { "type": "text", "id": "logo_tail", "label": "Wordmark — last word", "default": "Statues" },
     { "type": "image_picker", "id": "emblem", "label": "Emblem image" },
-    { "type": "text", "id": "emblem_asset", "label": "Or an emblem theme asset", "default": "sos-logo-emblem.png" },
+    { "type": "text", "id": "emblem_asset", "label": "Or an emblem theme asset", "default": "sos-emblem.png" },
     { "type": "range", "id": "emblem_height", "label": "Emblem height", "min": 28, "max": 80, "step": 2, "unit": "px", "default": 52 },
     { "type": "image_picker", "id": "logo", "label": "Logo image" },
     { "type": "range", "id": "logo_height", "label": "Logo image height", "min": 24, "max": 96, "step": 2, "unit": "px", "default": 46 },

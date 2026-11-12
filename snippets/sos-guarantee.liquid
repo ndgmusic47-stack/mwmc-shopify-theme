@@ -1,0 +1,73 @@
+{% doc %}
+  Sultan of Statues — the Hassle-Free Handover Guarantee.
+
+  One source for the guarantee so the wording beside the checkout button is
+  always identical to the wording on the product page and the Delivery &
+  Guarantee page. A promise that drifts between pages is worse than no
+  promise, and this one is a commitment Sultan is making: full refund, and
+  Sultan arranges and pays for collection.
+
+  @param {string} [variant] - "inline" (compact, for beside checkout),
+    "panel" (default, boxed), or "full" (adds the buyback offer).
+  @param {boolean} [show_buyback] - force the buyback block on or off.
+{% enddoc %}
+
+{%- liquid
+  assign v = variant | default: 'panel'
+  assign buyback = show_buyback
+  if buyback == blank
+    assign buyback = false
+    if v == 'full'
+      assign buyback = true
+    endif
+  endif
+-%}
+
+<div class="sos-guarantee sos-guarantee--{{ v }}">
+  <div class="sos-guarantee__mark" aria-hidden="true">{% render 'sos-icon', name: 'shield', size: 22 %}</div>
+
+  <div class="sos-guarantee__body">
+    <h3 class="sos-guarantee__title">Hassle-Free Handover Guarantee</h3>
+
+    <p>
+      You'll receive the exact statue shown in the listing, in the condition
+      described and with all the parts listed. If it arrives damaged, a listed
+      part is missing, or the statue differs from its description, you can
+      return it for a <strong>full refund</strong>.
+    </p>
+
+    {%- unless v == 'inline' -%}
+      <p>
+        We'll arrange and pay for collection. If we're storing your original
+        packaging, we'll bring it with us.
+      </p>
+      <p class="sos-guarantee__statutory">Your statutory rights are unaffected.</p>
+    {%- endunless -%}
+
+    {%- if v == 'inline' -%}
+      <p class="sos-guarantee__more">
+        We arrange and pay for collection.
+        <a href="/pages/delivery-and-guarantee">Read the guarantee</a>
+      </p>
+    {%- endif -%}
+  </div>
+</div>
+
+{%- if buyback -%}
+  <div class="sos-guarantee sos-guarantee--buyback">
+    <div class="sos-guarantee__mark" aria-hidden="true">{% render 'sos-icon', name: 'gem', size: 22 %}</div>
+    <div class="sos-guarantee__body">
+      <h3 class="sos-guarantee__title">A free buyback quote when you're ready to sell</h3>
+      <p>
+        Bought your statue from Sultan of Statues? Come back to us when you're
+        ready to sell. We'll check its condition, what's included and its
+        current resale value. If we can buy it back, we'll give you a quote
+        showing exactly what you'd receive after any collection charge.
+      </p>
+      <p>
+        If you accept, we'll arrange collection and bring your original boxes
+        if we're storing them for you.
+      </p>
+    </div>
+  </div>
+{%- endif -%}

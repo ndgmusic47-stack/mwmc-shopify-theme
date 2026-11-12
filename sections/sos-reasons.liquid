@@ -1,0 +1,66 @@
+{% comment %}
+  Sultan of Statues — practical reasons to buy.
+
+  Replaces the old icon strip. That strip carried decorative glyphs and
+  generic claims ("Individually selected", "UK based", "We buy outright")
+  which told a shopper nothing they could act on. This says what is actually
+  true of every piece and what the buyer actually gets.
+
+  Every line here must be something Sultan can stand behind. Nothing about
+  authenticity, certification or delivery speed that cannot be substantiated.
+{% endcomment %}
+
+{%- liquid
+  assign s = section.settings
+-%}
+
+<div class="sos">
+  <section class="sos-reasons">
+    <div class="sos-wrap">
+      {%- if s.heading != blank -%}
+        <h2 class="sos-display sos-reasons__title">{{ s.heading }}</h2>
+      {%- endif -%}
+
+      <ul class="sos-reasons__list">
+        {%- for block in section.blocks -%}
+          <li class="sos-reasons__item" {{ block.shopify_attributes }}>
+            <h3 class="sos-reasons__h">{{ block.settings.title }}</h3>
+            {%- if block.settings.text != blank -%}
+              <p class="sos-reasons__p">{{ block.settings.text }}</p>
+            {%- endif -%}
+            {%- if block.settings.link_label != blank -%}
+              <a class="sos-textlink sos-reasons__link" href="{{ block.settings.link | default: routes.root_url }}">
+                {{ block.settings.link_label }}{% render 'sos-icon', name: 'arrow' %}
+              </a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Reasons to buy",
+  "tag": "section",
+  "class": "sos-reasons-section",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading" }
+  ],
+  "blocks": [
+    {
+      "type": "reason",
+      "name": "Reason",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "text", "label": "Text" },
+        { "type": "text", "id": "link_label", "label": "Link label" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Reasons to buy" }]
+}
+{% endschema %}

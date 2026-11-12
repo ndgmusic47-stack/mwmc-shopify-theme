@@ -120,10 +120,39 @@ and the footer copyright, so staging never shows the old name in page
 chrome. Checkout and email are Shopify's, not the theme's, and need the
 store rename.
 
-**If the business is moving to a new domain** (e.g. a sultanofstatues
-domain), add it under Settings → Domains, set it as primary, and keep
-`mumwheresmycards.com` connected and redirecting so existing links and
-search results do not break. Do not remove the old domain.
+### Domain swap to the new Sultan domain
+
+The theme needs no change for this — it uses route objects and relative
+paths throughout, so it follows whatever primary domain is set.
+
+Order matters. Do the swap **after** the products and policies are right,
+not before: a new domain indexed while the shipping policy still says £4.99
+is worse than a late swap.
+
+1. **Settings → Domains → Connect existing domain.** Enter the Sultan
+   domain. Shopify gives you the DNS records to add at your registrar —
+   an `A` record for the apex pointing at Shopify's IP, and a `CNAME` for
+   `www` pointing at `shops.myshopify.com`. Verification usually takes
+   minutes but DNS can take up to 48 hours.
+2. **Decide apex vs www** and keep it consistent with what you publicise.
+   Shopify redirects the other automatically.
+3. **Set it as primary.** This is the switch: Shopify starts serving the
+   store on the new domain and 301-redirects the old one to it.
+4. **Keep `mumwheresmycards.com` connected.** Do not remove it. As a
+   non-primary domain it 301s to the new primary, which preserves existing
+   links, bookmarks and whatever search equity the old URLs carry. Removing
+   it breaks every one of them.
+5. **Re-check the four URL redirects** above after the swap — they are
+   path-based, so they carry over, but confirm.
+6. **Update anything that hardcodes the old domain outside Shopify**:
+   email signatures, social profiles, Google Business, marketplace
+   listings, printed material.
+7. **Google Search Console** — add the new domain as a property and submit
+   `/sitemap.xml`. The 301s do the rest.
+
+What the swap does *not* fix: the store name, the payment sheet merchant
+name, order emails and the `.myshopify.com` address. Those are Settings →
+Store details and are a separate step.
 
 ---
 
@@ -154,6 +183,9 @@ search results do not break. Do not remove the old domain.
 10. **Store rename** — Settings → Store details. This is what clears the old
     name from checkout, the payment sheet and order emails.
 11. **Live switch** — publish the staging theme. Your approval only.
+12. **Domain swap** — connect the Sultan domain and set it primary, keeping
+    `mumwheresmycards.com` connected as a redirect. Do this last, once the
+    policies and products are correct.
 
 Customer account styling is out of scope.
 

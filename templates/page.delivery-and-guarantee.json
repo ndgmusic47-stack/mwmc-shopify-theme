@@ -1,0 +1,74 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "sos-guarantee-page",
+      "blocks": {
+        "b1": {
+          "type": "item",
+          "settings": {
+            "title": "Free collection in London",
+            "text": "<p>Collect your statue from us in London at no charge. Once you order we prepare the piece and email you when it is ready, usually within 24 hours, then we agree a time that suits you.</p><p>Bring your order confirmation and photo ID. These are heavy, fragile resin pieces, so bring suitable transport and a second pair of hands for the larger ones. There is room to pull up and load.</p>",
+            "status": ""
+          }
+        },
+        "b2": {
+          "type": "item",
+          "settings": {
+            "title": "Delivery across the UK",
+            "text": "<p>We do not charge a flat delivery rate, because a 1/6 scale resin statue is not a parcel and pretending otherwise would mean either overcharging you or under-protecting the piece.</p><p>Ask us before you order and we will quote your address, including how it will be packed and carried. Any delivery is agreed in writing before you pay.</p>",
+            "status": "Instant postcode pricing is being set up. Until then, delivery is quoted by hand."
+          }
+        },
+        "b3": {
+          "type": "item",
+          "settings": {
+            "title": "Personal delivery and in-home assembly",
+            "text": "<p>We are setting up personal UK delivery with an optional in-home assembly service, so a large piece can be carried in, unboxed and set up where you want it standing.</p>",
+            "status": "Coming soon. Not yet bookable."
+          }
+        },
+        "b4": {
+          "type": "item",
+          "settings": {
+            "title": "Keeping your boxes",
+            "text": "<p>Original boxes and inserts are worth real money at resale, and they are awkward to store. We are setting up paid storage so we can keep yours and bring them back when you sell.</p>",
+            "status": "Coming soon. Not yet bookable."
+          }
+        },
+        "b5": {
+          "type": "item",
+          "settings": {
+            "title": "If something is wrong",
+            "text": "<p>Tell us straight away and we will put it right under the Hassle-Free Handover Guarantee. One contact handles damage, missing parts and assembly questions — you will not be passed around.</p>",
+            "status": ""
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "b5"
+      ],
+      "settings": {
+        "eyebrow": "Delivery & Guarantee",
+        "heading": "Getting your statue home",
+        "lede": "A statue is not a parcel. Here is how yours reaches you, what it costs, and what happens if anything is wrong.",
+        "support_email": "sultan@sultanofstatues.com"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,13 +1,19 @@
 {% doc %}
   Sultan of Statues — a real product card.
 
-  One card shape shared by the homepage gallery, the collection page and the
-  search results, so a piece looks identical wherever it is found. Price and
-  availability come from Shopify; nothing here is typed by hand.
+  One card shape shared by the homepage gallery, the collection page, search
+  and related products, so a piece looks identical wherever it is found.
+
+  Everything describing the statue sits in one unbroken block: photo, studio,
+  name, price, then condition and availability. Nothing rules between the name
+  and the price, so a price can only read as belonging to the piece above it.
+  The card's own bottom border is the divider, after the whole card.
+
+  Price and availability come from Shopify. Nothing here is typed by hand.
 
   @param {object} product - A Shopify product.
   @param {string} [fallback_image] - Theme asset filename used when the
-    product has no media yet (images are uploaded after the CSV import).
+    product has no media yet.
   @param {string} [attrs] - block.shopify_attributes, when rendered from a block.
 {% enddoc %}
 
@@ -20,6 +26,7 @@
   if product.featured_media == blank and fallback_image != blank
     assign fb = fallback_image | asset_url
   endif
+  assign condition = product.metafields.sos.condition | default: 'Pre-owned, boxed'
 -%}
 
 <a class="sos-card{% if sold_out %} sos-card--sold{% endif %}" href="{{ product.url }}" {{ attrs }}>
@@ -46,16 +53,25 @@
     {%- if product.vendor != blank -%}
       <span class="sos-card__maker">{{ product.vendor }}</span>
     {%- endif -%}
+
     <h3 class="sos-card__name">{{ product.title }}</h3>
-    <div class="sos-card__meta">
-      <span class="sos-card__scale">{{ product.type | default: 'Collectible statue' }}</span>
-      <span class="sos-card__price">
-        {%- if sold_out -%}
-          <em>Sold</em>
-        {%- else -%}
-          {{ product.price | money }}
-        {%- endif -%}
-      </span>
-    </div>
+
+    <p class="sos-card__price">
+      {%- if sold_out -%}
+        <em>Sold</em>
+      {%- else -%}
+        {{ product.price | money }}
+      {%- endif -%}
+    </p>
+
+    <p class="sos-card__meta">
+      <span class="sos-card__scale">{{ condition }}</span>
+      <span class="sos-sep" aria-hidden="true">&middot;</span>
+      {%- if sold_out -%}
+        <span class="sos-card__stock">No longer available</span>
+      {%- else -%}
+        <span class="sos-card__stock">In stock</span>
+      {%- endif -%}
+    </p>
   </div>
 </a>

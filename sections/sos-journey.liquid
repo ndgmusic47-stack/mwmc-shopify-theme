@@ -1,0 +1,110 @@
+{% comment %}
+  Sultan of Statues — what happens after you choose a piece.
+
+  Sits below the gallery. A buyer looking at a £1,400 resin statue wants to
+  know how it reaches their house before they will consider the price, so
+  this explains collection and delivery as they actually stand today.
+
+  Steps are editable blocks because the offer changes as services come
+  online: personal delivery, in-home assembly, box storage and tracking each
+  get switched on here as their workflow becomes real. Nothing in the default
+  content promises a service that is not yet running.
+{% endcomment %}
+
+{%- liquid
+  assign s = section.settings
+-%}
+
+<div class="sos">
+  <section class="sos-journey{% if s.tint %} sos-journey--tint{% endif %}">
+    <div class="sos-wrap">
+      <div class="sos-journey__grid">
+
+        <div class="sos-journey__copy">
+          {%- if s.eyebrow != blank -%}<p class="sos-eyebrow">{{ s.eyebrow }}</p>{%- endif -%}
+          {%- if s.heading != blank -%}<h2 class="sos-display sos-journey__title">{{ s.heading }}</h2>{%- endif -%}
+          {%- if s.body != blank -%}<div class="sos-prose__body sos-journey__body">{{ s.body }}</div>{%- endif -%}
+
+          <ol class="sos-journey__steps">
+            {%- for block in section.blocks -%}
+              <li {{ block.shopify_attributes }}>
+                <span class="sos-journey__n" aria-hidden="true">{{ forloop.index }}</span>
+                <div>
+                  <h3 class="sos-journey__h">{{ block.settings.title }}</h3>
+                  {%- if block.settings.text != blank -%}
+                    <p class="sos-journey__p">{{ block.settings.text }}</p>
+                  {%- endif -%}
+                </div>
+              </li>
+            {%- endfor -%}
+          </ol>
+
+          {%- if s.button_label != blank -%}
+            <div class="sos-journey__actions">
+              <a class="sos-btn sos-btn--ghost" href="{{ s.button_link | default: routes.root_url }}">
+                {{ s.button_label }}{% render 'sos-icon', name: 'arrow' %}
+              </a>
+            </div>
+          {%- endif -%}
+        </div>
+
+        {%- if s.image != blank or s.image_asset != blank -%}
+          <figure class="sos-journey__figure">
+            {%- if s.image != blank -%}
+              {{ s.image | image_url: width: 1400 | image_tag:
+                 widths: '480, 760, 1100, 1400',
+                 sizes: '(max-width: 1000px) 92vw, 44vw',
+                 loading: 'lazy',
+                 alt: s.image_alt }}
+            {%- else -%}
+              <img src="{{ s.image_asset | asset_url }}"
+                   alt="{{ s.image_alt | escape }}"
+                   width="{{ s.image_width }}" height="{{ s.image_height }}"
+                   loading="lazy" decoding="async">
+            {%- endif -%}
+            {%- if s.caption != blank -%}
+              <figcaption>{{ s.caption }}</figcaption>
+            {%- endif -%}
+          </figure>
+        {%- endif -%}
+
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "How it reaches you",
+  "tag": "section",
+  "class": "sos-journey-section",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "richtext", "id": "body", "label": "Intro" },
+    { "type": "text", "id": "button_label", "label": "Button label" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "checkbox", "id": "tint", "label": "Tinted background", "default": true },
+
+    { "type": "header", "content": "Image" },
+    { "type": "image_picker", "id": "image", "label": "Photograph" },
+    { "type": "text", "id": "image_asset", "label": "Or a theme asset filename" },
+    { "type": "number", "id": "image_width", "label": "Asset intrinsic width (px)", "default": 1069 },
+    { "type": "number", "id": "image_height", "label": "Asset intrinsic height (px)", "default": 1520 },
+    { "type": "text", "id": "image_alt", "label": "Image description" },
+    { "type": "text", "id": "caption", "label": "Caption" }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "How it reaches you" }]
+}
+{% endschema %}

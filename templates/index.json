@@ -5,11 +5,11 @@
       "settings": {
         "eyebrow": "The Sultan's Collection",
         "heading": "A collection worth crossing kingdoms for.",
-        "body": "Discover collectible statues, distinctive sculpts and remarkable display pieces.",
+        "body": "Pre-owned collectible statues from worlds you love. Collect yours free in London, or ask about delivery before you order.",
         "button_label": "Explore the collection",
         "button_link": "/collections/all",
-        "button2_label": "",
-        "button2_link": "",
+        "button2_label": "Delivery & Guarantee",
+        "button2_link": "/pages/delivery-and-guarantee",
         "desktop_stem": "sos-hero-desktop",
         "desktop_widths": "900,1280,1774",
         "mobile_stem": "sos-hero-mobile",
@@ -23,50 +23,6 @@
         "mobile_width": 860,
         "mobile_height": 887
       }
-    },
-    "assurance": {
-      "type": "sos-assurance",
-      "blocks": {
-        "a1": {
-          "type": "item",
-          "settings": {
-            "icon": "gem",
-            "title": "Collectible statues",
-            "note": "Resin and polystone display pieces"
-          }
-        },
-        "a2": {
-          "type": "item",
-          "settings": {
-            "icon": "layers",
-            "title": "Individually selected",
-            "note": "Each piece chosen by hand"
-          }
-        },
-        "a3": {
-          "type": "item",
-          "settings": {
-            "icon": "parcel",
-            "title": "UK based",
-            "note": "Buying and selling in the UK"
-          }
-        },
-        "a4": {
-          "type": "item",
-          "settings": {
-            "icon": "shield",
-            "title": "We buy outright",
-            "note": "Tell us what you have"
-          }
-        }
-      },
-      "block_order": [
-        "a1",
-        "a2",
-        "a3",
-        "a4"
-      ],
-      "settings": {}
     },
     "gallery": {
       "type": "sos-collection",
@@ -160,9 +116,9 @@
       ],
       "settings": {
         "eyebrow": "The Collection",
-        "heading": "Pieces in the collection",
-        "link_label": "Enquire about a piece",
-        "link_url": "/pages/contact",
+        "heading": "Six pieces, one of each",
+        "link_label": "See all six",
+        "link_url": "/collections/all",
         "products_to_show": 6,
         "empty_heading": "The collection is being prepared",
         "empty_body": "Contact us to enquire about a featured piece.",
@@ -175,17 +131,123 @@
       "settings": {
         "tint": true,
         "eyebrow": "Sell your statues",
-        "heading": "A new home for your collection",
-        "body": "<p>We buy statues outright. Tell us what you have, where you are based and its condition — include the studio, scale if known, original packaging and any repairs or missing parts.</p>",
-        "button_label": "Tell us about your collection",
+        "heading": "Have a piece to sell?",
+        "body": "<p>We buy statues outright — no commission, and we don't sell on your behalf. Tell us what you have and we'll come back with an offer.</p>",
+        "button_label": "Sell your statues",
         "button_link": "/pages/sell-to-us"
+      }
+    },
+    "reasons": {
+      "type": "sos-reasons",
+      "blocks": {
+        "r1": {
+          "type": "reason",
+          "settings": {
+            "title": "The exact statue in the photos",
+            "text": "Every photograph is of the piece you receive, not a studio render. One of each — when it's gone, it's gone.",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "r2": {
+          "type": "reason",
+          "settings": {
+            "title": "Boxed, and described honestly",
+            "text": "Pre-owned and supplied with its original box. Condition is written as it is, and we'll send more photographs of any detail before you buy.",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "r3": {
+          "type": "reason",
+          "settings": {
+            "title": "Free collection in London",
+            "text": "Collect yours at no charge, usually ready within 24 hours. Ask about delivery before you order and we'll quote your address.",
+            "link_label": "Delivery & Guarantee",
+            "link": "/pages/delivery-and-guarantee"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "settings": {
+        "heading": ""
+      }
+    },
+    "journey": {
+      "type": "sos-journey",
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "title": "Choose your piece",
+            "text": "Order online. Ask us anything first — we'll send extra photographs of any detail."
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "title": "We prepare it",
+            "text": "Usually ready within 24 hours. We'll email you when it's ready and arrange a time that suits you."
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "title": "Collect it, free",
+            "text": "Collect from us in London at no charge. Bring your confirmation and photo ID. These pieces are heavy, so bring suitable transport and a second pair of hands for the larger ones."
+          }
+        },
+        "s4": {
+          "type": "step",
+          "settings": {
+            "title": "Not in London?",
+            "text": "Ask about delivery before you order and we'll quote your address. Personal UK delivery with optional in-home assembly is coming."
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "settings": {
+        "eyebrow": "After you choose",
+        "heading": "How it reaches you",
+        "body": "<p>A statue is not a parcel. Here is exactly what happens between your order and the piece standing in your home.</p>",
+        "button_label": "Delivery & Guarantee",
+        "button_link": "/pages/delivery-and-guarantee",
+        "tint": true,
+        "image": "",
+        "image_asset": "sos-statue-luffy-redroc.webp",
+        "image_alt": "Red Roc Luffy resin statue by Monkey D Studio",
+        "caption": "Red Roc Luffy, 1/6 scale — the piece as it stands today.",
+        "image_width": 1069,
+        "image_height": 1520
+      }
+    },
+    "guarantee_route": {
+      "type": "sos-prose",
+      "settings": {
+        "tint": false,
+        "eyebrow": "If something is wrong",
+        "heading": "The Hassle-Free Handover Guarantee",
+        "body": "<p>You'll receive the exact statue shown in the listing, in the condition described and with all the parts listed. If it arrives damaged, a listed part is missing, or the statue differs from its description, you can return it for a <strong>full refund</strong> — and we'll arrange and pay for collection.</p><p>Your statutory rights are unaffected.</p>",
+        "button_label": "Read the guarantee",
+        "button_link": "/pages/delivery-and-guarantee"
       }
     }
   },
   "order": [
     "palace_hero",
-    "assurance",
+    "reasons",
     "gallery",
+    "journey",
+    "guarantee_route",
     "sell"
   ]
 }

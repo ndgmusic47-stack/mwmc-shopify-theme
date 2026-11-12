@@ -121,14 +121,105 @@
                 </button>
               {%- endform -%}
 
+              {%- comment -%}
+                Fulfilment sits beside the price because it is part of the
+                price. Free London collection is live today; delivery is a
+                quote, not an instant rate, so it is an ask rather than a
+                promise. When postcode pricing is ready this becomes a
+                calculator and the wording changes with it.
+              {%- endcomment -%}
+              <ul class="sos-product__fulfil">
+                <li>
+                  <strong>Free collection in London.</strong>
+                  Usually ready within 24 hours.
+                </li>
+                <li>
+                  <strong>Not in London?</strong>
+                  <a href="{{ s.enquiry_page | default: '/pages/contact' }}?piece={{ p.title | url_param_escape }}&amp;about=delivery">Check delivery price</a>
+                  before you order and we'll quote your address.
+                </li>
+              </ul>
+
               <a class="sos-textlink sos-product__ask" href="{{ s.enquiry_page | default: '/pages/contact' }}?piece={{ p.title | url_param_escape }}">
                 {{ s.ask_label }}{% render 'sos-icon', name: 'arrow' %}
               </a>
+
+              <div class="sos-product__guarantee">
+                {% render 'sos-guarantee', variant: 'inline' %}
+              </div>
             {%- endif -%}
 
             {%- if p.description != blank -%}
               <div class="sos-product__desc sos-prose__body">{{ p.description }}</div>
             {%- endif -%}
+
+            {%- liquid
+              assign mf = p.metafields.sos
+              assign has_dims = false
+              if mf.height != blank or mf.width != blank or mf.depth != blank or mf.base != blank
+                assign has_dims = true
+              endif
+            -%}
+
+            {%- comment -%}
+              Measured pieces show their numbers. Unmeasured pieces say so and
+              offer a route to an answer — silence would leave someone spending
+              four figures with no idea whether it clears their shelf, and an
+              invented number would be worse than silence.
+            {%- endcomment -%}
+            {%- unless has_dims -%}
+              <section class="sos-spec">
+                <h2 class="sos-spec__h">Will it fit?</h2>
+                <p class="sos-spec__p">
+                  We haven't published measurements for this piece yet.
+                  <a href="{{ s.enquiry_page | default: '/pages/contact' }}?piece={{ p.title | url_param_escape }}&amp;about=dimensions">Ask us for its dimensions</a>
+                  and we'll measure it and send them before you buy.
+                </p>
+              </section>
+            {%- endunless -%}
+
+            {%- if has_dims -%}
+              <section class="sos-spec">
+                <h2 class="sos-spec__h">Will it fit?</h2>
+                <dl class="sos-spec__list">
+                  {%- if mf.height != blank -%}<div><dt>Assembled height</dt><dd>{{ mf.height }}</dd></div>{%- endif -%}
+                  {%- if mf.width != blank -%}<div><dt>Width</dt><dd>{{ mf.width }}</dd></div>{%- endif -%}
+                  {%- if mf.depth != blank -%}<div><dt>Depth</dt><dd>{{ mf.depth }}</dd></div>{%- endif -%}
+                  {%- if mf.base != blank -%}<div><dt>Base footprint</dt><dd>{{ mf.base }}</dd></div>{%- endif -%}
+                  {%- if mf.overhang != blank -%}<div><dt>Overhang</dt><dd>{{ mf.overhang }}</dd></div>{%- endif -%}
+                  {%- if mf.boxed != blank -%}<div><dt>Packed box</dt><dd>{{ mf.boxed }}</dd></div>{%- endif -%}
+                  {%- if mf.weight != blank -%}<div><dt>Packed weight</dt><dd>{{ mf.weight }}</dd></div>{%- endif -%}
+                </dl>
+                {%- if mf.dims_note != blank -%}
+                  <p class="sos-spec__note">{{ mf.dims_note }}</p>
+                {%- endif -%}
+              </section>
+            {%- endif -%}
+
+            {%- liquid
+              comment
+                Per-piece metafield wins. The section default is the line that
+                is true of every piece in the collection; anything beyond that
+                — spare parts, LED units, certificates — must be confirmed per
+                statue and set on the product, never assumed here.
+              endcomment
+              assign included = mf.included | default: s.included_default
+            -%}
+            {%- if included != blank -%}
+              <section class="sos-spec">
+                <h2 class="sos-spec__h">What's included</h2>
+                <div class="sos-prose__body sos-spec__body">{{ included }}</div>
+              </section>
+            {%- endif -%}
+
+            <section class="sos-spec">
+              <h2 class="sos-spec__h">Questions, damage or missing parts</h2>
+              <p class="sos-spec__p">
+                One contact for everything: {{ s.support_label | default: 'email us' }} at
+                <a href="mailto:{{ s.support_email | default: 'sultan@sultanofstatues.com' }}">{{ s.support_email | default: 'sultan@sultanofstatues.com' }}</a>.
+                Tell us your order number and we'll sort it.
+              </p>
+            </section>
 
             {%- if s.note != blank -%}
               <p class="sos-product__note">{{ s.note }}</p>
@@ -152,6 +243,9 @@
     { "type": "text", "id": "add_label", "label": "Add button", "default": "Add to bag" },
     { "type": "text", "id": "ask_label", "label": "Enquiry link", "default": "Ask a question about this piece" },
     { "type": "url", "id": "enquiry_page", "label": "Enquiry page" },
+    { "type": "text", "id": "support_email", "label": "Support email", "default": "sultan@sultanofstatues.com" },
+    { "type": "richtext", "id": "included_default", "label": "What's included (fallback)", "default": "<p>The statue and its original box and inner packaging. Anything else specific to this piece is listed on the product above.</p>" },
+    { "type": "paragraph", "content": "Per-piece contents and dimensions come from product metafields (sos.included, sos.height, sos.width, sos.depth, sos.base, sos.overhang, sos.boxed, sos.weight). Will it fit? stays hidden until a piece has been measured." },
     { "type": "paragraph", "content": "Where the enquiry links point. Left blank it uses /pages/contact." },
     { "type": "textarea", "id": "note", "label": "Panel note" }
   ],

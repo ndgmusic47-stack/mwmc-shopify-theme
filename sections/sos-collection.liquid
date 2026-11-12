@@ -112,10 +112,10 @@
                     <span class="sos-card__maker">{{ block.settings.maker }}</span>
                   {%- endif -%}
                   <h3 class="sos-card__name">{{ block.settings.name }}</h3>
-                  <div class="sos-card__meta">
+                  <p class="sos-card__price"><em>{{ block.settings.price_note }}</em></p>
+                  <p class="sos-card__meta">
                     <span class="sos-card__scale">{{ block.settings.scale }}</span>
-                    <span class="sos-card__price"><em>{{ block.settings.price_note }}</em></span>
-                  </div>
+                  </p>
                 </div>
               </a>
             {%- endif -%}

@@ -37,9 +37,12 @@
   --sos-on-dark:         #f7f1e7;
   --sos-on-dark-soft:    #c9b79c;
 
-  /* Type */
-  --sos-display: "Cormorant Garamond", "Times New Roman", serif;
-  --sos-sans:    "Jost", "Helvetica Neue", Arial, sans-serif;
+  /* Type — one family, hierarchy from weight and optical size */
+  --sos-display: "Cal Sans", "Helvetica Neue", Arial, sans-serif;
+  --sos-sans:    "Cal Sans", "Helvetica Neue", Arial, sans-serif;
+  --sos-opsz-display: 40;   /* large headings: tighter, more geometric */
+  --sos-opsz-ui:      14;   /* controls and body */
+  --sos-opsz-small:   10;   /* captions and meta: opened up to stay legible */
 
   --sos-fs-eyebrow: 0.72rem;
   --sos-fs-nav:     0.78rem;
@@ -76,8 +79,6 @@
   font-family: var(--sos-sans);
   font-size: var(--sos-fs-eyebrow);
   font-weight: 500;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
   color: var(--sos-gold-text);
   margin: 0 0 1.1rem;
 }
@@ -98,8 +99,6 @@
 .sos-display {
   font-family: var(--sos-display);
   font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.012em;
   line-height: 1.04;
   color: var(--sos-ink);
   margin: 0;
@@ -126,8 +125,6 @@
   font-family: var(--sos-sans);
   font-size: 0.78rem;
   font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
   transition: background-color 0.35s var(--sos-ease),
@@ -162,8 +159,6 @@
   font-family: var(--sos-sans);
   font-size: 0.76rem;
   font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
   color: var(--sos-ink);
   text-decoration: none;
   padding-bottom: 0.35rem;
@@ -218,15 +213,12 @@
   font-family: var(--sos-display);
   font-size: clamp(1.15rem, 0.85rem + 0.9vw, 1.72rem);
   font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
   color: var(--sos-gold-pale);
   white-space: nowrap;
 }
 .sos-logo__word em {
   font-style: normal;
   font-size: 0.62em;
-  letter-spacing: 0.16em;
   color: #c0954f;
 }
 .sos-logo__rule {
@@ -279,8 +271,6 @@
   font-family: var(--sos-sans);
   font-size: var(--sos-fs-nav);
   font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
   color: var(--sos-on-dark);
   text-decoration: none;
   padding-block: 0.6rem;
@@ -330,8 +320,6 @@
   padding: 0.7rem 0.9rem;
   font-family: var(--sos-sans);
   font-size: 0.78rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
   color: var(--sos-ink);
   text-decoration: none;
   transition: background-color 0.25s var(--sos-ease), color 0.25s var(--sos-ease);
@@ -418,8 +406,6 @@
   font-family: var(--sos-display);
   font-size: 1.35rem;
   font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
   color: var(--sos-on-dark);
   text-decoration: none;
 }
@@ -428,7 +414,6 @@
 .sos-drawer__sub a {
   font-family: var(--sos-sans);
   font-size: 0.8rem;
-  letter-spacing: 0.16em;
   padding: 0.6rem 0;
   color: var(--sos-on-dark-soft);
 }
@@ -490,8 +475,6 @@
   text-align: center;
   font-family: var(--sos-sans);
   font-size: 0.62rem;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
   color: #5a4428;
 }
 
@@ -556,8 +539,6 @@
   font-family: var(--sos-sans);
   font-size: 0.74rem;
   font-weight: 500;
-  letter-spacing: 0.17em;
-  text-transform: uppercase;
   color: var(--sos-ink);
 }
 .sos-assurance__note {
@@ -591,7 +572,14 @@
   gap: clamp(1rem, 1.8vw, 2rem);
 }
 
-.sos-card { position: relative; display: flex; flex-direction: column; text-decoration: none; }
+.sos-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(176, 140, 74, 0.26);
+}
 .sos-card__frame {
   position: relative;
   aspect-ratio: 4 / 5;
@@ -621,48 +609,66 @@
   font-family: var(--sos-sans);
   font-size: 0.58rem;
   font-weight: 500;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
   color: var(--sos-gold-pale);
 }
-.sos-card__body { padding: 1.15rem 0.15rem 0; }
+/* Card body.
+   Everything that describes one statue sits in one block with no rule
+   through it: studio, name, price, then condition and availability. The
+   price sits directly under the name and studio so it can only be read as
+   belonging to the piece above it. The only divider is on the card itself,
+   below the whole thing, with the grid gap after that. */
+.sos-card__body {
+  padding: 1.05rem 0 0;
+  display: grid;
+  gap: 0.22rem;
+}
 .sos-card__maker {
-  font-family: var(--sos-sans);
-  font-size: 0.64rem;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
+  font-size: 0.82rem;
+  font-weight: 500;
+  font-variation-settings: "opsz" var(--sos-opsz-small);
   color: var(--sos-bronze-text);
 }
 .sos-card__name {
-  font-family: var(--sos-display);
-  font-size: var(--sos-fs-h3);
-  font-weight: 500;
-  line-height: 1.22;
+  font-size: 1.22rem;
+  font-weight: 600;
+  font-variation-settings: "opsz" 24;
+  line-height: 1.24;
   color: var(--sos-ink);
-  margin: 0.5rem 0 0;
-}
-.sos-card__meta {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-top: 0.85rem;
-  padding-top: 0.85rem;
-  border-top: 1px solid rgba(176, 140, 74, 0.28);
-}
-.sos-card__scale {
-  font-family: var(--sos-sans);
-  font-size: 0.68rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--sos-ink-faint);
+  margin: 0.1rem 0 0;
+  text-wrap: pretty;
 }
 .sos-card__price {
-  font-family: var(--sos-display);
-  font-size: 1.15rem;
+  margin: 0.45rem 0 0;
+  font-size: 1.32rem;
+  font-weight: 600;
+  font-variation-settings: "opsz" 28;
+  line-height: 1.1;
   color: var(--sos-ink);
+  font-variant-numeric: tabular-nums;
 }
-.sos-card__price em { font-style: italic; font-size: 0.8em; color: var(--sos-ink-faint); }
+.sos-card__price em {
+  font-style: normal;
+  font-size: 0.82em;
+  font-weight: 500;
+  color: var(--sos-bronze-text);
+}
+/* Condition and availability, the quiet line under the price. */
+.sos-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.3rem 0.5rem;
+  margin-top: 0.4rem;
+  font-size: 0.86rem;
+  font-weight: 400;
+  font-variation-settings: "opsz" var(--sos-opsz-small);
+  color: var(--sos-ink-faint);
+}
+.sos-card__meta > * { display: inline-flex; align-items: center; gap: 0.35rem; }
+.sos-card__meta .sos-sep { color: rgba(107, 93, 75, 0.5); }
+.sos-card__stock { color: #3f7d4e; font-weight: 500; }
+.sos-card--sold .sos-card__stock { color: var(--sos-ink-faint); }
+.sos-card__scale { color: var(--sos-ink-faint); }
 
 .sos-collection__foot { margin-top: clamp(2.25rem, 4vw, 3.5rem); text-align: center; }
 
@@ -727,8 +733,6 @@
 .sos-featured__specs dt {
   font-family: var(--sos-sans);
   font-size: 0.66rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
   color: var(--sos-bronze-text);
   margin: 0;
 }
@@ -800,7 +804,7 @@
     bottom: var(--piece-bottom-m, 13%);
     width: var(--piece-w-m, 62%);
   }
-  .sos-hero__caption { bottom: -2.1rem; font-size: 0.56rem; letter-spacing: 0.2em; }
+  .sos-hero__caption { bottom: -2.1rem; font-size: 0.56rem; }
   .sos-featured__grid { grid-template-columns: 1fr; gap: 1.75rem; }
   .sos-featured__actions .sos-btn { width: 100%; justify-content: center; }
 }
@@ -814,7 +818,7 @@
 }
 
 @media (max-width: 760px) {
-  .sos-logo__word { font-size: 0.95rem; letter-spacing: 0.1em; }
+  .sos-logo__word { font-size: 0.95rem; }
   .sos-logo__img { height: 34px !important; }
   .sos-util { width: 36px; height: 36px; }
   .sos-util svg { width: 19px; height: 19px; }
@@ -832,7 +836,7 @@
   .sos-logo { align-items: flex-start; }
   .sos-logo--lockup { gap: 0.45rem; align-items: center; }
   .sos-logo__emblem { height: 32px !important; }
-  .sos-logo__word { white-space: normal; font-size: 0.8rem; line-height: 1.18; letter-spacing: 0.08em; }
+  .sos-logo__word { white-space: normal; font-size: 0.8rem; line-height: 1.18; }
   .sos-logo__rule { display: none; }
   .sos-util { width: 33px; height: 33px; }
   .sos-util svg { width: 18px; height: 18px; }
@@ -886,7 +890,7 @@
 .sos-steps { list-style: none; margin: clamp(1.75rem, 4vw, 3rem) 0 0; padding: 0; display: grid; gap: 0; max-width: 72ch; }
 .sos-steps li { display: grid; grid-template-columns: auto 1fr; gap: 1.25rem; padding: 1.4rem 0; border-top: 1px solid rgba(176,140,74,0.28); }
 .sos-steps li:last-child { border-bottom: 1px solid rgba(176,140,74,0.28); }
-.sos-steps__n { font-family: var(--sos-sans); font-size: 0.7rem; letter-spacing: 0.22em; color: var(--sos-bronze-text); padding-top: 0.35rem; }
+.sos-steps__n { font-family: var(--sos-sans); font-size: 0.7rem; color: var(--sos-bronze-text); padding-top: 0.35rem; }
 .sos-steps__h { font-family: var(--sos-display); font-size: 1.35rem; font-weight: 500; color: var(--sos-ink); margin: 0; }
 .sos-steps__p { font-family: var(--sos-display); font-size: 1.05rem; line-height: 1.55; color: var(--sos-ink-soft); margin: 0.4rem 0 0; max-width: 58ch; }
 
@@ -896,7 +900,7 @@
 .sos-enquiry__note { margin-top: 1.25rem; padding-left: 0.9rem; border-left: 2px solid var(--sos-gold); font-family: var(--sos-display); font-style: italic; color: var(--sos-ink-soft); }
 
 .sos-form__row { display: grid; gap: 0.45rem; margin-bottom: 1.1rem; }
-.sos-form label { font-family: var(--sos-sans); font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sos-bronze-text); }
+.sos-form label { font-family: var(--sos-sans); font-size: 0.68rem; color: var(--sos-bronze-text); }
 .sos-form input, .sos-form textarea {
   font-family: var(--sos-display); font-size: 1.05rem; color: var(--sos-ink);
   background: #fffdf9; border: 1px solid rgba(176,140,74,0.5); border-radius: 0;
@@ -926,12 +930,10 @@
   border: 1px solid rgba(176, 140, 74, 0.5);
   font-family: var(--sos-sans);
   font-size: 0.6rem;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
   color: var(--sos-gold-pale);
   white-space: nowrap;
 }
-@media (max-width: 1000px) { .sos-hero__plaque { bottom: 2.5%; font-size: 0.54rem; letter-spacing: 0.16em; } }
+@media (max-width: 1000px) { .sos-hero__plaque { bottom: 2.5%; font-size: 0.54rem; } }
 @media (max-width: 420px) { .sos-hero__plaque { white-space: normal; text-align: center; max-width: 86%; } }
 
 /* ==========================================  7. SAVOR SURFACE OVERRIDES  ==
@@ -946,7 +948,6 @@ main h1, main h2, main h3,
 .shopify-policy__title h1, .shopify-policy__body h2 {
   font-family: var(--sos-display) !important;
   font-weight: 500 !important;
-  letter-spacing: 0.01em !important;
   text-transform: none !important;
   color: var(--sos-ink) !important;
 }
@@ -965,8 +966,6 @@ main h1, main h2, main h3,
   border-radius: 0 !important;
   font-family: var(--sos-sans) !important;
   font-size: 0.74rem !important;
-  letter-spacing: 0.16em !important;
-  text-transform: uppercase !important;
   color: var(--sos-ink) !important;
 }
 
@@ -974,8 +973,6 @@ main h1, main h2, main h3,
 main .button, main button[type="submit"], main .shopify-payment-button__button {
   border-radius: 0 !important;
   font-family: var(--sos-sans) !important;
-  letter-spacing: 0.18em !important;
-  text-transform: uppercase !important;
 }
 
 /* Safety net for Savor's own footer if it is ever re-enabled. The bespoke
@@ -1024,8 +1021,6 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
   margin: 0.75rem 0 0;
   font-family: var(--sos-sans);
   font-size: 0.7rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
   color: var(--sos-gold-light, #d8b877);
 }
 
@@ -1034,8 +1029,6 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
   font-family: var(--sos-sans);
   font-size: 0.68rem;
   font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
   color: var(--sos-gold-light, #d8b877);
 }
 .sos-footer__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
@@ -1064,7 +1057,6 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
   margin: 0;
   font-family: var(--sos-sans);
   font-size: 0.72rem;
-  letter-spacing: 0.1em;
   color: var(--sos-on-dark-soft, #cdbda6);
 }
 .sos-footer__policies { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem; }
@@ -1090,11 +1082,9 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
   border: 1px solid var(--sos-gold);
   font-family: var(--sos-sans);
   font-size: 0.7rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
   color: var(--sos-bronze-text);
 }
-.sos-copy { font-family: var(--sos-sans); font-size: 0.75rem; letter-spacing: 0.08em; color: var(--sos-on-dark-soft); }
+.sos-copy { font-family: var(--sos-sans); font-size: 0.75rem; color: var(--sos-on-dark-soft); }
 
 /* ===================================  9. BUYING JOURNEY SURFACES  ======= */
 /* Product, search and bag, built as bespoke Sultan sections rather than
@@ -1112,8 +1102,6 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
   font-style: normal;
   font-family: var(--sos-sans);
   font-size: 0.68rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
   color: var(--sos-bronze-text);
 }
 
@@ -1122,7 +1110,7 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
   display: flex; flex-wrap: wrap; gap: 0.5rem;
   padding-block: clamp(1.25rem, 3vw, 2rem) 0;
   font-family: var(--sos-sans);
-  font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+  font-size: 0.7rem;
   color: var(--sos-ink-faint);
 }
 .sos-crumb a { color: var(--sos-bronze-text); text-decoration: none; }
@@ -1160,7 +1148,7 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
   display: flex; align-items: center; gap: 0.55rem;
   margin: 0.85rem 0 0;
   font-family: var(--sos-sans);
-  font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+  font-size: 0.72rem;
   color: var(--sos-bronze-text);
 }
 .sos-dot { width: 7px; height: 7px; border-radius: 50%; background: #3f7d4e; display: inline-block; }
@@ -1192,8 +1180,7 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
 }
 .sos-field__label {
   display: block; margin-bottom: 0.45rem;
-  font-family: var(--sos-sans); font-size: 0.68rem;
-  letter-spacing: 0.2em; text-transform: uppercase; color: var(--sos-bronze-text);
+  font-family: var(--sos-sans); font-size: 0.68rem; color: var(--sos-bronze-text);
 }
 
 /* Search ----------------------------------------------------------------- */
@@ -1213,8 +1200,7 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
 }
 .sos-search__count {
   margin-top: clamp(1.4rem, 3vw, 2rem);
-  font-family: var(--sos-sans); font-size: 0.72rem;
-  letter-spacing: 0.2em; text-transform: uppercase; color: var(--sos-bronze-text);
+  font-family: var(--sos-sans); font-size: 0.72rem; color: var(--sos-bronze-text);
 }
 .sos-search__grid { margin-top: 1.25rem; }
 .sos-search__empty { margin-top: 1.5rem; }
@@ -1237,8 +1223,7 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
 .sos-cart__thumb { display: block; background: var(--sos-parchment); }
 .sos-cart__thumb img { display: block; width: 100%; height: auto; }
 .sos-cart__maker {
-  font-family: var(--sos-sans); font-size: 0.65rem;
-  letter-spacing: 0.2em; text-transform: uppercase; color: var(--sos-bronze-text);
+  font-family: var(--sos-sans); font-size: 0.65rem; color: var(--sos-bronze-text);
 }
 .sos-cart__name { font-family: var(--sos-display); font-size: 1.3rem; font-weight: 500; margin: 0.3rem 0 0; }
 .sos-cart__name a { color: var(--sos-ink); text-decoration: none; }
@@ -1255,7 +1240,6 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
 }
 .sos-cart__remove {
   font-family: var(--sos-sans); font-size: 0.68rem;
-  letter-spacing: 0.16em; text-transform: uppercase;
   color: var(--sos-terracotta); text-decoration: none;
 }
 .sos-cart__remove:hover { text-decoration: underline; }
@@ -1285,4 +1269,271 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
   .sos-cart__actions .sos-btn { width: 100%; justify-content: center; }
   .sos-search__form .sos-btn { width: 100%; justify-content: center; }
   .sos-cart__emptyactions .sos-btn { width: 100%; justify-content: center; }
+}
+
+/* ==========================================  10. CAL SANS TYPE LAYER  ====
+   The scale above was drawn for Cormorant, a serif that reads small for its
+   point size. Cal Sans is a geometric sans and reads large, so the display
+   sizes come down and the small text goes up. Hierarchy now comes from
+   weight and optical size rather than from switching family.
+
+   Optical size matters here: at `opsz` 40 the letterforms tighten for
+   headlines, at 10 they open up so a 0.82rem condition line stays readable.
+   Shopping controls are sentence case with normal tracking. */
+
+.sos, .sos * { font-family: var(--sos-display); }
+
+.sos {
+  font-size: 1rem;
+  font-variation-settings: "opsz" var(--sos-opsz-ui);
+  -webkit-font-smoothing: antialiased;
+}
+
+:root {
+  --sos-fs-h1: clamp(2.1rem, 1.2rem + 2.9vw, 3.6rem);
+  --sos-fs-h2: clamp(1.7rem, 1.2rem + 1.7vw, 2.6rem);
+  --sos-fs-h3: clamp(1.15rem, 1rem + 0.5vw, 1.4rem);
+  --sos-measure: 62ch;
+}
+
+.sos-display {
+  font-weight: 600;
+  font-variation-settings: "opsz" var(--sos-opsz-display);
+  letter-spacing: -0.015em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+/* Eyebrow: was letterspaced caps. Now a quiet sentence-case label. */
+.sos-eyebrow {
+  font-size: 0.88rem;
+  font-weight: 500;
+  font-variation-settings: "opsz" var(--sos-opsz-small);
+  color: var(--sos-bronze-text);
+  text-transform: none;
+}
+.sos-eyebrow::after { display: none; }
+
+.sos-lede {
+  font-size: clamp(1.02rem, 0.96rem + 0.3vw, 1.18rem);
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.55;
+  color: var(--sos-ink-soft);
+  max-width: 46ch;
+  text-wrap: pretty;
+}
+
+/* Controls: sentence case, no tracking, clear tap targets. */
+.sos-btn {
+  font-size: 0.98rem;
+  font-weight: 600;
+  font-variation-settings: "opsz" 16;
+  text-transform: none;
+  padding: 0.95rem 1.5rem;
+  border-radius: 0;
+  line-height: 1.2;
+}
+.sos-btn--primary { background: var(--sos-terracotta); color: #fff; }
+.sos-btn--primary:hover { background: var(--sos-terracotta-deep); }
+.sos-textlink {
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-variation-settings: "opsz" 16;
+  text-transform: none;
+}
+
+.sos-nav__link {
+  font-size: 0.98rem;
+  font-weight: 500;
+  font-variation-settings: "opsz" 16;
+  text-transform: none;
+}
+
+.sos-prose__body {
+  font-family: var(--sos-display);
+  font-size: 1.04rem;
+  line-height: 1.62;
+  max-width: var(--sos-measure);
+}
+.sos-prose__body h3 {
+  font-size: 1.18rem;
+  font-weight: 600;
+  color: var(--sos-ink);
+  margin: 1.6rem 0 0.5rem;
+}
+
+/* One grid. Header, sections, product and footer share this measure so the
+   left edge of the logo lines up with the left edge of the first card and
+   the first footer column. */
+.sos-wrap {
+  max-width: var(--sos-max);
+  margin-inline: auto;
+  padding-inline: var(--sos-gutter);
+  width: 100%;
+}
+
+/* Gallery grid: generous row gap so the card's own bottom rule reads as
+   belonging to the card above it, never to the one below. */
+.sos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(2.25rem, 3.5vw, 3.25rem) clamp(1.25rem, 2.5vw, 2.25rem);
+}
+
+/* Product photography framed consistently: contain, never crop the sculpt.
+   Square, not 4:5 — four of the six supplied photographs are landscape
+   (1.17 to 1.50) and one is 0.70 portrait, so a portrait frame letterboxes
+   most of the set badly. A square splits the difference and keeps every card
+   the same height whatever the shot. */
+.sos-card__frame {
+  aspect-ratio: 1 / 1;
+  background: var(--sos-espresso-deep);
+  display: grid;
+  place-items: center;
+}
+.sos-card__img { object-fit: contain; transform: none; }
+.sos-card:hover .sos-card__img { transform: scale(1.03); }
+.sos-card__veil { display: none; }
+.sos-card__tag {
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-variation-settings: "opsz" var(--sos-opsz-small);
+  text-transform: none;
+}
+
+@media (max-width: 1000px) { .sos-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px)  { .sos-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* ==============================  11. REASONS / JOURNEY / GUARANTEE  ===== */
+
+/* Reasons to buy — replaces the icon strip. Text only, no decorative glyphs. */
+.sos-reasons { background: var(--sos-ivory); padding-block: clamp(2.5rem, 5vw, 4rem); border-bottom: 1px solid rgba(176,140,74,0.2); }
+.sos-reasons__title { font-size: var(--sos-fs-h3); margin: 0 0 clamp(1.25rem, 2.5vw, 1.75rem); }
+.sos-reasons__list {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+}
+.sos-reasons__item > * { min-width: 0; }
+.sos-reasons__h { margin: 0 0 0.35rem; font-size: 1.04rem; font-weight: 600; color: var(--sos-ink); }
+.sos-reasons__p { margin: 0; font-size: 0.95rem; line-height: 1.55; color: var(--sos-ink-soft); max-width: 36ch; text-wrap: pretty; }
+.sos-reasons__link { margin-top: 0.55rem; }
+
+/* How it reaches you */
+.sos-journey { background: var(--sos-ivory); padding-block: var(--sos-section-y); }
+.sos-journey--tint { background: var(--sos-ivory-warm); }
+.sos-journey__grid {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  gap: clamp(1.75rem, 4vw, 4rem); align-items: start;
+}
+.sos-journey__title { font-size: var(--sos-fs-h2); margin: 0.35rem 0 0; }
+.sos-journey__body { margin-top: 1rem; }
+.sos-journey__steps { list-style: none; margin: clamp(1.5rem, 3vw, 2.25rem) 0 0; padding: 0; display: grid; gap: 0; max-width: 54ch; }
+.sos-journey__steps li {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1rem;
+  padding: 1.1rem 0; border-top: 1px solid rgba(176,140,74,0.26);
+}
+.sos-journey__steps li:last-child { border-bottom: 1px solid rgba(176,140,74,0.26); }
+.sos-journey__n {
+  width: 1.7rem; height: 1.7rem; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--sos-espresso); color: var(--sos-gold-pale);
+  font-size: 0.82rem; font-weight: 600;
+}
+.sos-journey__h { margin: 0.15rem 0 0.25rem; font-size: 1.04rem; font-weight: 600; color: var(--sos-ink); }
+.sos-journey__p { margin: 0; font-size: 0.95rem; line-height: 1.55; color: var(--sos-ink-soft); text-wrap: pretty; }
+.sos-journey__actions { margin-top: clamp(1.5rem, 3vw, 2.25rem); }
+.sos-journey__figure { margin: 0; }
+.sos-journey__figure img { display: block; width: 100%; height: auto; border: 1px solid rgba(176,140,74,0.26); }
+.sos-journey__figure figcaption { margin-top: 0.6rem; font-size: 0.86rem; color: var(--sos-ink-faint); }
+
+/* Guarantee */
+.sos-guarantee {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.9rem;
+  padding: 1.15rem 1.25rem;
+  background: var(--sos-parchment);
+  border: 1px solid rgba(176,140,74,0.4);
+}
+.sos-guarantee + .sos-guarantee { margin-top: 0.85rem; }
+.sos-guarantee__mark { color: var(--sos-bronze-text); padding-top: 0.1rem; }
+.sos-guarantee__title { margin: 0 0 0.45rem; font-size: 1.02rem; font-weight: 600; color: var(--sos-ink); }
+.sos-guarantee p { margin: 0 0 0.6rem; font-size: 0.94rem; line-height: 1.55; color: var(--sos-ink-soft); text-wrap: pretty; }
+.sos-guarantee p:last-child { margin-bottom: 0; }
+.sos-guarantee strong { color: var(--sos-ink); font-weight: 600; }
+.sos-guarantee__statutory { font-size: 0.86rem !important; color: var(--sos-ink-faint) !important; }
+.sos-guarantee a { color: var(--sos-terracotta); }
+
+/* Compact form used beside the checkout button. */
+.sos-guarantee--inline { padding: 0.95rem 1.05rem; background: rgba(239,227,212,0.6); }
+.sos-guarantee--inline .sos-guarantee__title { font-size: 0.95rem; }
+.sos-guarantee--inline p { font-size: 0.89rem; margin-bottom: 0.4rem; }
+.sos-guarantee--buyback { background: var(--sos-ivory-warm); }
+
+@media (max-width: 1000px) {
+  .sos-reasons__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sos-journey__grid { grid-template-columns: minmax(0, 1fr); }
+  .sos-journey__figure { order: -1; }
+}
+@media (max-width: 620px) {
+  .sos-reasons__list { grid-template-columns: minmax(0, 1fr); gap: 1.4rem; }
+  .sos-journey__actions .sos-btn { width: 100%; justify-content: center; }
+}
+
+/* ===================================  12. PRODUCT DETAIL BLOCKS  ======= */
+
+/* Fulfilment beside the price — part of the cost, so it sits with the cost. */
+.sos-product__fulfil {
+  list-style: none; margin: 1.1rem 0 0; padding: 0.95rem 1.05rem;
+  background: var(--sos-ivory-warm); border: 1px solid rgba(176,140,74,0.3);
+  display: grid; gap: 0.5rem;
+}
+.sos-product__fulfil li { font-size: 0.94rem; line-height: 1.5; color: var(--sos-ink-soft); }
+.sos-product__fulfil strong { color: var(--sos-ink); font-weight: 600; }
+.sos-product__fulfil a { color: var(--sos-terracotta); font-weight: 600; }
+.sos-product__guarantee { margin-top: 1.1rem; }
+
+/* Will it fit / What's included / Support */
+.sos-spec { margin-top: clamp(1.6rem, 3vw, 2.25rem); padding-top: clamp(1.3rem, 2.5vw, 1.75rem); border-top: 1px solid rgba(176,140,74,0.26); }
+.sos-spec__h { margin: 0 0 0.75rem; font-size: 1.08rem; font-weight: 600; color: var(--sos-ink); }
+.sos-spec__list { margin: 0; display: grid; gap: 0; }
+.sos-spec__list > div {
+  display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; justify-content: space-between;
+  align-items: baseline; padding: 0.6rem 0; border-bottom: 1px solid rgba(176,140,74,0.18);
+}
+.sos-spec__list dt { margin: 0; font-size: 0.94rem; color: var(--sos-ink-soft); }
+.sos-spec__list dd { margin: 0; font-size: 0.98rem; font-weight: 600; color: var(--sos-ink); font-variant-numeric: tabular-nums; }
+.sos-spec__note, .sos-spec__p { margin: 0.8rem 0 0; font-size: 0.93rem; line-height: 1.55; color: var(--sos-ink-soft); }
+.sos-spec__p a { color: var(--sos-terracotta); font-weight: 600; }
+.sos-spec__body { font-size: 0.98rem; }
+
+/* Guarantee beside the checkout button. */
+.sos-cart__guarantee { flex-basis: 100%; max-width: 32rem; margin-top: 0.25rem; }
+.sos-cart__next { margin: 0.35rem 0 0; font-size: 0.88rem; color: #3f7d4e; font-weight: 500; }
+@media (max-width: 760px) { .sos-cart__guarantee { max-width: none; } }
+
+/* ===================================  13. DELIVERY & GUARANTEE PAGE  === */
+.sos-gpage { background: var(--sos-ivory); padding-block: var(--sos-section-y); }
+.sos-gpage__head { max-width: 54ch; }
+.sos-gpage__title { font-size: var(--sos-fs-h2); margin: 0.35rem 0 0.9rem; }
+.sos-gpage__grid {
+  margin-top: clamp(1.75rem, 4vw, 3rem);
+  display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
+  gap: clamp(1.75rem, 4vw, 3.5rem); align-items: start;
+}
+.sos-gpage__block { padding-block: clamp(1.25rem, 2.5vw, 1.75rem); border-top: 1px solid rgba(176,140,74,0.26); }
+.sos-gpage__block:first-child { border-top: 0; padding-top: 0; }
+.sos-gpage__h { margin: 0 0 0.6rem; font-size: 1.22rem; font-weight: 600; color: var(--sos-ink); }
+.sos-gpage__status {
+  margin: 0.7rem 0 0; display: inline-block; padding: 0.35rem 0.65rem;
+  background: rgba(176,140,74,0.14); border: 1px solid rgba(176,140,74,0.45);
+  font-size: 0.86rem; color: var(--sos-bronze-text);
+}
+.sos-gpage__aside { position: sticky; top: 104px; display: grid; gap: 1rem; }
+.sos-gpage__support { margin: 0; font-size: 0.94rem; color: var(--sos-ink-soft); }
+.sos-gpage__support a { color: var(--sos-terracotta); font-weight: 600; }
+.sos-gpage__cta .sos-btn { width: 100%; justify-content: center; }
+@media (max-width: 1000px) {
+  .sos-gpage__grid { grid-template-columns: minmax(0, 1fr); }
+  .sos-gpage__aside { position: static; }
 }

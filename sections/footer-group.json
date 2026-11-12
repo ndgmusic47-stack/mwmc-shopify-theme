@@ -365,18 +365,25 @@
         "nav2": {
           "type": "nav_item",
           "settings": {
+            "label": "Delivery & Guarantee",
+            "url": "/pages/delivery-and-guarantee"
+          }
+        },
+        "nav3": {
+          "type": "nav_item",
+          "settings": {
             "label": "Sell Your Statues",
             "url": "/pages/sell-to-us"
           }
         },
-        "nav3": {
+        "nav4": {
           "type": "nav_item",
           "settings": {
             "label": "About",
             "url": "/pages/about"
           }
         },
-        "nav4": {
+        "nav5": {
           "type": "nav_item",
           "settings": {
             "label": "Contact",
@@ -388,7 +395,8 @@
         "nav1",
         "nav2",
         "nav3",
-        "nav4"
+        "nav4",
+        "nav5"
       ],
       "settings": {
         "logo_lead": "Sultan",

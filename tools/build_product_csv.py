@@ -85,7 +85,7 @@ PIECES = [
         character="Red Roc Luffy",
         vendor="Monkey D Studio",
         scale="1/6",
-        source_price=Decimal("1100.00"),
+        source_price=Decimal("1400.00"),
         condition_note=None,
         photo="assets/sos-statue-luffy-redroc.webp",
         alt="Red Roc Luffy 1/6 scale resin statue by Monkey D Studio",
@@ -111,6 +111,19 @@ BOX_NOTE = ("<p>Second-hand, supplied with its original box, in great condition.
             "This is a second-hand business: pieces have been owned and displayed "
             "before. Ask us for extra photographs of any detail before you buy.</p>")
 
+
+
+# Public Shopify CDN URLs for the genuine seller photographs, already served
+# as theme assets. Verified 200 image/* from the storefront, so Shopify's
+# importer can fetch them during import — no manual media upload needed.
+CDN = {
+    "gear-5-luffy-anikingdom-jimei-palace": "https://www.mumwheresmycards.com/cdn/shop/t/7/assets/sos-statue-luffy-gear5.webp?v=144263092494868694331793524300",
+    "dracule-mihawk-lx-studio":             "https://www.mumwheresmycards.com/cdn/shop/t/7/assets/sos-statue-mihawk.webp?v=84350616977525330641793524302",
+    "king-monkey-d-studio":                 "https://www.mumwheresmycards.com/cdn/shop/t/7/assets/sos-statue-king.webp?v=103228604164132825901793524298",
+    "trafalgar-law-monkey-d-studio":        "https://www.mumwheresmycards.com/cdn/shop/t/7/assets/sos-statue-law.webp?v=72566218609079889281793524299",
+    "red-roc-luffy-monkey-d-studio":        "https://www.mumwheresmycards.com/cdn/shop/t/7/assets/sos-statue-luffy-redroc.webp?v=17417680871982121711793524301",
+    "sabo-jimei-palace":                    "https://www.mumwheresmycards.com/cdn/shop/t/7/assets/sos-statue-sabo.webp?v=71479132973521658751793524303",
+}
 
 def ceil_pound(amount: Decimal) -> int:
     """Round up to the next whole pound. 143.56 -> 144, 700.00 -> 700."""
@@ -186,7 +199,7 @@ def main():
             "Variant Price": price,
             "Variant Requires Shipping": "TRUE",
             "Variant Taxable": "TRUE",
-            "Image Src": "",                     # upload locally, see mapping
+            "Image Src": CDN[p["handle"]],
             "Image Position": 1,
             "Image Alt Text": p["alt"],
             "Gift Card": "FALSE",

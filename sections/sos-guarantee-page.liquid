@@ -1,0 +1,91 @@
+{% comment %}
+  Sultan of Statues — Delivery & Guarantee.
+
+  The destination for every "Delivery & Guarantee" and "Read the guarantee"
+  link in the theme. The guarantee itself is rendered from the shared snippet,
+  so this page, the product page and the bag can never drift apart.
+
+  Only describes services that are actually running. Postcode pricing,
+  appointment booking, in-home assembly, live tracking, box storage and
+  instalments each get their own block here when their workflow is ready; the
+  default content covers what Sultan can do today.
+{% endcomment %}
+
+{%- liquid
+  assign s = section.settings
+-%}
+
+<div class="sos">
+  <section class="sos-gpage">
+    <div class="sos-wrap">
+
+      <header class="sos-gpage__head">
+        {%- if s.eyebrow != blank -%}<p class="sos-eyebrow">{{ s.eyebrow }}</p>{%- endif -%}
+        {%- if s.heading != blank -%}<h1 class="sos-display sos-gpage__title">{{ s.heading }}</h1>{%- endif -%}
+        {%- if s.lede != blank -%}<p class="sos-lede">{{ s.lede }}</p>{%- endif -%}
+      </header>
+
+      <div class="sos-gpage__grid">
+        <div class="sos-gpage__main">
+          {%- for block in section.blocks -%}
+            <section class="sos-gpage__block" {{ block.shopify_attributes }}>
+              <h2 class="sos-gpage__h">{{ block.settings.title }}</h2>
+              {%- if block.settings.text != blank -%}
+                <div class="sos-prose__body">{{ block.settings.text }}</div>
+              {%- endif -%}
+              {%- if block.settings.status != blank -%}
+                <p class="sos-gpage__status">{{ block.settings.status }}</p>
+              {%- endif -%}
+            </section>
+          {%- endfor -%}
+        </div>
+
+        <aside class="sos-gpage__aside">
+          {% render 'sos-guarantee', variant: 'full' %}
+
+          {%- if s.support_email != blank -%}
+            <p class="sos-gpage__support">
+              Questions about delivery, damage or missing parts?
+              <a href="mailto:{{ s.support_email }}">{{ s.support_email }}</a>
+            </p>
+          {%- endif -%}
+
+          <div class="sos-gpage__cta">
+            <a class="sos-btn sos-btn--primary" href="{{ routes.all_products_collection_url }}">
+              Explore the collection{% render 'sos-icon', name: 'arrow' %}
+            </a>
+          </div>
+        </aside>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Delivery and guarantee",
+  "tag": "section",
+  "class": "sos-gpage-section",
+  "max_blocks": 10,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Delivery & Guarantee" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Getting your statue home" },
+    { "type": "textarea", "id": "lede", "label": "Lede" },
+    { "type": "text", "id": "support_email", "label": "Support email", "default": "sultan@sultanofstatues.com" }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Section",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "richtext", "id": "text", "label": "Text" },
+        { "type": "text", "id": "status", "label": "Status note", "info": "Use for services that are not running yet." }
+      ]
+    }
+  ],
+  "enabled_on": { "templates": ["page"] },
+  "presets": [{ "name": "Delivery and guarantee" }]
+}
+{% endschema %}
