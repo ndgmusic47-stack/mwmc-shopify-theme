@@ -2,3 +2,6 @@
 
 # Local render harness output (not part of the theme)
 .harness/
+
+# Server-side secrets for the delivery rate service
+services/delivery-pricing/.env
