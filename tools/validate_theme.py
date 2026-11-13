@@ -61,8 +61,21 @@ def section_schemas():
 
 
 def walk_settings(settings, where):
-    """Range-step limit: (max-min)/step + 1 must be <= 101."""
+    """Range-step limit: (max-min)/step + 1 must be <= 101.
+
+    Plus: an empty-string "default". Theme Check passes it; the GitHub sync
+    rejects the whole file with "setting with id=... default can't be blank".
+    Omit the key instead — Shopify treats an absent default as empty anyway.
+    """
     for st in settings or []:
+        # A select/radio may legitimately offer "" as an option value; a free-text
+        # setting may not declare "" as its default.
+        if (st.get("type") in ("text", "textarea", "inline_richtext", "richtext", "html", "liquid", "url")
+                and st.get("default") == ""):
+            problems.append(
+                f"{where}: setting '{st.get('id')}' has an empty \"default\": \"\" "
+                f"— the GitHub sync rejects the whole file; drop the default key"
+            )
         if st.get("type") != "range":
             continue
         step = st.get("step", 1)   # Shopify defaults step to 1 when omitted
@@ -272,6 +285,35 @@ def check_product_handles():
                                     f"which the import CSV does not create")
 
 
+def check_settings_data_types():
+    """config/settings_data.json: Savor declares several settings as strings.
+
+    A bare number where the schema wants a string makes the sync reject the
+    whole file, which strands every theme-editor setting with it.
+    """
+    data_path = os.path.join(ROOT, "config", "settings_data.json")
+    schema_path = os.path.join(ROOT, "config", "settings_schema.json")
+    if not (os.path.exists(data_path) and os.path.exists(schema_path)):
+        return
+    data = load_json(data_path)
+    schema = load_json(schema_path)
+    wants_string = set()
+    for group in schema or []:
+        for st in group.get("settings", []) or []:
+            if st.get("type") in ("text", "textarea", "select", "radio", "url"):
+                if st.get("id"):
+                    wants_string.add(st["id"])
+    for scope, values in (("current", data.get("current")),):
+        if not isinstance(values, dict):
+            continue
+        for key, val in values.items():
+            if key in wants_string and isinstance(val, (int, float)) and not isinstance(val, bool):
+                problems.append(
+                    f"config/settings_data.json: '{key}' is the number {val} but the "
+                    f"schema declares it a string — quote it, or the sync drops the file"
+                )
+
+
 def main():
     schemas = section_schemas()
     check_schemas(schemas)
@@ -280,6 +322,7 @@ def main():
     check_assets()
     check_hero_derivatives()
     check_product_handles()
+    check_settings_data_types()
 
     for n in notes:
         print(f"note: {n}")
