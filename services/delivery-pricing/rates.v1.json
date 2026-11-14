@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-13.1",
+  "version": "2026-11-14.1",
   "currency": "GBP",
   "note": "The single source of truth for delivery pricing. The storefront and the Shopify rate service MUST both read this file. Every amount is in pence. Changing a price means a new version string, never an edit in place.",
 
@@ -16,7 +16,8 @@
       { "upperMiles": 500,  "pence": 27400 },
       { "upperMiles": 600,  "pence": 31200 },
       { "upperMiles": 800,  "pence": 39000 },
-      { "upperMiles": 1000, "pence": 46700 }
+      { "upperMiles": 1000, "pence": 46700 },
+      { "upperMiles": 1400, "pence": 62100 }
     ]
   },
 
@@ -50,8 +51,8 @@
   },
 
   "limits": {
-    "maxReturnMiles": 1000,
-    "note": "Beyond the last band there is no published price. The quote must fail loudly and route the buyer to a manual quote. It must never fall back to the top band, to zero, or to a guess."
+    "maxReturnMiles": 1400,
+    "note": "Beyond the last band there is no published price. The quote must fail loudly and route the buyer to a manual quote. It must never fall back to the top band, to zero, or to a guess. 1,400 covers the mainland: the furthest district measured from the dispatch point is Thurso (KW14) at 1,338 return miles. The 1,000-1,400 band is one zone rather than the owner's two because Shopify allows a location only ten delivery zones."
   },
 
   "ferry": {

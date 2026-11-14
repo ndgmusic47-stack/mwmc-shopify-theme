@@ -1,0 +1,130 @@
+{% comment %}
+  The whole cost of owning the piece, before Add to bag.
+
+  Three groups, because three different things are true of them:
+
+    Due today      the statue, and delivery if they want it. Shopify charges
+                   these at checkout and the figures here must match it.
+    Arranged with us  in-home assembly. We cannot take £49 at checkout without
+                   an add-on product, so it is requested here and invoiced.
+    Later          box storage. First month free from collection, so nothing
+                   is due today by definition.
+
+  Nothing is presented as paid or booked unless Shopify will actually take the
+  money. The wording of each group says which it is.
+
+  Usage: {% render 'sos-cost-panel', product: product, enquiry_page: s.enquiry_page %}
+{% endcomment %}
+
+{%- liquid
+  assign v = product.selected_or_first_available_variant
+  assign enquiry = enquiry_page | default: '/pages/contact'
+-%}
+
+<div
+  class="sos-costs"
+  data-sos-costs
+  data-zones="{{ 'sos-delivery-zones.json' | asset_url }}"
+  data-price="{{ v.price }}"
+  data-piece="{{ product.title | escape }}"
+  data-enquiry="{{ enquiry }}"
+>
+  <h2 class="sos-costs__h">What it costs to get it home</h2>
+
+  <fieldset class="sos-costs__methods">
+    <legend class="sos-visually-hidden">How would you like to receive it?</legend>
+
+    <label class="sos-costs__method">
+      <input type="radio" name="sos-method" value="collection" checked data-sos-method>
+      <span class="sos-costs__methodBody">
+        <span class="sos-costs__methodName">Collect in London</span>
+        <span class="sos-costs__methodNote">Free. Usually ready within 24 hours.</span>
+      </span>
+      <span class="sos-costs__methodPrice">Free</span>
+    </label>
+
+    <label class="sos-costs__method">
+      <input type="radio" name="sos-method" value="delivery" data-sos-method>
+      <span class="sos-costs__methodBody">
+        <span class="sos-costs__methodName">Personal delivery</span>
+        <span class="sos-costs__methodNote">We drive it to you and carry it in.</span>
+      </span>
+      <span class="sos-costs__methodPrice" data-sos-delivery-price>Enter a postcode</span>
+    </label>
+  </fieldset>
+
+  <div class="sos-costs__postcode" data-sos-postcode-row hidden>
+    <label class="sos-field__label" for="sos-postcode-{{ product.id }}">Your postcode</label>
+    <div class="sos-costs__postcodeRow">
+      <input
+        id="sos-postcode-{{ product.id }}"
+        class="sos-input"
+        type="text"
+        inputmode="text"
+        autocomplete="postal-code"
+        placeholder="e.g. M1 1AE"
+        data-sos-postcode>
+      <button type="button" class="sos-btn sos-btn--ghost" data-sos-postcode-go>Check</button>
+    </div>
+    <p class="sos-costs__msg" data-sos-postcode-msg role="status"></p>
+  </div>
+
+  <fieldset class="sos-costs__extras">
+    <legend class="sos-costs__h sos-costs__h--sub">Optional</legend>
+
+    <label class="sos-costs__extra">
+      <input type="checkbox" data-sos-extra="assembly">
+      <span class="sos-costs__extraBody">
+        <span class="sos-costs__extraName">In-home assembly</span>
+        <span class="sos-costs__extraNote">We unbox it and assemble it where you want it. Requested here, invoiced before we come — it is not taken at checkout.</span>
+      </span>
+      <span class="sos-costs__extraPrice" data-sos-assembly-price>£49</span>
+    </label>
+
+    <label class="sos-costs__extra">
+      <input type="checkbox" data-sos-extra="storage">
+      <span class="sos-costs__extraBody">
+        <span class="sos-costs__extraName">Original box storage</span>
+        <span class="sos-costs__extraNote">We keep the box for you. First month free from the day we collect it, then £19.99 a month. Nothing is due today and we confirm the terms in writing before anything is charged.</span>
+      </span>
+      <span class="sos-costs__extraPrice">£0 today</span>
+    </label>
+  </fieldset>
+
+  <dl class="sos-costs__total" data-sos-summary>
+    <div class="sos-costs__line">
+      <dt>This statue</dt>
+      <dd>{{ v.price | money }}</dd>
+    </div>
+    <div class="sos-costs__line" data-sos-line="delivery" hidden>
+      <dt>Personal delivery</dt>
+      <dd data-sos-amount="delivery">—</dd>
+    </div>
+    <div class="sos-costs__line sos-costs__line--due">
+      <dt>Due at checkout</dt>
+      <dd data-sos-amount="due">{{ v.price | money }}</dd>
+    </div>
+    <div class="sos-costs__line sos-costs__line--later" data-sos-line="assembly" hidden>
+      <dt>In-home assembly <span class="sos-costs__when">invoiced separately</span></dt>
+      <dd data-sos-amount="assembly">—</dd>
+    </div>
+    <div class="sos-costs__line sos-costs__line--later" data-sos-line="storage" hidden>
+      <dt>Box storage <span class="sos-costs__when">from month two</span></dt>
+      <dd data-sos-amount="storage">—</dd>
+    </div>
+  </dl>
+
+  {%- comment -%}
+    Carried into the basket and the order so the selections survive checkout
+    even though two of them are not charged there.
+  {%- endcomment -%}
+  <input type="hidden" name="properties[Fulfilment]" value="Collection in London" data-sos-prop="method" form="sos-add">
+  <input type="hidden" name="properties[Delivery postcode]" value="" data-sos-prop="postcode" form="sos-add" disabled>
+  <input type="hidden" name="properties[In-home assembly]" value="" data-sos-prop="assembly" form="sos-add" disabled>
+  <input type="hidden" name="properties[Box storage]" value="" data-sos-prop="storage" form="sos-add" disabled>
+
+  <p class="sos-costs__foot">
+    Delivery is priced by the round-trip road distance from our London base, and
+    is charged by Shopify at checkout. <a href="/pages/delivery-and-guarantee">See the full price table</a>.
+  </p>
+</div>

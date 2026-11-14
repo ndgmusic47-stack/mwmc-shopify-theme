@@ -52,11 +52,35 @@
         {%- endform -%}
         <script>
           (function(){
-            var piece = new URLSearchParams(location.search).get('piece');
-            if (!piece) return;
-            var pretty = piece.replace(/-/g,' ').replace(/\b\w/g, function(c){ return c.toUpperCase(); });
+            var params = new URLSearchParams(location.search);
+            var piece = params.get('piece');
+            var about = params.get('about');
+            var postcode = params.get('postcode');
+            if (!piece && !about) return;
             var root = document.getElementById({{ s.anchor | default: 'enquiry' | json }});
             if (!root) return;
+
+            // The topic. Without this the link pre-fills the piece and leaves
+            // the person to work out why they are writing to us.
+            var TOPICS = {
+              delivery: 'Delivery price for my postcode',
+              assembly: 'In-home assembly',
+              storage: 'Original box storage',
+              buyback: 'Selling a statue to you'
+            };
+            if (about) {
+              var topicField = root.querySelector('input[name="contact[What is this about]"]');
+              if (topicField) { topicField.value = TOPICS[about] || about; }
+              var body = root.querySelector('textarea[name="contact[body]"]');
+              if (body && !body.value && about === 'delivery') {
+                body.value = postcode
+                  ? 'Please quote personal delivery to ' + postcode + '.'
+                  : 'Please quote personal delivery to my postcode: ';
+              }
+            }
+
+            if (!piece) return;
+            var pretty = piece.replace(/-/g,' ').replace(/\b\w/g, function(c){ return c.toUpperCase(); });
             var field = root.querySelector('input[name="contact[Character or piece]"]');
             if (field) { field.value = pretty; }
             var intro = root.querySelector('.sos-enquiry__intro');

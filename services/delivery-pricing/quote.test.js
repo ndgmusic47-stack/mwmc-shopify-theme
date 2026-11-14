@@ -20,21 +20,25 @@ const deliver = (miles, extra = {}) => quote({
 const edges = [
   [50, 10000, 11900], [100, 11900, 15800], [200, 15800, 19600], [300, 19600, 23500],
   [400, 23500, 27400], [500, 27400, 31200], [600, 31200, 39000], [800, 39000, 46700],
+  [1000, 46700, 62100],
 ];
 for (const [limit, atPence, abovePence] of edges) {
   t(`${limit} mi -> ${atPence}p`, () => assert.equal(selectBand(limit).pence, atPence));
   t(`${limit - 0.01} mi -> ${atPence}p`, () => assert.equal(selectBand(limit - 0.01).pence, atPence));
   t(`${limit + 0.01} mi -> ${abovePence}p`, () => assert.equal(selectBand(limit + 0.01).pence, abovePence));
 }
-t('1000 mi -> 46700p (last band)', () => assert.equal(selectBand(1000).pence, 46700));
+t('1400 mi -> 62100p (last band)', () => assert.equal(selectBand(1400).pence, 62100));
 t('0 mi -> 10000p', () => assert.equal(selectBand(0).pence, 10000));
 
 // ---- past the bands: must fail loudly, never fall back ----------------------
-t('1000.01 mi throws BEYOND_BANDS', () => {
-  assert.throws(() => selectBand(1000.01), e => e instanceof QuoteError && e.code === 'BEYOND_BANDS');
+t('1400.01 mi throws BEYOND_BANDS', () => {
+  assert.throws(() => selectBand(1400.01), e => e instanceof QuoteError && e.code === 'BEYOND_BANDS');
+});
+t('Thurso, the furthest mainland district, is inside the last band', () => {
+  assert.equal(selectBand(1338).pence, 62100);
 });
 t('a beyond-bands quote yields no price at all', () => {
-  assert.throws(() => deliver(1400), e => e.code === 'BEYOND_BANDS');
+  assert.throws(() => deliver(1600), e => e.code === 'BEYOND_BANDS');
 });
 
 // ---- two legs are added as metres, converted once ---------------------------

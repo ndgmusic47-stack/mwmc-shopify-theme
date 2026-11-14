@@ -1537,3 +1537,95 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
   .sos-gpage__grid { grid-template-columns: minmax(0, 1fr); }
   .sos-gpage__aside { position: static; }
 }
+
+/* --------------------------------------------------------------------------
+   Cost panel. Three groups with different truth values — due at checkout,
+   invoiced separately, charged later — so the type has to make the grouping
+   obvious without a wall of caveats.
+   -------------------------------------------------------------------------- */
+.sos-costs {
+  margin: 1.6rem 0 0;
+  padding: 1.25rem;
+  border: 1px solid rgba(176, 140, 74, 0.3);
+  border-radius: 2px;
+  background: rgba(176, 140, 74, 0.045);
+}
+.sos-costs__h {
+  margin: 0 0 0.85rem;
+  font-family: var(--sos-display);
+  font-size: 1.12rem;
+  font-variation-settings: "opsz" 20;
+  letter-spacing: 0.005em;
+}
+.sos-costs__h--sub { font-size: 0.95rem; margin: 1.25rem 0 0.6rem; padding: 0; }
+
+.sos-costs__methods,
+.sos-costs__extras { margin: 0; padding: 0; border: 0; }
+
+.sos-costs__method,
+.sos-costs__extra {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.7rem;
+  align-items: start;
+  padding: 0.7rem 0;
+  border-top: 1px solid rgba(176, 140, 74, 0.22);
+  cursor: pointer;
+}
+.sos-costs__methods .sos-costs__method:first-of-type { border-top: 0; }
+
+.sos-costs__method input,
+.sos-costs__extra input { margin-top: 0.25rem; accent-color: #9c3d14; }
+
+.sos-costs__methodBody,
+.sos-costs__extraBody { display: grid; gap: 0.18rem; }
+.sos-costs__methodName,
+.sos-costs__extraName { font-weight: 600; }
+.sos-costs__methodNote,
+.sos-costs__extraNote { font-size: 0.86rem; line-height: 1.45; opacity: 0.78; }
+.sos-costs__methodPrice,
+.sos-costs__extraPrice {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.sos-costs__postcode { margin: 0.85rem 0 0.2rem; }
+.sos-costs__postcodeRow { display: flex; gap: 0.5rem; }
+.sos-costs__postcodeRow .sos-input { flex: 1 1 auto; min-width: 0; }
+.sos-costs__msg { margin: 0.5rem 0 0; font-size: 0.86rem; line-height: 1.45; min-height: 1.2em; }
+.sos-costs__msg.is-ok { color: #2f6b3a; }
+.sos-costs__msg.is-warn { color: #8a4b12; }
+
+.sos-costs__total {
+  margin: 1.3rem 0 0;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(176, 140, 74, 0.34);
+}
+.sos-costs__line {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.3rem 0;
+  font-variant-numeric: tabular-nums;
+}
+.sos-costs__line dt, .sos-costs__line dd { margin: 0; }
+.sos-costs__line--due {
+  margin-top: 0.35rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid rgba(176, 140, 74, 0.26);
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+.sos-costs__line--later { opacity: 0.82; font-size: 0.92rem; }
+.sos-costs__when { display: block; font-size: 0.78rem; opacity: 0.75; font-weight: 400; }
+
+.sos-costs__foot { margin: 1rem 0 0; font-size: 0.82rem; line-height: 1.5; opacity: 0.75; }
+
+@media (max-width: 520px) {
+  .sos-costs { padding: 1rem; }
+  .sos-costs__method,
+  .sos-costs__extra { grid-template-columns: auto 1fr; }
+  .sos-costs__methodPrice,
+  .sos-costs__extraPrice { grid-column: 2; }
+}

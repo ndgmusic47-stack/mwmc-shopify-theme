@@ -122,23 +122,12 @@
               {%- endform -%}
 
               {%- comment -%}
-                Fulfilment sits beside the price because it is part of the
-                price. Free London collection is live today; delivery is a
-                quote, not an instant rate, so it is an ask rather than a
-                promise. When postcode pricing is ready this becomes a
-                calculator and the wording changes with it.
+                The whole cost, before Add to bag: the statue, collection or a
+                real delivery price for their postcode, and the two optional
+                services. Delivery is charged by Shopify at checkout; the panel
+                says plainly which of the others are not.
               {%- endcomment -%}
-              <ul class="sos-product__fulfil">
-                <li>
-                  <strong>Free collection in London.</strong>
-                  Usually ready within 24 hours.
-                </li>
-                <li>
-                  <strong>Not in London?</strong>
-                  <a href="{{ s.enquiry_page | default: '/pages/contact' }}?piece={{ p.title | url_param_escape }}&amp;about=delivery">Check delivery price</a>
-                  before you order and we'll quote your address.
-                </li>
-              </ul>
+              {% render 'sos-cost-panel', product: p, enquiry_page: s.enquiry_page %}
 
               <a class="sos-textlink sos-product__ask" href="{{ s.enquiry_page | default: '/pages/contact' }}?piece={{ p.title | url_param_escape }}">
                 {{ s.ask_label }}{% render 'sos-icon', name: 'arrow' %}
