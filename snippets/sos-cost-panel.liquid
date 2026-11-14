@@ -1,17 +1,16 @@
 {% comment %}
-  The whole cost of owning the piece, before Add to bag.
+  The whole cost of owning the piece, worked out before Add to bag.
 
-  Three groups, because three different things are true of them:
+  Two groups, because only two things are true:
 
-    Due today      the statue, and delivery if they want it. Shopify charges
-                   these at checkout and the figures here must match it.
-    Arranged with us  in-home assembly. We cannot take £49 at checkout without
-                   an add-on product, so it is requested here and invoiced.
-    Later          box storage. First month free from collection, so nothing
-                   is due today by definition.
+    Paid at checkout   the statue, delivery if they want it, and assembly.
+                       All three are real charges Shopify takes.
+    Arranged later     box storage. The first month is free from the day we
+                       collect the box, so there is nothing to pay today and
+                       nothing to pretend about.
 
-  Nothing is presented as paid or booked unless Shopify will actually take the
-  money. The wording of each group says which it is.
+  Assembly is a real product (handle in-home-assembly) added to the basket as
+  its own line, so the figure on this panel is the figure Shopify charges.
 
   Usage: {% render 'sos-cost-panel', product: product, enquiry_page: s.enquiry_page %}
 {% endcomment %}
@@ -19,6 +18,8 @@
 {%- liquid
   assign v = product.selected_or_first_available_variant
   assign enquiry = enquiry_page | default: '/pages/contact'
+  assign assembly = all_products['in-home-assembly']
+  assign assembly_variant = assembly.selected_or_first_available_variant
 -%}
 
 <div
@@ -26,35 +27,40 @@
   data-sos-costs
   data-zones="{{ 'sos-delivery-zones.json' | asset_url }}"
   data-price="{{ v.price }}"
+  data-variant="{{ v.id }}"
   data-piece="{{ product.title | escape }}"
   data-enquiry="{{ enquiry }}"
+  {% if assembly_variant and assembly.available %}
+    data-assembly-variant="{{ assembly_variant.id }}"
+    data-assembly-price="{{ assembly_variant.price }}"
+  {% endif %}
 >
   <h2 class="sos-costs__h">What it costs to get it home</h2>
 
-  <fieldset class="sos-costs__methods">
-    <legend class="sos-visually-hidden">How would you like to receive it?</legend>
+  <fieldset class="sos-costs__group">
+    <legend class="sos-costs__legend">How would you like to receive it?</legend>
 
-    <label class="sos-costs__method">
+    <label class="sos-costs__row">
       <input type="radio" name="sos-method" value="collection" checked data-sos-method>
-      <span class="sos-costs__methodBody">
-        <span class="sos-costs__methodName">Collect in London</span>
-        <span class="sos-costs__methodNote">Free. Usually ready within 24 hours.</span>
+      <span class="sos-costs__rowBody">
+        <span class="sos-costs__rowName">Collect it from us in London</span>
+        <span class="sos-costs__rowNote">Free, and usually ready within 24 hours.</span>
       </span>
-      <span class="sos-costs__methodPrice">Free</span>
+      <span class="sos-costs__rowPrice">Free</span>
     </label>
 
-    <label class="sos-costs__method">
+    <label class="sos-costs__row">
       <input type="radio" name="sos-method" value="delivery" data-sos-method>
-      <span class="sos-costs__methodBody">
-        <span class="sos-costs__methodName">Personal delivery</span>
-        <span class="sos-costs__methodNote">We drive it to you and carry it in.</span>
+      <span class="sos-costs__rowBody">
+        <span class="sos-costs__rowName">We bring it to you</span>
+        <span class="sos-costs__rowNote">One of us drives it to your door and carries it in.</span>
       </span>
-      <span class="sos-costs__methodPrice" data-sos-delivery-price>Enter a postcode</span>
+      <span class="sos-costs__rowPrice" data-sos-delivery-price>Tell us where</span>
     </label>
   </fieldset>
 
   <div class="sos-costs__postcode" data-sos-postcode-row hidden>
-    <label class="sos-field__label" for="sos-postcode-{{ product.id }}">Your postcode</label>
+    <label class="sos-field__label" for="sos-postcode-{{ product.id }}">Where are we bringing it?</label>
     <div class="sos-costs__postcodeRow">
       <input
         id="sos-postcode-{{ product.id }}"
@@ -62,69 +68,70 @@
         type="text"
         inputmode="text"
         autocomplete="postal-code"
-        placeholder="e.g. M1 1AE"
+        placeholder="Your postcode, e.g. M1 1AE"
         data-sos-postcode>
-      <button type="button" class="sos-btn sos-btn--ghost" data-sos-postcode-go>Check</button>
+      <button type="button" class="sos-btn sos-btn--ghost" data-sos-postcode-go>Get my price</button>
     </div>
     <p class="sos-costs__msg" data-sos-postcode-msg role="status"></p>
   </div>
 
-  <fieldset class="sos-costs__extras">
-    <legend class="sos-costs__h sos-costs__h--sub">Optional</legend>
+  <fieldset class="sos-costs__group sos-costs__group--extras">
+    <legend class="sos-costs__legend">Would you like either of these? Both are optional.</legend>
 
-    <label class="sos-costs__extra">
-      <input type="checkbox" data-sos-extra="assembly">
-      <span class="sos-costs__extraBody">
-        <span class="sos-costs__extraName">In-home assembly</span>
-        <span class="sos-costs__extraNote">We unbox it and assemble it where you want it. Requested here, invoiced before we come — it is not taken at checkout.</span>
-      </span>
-      <span class="sos-costs__extraPrice" data-sos-assembly-price>£49</span>
-    </label>
+    {%- if assembly_variant and assembly.available -%}
+      <label class="sos-costs__row">
+        <input type="checkbox" data-sos-extra="assembly">
+        <span class="sos-costs__rowBody">
+          <span class="sos-costs__rowName">Have us set it up for you</span>
+          <span class="sos-costs__rowNote">We unbox it, assemble it, and put it exactly where you want it before we leave. Added to this order and paid with it.</span>
+        </span>
+        <span class="sos-costs__rowPrice">{{ assembly_variant.price | money }}</span>
+      </label>
+    {%- endif -%}
 
-    <label class="sos-costs__extra">
+    <label class="sos-costs__row">
       <input type="checkbox" data-sos-extra="storage">
-      <span class="sos-costs__extraBody">
-        <span class="sos-costs__extraName">Original box storage</span>
-        <span class="sos-costs__extraNote">We keep the box for you. First month free from the day we collect it, then £19.99 a month. Nothing is due today and we confirm the terms in writing before anything is charged.</span>
+      <span class="sos-costs__rowBody">
+        <span class="sos-costs__rowName">Let us keep the box</span>
+        <span class="sos-costs__rowNote">Original boxes are bulky and worth keeping. We store yours and bring it back whenever you want it. Your first month is free from the day we collect it, then £19.99 a month. We will confirm everything in writing before a penny is charged, and you can stop any time.</span>
       </span>
-      <span class="sos-costs__extraPrice">£0 today</span>
+      <span class="sos-costs__rowPrice">Free<span class="sos-costs__rowPriceSub">first month</span></span>
     </label>
   </fieldset>
 
   <dl class="sos-costs__total" data-sos-summary>
     <div class="sos-costs__line">
-      <dt>This statue</dt>
+      <dt>{{ product.title }}</dt>
       <dd>{{ v.price | money }}</dd>
     </div>
     <div class="sos-costs__line" data-sos-line="delivery" hidden>
-      <dt>Personal delivery</dt>
+      <dt>Personal delivery <span class="sos-costs__when" data-sos-delivery-where></span></dt>
       <dd data-sos-amount="delivery">—</dd>
     </div>
-    <div class="sos-costs__line sos-costs__line--due">
-      <dt>Due at checkout</dt>
-      <dd data-sos-amount="due">{{ v.price | money }}</dd>
-    </div>
-    <div class="sos-costs__line sos-costs__line--later" data-sos-line="assembly" hidden>
-      <dt>In-home assembly <span class="sos-costs__when">invoiced separately</span></dt>
+    <div class="sos-costs__line" data-sos-line="assembly" hidden>
+      <dt>Setting it up for you</dt>
       <dd data-sos-amount="assembly">—</dd>
     </div>
+    <div class="sos-costs__line sos-costs__line--due">
+      <dt>You pay today</dt>
+      <dd data-sos-amount="due">{{ v.price | money }}</dd>
+    </div>
     <div class="sos-costs__line sos-costs__line--later" data-sos-line="storage" hidden>
-      <dt>Box storage <span class="sos-costs__when">from month two</span></dt>
-      <dd data-sos-amount="storage">—</dd>
+      <dt>Box storage <span class="sos-costs__when">nothing today — £19.99 a month from month two</span></dt>
+      <dd data-sos-amount="storage">£0.00</dd>
     </div>
   </dl>
 
   {%- comment -%}
-    Carried into the basket and the order so the selections survive checkout
-    even though two of them are not charged there.
+    Carried into the basket and the order so the choices survive checkout.
+    Storage is a request, so it is labelled as one.
   {%- endcomment -%}
   <input type="hidden" name="properties[Fulfilment]" value="Collection in London" data-sos-prop="method" form="sos-add">
   <input type="hidden" name="properties[Delivery postcode]" value="" data-sos-prop="postcode" form="sos-add" disabled>
-  <input type="hidden" name="properties[In-home assembly]" value="" data-sos-prop="assembly" form="sos-add" disabled>
   <input type="hidden" name="properties[Box storage]" value="" data-sos-prop="storage" form="sos-add" disabled>
 
   <p class="sos-costs__foot">
-    Delivery is priced by the round-trip road distance from our London base, and
-    is charged by Shopify at checkout. <a href="/pages/delivery-and-guarantee">See the full price table</a>.
+    Delivery is priced on the round trip from our London base, so you pay the
+    same whatever the piece costs. <a href="/pages/delivery-and-guarantee">See every price band</a>.
   </p>
 </div>

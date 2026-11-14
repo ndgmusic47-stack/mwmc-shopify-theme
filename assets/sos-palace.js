@@ -81,33 +81,33 @@
 })();
 
 /* ---------------------------------------------------------------------------
-   Cost panel: the whole cost of owning the piece, worked out before Add to bag.
+   Cost panel: the whole cost of owning the piece, before Add to bag.
 
-   The delivery figure is read from assets/sos-delivery-zones.json, which is
-   generated from the same rate table that produced the Shopify Local delivery
-   zones. Shopify gives the storefront no way to ask what a local delivery
-   costs, so the table is mirrored rather than queried; regenerate the asset
-   whenever a price or a zone changes or the two will drift.
+   Delivery prices come from assets/sos-delivery-zones.json, generated from the
+   same table that produced the Shopify Local delivery zones. Shopify gives the
+   storefront no way to ask what a local delivery costs, so the table is
+   mirrored rather than queried; regenerate the asset whenever a price or zone
+   changes or the two will drift.
 
-   Postcode matching copies Shopify's: entries are prefixes, and the lists are
-   disjoint by construction, so at most one entry can match. No match means we
-   have no published price for that address, and the panel says so instead of
-   guessing.
+   Postcode matching copies Shopify's prefix rule. The lists are disjoint by
+   construction, so at most one entry can match; no match means we have no
+   published price for that address and the panel says so rather than guessing.
+
+   Assembly is a real product, so ticking it adds a second line to the basket
+   and Shopify charges it. Storage cannot be charged until a subscriptions app
+   exists, and its first month is free anyway, so it rides along as a request.
 --------------------------------------------------------------------------- */
 (function () {
   var data = null;
   var loading = null;
 
-  function money(pence) {
-    return '£' + (pence / 100).toFixed(2);
-  }
+  function money(pence) { return '£' + (pence / 100).toFixed(2); }
 
   function outward(raw) {
     if (!raw) return null;
     var s = String(raw).toUpperCase().replace(/[^A-Z0-9]/g, '');
     var m = s.match(/^([A-Z]{1,2}\d[A-Z\d]?)\d[A-Z]{2}$/);
     if (m) return m[1];
-    // Allow an outward code on its own, e.g. "M1" or "EC1A".
     return /^[A-Z]{1,2}\d[A-Z\d]?$/.test(s) ? s : null;
   }
 
@@ -122,6 +122,15 @@
     return null;
   }
 
+  /** "Over 300 to 400 return miles" -> "300 to 400 miles there and back". */
+  function humanRange(label) {
+    var m = String(label).match(/(\d[\d,]*)\s*to\s*(\d[\d,]*)/);
+    if (m) return m[1] + ' to ' + m[2] + ' miles there and back';
+    var up = String(label).match(/Up to\s*(\d[\d,]*)/);
+    if (up) return 'under ' + up[1] + ' miles there and back';
+    return label;
+  }
+
   function load(url) {
     if (data) return Promise.resolve(data);
     if (!loading) {
@@ -134,8 +143,11 @@
 
   function initPanel(root) {
     var price = parseInt(root.dataset.price, 10) || 0;
+    var variantId = root.dataset.variant;
     var piece = root.dataset.piece || '';
     var enquiry = root.dataset.enquiry || '/pages/contact';
+    var assemblyVariant = root.dataset.assemblyVariant || null;
+    var assemblyPrice = parseInt(root.dataset.assemblyPrice, 10) || 0;
 
     var state = { method: 'collection', deliveryPence: null, postcode: '', assembly: false, storage: false };
 
@@ -144,6 +156,7 @@
     var postcodeInput = q('[data-sos-postcode]');
     var msg = q('[data-sos-postcode-msg]');
     var deliveryPriceEl = q('[data-sos-delivery-price]');
+    var whereEl = q('[data-sos-delivery-where]');
     var prop = function (name) { return root.querySelector('[data-sos-prop="' + name + '"]'); };
 
     function setLine(name, text) {
@@ -161,18 +174,21 @@
       if (state.method === 'delivery' && state.deliveryPence !== null) {
         due += state.deliveryPence;
         setLine('delivery', money(state.deliveryPence));
+        if (whereEl) whereEl.textContent = 'to ' + state.postcode;
       } else {
         setLine('delivery', null);
       }
 
+      if (state.assembly && assemblyVariant) {
+        due += assemblyPrice;
+        setLine('assembly', money(assemblyPrice));
+      } else {
+        setLine('assembly', null);
+      }
+
+      setLine('storage', state.storage ? '£0.00' : null);
       root.querySelector('[data-sos-amount="due"]').textContent = money(due);
 
-      setLine('assembly', state.assembly ? money(data ? data.assemblyPence : 4900) : null);
-      setLine('storage', state.storage
-        ? (data ? money(data.storagePence) : '£19.99') + ' a month'
-        : null);
-
-      // What travels with the line item into the basket and the order.
       prop('method').value = state.method === 'delivery'
         ? 'Personal delivery' + (state.postcode ? ' to ' + state.postcode : '')
         : 'Collection in London';
@@ -181,34 +197,37 @@
       pc.disabled = !(state.method === 'delivery' && state.postcode);
       pc.value = state.postcode;
 
-      var as = prop('assembly');
-      as.disabled = !state.assembly;
-      as.value = 'Requested — to be invoiced before delivery';
-
       var st = prop('storage');
       st.disabled = !state.storage;
-      st.value = 'Requested — first month free from collection, then £19.99/month';
+      st.value = 'Requested — first month free from box collection, then £19.99 a month';
     }
 
     function quote(raw) {
       var code = outward(raw);
+
       if (!code) {
         state.deliveryPence = null;
         state.postcode = '';
-        msg.textContent = 'That does not look like a UK postcode.';
+        msg.textContent = raw && raw.trim()
+          ? 'That does not look like a UK postcode — could you check it?'
+          : 'Pop your postcode in and we will price it straight away.';
         msg.className = 'sos-costs__msg is-warn';
-        deliveryPriceEl.textContent = 'Enter a postcode';
+        deliveryPriceEl.textContent = 'Tell us where';
         render();
         return;
       }
 
       var band = bandFor(code);
+
       if (!band) {
         state.deliveryPence = null;
         state.postcode = code;
-        msg.innerHTML = 'We have no published price for ' + code + '. ' +
+        msg.innerHTML = 'We would love to bring it to ' + code +
+          ', but that journey needs a price from us rather than a table — ' +
+          'a ferry, or simply a very long way. ' +
           '<a href="' + enquiry + '?piece=' + encodeURIComponent(piece) +
-          '&about=delivery">Request a delivery quote</a> and we will price it by hand.';
+          '&about=delivery&postcode=' + encodeURIComponent(code) +
+          '">Ask us for a delivery quote</a> and we will come back to you.';
         msg.className = 'sos-costs__msg is-warn';
         deliveryPriceEl.textContent = 'Quote on request';
         render();
@@ -217,7 +236,8 @@
 
       state.deliveryPence = band.pence;
       state.postcode = code;
-      msg.textContent = band.label + '.';
+      msg.textContent = 'Good news — ' + code + ' is ' + humanRange(band.label) +
+        ' from us, so personal delivery is ' + money(band.pence) + '.';
       msg.className = 'sos-costs__msg is-ok';
       deliveryPriceEl.textContent = money(band.pence);
       render();
@@ -231,7 +251,7 @@
           load(root.dataset.zones).then(function () {
             if (postcodeInput.value) quote(postcodeInput.value);
           }).catch(function () {
-            msg.textContent = 'Could not load delivery prices just now. Please ask us for a quote.';
+            msg.textContent = 'We could not load delivery prices just now. Please ask us for a quote.';
             msg.className = 'sos-costs__msg is-warn';
           });
         }
@@ -255,6 +275,44 @@
         render();
       });
     });
+
+    /* Assembly is its own product, so the basket needs two lines. Shopify's
+       plain form posts one. Intercept and post both together, so the buyer
+       never ends up with the statue and no assembly because one call failed. */
+    var form = document.getElementById('sos-add');
+    if (form) {
+      form.addEventListener('submit', function (e) {
+        if (!state.assembly || !assemblyVariant) return; // plain form is fine
+        e.preventDefault();
+        var button = form.querySelector('[name="add"]');
+        if (button) { button.disabled = true; button.dataset.busy = 'true'; }
+
+        var props = {};
+        Array.prototype.forEach.call(root.querySelectorAll('[data-sos-prop]'), function (input) {
+          if (!input.disabled && input.value) {
+            props[input.name.replace(/^properties\[|\]$/g, '')] = input.value;
+          }
+        });
+
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            items: [
+              { id: Number(variantId), quantity: 1, properties: props },
+              { id: Number(assemblyVariant), quantity: 1, properties: { 'For': piece } }
+            ]
+          })
+        })
+          .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+          .then(function () { window.location.href = '/cart'; })
+          .catch(function () {
+            if (button) { button.disabled = false; delete button.dataset.busy; }
+            msg.textContent = 'Something went wrong adding that to your bag. Please try again.';
+            msg.className = 'sos-costs__msg is-warn';
+          });
+      });
+    }
 
     render();
   }

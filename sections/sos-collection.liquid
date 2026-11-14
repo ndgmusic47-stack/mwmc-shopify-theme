@@ -60,7 +60,13 @@
       <div class="sos-grid">
         {%- if has_products -%}
 
+          {%- comment -%}
+            Add-on products (in-home assembly) are real products so Shopify can
+            charge for them, but they are not pieces and must never appear in
+            the collection.
+          {%- endcomment -%}
           {%- for product in coll.products limit: limit -%}
+            {%- if product.handle == 'in-home-assembly' -%}{%- continue -%}{%- endif -%}
             {% render 'sos-product-card', product: product %}
           {%- endfor -%}
 
