@@ -3,6 +3,18 @@
    Design system + bespoke sections. Layered on Savor; does not modify it.
    ========================================================================== */
 
+/* Playfair Display italic, self-hosted. The storybook headline voice of the
+   approved homepage: high stroke contrast, ball terminals, a sweeping capital.
+   Hero H1 only — the rest of the site stays Cal Sans.
+   SIL Open Font License 1.1; licence shipped as sos-playfair-OFL.txt. */
+@font-face {
+  font-family: "Playfair Display";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("sos-playfair-700-italic.woff2") format("woff2");
+}
+
 /* Brand tokens fixed by CLAUDE-NEXT.md:
    espresso #2a1f16, ivory #f7f1e7, antique gold #b08c4a, terracotta #b4481c.
    Small gold TEXT on light surfaces fails WCAG AA at #b08c4a (2.4:1), so a
@@ -40,6 +52,9 @@
   /* Type — one family, hierarchy from weight and optical size */
   --sos-display: "Cal Sans", "Helvetica Neue", Arial, sans-serif;
   --sos-sans:    "Cal Sans", "Helvetica Neue", Arial, sans-serif;
+  /* Headline voice of the approved homepage. Hero H1 only. */
+  --sos-storybook: "Playfair Display", "Iowan Old Style", Georgia, serif;
+  --sos-copper:    #b4551f;
   --sos-opsz-display: 40;   /* large headings: tighter, more geometric */
   --sos-opsz-ui:      14;   /* controls and body */
   --sos-opsz-small:   10;   /* captions and meta: opened up to stay legible */
@@ -484,8 +499,11 @@
   inset: 0;
   z-index: 3;
   display: grid;
-  grid-template-columns: 8% minmax(min(330px, 84%), 34%) 1fr;
-  align-items: center;
+  /* 7%–47% of the plate is the empty limestone in the current scene; the
+     arch and columns begin around 49%. "safe" centring so a tall copy block
+     grows downwards instead of pushing the eyebrow up under the header. */
+  grid-template-columns: 7% minmax(min(360px, 86%), 40%) 1fr;
+  align-items: safe center;
   padding-block: clamp(1rem, 2vw, 2.25rem);
 }
 .sos-hero__copy { grid-column: 2; position: relative; }
@@ -499,15 +517,42 @@
     rgba(250, 245, 236, 0.74) 46%,
     rgba(250, 245, 236, 0) 78%);
 }
-.sos-hero__title {
-  /* Three intentional lines at desktop. Never break inside a word. */
-  font-size: clamp(2rem, 0.75rem + 2.6vw, 3.5rem);
-  line-height: 1.05;
+/* The storybook headline, matched to approved-anime-homepage.png.
+   Scoped under .sos — and covering the span inside the H1 — because the
+   blanket `.sos, .sos *` family rule further down this file would otherwise
+   win on source order at equal specificity and drag it back to Cal Sans. */
+.sos .sos-hero__title,
+.sos .sos-hero__title * {
+  font-family: var(--sos-storybook);
+}
+.sos .sos-hero__title {
+  margin: 0;
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(2.2rem, 0.95rem + 3.1vw, 3.6rem);
+  line-height: 1.06;
+  letter-spacing: -0.012em;
+  color: #3b2316;
   overflow-wrap: normal;
   word-break: normal;
   hyphens: none;
+  text-wrap: balance;
 }
+/* The word the eye lands on: larger than the line it sits in, and copper. */
+.sos .sos-hero__titleAccent {
+  font-style: italic;
+  font-size: 1.12em;
+  color: var(--sos-copper);
+}
+.sos-hero__lede { max-width: 40ch; }
 .sos-hero__actions { margin-top: clamp(1.1rem, 2vw, 2rem); display: flex; flex-wrap: wrap; gap: 1rem; }
+.sos-hero__note {
+  margin: 0.85rem 0 0;
+  font-family: var(--sos-sans);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--sos-ink-soft);
+}
 
 /* ========================================================  3. ASSURANCE  === */
 
@@ -798,7 +843,7 @@
   }
   .sos-hero__copy { grid-column: 1; max-width: 34rem; }
   .sos-hero__copy::before { display: none; }
-  .sos-hero__title { font-size: clamp(1.8rem, 1rem + 3.2vw, 2.8rem); }
+  .sos .sos-hero__title { font-size: clamp(1.95rem, 1rem + 4.4vw, 3rem); }
   .sos-hero__piece {
     left: var(--piece-x-m, 50%);
     bottom: var(--piece-bottom-m, 13%);

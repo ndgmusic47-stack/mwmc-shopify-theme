@@ -71,8 +71,19 @@
     <div class="sos-hero__copywrap">
       <div class="sos-hero__copy">
         {%- if s.eyebrow != blank -%}<p class="sos-eyebrow">{{ s.eyebrow }}</p>{%- endif -%}
-        {%- if s.heading != blank -%}<h1 class="sos-display sos-hero__title">{{ s.heading }}</h1>{%- endif -%}
-        {%- if s.body != blank -%}<p class="sos-lede">{{ s.body }}</p>{%- endif -%}
+
+        {%- comment -%}
+          One visible H1. The copper italic ending is an <em> inside it, so the
+          two-tone headline in the approved reference is styling rather than a
+          second heading.
+        {%- endcomment -%}
+        {%- if s.heading != blank or s.heading_accent != blank -%}
+          <h1 class="sos-hero__title">
+            <span class="sos-hero__titleLead">{{ s.heading }}</span>{% if s.heading_accent != blank %} <em class="sos-hero__titleAccent">{{ s.heading_accent }}</em>{% endif %}
+          </h1>
+        {%- endif -%}
+
+        {%- if s.body != blank -%}<p class="sos-lede sos-hero__lede">{{ s.body }}</p>{%- endif -%}
         {%- if s.button_label != blank or s.button2_label != blank -%}
           <div class="sos-hero__actions">
             {%- if s.button_label != blank -%}
@@ -84,6 +95,9 @@
               <a class="sos-btn sos-btn--ghost" href="{{ s.button2_link | default: routes.root_url }}">{{ s.button2_label }}</a>
             {%- endif -%}
           </div>
+        {%- endif -%}
+        {%- if s.actions_note != blank -%}
+          <p class="sos-hero__note">{{ s.actions_note }}</p>
         {%- endif -%}
       </div>
     </div>
@@ -99,12 +113,15 @@
   "settings": [
     { "type": "header", "content": "Copy" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Sultan's Collection" },
-    { "type": "textarea", "id": "heading", "label": "Heading", "default": "A collection worth crossing kingdoms for." },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Bring your favourite character" },
+    { "type": "text", "id": "heading_accent", "label": "Heading — copper italic ending", "default": "home." },
+    { "type": "paragraph", "content": "The heading and its copper ending render as one H1. Keep the ending short — it is the word the eye lands on." },
     { "type": "textarea", "id": "body", "label": "Supporting line", "default": "Discover collectible statues, distinctive sculpts and remarkable display pieces." },
     { "type": "text", "id": "button_label", "label": "Primary button", "default": "Explore the collection" },
     { "type": "url", "id": "button_link", "label": "Primary button link" },
     { "type": "text", "id": "button2_label", "label": "Secondary button" },
     { "type": "url", "id": "button2_link", "label": "Secondary button link" },
+    { "type": "text", "id": "actions_note", "label": "Note under the buttons" },
 
     { "type": "header", "content": "Palace plate" },
     { "type": "text", "id": "desktop_stem", "label": "Desktop asset stem", "default": "sos-hero-desktop" },
