@@ -332,3 +332,29 @@
   }
   document.addEventListener('shopify:section:load', bootCosts);
 })();
+
+/* The bag names the delivery charge rather than letting the total jump at
+   checkout. Shopify will not quote a local delivery rate before the address
+   is confirmed, so this is the figure quoted on the product page, from the
+   same mirrored table, labelled as what it is. */
+(function () {
+  var el = document.querySelector('[data-sos-cart-delivery]');
+  if (!el) return;
+  var code = (el.dataset.postcode || '').toUpperCase().replace(/\s+/g, '');
+  var out = code.match(/^([A-Z]{1,2}\d[A-Z\d]?)\d[A-Z]{2}$/);
+  code = out ? out[1] : code;
+  fetch(el.dataset.zones)
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (d) {
+      if (!d) return;
+      for (var len = code.length; len >= 1; len--) {
+        var key = code.slice(0, len);
+        if (Object.prototype.hasOwnProperty.call(d.zones, key)) {
+          var band = d.bands[d.zones[key]];
+          el.textContent = '£' + (band.pence / 100).toFixed(2);
+          return;
+        }
+      }
+    })
+    .catch(function () { /* leave the honest fallback text in place */ });
+})();

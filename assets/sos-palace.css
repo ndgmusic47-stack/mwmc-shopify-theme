@@ -1628,3 +1628,8 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
   .sos-costs__rowPrice { grid-column: 2; text-align: left; }
   .sos-costs__postcodeRow { flex-direction: column; }
 }
+
+/* Bag: the chosen fulfilment and the delivery charge that is coming. */
+.sos-cart__next span { font-weight: 600; }
+.sos-cart__row--pending { opacity: 0.85; }
+.sos-cart__row--pending strong { font-variant-numeric: tabular-nums; }

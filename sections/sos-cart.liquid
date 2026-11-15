@@ -56,7 +56,20 @@
                     <p class="sos-cart__variant">{{ line.variant.title }}</p>
                   {%- endunless -%}
                   <p class="sos-cart__unit">{{ line.original_price | money }}</p>
-                  <p class="sos-cart__next">{{ s.handover_note }}</p>
+                  {%- comment -%}
+                    What this line actually is, from the choices made on the
+                    product page. The old hardcoded collection note appeared
+                    under every line, including add-ons, and contradicted a
+                    buyer who had chosen delivery.
+                  {%- endcomment -%}
+                  {%- for prop in line.properties -%}
+                    {%- if prop.last != blank and prop.first != 'For' -%}
+                      <p class="sos-cart__next"><span>{{ prop.first }}:</span> {{ prop.last }}</p>
+                    {%- endif -%}
+                  {%- endfor -%}
+                  {%- if line.requires_shipping == false -%}
+                    <p class="sos-cart__next">Added to this order — nothing to collect or deliver.</p>
+                  {%- endif -%}
                 </div>
 
                 <div class="sos-cart__qty">
@@ -82,6 +95,27 @@
                 <span>Subtotal</span>
                 <strong>{{ cart.total_price | money }}</strong>
               </div>
+              {%- comment -%}
+                Shopify will not quote a local delivery rate until the address
+                is confirmed at checkout, so the bag cannot show the final
+                figure. It can at least say what is coming and how much, from
+                the quote made on the product page, instead of letting the
+                total jump without warning.
+              {%- endcomment -%}
+              {%- assign quoted_postcode = '' -%}
+              {%- for line in cart.items -%}
+                {%- assign pc = line.properties['Delivery postcode'] -%}
+                {%- if pc != blank -%}{%- assign quoted_postcode = pc -%}{%- endif -%}
+              {%- endfor -%}
+              {%- if quoted_postcode != blank -%}
+                <div class="sos-cart__row sos-cart__row--pending">
+                  <span>Personal delivery to {{ quoted_postcode }}</span>
+                  <strong data-sos-cart-delivery
+                          data-zones="{{ 'sos-delivery-zones.json' | asset_url }}"
+                          data-postcode="{{ quoted_postcode }}">added at checkout</strong>
+                </div>
+                <p class="sos-cart__note">Shopify adds your delivery charge once you confirm the address on the next screen.</p>
+              {%- endif -%}
               {%- if s.tax_note != blank -%}
                 <p class="sos-cart__note">{{ s.tax_note }}</p>
               {%- endif -%}
@@ -132,7 +166,7 @@
     { "type": "text", "id": "continue_label", "label": "Continue link", "default": "Continue browsing the collection" },
     { "type": "textarea", "id": "tax_note", "label": "Tax note", "default": "Taxes included where applicable." },
     { "type": "textarea", "id": "delivery_note", "label": "Delivery note", "default": "Free collection in London, chosen at checkout. Not in London? Ask us for a delivery price before you pay." },
-    { "type": "text", "id": "handover_note", "label": "Per-line handover note", "default": "Free London collection — usually ready in 24 hours" },
+    { "type": "paragraph", "content": "Each line now shows the fulfilment and extras the buyer chose on the product page, so there is no per-line note to set here." },
     { "type": "header", "content": "Empty bag" },
     { "type": "text", "id": "empty_heading", "label": "Empty heading", "default": "Your bag is empty" },
     { "type": "text", "id": "empty_body", "label": "Empty body", "default": "Nothing here yet. The collection is a good place to start." },
