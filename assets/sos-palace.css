@@ -438,12 +438,40 @@
    mounted as a display panel standing on the plate's own stone pedestal.
    No CSS-drawn scenery, no arch, no cutout, no redrawn pixels. */
 
-.sos-hero { position: relative; background: var(--sos-parchment); isolation: isolate; }
+/* Plate and copy share one grid cell rather than the copy being taken out of
+   flow over the plate. The row is then as tall as whichever is taller, so a
+   copy block that outgrows the artwork lengthens the hero instead of spilling
+   over the offer strip below it — which is what happened between about
+   1000px and 1200px, where the plate is short but the copy still wraps. */
+.sos-hero {
+  position: relative;
+  background: var(--sos-parchment);
+  isolation: isolate;
+  display: grid;
+}
+.sos-hero > .sos-hero__media,
+.sos-hero > .sos-hero__copywrap { grid-area: 1 / 1; }
 
-.sos-hero__media { position: relative; z-index: 0; display: block; }
-.sos-hero__media picture { display: block; }
+/* The media div is only a sizer: its ratio sets the hero's natural height and
+   it contributes that to the shared row. The picture is lifted out and
+   stretched to the hero itself, so when the copy makes the row taller the
+   artwork fills the whole of it rather than stopping at its own ratio and
+   leaving a bare band under the buttons. */
+.sos-hero__media {
+  position: static;
+  z-index: 0;
+  display: block;
+  min-width: 0;
+  aspect-ratio: var(--sos-hero-d-aspect, 1774 / 683);
+}
+.sos-hero__media picture {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+}
 .sos-hero__media img {
-  display: block; width: 100%; height: auto;
+  display: block; width: 100%; height: 100%;
   object-fit: cover;
   object-position: var(--sos-hero-focus, 50% 62%);
 }
@@ -495,8 +523,7 @@
 
 /* Copy. No scrim wash: a soft local gradient only under the text column. */
 .sos-hero__copywrap {
-  position: absolute;
-  inset: 0;
+  position: relative;
   z-index: 3;
   display: grid;
   /* 7%–47% of the plate is the empty limestone in the current scene; the
@@ -504,7 +531,9 @@
      grows downwards instead of pushing the eyebrow up under the header. */
   grid-template-columns: 7% minmax(min(360px, 86%), 40%) 1fr;
   align-items: safe center;
-  padding-block: clamp(1rem, 2vw, 2.25rem);
+  /* Also the clearance between the last button line and the offer strip when
+     the copy is what sets the hero's height. */
+  padding-block: clamp(1.75rem, 3vw, 2.75rem);
 }
 .sos-hero__copy { grid-column: 2; position: relative; }
 .sos-hero__copy::before {
@@ -824,7 +853,10 @@
    piece still standing on the pedestal. Not a bare architecture crop. */
 @media (max-width: 1000px) {
   .sos-hero { display: flex; flex-direction: column; }
-  .sos-hero__media { order: 2; }
+  /* Stacked: the plate no longer shares a cell with the copy, so it drops the
+     desktop ratio and the picture returns to normal flow. */
+  .sos-hero__media { order: 2; aspect-ratio: auto; }
+  .sos-hero__media picture { position: static; }
   /* The mobile asset is already art-directed around the piece (crop measured
      from the composite: statue + effects with margin on all four sides).
      Render it at its own aspect so nothing is cropped a second time. */

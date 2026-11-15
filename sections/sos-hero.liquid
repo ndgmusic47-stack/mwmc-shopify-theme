@@ -22,7 +22,7 @@
 <div class="sos">
   <section class="sos-hero">
 
-    <div class="sos-hero__media" style="--sos-hero-m-aspect: {{ s.mobile_width }} / {{ s.mobile_height }};">
+    <div class="sos-hero__media" style="--sos-hero-d-aspect: {{ s.plate_width }} / {{ s.plate_height }}; --sos-hero-m-aspect: {{ s.mobile_width }} / {{ s.mobile_height }};">
       <picture>
         {%- if s.mobile_stem != blank -%}
           <source media="(max-width: 1000px)" type="image/avif" srcset="
