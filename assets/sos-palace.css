@@ -1028,7 +1028,11 @@
 
 .shopify-section, .shopify-section * { font-feature-settings: inherit; }
 
-main h1, main h2, main h3,
+/* Savor override. The hero H1 is exempt: this rule is !important, so it was
+   beating the storybook styling and rendering the headline in Cal Sans at
+   weight 500 on the live site. It never showed in a local harness without a
+   <main> wrapper. */
+main h1:not(.sos-hero__title), main h2, main h3,
 .collection__title, .search__title, .cart__title,
 .shopify-policy__title h1, .shopify-policy__body h2 {
   font-family: var(--sos-display) !important;
