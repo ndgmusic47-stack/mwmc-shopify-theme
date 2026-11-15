@@ -16,15 +16,15 @@
           "type": "item",
           "settings": {
             "title": "Free collection in London",
-            "text": "<p>Collect your statue from us in London at no charge. Once you order we prepare the piece and email you when it is ready, usually within 24 hours, then we agree a time that suits you.</p><p>Bring your order confirmation and photo ID. These are heavy, fragile resin pieces, so bring suitable transport and a second pair of hands for the larger ones. There is room to pull up and load.</p>",
+            "text": "<p>Collect from our London base at no charge, usually ready within 24 hours of your order. We'll email you to agree a time.</p>",
             "status": ""
           }
         },
         "b2": {
           "type": "item",
           "settings": {
-            "title": "Delivery across the UK",
-            "text": "<p>We do not charge a flat delivery rate, because a 1/6 scale resin statue is not a parcel and pretending otherwise would mean either overcharging you or under-protecting the piece.</p><p>Ask us before you order and we will quote your address, including how it will be packed and carried. Any delivery is agreed in writing before you pay.</p>",
+            "title": "Personal delivery, priced before you buy",
+            "text": "<p>We deliver statues ourselves rather than handing them to a parcel carrier. One of us drives the piece to you, carries it in, and waits while you look it over.</p><p>Your price is shown on the statue's own page before you add it to your basket, and it is the price Shopify charges at checkout. Enter your postcode and you'll see the figure straight away.</p><p>Delivery is priced on the round trip from our London base, so a £144 statue and a £1,400 statue cost the same to bring to the same door.</p>",
             "status": "Instant postcode pricing is being set up. Until then, delivery is quoted by hand."
           }
         },

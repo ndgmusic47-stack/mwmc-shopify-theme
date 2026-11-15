@@ -358,3 +358,16 @@
     })
     .catch(function () { /* leave the honest fallback text in place */ });
 })();
+
+/* Echo the quoted amount into the checkout-handoff note, so the buyer knows
+   the figure to expect on the next screen rather than meeting it cold. */
+(function () {
+  var src = document.querySelector('[data-sos-cart-delivery]');
+  var echo = document.querySelector('[data-sos-cart-delivery-echo]');
+  if (!src || !echo) return;
+  var tick = setInterval(function () {
+    var t = src.textContent.trim();
+    if (/^£/.test(t)) { echo.textContent = t + ' delivery'; clearInterval(tick); }
+  }, 200);
+  setTimeout(function () { clearInterval(tick); }, 6000);
+})();

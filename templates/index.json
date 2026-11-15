@@ -3,12 +3,12 @@
     "palace_hero": {
       "type": "sos-hero",
       "settings": {
-        "eyebrow": "The Sultan's Collection",
-        "heading": "A collection worth crossing kingdoms for.",
-        "body": "Pre-owned collectible statues from worlds you love. Collect yours free in London, or ask about delivery before you order.",
+        "eyebrow": "Pre-owned collectible statues",
+        "heading": "Bring your favourite character home.",
+        "body": "See the exact piece you'll receive, check your postcode for personal delivery, or collect free in London.",
         "button_label": "Explore the collection",
         "button_link": "/collections/all",
-        "button2_label": "Delivery & Guarantee",
+        "button2_label": "Check delivery to my postcode",
         "button2_link": "/pages/delivery-and-guarantee",
         "desktop_stem": "sos-hero-desktop",
         "desktop_widths": "900,1280,1774",
@@ -34,7 +34,7 @@
             "maker": "Anikingdom x Jimei Palace",
             "name": "Gear 5 Luffy",
             "scale": "Resin",
-            "price_note": "Enquire",
+            "price_note": "",
             "link": "/pages/contact",
             "tag": "",
             "product_handle": "gear-5-luffy-anikingdom-jimei-palace"
@@ -47,7 +47,7 @@
             "maker": "LX Studio",
             "name": "Dracule Mihawk",
             "scale": "Resin",
-            "price_note": "Enquire",
+            "price_note": "",
             "link": "/pages/contact",
             "tag": "",
             "product_handle": "dracule-mihawk-lx-studio"
@@ -60,7 +60,7 @@
             "maker": "Monkey D Studio",
             "name": "King",
             "scale": "Resin",
-            "price_note": "Enquire",
+            "price_note": "",
             "link": "/pages/contact",
             "tag": "",
             "product_handle": "king-monkey-d-studio"
@@ -73,7 +73,7 @@
             "maker": "Monkey D Studio",
             "name": "Trafalgar Law",
             "scale": "1/6 scale — resin",
-            "price_note": "Enquire",
+            "price_note": "",
             "link": "/pages/contact",
             "tag": "",
             "product_handle": "trafalgar-law-monkey-d-studio"
@@ -86,7 +86,7 @@
             "maker": "Monkey D Studio",
             "name": "Red Roc Luffy",
             "scale": "1/6 scale — resin",
-            "price_note": "Enquire",
+            "price_note": "",
             "link": "/pages/contact",
             "tag": "",
             "product_handle": "red-roc-luffy-monkey-d-studio"
@@ -99,7 +99,7 @@
             "maker": "Jimei Palace",
             "name": "Sabo",
             "scale": "1/6 scale — resin",
-            "price_note": "Enquire",
+            "price_note": "",
             "link": "/pages/contact",
             "tag": "",
             "product_handle": "sabo-jimei-palace"
@@ -121,7 +121,7 @@
         "link_url": "/collections/all",
         "products_to_show": 6,
         "empty_heading": "The collection is being prepared",
-        "empty_body": "Contact us to enquire about a featured piece.",
+        "empty_body": "New pieces are added as we find them.",
         "foot_label": "",
         "foot_url": ""
       }
@@ -143,8 +143,8 @@
         "r1": {
           "type": "reason",
           "settings": {
-            "title": "The exact statue in the photos",
-            "text": "Every photograph is of the piece you receive, not a studio render. One of each — when it's gone, it's gone.",
+            "title": "Your statue, brought to your door.",
+            "text": "See the delivery price for your postcode before you buy, or collect free in London. Add in-home assembly and original box storage where available.",
             "link_label": "",
             "link": ""
           }
@@ -152,8 +152,8 @@
         "r2": {
           "type": "reason",
           "settings": {
-            "title": "Boxed, and described honestly",
-            "text": "Pre-owned and supplied with its original box. Condition is written as it is, and we'll send more photographs of any detail before you buy.",
+            "title": "Your bonus · a free buy-back quote.",
+            "text": "Ready to make room for your next piece? Bring this one back to us for a free buy-back quote. We'll assess it and tell you what we can offer. It's your call whether to sell.",
             "link_label": "",
             "link": ""
           }
@@ -161,8 +161,8 @@
         "r3": {
           "type": "reason",
           "settings": {
-            "title": "Free collection in London",
-            "text": "Collect yours at no charge, usually ready within 24 hours. Ask about delivery before you order and we'll quote your address.",
+            "title": "The Hassle-Free Handover Guarantee.",
+            "text": "The exact statue shown. The condition described. Every part listed. If it arrives damaged, a listed part is missing, or it differs from the listing, return it for a full refund. We'll arrange and pay for collection.",
             "link_label": "Delivery & Guarantee",
             "link": "/pages/delivery-and-guarantee"
           }
@@ -190,22 +190,22 @@
         "s2": {
           "type": "step",
           "settings": {
-            "title": "We prepare it",
-            "text": "Usually ready within 24 hours. We'll email you when it's ready and arrange a time that suits you."
+            "title": "Check your postcode",
+            "text": "Enter it on the statue's page and you'll see your personal delivery price straight away, before you buy."
           }
         },
         "s3": {
           "type": "step",
           "settings": {
-            "title": "Collect it, free",
-            "text": "Collect from us in London at no charge. Bring your confirmation and photo ID. These pieces are heavy, so bring suitable transport and a second pair of hands for the larger ones."
+            "title": "Collect free, or we drive it to you",
+            "text": "Collect from us in London at no charge, usually ready within 24 hours. Or one of us brings it to your door and carries it in."
           }
         },
         "s4": {
           "type": "step",
           "settings": {
-            "title": "Not in London?",
-            "text": "Ask about delivery before you order and we'll quote your address. Personal UK delivery with optional in-home assembly is coming."
+            "title": "Add setting up, or box storage",
+            "text": "Have us unbox and assemble it where you want it. Let us keep the original box — first month free, then £19.99 a month."
           }
         }
       },
@@ -247,7 +247,7 @@
     "reasons",
     "gallery",
     "journey",
-    "guarantee_route",
-    "sell"
+    "sell",
+    "guarantee_route"
   ]
 }

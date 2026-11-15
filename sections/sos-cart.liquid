@@ -114,7 +114,13 @@
                           data-zones="{{ 'sos-delivery-zones.json' | asset_url }}"
                           data-postcode="{{ quoted_postcode }}">added at checkout</strong>
                 </div>
-                <p class="sos-cart__note">Shopify adds your delivery charge once you confirm the address on the next screen.</p>
+                <p class="sos-cart__note sos-cart__handoff">
+                  On the next screen, choose <strong>Ship</strong> and enter
+                  <strong>{{ quoted_postcode }}</strong>. Your {{ '' }}<span data-sos-cart-delivery-echo>delivery</span>
+                  charge appears once the address is confirmed — Shopify only
+                  prices it then. Pick <strong>Pickup</strong> only if you have
+                  changed your mind and want to collect.
+                </p>
               {%- endif -%}
               {%- if s.tax_note != blank -%}
                 <p class="sos-cart__note">{{ s.tax_note }}</p>

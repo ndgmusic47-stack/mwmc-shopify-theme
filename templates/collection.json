@@ -14,7 +14,7 @@
       "settings": {
         "eyebrow": "The Collection",
         "heading": "The collection",
-        "body": "Pieces currently with us. Each one is individually selected — enquire for availability and price."
+        "body": "Every piece we have right now. One of each — the photographs are of the statue you'll receive. Check your postcode on any piece for your delivery price."
       }
     },
     "pieces": {
@@ -27,7 +27,7 @@
             "maker": "Anikingdom x Jimei Palace",
             "name": "Gear 5 Luffy",
             "scale": "Resin",
-            "price_note": "Enquire",
+            "price_note": "",
             "link": "/pages/contact",
             "tag": "",
             "product_handle": "gear-5-luffy-anikingdom-jimei-palace"
@@ -40,7 +40,7 @@
             "maker": "LX Studio",
             "name": "Dracule Mihawk",
             "scale": "Resin",
-            "price_note": "Enquire",
+            "price_note": "",
             "link": "/pages/contact",
             "tag": "",
             "product_handle": "dracule-mihawk-lx-studio"
@@ -53,7 +53,7 @@
             "maker": "Monkey D Studio",
             "name": "King",
             "scale": "Resin",
-            "price_note": "Enquire",
+            "price_note": "",
             "link": "/pages/contact",
             "tag": "",
             "product_handle": "king-monkey-d-studio"
@@ -66,7 +66,7 @@
             "maker": "Monkey D Studio",
             "name": "Trafalgar Law",
             "scale": "1/6 scale — resin",
-            "price_note": "Enquire",
+            "price_note": "",
             "link": "/pages/contact",
             "tag": "",
             "product_handle": "trafalgar-law-monkey-d-studio"
@@ -79,7 +79,7 @@
             "maker": "Monkey D Studio",
             "name": "Red Roc Luffy",
             "scale": "1/6 scale — resin",
-            "price_note": "Enquire",
+            "price_note": "",
             "link": "/pages/contact",
             "tag": "",
             "product_handle": "red-roc-luffy-monkey-d-studio"
@@ -92,7 +92,7 @@
             "maker": "Jimei Palace",
             "name": "Sabo",
             "scale": "1/6 scale — resin",
-            "price_note": "Enquire",
+            "price_note": "",
             "link": "/pages/contact",
             "tag": "",
             "product_handle": "sabo-jimei-palace"
@@ -114,7 +114,7 @@
         "link_url": "",
         "products_to_show": 12,
         "empty_heading": "The collection is being prepared",
-        "empty_body": "Contact us to enquire about a piece.",
+        "empty_body": "New pieces are added as we find them.",
         "foot_label": "",
         "foot_url": "",
         "collection": ""
