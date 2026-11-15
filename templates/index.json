@@ -10,18 +10,18 @@
         "button_link": "/collections/all",
         "button2_label": "Check delivery to my postcode",
         "button2_link": "/pages/delivery-and-guarantee",
-        "desktop_stem": "sos-hero-desktop",
+        "desktop_stem": "sos-hero-palace-desktop",
         "desktop_widths": "900,1280,1774",
-        "mobile_stem": "sos-hero-mobile",
+        "mobile_stem": "sos-hero-palace-mobile",
         "mobile_widths": "480,672,860",
         "plate_width": 1774,
-        "plate_height": 887,
-        "plate_alt": "Gear 5 Luffy statue displayed on a stone pedestal in a sunlit palace gallery",
+        "plate_height": 683,
+        "plate_alt": "Gear 5 Luffy statue on a gold-trimmed pedestal in a sunlit palace gallery, with arches opening onto a blue sky",
         "focal_point": "50% 62%",
         "piece_stem": "",
         "plate_caption": "Gear 5 Luffy — Anikingdom x Jimei Palace",
         "mobile_width": 860,
-        "mobile_height": 887
+        "mobile_height": 752
       }
     },
     "gallery": {
