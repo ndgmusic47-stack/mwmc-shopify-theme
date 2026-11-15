@@ -3,7 +3,7 @@
     "palace_hero": {
       "type": "sos-hero",
       "settings": {
-        "eyebrow": "Pre-owned collectible statues",
+        "eyebrow": "",
         "heading": "Bring your favourite character",
         "heading_accent": "home.",
         "body": "We deliver your statue ourselves. We can set it up in your chosen spot and store the bulky original boxes for you. When you're ready to sell, come back to us for a free buy-back quote.",
@@ -11,7 +11,7 @@
         "button_link": "/collections/all",
         "button2_label": "Check my postcode",
         "button2_link": "/pages/delivery-and-guarantee",
-        "actions_note": "Free London collection also available.",
+        "actions_note": "",
         "desktop_stem": "sos-hero-palace-desktop",
         "desktop_widths": "900,1280,1774",
         "mobile_stem": "sos-hero-palace-mobile",
