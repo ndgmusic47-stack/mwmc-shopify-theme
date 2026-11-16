@@ -32,10 +32,22 @@
         endcomment
         assign crumb_url = routes.all_products_collection_url
         assign crumb_label = s.back_label
-        if s.collection_link != blank
-          assign crumb_url = s.collection_link
+
+        comment
+          The configured fallback is only used once that collection actually
+          exists and has stock. Pointing at it unconditionally put a 404 on
+          every product page the moment this shipped, because the One Piece
+          collection has not been created yet.
+        endcomment
+        if s.collection_handle != blank
+          assign crumb_target = collections[s.collection_handle]
+          if crumb_target != blank and crumb_target.products_count > 0
+            assign crumb_url = crumb_target.url
+            assign crumb_label = crumb_target.title
+          endif
         endif
-        if collection != blank and collection.handle != blank
+
+        if collection != blank and collection.handle != blank and collection.handle != 'all'
           assign crumb_url = collection.url
           assign crumb_label = collection.title
         endif
@@ -284,7 +296,7 @@
     unless p.available
       assign ld_availability = 'https://schema.org/OutOfStock'
     endunless
-    assign ld_desc = p.description | strip_html | strip_newlines | truncate: 480
+    assign ld_desc = p.description | replace: '</', ' </' | strip_html | strip_newlines | replace: '  ', ' ' | strip | truncate: 480
   -%}
   <script type="application/ld+json">
     {
@@ -334,8 +346,8 @@
     { "type": "text", "id": "add_label", "label": "Add button", "default": "Add to bag" },
     { "type": "text", "id": "ask_label", "label": "Enquiry link", "default": "Ask a question about this piece" },
     { "type": "url", "id": "enquiry_page", "label": "Enquiry page" },
-    { "type": "url", "id": "collection_link", "label": "Collection the breadcrumb falls back to" },
-    { "type": "paragraph", "content": "When a shopper reaches a piece through a collection, the breadcrumb follows that collection. This link is the fallback for a direct visit from search — point it at the One Piece collection." },
+    { "type": "text", "id": "collection_handle", "label": "Collection handle the breadcrumb falls back to" },
+    { "type": "paragraph", "content": "A handle such as one-piece-statues. Used for a direct visit from search, and only once that collection exists and has products — otherwise the breadcrumb goes to the full catalogue. When a shopper arrives through a collection, that collection wins." },
     { "type": "text", "id": "support_email", "label": "Support email", "default": "sultan@sultanofstatues.com" },
     { "type": "richtext", "id": "included_default", "label": "What's included (fallback)", "default": "<p>The statue and its original box and inner packaging. Anything else specific to this piece is listed on the product above.</p>" },
     { "type": "paragraph", "content": "Per-piece contents and dimensions come from product metafields (sos.included, sos.height, sos.width, sos.depth, sos.base, sos.overhang, sos.boxed, sos.weight). Will it fit? stays hidden until a piece has been measured." },
