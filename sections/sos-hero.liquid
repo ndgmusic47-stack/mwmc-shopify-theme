@@ -17,6 +17,21 @@
   assign dw = s.desktop_widths | split: ','
   assign mw = s.mobile_widths | split: ','
   assign pw = s.piece_widths | split: ','
+
+  comment
+    The shop link prefers a named collection — the One Piece landing page we
+    want ranking — but only once that collection exists and has stock in it.
+    Until then it falls back to the full catalogue, so this is safe to ship
+    to a live site before the collection is made and switches itself over
+    the moment it is, without a second deploy.
+  endcomment
+  assign shop_url = s.button_link | default: routes.all_products_collection_url
+  if s.primary_collection != blank
+    assign target = collections[s.primary_collection]
+    if target != blank and target.products_count > 0
+      assign shop_url = target.url
+    endif
+  endif
 -%}
 
 <div class="sos">
@@ -87,7 +102,7 @@
         {%- if s.button_label != blank or s.button2_label != blank -%}
           <div class="sos-hero__actions">
             {%- if s.button_label != blank -%}
-              <a class="sos-btn sos-btn--primary" href="{{ s.button_link | default: routes.all_products_collection_url }}">
+              <a class="sos-btn sos-btn--primary" href="{{ shop_url }}">
                 {{ s.button_label }}{% render 'sos-icon', name: 'arrow' %}
               </a>
             {%- endif -%}
@@ -119,6 +134,8 @@
     { "type": "textarea", "id": "body", "label": "Supporting line", "default": "Discover collectible statues, distinctive sculpts and remarkable display pieces." },
     { "type": "text", "id": "button_label", "label": "Primary button", "default": "Explore the collection" },
     { "type": "url", "id": "button_link", "label": "Primary button link" },
+    { "type": "text", "id": "primary_collection", "label": "Preferred collection handle" },
+    { "type": "paragraph", "content": "The handle of the collection the primary button should lead to, for example one-piece-statues. Used only once that collection exists and has products; otherwise the button link above is used." },
     { "type": "text", "id": "button2_label", "label": "Secondary button" },
     { "type": "url", "id": "button2_link", "label": "Secondary button link" },
     { "type": "text", "id": "actions_note", "label": "Note under the buttons" },

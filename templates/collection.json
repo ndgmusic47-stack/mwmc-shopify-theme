@@ -13,8 +13,9 @@
       "type": "sos-page-hero",
       "settings": {
         "eyebrow": "The Collection",
-        "heading": "The collection",
-        "body": "Every piece we have right now. One of each — the photographs are of the statue you'll receive. Check your postcode on any piece for your delivery price."
+        "heading": "One Piece Statues",
+        "body": "Pre-owned One Piece resin statues, each one photographed as it stands today. One of each, so the piece in the photographs is the piece you receive. Check your postcode on any listing for your personal delivery price, or collect free in London.",
+        "use_collection": true
       }
     },
     "pieces": {

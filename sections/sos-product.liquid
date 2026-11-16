@@ -23,8 +23,26 @@
   <section class="sos-product">
     <div class="sos-wrap">
 
+      {%- liquid
+        comment
+          The piece's own collection when it has one, so the crumb and the
+          BreadcrumbList agree and the listing links back to the page we
+          want ranking. collection is set when the product was reached
+          through a collection; otherwise fall back to the setting.
+        endcomment
+        assign crumb_url = routes.all_products_collection_url
+        assign crumb_label = s.back_label
+        if s.collection_link != blank
+          assign crumb_url = s.collection_link
+        endif
+        if collection != blank and collection.handle != blank
+          assign crumb_url = collection.url
+          assign crumb_label = collection.title
+        endif
+      -%}
+
       <nav class="sos-crumb" aria-label="Breadcrumb">
-        <a href="{{ routes.all_products_collection_url }}">{{ s.back_label }}</a>
+        <a href="{{ crumb_url }}">{{ crumb_label }}</a>
         <span aria-hidden="true">/</span>
         <span>{{ p.title }}</span>
       </nav>
@@ -40,6 +58,29 @@
                   assign loading = 'eager'
                 endif
               -%}
+              {%- liquid
+                comment
+                  Alt text set on the media in Shopify always wins. The
+                  fallback used to be the bare product title, so a piece with
+                  nine photographs repeated one alt nine times and told a
+                  screen reader — or Google — nothing about any of them. The
+                  fallback now names the piece, its maker and which shot it
+                  is. Per-image alt text in admin is still better and is
+                  listed in the SEO handoff.
+                endcomment
+                assign shot_alt = media.alt
+                if shot_alt == blank
+                  assign shot_alt = p.title
+                  if p.vendor != blank
+                    assign shot_alt = shot_alt | append: ' resin statue by ' | append: p.vendor
+                  endif
+                  if forloop.first
+                    assign shot_alt = shot_alt | append: ', full view'
+                  else
+                    assign shot_alt = shot_alt | append: ', detail ' | append: forloop.index0
+                  endif
+                endif
+              -%}
               <figure class="sos-product__shot{% if forloop.first %} is-lead{% endif %}">
                 {{ media
                    | image_url: width: 1600
@@ -47,7 +88,7 @@
                      widths: '500, 760, 1100, 1600',
                      sizes: '(max-width: 1000px) 94vw, 52vw',
                      loading: loading,
-                     alt: media.alt | default: p.title }}
+                     alt: shot_alt }}
               </figure>
             {%- endfor -%}
           {%- else -%}
@@ -222,6 +263,67 @@
   </section>
 </div>
 
+{%- comment -%}
+  Product and Offer structured data.
+
+  Nothing on the storefront emitted any before this: the Savor sections that
+  carry it are not used by these pages, so Google had no price, availability
+  or condition for any of the six pieces.
+
+  Every value is read from the product, so the markup cannot drift from what
+  the page shows. Condition is UsedCondition because the whole catalogue is
+  pre-owned. Price is rendered unformatted in GBP, which is what
+  schema.org wants, and matches the figure in the price line above.
+
+  Only emitted for a real, purchasable piece — never for the assembly
+  add-on, which is a service and not a product anyone should land on.
+{%- endcomment -%}
+{%- if p.handle != 'in-home-assembly' -%}
+  {%- liquid
+    assign ld_availability = 'https://schema.org/InStock'
+    unless p.available
+      assign ld_availability = 'https://schema.org/OutOfStock'
+    endunless
+    assign ld_desc = p.description | strip_html | strip_newlines | truncate: 480
+  -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": {{ p.title | json }},
+      "url": {{ request.origin | append: p.url | json }},
+      {% if ld_desc != blank %}"description": {{ ld_desc | json }},{% endif %}
+      {% if p.featured_media %}"image": [
+        {%- for media in p.media limit: 6 -%}
+          {{ media | image_url: width: 1600 | prepend: 'https:' | json }}{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      ],{% endif %}
+      {% if p.vendor != blank %}"brand": { "@type": "Brand", "name": {{ p.vendor | json }} },{% endif %}
+      {% if v.sku != blank %}"sku": {{ v.sku | json }},{% endif %}
+      "itemCondition": "https://schema.org/UsedCondition",
+      "offers": {
+        "@type": "Offer",
+        "url": {{ request.origin | append: p.url | json }},
+        "priceCurrency": {{ cart.currency.iso_code | json }},
+        "price": {{ v.price | divided_by: 100.0 | json }},
+        "availability": {{ ld_availability | json }},
+        "itemCondition": "https://schema.org/UsedCondition",
+        "seller": { "@type": "Organization", "name": {{ shop.name | json }} }
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": {{ crumb_label | json }}, "item": {{ request.origin | append: crumb_url | json }} },
+        { "@type": "ListItem", "position": 2, "name": {{ p.title | json }} }
+      ]
+    }
+  </script>
+{%- endif -%}
+
 {% schema %}
 {
   "name": "Palace product",
@@ -232,6 +334,8 @@
     { "type": "text", "id": "add_label", "label": "Add button", "default": "Add to bag" },
     { "type": "text", "id": "ask_label", "label": "Enquiry link", "default": "Ask a question about this piece" },
     { "type": "url", "id": "enquiry_page", "label": "Enquiry page" },
+    { "type": "url", "id": "collection_link", "label": "Collection the breadcrumb falls back to" },
+    { "type": "paragraph", "content": "When a shopper reaches a piece through a collection, the breadcrumb follows that collection. This link is the fallback for a direct visit from search — point it at the One Piece collection." },
     { "type": "text", "id": "support_email", "label": "Support email", "default": "sultan@sultanofstatues.com" },
     { "type": "richtext", "id": "included_default", "label": "What's included (fallback)", "default": "<p>The statue and its original box and inner packaging. Anything else specific to this piece is listed on the product above.</p>" },
     { "type": "paragraph", "content": "Per-piece contents and dimensions come from product metafields (sos.included, sos.height, sos.width, sos.depth, sos.base, sos.overhang, sos.boxed, sos.weight). Will it fit? stays hidden until a piece has been measured." },

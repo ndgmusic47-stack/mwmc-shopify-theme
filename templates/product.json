@@ -15,21 +15,22 @@
         "back_label": "The Collection",
         "add_label": "Add to bag",
         "ask_label": "Ask a question about this piece",
-        "note": ""
+        "note": "",
+        "collection_link": "/collections/one-piece-statues"
       }
     },
     "related": {
       "type": "sos-collection",
       "settings": {
         "eyebrow": "The Collection",
-        "heading": "More from the collection",
+        "heading": "More One Piece statues",
         "link_label": "",
         "link_url": "",
         "collection": "all",
         "products_to_show": 3,
         "empty_heading": "The rest of the collection",
         "empty_body": "Browse every piece we currently have.",
-        "foot_label": "View the whole collection",
+        "foot_label": "See the whole collection",
         "foot_url": "/collections/all"
       }
     }

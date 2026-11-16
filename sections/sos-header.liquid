@@ -29,9 +29,9 @@
 
   comment
     Navigation source. The shared Shopify menus (main-menu, footer) are
-    store-level and still carry the card-shop and consignment links, so the
-    theme owns its own navigation by default. Switch nav_source to "shopify"
-    only after the live menus have been rewritten.
+    store-level and have now been rewritten for Sultan of Statues, so either
+    source is correct. The theme keeps its own links by default because they
+    are versioned alongside the theme.
   endcomment
   assign nav_items = section.blocks | where: 'type', 'nav_item'
   assign use_theme_nav = false
@@ -271,7 +271,7 @@
       ],
       "default": "theme"
     },
-    { "type": "paragraph", "content": "The shared Shopify menus are store-level and still carry the old card-shop and consignment links. Theme links keep staging correct without editing the live menus. Switch to the Shopify menu only once those menus have been rewritten." },
+    { "type": "paragraph", "content": "The store-level Shopify menus have been rewritten for Sultan of Statues, so either source is safe. Theme links stay the default because they are versioned with the theme." },
     { "type": "link_list", "id": "menu", "label": "Shopify menu (fallback)", "default": "main-menu" },
 
     { "type": "header", "content": "Options" },

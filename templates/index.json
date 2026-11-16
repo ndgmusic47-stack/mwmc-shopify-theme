@@ -23,7 +23,8 @@
         "piece_stem": "",
         "plate_caption": "",
         "mobile_width": 860,
-        "mobile_height": 752
+        "mobile_height": 752,
+        "primary_collection": "one-piece-statues"
       }
     },
     "gallery": {
@@ -118,8 +119,8 @@
       ],
       "settings": {
         "eyebrow": "The Collection",
-        "heading": "Six pieces, one of each",
-        "link_label": "See all six",
+        "heading": "Pre-owned anime statues",
+        "link_label": "See the One Piece collection",
         "link_url": "/collections/all",
         "products_to_show": 6,
         "empty_heading": "The collection is being prepared",
