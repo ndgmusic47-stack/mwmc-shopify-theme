@@ -61,52 +61,92 @@
 
       <div class="sos-product__grid">
 
-        <div class="sos-product__media">
+        {%- comment -%}
+          Compact gallery: one viewport, thumbnails under it, tap or click to
+          enlarge. It used to render every shot stacked, so the nine-photograph
+          piece pushed its own name 2,184px down a phone and the buy button to
+          2.7 screens. Shots are all in the DOM — good for crawlers and for a
+          no-JS visitor, who simply gets the stack back — but only the active
+          one is shown once the script runs.
+
+          Aspect ratios differ between pieces, so the frame is fixed and the
+          image is contained inside it. Nothing is cropped or stretched.
+        {%- endcomment -%}
+        <div class="sos-product__media" data-sos-gallery>
           {%- if p.media.size > 0 -%}
-            {%- for media in p.media -%}
-              {%- liquid
-                assign loading = 'lazy'
-                if forloop.first
-                  assign loading = 'eager'
-                endif
-              -%}
-              {%- liquid
-                comment
-                  Alt text set on the media in Shopify always wins. The
-                  fallback used to be the bare product title, so a piece with
-                  nine photographs repeated one alt nine times and told a
-                  screen reader — or Google — nothing about any of them. The
-                  fallback now names the piece, its maker and which shot it
-                  is. Per-image alt text in admin is still better and is
-                  listed in the SEO handoff.
-                endcomment
-                assign shot_alt = media.alt
-                if shot_alt == blank
-                  assign shot_alt = p.title
-                  if p.vendor != blank
-                    assign shot_alt = shot_alt | append: ' resin statue by ' | append: p.vendor
-                  endif
+            <div class="sos-product__stage">
+              {%- for media in p.media -%}
+                {%- liquid
+                  assign loading = 'lazy'
                   if forloop.first
-                    assign shot_alt = shot_alt | append: ', full view'
-                  else
-                    assign shot_alt = shot_alt | append: ', detail ' | append: forloop.index0
+                    assign loading = 'eager'
                   endif
-                endif
-              -%}
-              <figure class="sos-product__shot{% if forloop.first %} is-lead{% endif %}">
-                {{ media
-                   | image_url: width: 1600
-                   | image_tag:
-                     widths: '500, 760, 1100, 1600',
-                     sizes: '(max-width: 1000px) 94vw, 52vw',
-                     loading: loading,
-                     alt: shot_alt }}
-              </figure>
-            {%- endfor -%}
+
+                  comment
+                    Alt text set on the media in Shopify always wins. The
+                    fallback names the piece, its maker and which shot it is,
+                    so nine photographs no longer share one alt.
+                  endcomment
+                  assign shot_alt = media.alt
+                  if shot_alt == blank
+                    assign shot_alt = p.title
+                    if p.vendor != blank
+                      assign shot_alt = shot_alt | append: ' resin statue by ' | append: p.vendor
+                    endif
+                    if forloop.first
+                      assign shot_alt = shot_alt | append: ', full view'
+                    else
+                      assign shot_alt = shot_alt | append: ', detail ' | append: forloop.index0
+                    endif
+                  endif
+                -%}
+                <figure class="sos-product__shot{% if forloop.first %} is-active{% endif %}"
+                        data-sos-shot="{{ forloop.index0 }}">
+                  {{ media
+                     | image_url: width: 1600
+                     | image_tag:
+                       widths: '500, 760, 1100, 1600',
+                       sizes: '(max-width: 1000px) 94vw, 52vw',
+                       loading: loading,
+                       alt: shot_alt }}
+                </figure>
+              {%- endfor -%}
+
+              {%- if p.media.size > 1 -%}
+                <button type="button" class="sos-gal__nav sos-gal__nav--prev" data-sos-gal-prev aria-label="Previous photograph">
+                  {% render 'sos-icon', name: 'caret' %}
+                </button>
+                <button type="button" class="sos-gal__nav sos-gal__nav--next" data-sos-gal-next aria-label="Next photograph">
+                  {% render 'sos-icon', name: 'caret' %}
+                </button>
+              {%- endif -%}
+
+              <button type="button" class="sos-gal__zoom" data-sos-gal-zoom aria-label="Enlarge photograph">
+                <span aria-hidden="true">&plus;</span>
+              </button>
+              <p class="sos-gal__count" data-sos-gal-count aria-live="polite">1 / {{ p.media.size }}</p>
+            </div>
+
+            {%- if p.media.size > 1 -%}
+              <ul class="sos-gal__thumbs" data-sos-gal-thumbs>
+                {%- for media in p.media -%}
+                  <li>
+                    <button type="button"
+                            class="sos-gal__thumb{% if forloop.first %} is-active{% endif %}"
+                            data-sos-gal-go="{{ forloop.index0 }}"
+                            aria-label="Show photograph {{ forloop.index }} of {{ p.media.size }}">
+                      {{ media | image_url: width: 220 | image_tag: widths: '110, 220', alt: '', loading: 'lazy' }}
+                    </button>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
           {%- else -%}
             <div class="sos-product__nomedia">
               <p>Photographs of this piece are being prepared.</p>
             </div>
+          {%- endif -%}
+        </div>
           {%- endif -%}
         </div>
 
@@ -149,6 +189,15 @@
                 </a>
               </div>
             {%- else -%}
+              {%- comment -%}
+                Choices before the button. Add to bag used to sit above the
+                configurator with the running total 765px below it on a phone,
+                so a shopper was asked to commit before picking collection or
+                delivery and never saw what they would actually pay. The panel
+                now comes first and the button last, directly under the total
+                it refers to.
+              {%- endcomment -%}
+              {% render 'sos-cost-panel', product: p, enquiry_page: s.enquiry_page %}
               {%- form 'product', p, id: 'sos-add', class: 'sos-product__form' -%}
                 {%- unless p.has_only_default_variant -%}
                   <div class="sos-product__variants">
@@ -173,14 +222,6 @@
                   {{ s.add_label }}{% render 'sos-icon', name: 'arrow' %}
                 </button>
               {%- endform -%}
-
-              {%- comment -%}
-                The whole cost, before Add to bag: the statue, collection or a
-                real delivery price for their postcode, and the two optional
-                services. Delivery is charged by Shopify at checkout; the panel
-                says plainly which of the others are not.
-              {%- endcomment -%}
-              {% render 'sos-cost-panel', product: p, enquiry_page: s.enquiry_page %}
 
               <a class="sos-textlink sos-product__ask" href="{{ s.enquiry_page | default: '/pages/contact' }}?piece={{ p.title | url_param_escape }}">
                 {{ s.ask_label }}{% render 'sos-icon', name: 'arrow' %}

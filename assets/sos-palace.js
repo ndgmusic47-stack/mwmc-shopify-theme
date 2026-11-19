@@ -371,3 +371,120 @@
   }, 200);
   setTimeout(function () { clearInterval(tick); }, 6000);
 })();
+
+/* ---------------------------------------------------------------------------
+   Product gallery.
+
+   Progressive enhancement: the markup ships every photograph stacked, which
+   is what a crawler and a no-JS visitor get. This adds .is-ready, which
+   collapses the stack to a single frame with thumbnails, arrows, a counter
+   and a lightbox.
+
+   The stacked version was the reason a nine-photograph piece pushed its own
+   name 2,184px down a 390px phone and its buy button to 2.7 screens.
+--------------------------------------------------------------------------- */
+(function () {
+  function initGallery(root) {
+    var shots = [].slice.call(root.querySelectorAll('[data-sos-shot]'));
+    if (shots.length === 0) return;
+
+    var thumbs = [].slice.call(root.querySelectorAll('[data-sos-gal-go]'));
+    var countEl = root.querySelector('[data-sos-gal-count]');
+    var prev = root.querySelector('[data-sos-gal-prev]');
+    var next = root.querySelector('[data-sos-gal-next]');
+    var zoom = root.querySelector('[data-sos-gal-zoom]');
+    var index = 0;
+
+    root.classList.add('is-ready');
+
+    function show(i) {
+      index = (i + shots.length) % shots.length;
+      shots.forEach(function (f, n) { f.classList.toggle('is-active', n === index); });
+      thumbs.forEach(function (t, n) {
+        var on = n === index;
+        t.classList.toggle('is-active', on);
+        t.setAttribute('aria-current', on ? 'true' : 'false');
+        /* Keep the active thumbnail in view — with nine of them the strip
+           scrolls, and arrowing past the fifth otherwise left the highlight
+           off-screen. */
+        if (on && t.scrollIntoView) {
+          try { t.scrollIntoView({ block: 'nearest', inline: 'nearest' }); } catch (err) { /* older browsers */ }
+        }
+      });
+      if (countEl) countEl.textContent = (index + 1) + ' / ' + shots.length;
+    }
+
+    thumbs.forEach(function (t) {
+      t.addEventListener('click', function () { show(parseInt(t.dataset.sosGalGo, 10) || 0); });
+    });
+    if (prev) prev.addEventListener('click', function () { show(index - 1); });
+    if (next) next.addEventListener('click', function () { show(index + 1); });
+
+    /* Arrow keys while the gallery has focus within it. */
+    root.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); show(index - 1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); show(index + 1); }
+    });
+
+    /* Swipe. Horizontal intent only, so a vertical scroll is never hijacked. */
+    var x0 = null, y0 = null;
+    var stage = root.querySelector('.sos-product__stage');
+    if (stage) {
+      stage.addEventListener('touchstart', function (e) {
+        x0 = e.touches[0].clientX; y0 = e.touches[0].clientY;
+      }, { passive: true });
+      stage.addEventListener('touchend', function (e) {
+        if (x0 === null) return;
+        var dx = e.changedTouches[0].clientX - x0;
+        var dy = e.changedTouches[0].clientY - y0;
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { show(index + (dx < 0 ? 1 : -1)); }
+        x0 = null; y0 = null;
+      }, { passive: true });
+    }
+
+    /* Lightbox. <dialog> gives Escape, the backdrop and focus handling. */
+    var dialog = null;
+    function openZoom() {
+      var img = shots[index].querySelector('img');
+      if (!img) return;
+      if (!dialog) {
+        dialog = document.createElement('dialog');
+        dialog.className = 'sos-gal__dialog';
+        dialog.innerHTML =
+          '<button type="button" class="sos-gal__close" aria-label="Close">&times;</button>' +
+          '<img class="sos-gal__dialogImg" alt="">';
+        document.body.appendChild(dialog);
+        dialog.querySelector('.sos-gal__close').addEventListener('click', function () { dialog.close(); });
+        dialog.addEventListener('click', function (e) { if (e.target === dialog) dialog.close(); });
+      }
+      var big = dialog.querySelector('img');
+      big.src = img.currentSrc || img.src;
+      big.alt = img.alt || '';
+      if (typeof dialog.showModal === 'function') { dialog.showModal(); } else { dialog.setAttribute('open', ''); }
+    }
+    if (zoom) zoom.addEventListener('click', openZoom);
+    shots.forEach(function (f) {
+      var img = f.querySelector('img');
+      if (!img) return;
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', openZoom);
+    });
+
+    show(0);
+  }
+
+  function boot() {
+    [].forEach.call(document.querySelectorAll('[data-sos-gallery]'), function (root) {
+      if (root.dataset.sosGalReady === 'true') return;
+      root.dataset.sosGalReady = 'true';
+      initGallery(root);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+  document.addEventListener('shopify:section:load', boot);
+})();

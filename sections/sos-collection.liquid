@@ -34,6 +34,16 @@
   if coll != blank and coll.products_count > 0
     assign has_products = true
   endif
+
+  comment
+    Captured before the loop below shadows `product`. On a product page this
+    is the piece being viewed, so it can be skipped in its own
+    recommendations; blank everywhere else.
+  endcomment
+  assign viewing_handle = ''
+  if template.name == 'product' and product != blank
+    assign viewing_handle = product.handle
+  endif
 -%}
 
 <div class="sos">
@@ -67,6 +77,12 @@
           {%- endcomment -%}
           {%- for product in coll.products limit: limit -%}
             {%- if product.handle == 'in-home-assembly' -%}{%- continue -%}{%- endif -%}
+            {%- comment -%}
+              Never recommend the piece someone is already looking at. On a
+              product page this section was listing the product itself under
+              "More One Piece statues".
+            {%- endcomment -%}
+            {%- if viewing_handle != blank and product.handle == viewing_handle -%}{%- continue -%}{%- endif -%}
             {% render 'sos-product-card', product: product %}
           {%- endfor -%}
 

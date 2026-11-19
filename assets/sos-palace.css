@@ -638,6 +638,9 @@
   background: var(--sos-ivory);
   padding-block: var(--sos-section-y);
 }
+/* On the collection template the grid follows the banner directly, so the
+   section's own full top padding just repeats the gap above it. */
+.sos-collection-page .sos-collection { padding-top: clamp(1.25rem, 2.4vw, 2rem); }
 .sos-collection__head {
   display: flex;
   align-items: flex-end;
@@ -955,7 +958,14 @@
 
 .sos-pagehero { background: var(--sos-parchment); border-bottom: 1px solid rgba(176,140,74,0.22); }
 .sos-pagehero--dark { background: var(--sos-espresso); border-bottom-color: rgba(176,140,74,0.35); }
-.sos-pagehero__inner { padding-block: clamp(2.75rem, 6vw, 6rem); max-width: 60rem; }
+/* Banner padding was up to 6rem top and bottom, which on a 1440x900 desktop
+   pushed the first product card to 637px — 71% of the opening screen spent
+   before a shopper saw anything to buy. A collection page's job is to show
+   stock, so the banner is leaner here and leaner still on the collection
+   template, where the intro does not need to be read before browsing. */
+.sos-pagehero__inner { padding-block: clamp(2rem, 3.6vw, 3.25rem); max-width: 60rem; }
+.sos-collection-page .sos-pagehero__inner { padding-block: clamp(1.5rem, 2.6vw, 2.25rem); }
+.sos-collection-page .sos-pagehero__lede { font-size: 1.02rem; max-width: 62ch; }
 .sos-pagehero__title { font-size: var(--sos-fs-h2); }
 .sos-pagehero__lede { max-width: 46ch; }
 .sos-pagehero--dark .sos-pagehero__title { color: var(--sos-on-dark); }
@@ -1214,9 +1224,130 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
   align-items: start;
   margin-top: clamp(1.25rem, 3vw, 2.25rem);
 }
-.sos-product__media { display: grid; gap: clamp(0.75rem, 2vw, 1.25rem); }
-.sos-product__shot { margin: 0; background: var(--sos-parchment); border: 1px solid rgba(176,140,74,0.22); }
+/* Gallery -----------------------------------------------------------------
+   One viewport plus thumbnails. Every shot stays in the DOM so crawlers and
+   a no-JS visitor still get them all (stacked, as before); the script adds
+   .is-ready, which collapses the stack to the active frame.
+
+   Pieces are photographed at different aspect ratios, so the stage is a
+   fixed frame and each image is contained within it — never cropped to fill
+   and never stretched. */
+.sos-product__media { display: grid; gap: clamp(0.6rem, 1.6vw, 1rem); }
+
+.sos-product__stage { position: relative; }
+.sos-product__shot {
+  margin: 0;
+  background: var(--sos-parchment);
+  border: 1px solid rgba(176, 140, 74, 0.22);
+}
 .sos-product__shot img { display: block; width: 100%; height: auto; }
+
+.sos-product__media.is-ready .sos-product__stage {
+  aspect-ratio: 4 / 5;
+  background: var(--sos-parchment);
+  border: 1px solid rgba(176, 140, 74, 0.22);
+}
+.sos-product__media.is-ready .sos-product__shot {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: none;
+  display: none;
+}
+.sos-product__media.is-ready .sos-product__shot.is-active { display: block; }
+.sos-product__media.is-ready .sos-product__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Controls only exist once the script has taken over. */
+.sos-gal__nav, .sos-gal__zoom, .sos-gal__count { display: none; }
+.is-ready .sos-gal__nav, .is-ready .sos-gal__zoom, .is-ready .sos-gal__count { display: grid; }
+
+.sos-gal__nav, .sos-gal__zoom {
+  position: absolute;
+  z-index: 2;
+  place-items: center;
+  width: 44px; height: 44px;
+  padding: 0;
+  border: 1px solid rgba(176, 140, 74, 0.5);
+  border-radius: 50%;
+  background: rgba(252, 249, 243, 0.92);
+  color: var(--sos-ink);
+  cursor: pointer;
+  transition: background-color 0.2s var(--sos-ease), transform 0.2s var(--sos-ease);
+}
+.sos-gal__nav:hover, .sos-gal__zoom:hover { background: #fff; }
+.sos-gal__nav--prev { left: 0.6rem; top: 50%; transform: translateY(-50%); }
+.sos-gal__nav--next { right: 0.6rem; top: 50%; transform: translateY(-50%) rotate(180deg); }
+.sos-gal__nav svg { width: 18px; height: 18px; transform: rotate(90deg); }
+.sos-gal__zoom { right: 0.6rem; bottom: 0.6rem; font-size: 1.35rem; line-height: 1; }
+.sos-gal__count {
+  position: absolute;
+  left: 0.6rem; bottom: 0.6rem;
+  z-index: 2;
+  margin: 0;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(42, 31, 22, 0.78);
+  color: var(--sos-on-dark);
+  font-family: var(--sos-sans);
+  font-size: 0.72rem;
+}
+
+.sos-gal__thumbs {
+  display: none;
+  list-style: none; margin: 0; padding: 0;
+  grid-auto-flow: column;
+  grid-auto-columns: 72px;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scroll-snap-type: x proximity;
+}
+.is-ready .sos-gal__thumbs { display: grid; }
+.sos-gal__thumbs li { scroll-snap-align: start; }
+.sos-gal__thumb {
+  display: block; width: 100%; padding: 0;
+  aspect-ratio: 1;
+  border: 1px solid rgba(176, 140, 74, 0.3);
+  background: var(--sos-parchment);
+  cursor: pointer;
+  opacity: 0.62;
+  transition: opacity 0.2s var(--sos-ease), border-color 0.2s var(--sos-ease);
+}
+.sos-gal__thumb img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.sos-gal__thumb:hover { opacity: 0.85; }
+.sos-gal__thumb.is-active { opacity: 1; border-color: var(--sos-gold); }
+
+/* Lightbox. A native <dialog>, so Escape and the focus trap come free. */
+.sos-gal__dialog {
+  width: min(96vw, 1200px);
+  max-width: 96vw;
+  max-height: 92vh;
+  padding: 0;
+  border: 1px solid rgba(176, 140, 74, 0.45);
+  background: var(--sos-ivory);
+}
+.sos-gal__dialog::backdrop { background: rgba(26, 18, 11, 0.82); }
+.sos-gal__dialogImg {
+  display: block;
+  width: 100%;
+  max-height: 86vh;
+  object-fit: contain;
+  background: var(--sos-parchment);
+}
+.sos-gal__close {
+  position: absolute; top: 0.6rem; right: 0.6rem;
+  width: 42px; height: 42px;
+  display: grid; place-items: center;
+  border: 1px solid rgba(176, 140, 74, 0.5);
+  border-radius: 50%;
+  background: rgba(252, 249, 243, 0.94);
+  font-size: 1.2rem; line-height: 1;
+  cursor: pointer;
+}
 .sos-product__nomedia {
   aspect-ratio: 4 / 5; display: grid; place-items: center;
   background: var(--sos-parchment); border: 1px solid rgba(176,140,74,0.3);
