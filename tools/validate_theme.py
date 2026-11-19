@@ -314,6 +314,85 @@ def check_settings_data_types():
                 )
 
 
+
+
+# --- Liquid tag balance -----------------------------------------------------
+# Added after a real sync rejection: "sections/sos-product.liquid, Validation
+# failed: Liquid syntax error (line 150): Unknown tag 'endif'". An orphaned
+# endif left by an edit syncs five of six files and silently leaves the sixth
+# at its previous version — the storefront looks half-updated with no error
+# anywhere except the admin GitHub log.
+
+LIQUID_BLOCK = {
+    "if", "unless", "for", "case", "capture", "comment", "form", "paginate",
+    "tablerow", "schema", "javascript", "stylesheet", "style", "raw", "doc",
+}
+LIQUID_MID = {"else", "elsif", "when", "break", "continue"}
+# Bodies of these are free text, not control flow.
+LIQUID_RAW = ("doc", "comment", "raw", "schema", "javascript", "stylesheet", "style")
+
+
+def _strip_raw_blocks(src):
+    for tag in LIQUID_RAW:
+        pat = re.compile(r"{%-?\s*" + tag + r"\s*-?%}.*?{%-?\s*end" + tag + r"\s*-?%}", re.S)
+        src = pat.sub(lambda m: "\n" * m.group(0).count("\n"), src)
+    return src
+
+
+def _balance(path, src):
+    found = []
+    stack = []
+
+    def handle(word, line):
+        if word in LIQUID_BLOCK:
+            stack.append((word, line))
+        elif word.startswith("end"):
+            name = word[3:]
+            if not stack:
+                found.append(f"{path}:{line}: Unknown tag '{word}' — nothing is open")
+            elif stack[-1][0] != name:
+                found.append(
+                    f"{path}:{line}: '{word}' but '{stack[-1][0]}' from line {stack[-1][1]} is open"
+                )
+                stack.pop()
+            else:
+                stack.pop()
+        elif word in LIQUID_MID and not stack:
+            found.append(f"{path}:{line}: '{word}' outside any block")
+
+    for m in re.finditer(r"{%-?\s*(.*?)\s*-?%}", src, re.S):
+        line = src.count("\n", 0, m.start()) + 1
+        parts = m.group(1).split(None, 1)
+        if not parts:
+            continue
+        if parts[0] == "liquid":
+            body = parts[1] if len(parts) > 1 else ""
+            for raw in body.split("\n"):
+                raw = raw.strip()
+                if raw and not raw.startswith("#"):
+                    handle(raw.split(None, 1)[0], line)
+            continue
+        handle(parts[0], line)
+
+    for tag, line in stack:
+        found.append(f"{path}:{line}: unclosed '{tag}'")
+    return found
+
+
+def check_liquid_syntax():
+    for folder in ("sections", "snippets", "layout"):
+        d = os.path.join(ROOT, folder)
+        if not os.path.isdir(d):
+            continue
+        for name in sorted(os.listdir(d)):
+            if not name.endswith(".liquid"):
+                continue
+            rel = f"{folder}/{name}"
+            with open(os.path.join(d, name), encoding="utf-8") as fh:
+                src = fh.read()
+            for err in _balance(rel, _strip_raw_blocks(src)):
+                problems.append(err)
+
 def main():
     schemas = section_schemas()
     check_schemas(schemas)
@@ -323,6 +402,7 @@ def main():
     check_hero_derivatives()
     check_product_handles()
     check_settings_data_types()
+    check_liquid_syntax()
 
     for n in notes:
         print(f"note: {n}")
@@ -331,8 +411,8 @@ def main():
         for p in problems:
             print(f"  * {p}")
         return 1
-    print("\nPASS — schemas, block permissions, richtext, assets, hero derivatives "
-          "and product handles all consistent.")
+    print("\nPASS — Liquid tag balance, schemas, block permissions, richtext, "
+          "assets, hero derivatives and product handles all consistent.")
     return 0
 
 
