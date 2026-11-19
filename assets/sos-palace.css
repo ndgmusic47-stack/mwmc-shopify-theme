@@ -1807,6 +1807,32 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
   font-weight: 600;
   text-align: right;
 }
+/* Optional extras: short label, detail on demand. */
+.sos-costs__opt { border-top: 1px solid rgba(176, 140, 74, 0.2); }
+.sos-costs__opt:first-of-type { border-top: 0; }
+.sos-costs__more { margin: -0.3rem 0 0.75rem 2.1rem; }
+.sos-costs__more summary {
+  cursor: pointer;
+  font-family: var(--sos-sans);
+  font-size: 0.82rem;
+  color: var(--sos-bronze-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.sos-costs__more summary::-webkit-details-marker { display: none; }
+.sos-costs__more[open] summary { margin-bottom: 0.4rem; }
+.sos-costs__more p {
+  margin: 0;
+  font-family: var(--sos-sans);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--sos-ink-soft);
+  max-width: 54ch;
+}
+/* Recurring terms stay out of the disclosure — a monthly charge must be
+   readable before the box is ticked. */
+.sos-costs__rowNote--terms { color: var(--sos-ink); font-weight: 600; }
+
 .sos-costs__rowPriceSub {
   display: block;
   font-size: 0.72rem;
@@ -1858,3 +1884,19 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
 .sos-cart__next span { font-weight: 600; }
 .sos-cart__row--pending { opacity: 0.85; }
 .sos-cart__row--pending strong { font-variant-numeric: tabular-nums; }
+
+/* Trustpilot ---------------------------------------------------------------
+   Compact strip. Sits above the footer base rule, full width, with the
+   fallback link styled so it does not look broken if the script is blocked. */
+.sos-trustpilot {
+  margin: 0 0 clamp(1rem, 2.5vw, 1.75rem);
+  padding-top: clamp(1rem, 2.5vw, 1.5rem);
+  border-top: 1px solid rgba(176, 140, 74, 0.22);
+  min-height: 52px;
+}
+.sos-trustpilot .trustpilot-widget { width: 100%; }
+.sos-trustpilot a {
+  font-family: var(--sos-sans);
+  font-size: 0.85rem;
+  color: var(--sos-on-dark-soft);
+}

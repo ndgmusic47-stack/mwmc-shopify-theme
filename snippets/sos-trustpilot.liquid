@@ -1,0 +1,29 @@
+{% comment %}
+  Official Trustpilot Review Collector widget.
+
+  Configuration is the verified one supplied for this business unit. The
+  bootstrap script is loaded once per page, async, and the widget is
+  initialised explicitly afterwards — Trustpilot's own auto-init only runs on
+  first load, so a Shopify section reload in the theme editor, or any later
+  injection, would otherwise leave an empty box.
+
+  This template is a Review Collector: it invites a review. It does not show
+  a star rating, a score or a review count, and no official template can be
+  made to show figures that are not published on the business unit yet.
+  Nothing here fabricates a rating.
+
+  Usage: {% render 'sos-trustpilot', placement: 'footer' %}
+{% endcomment %}
+
+<div class="sos-trustpilot sos-trustpilot--{{ placement | default: 'footer' }}">
+  <div
+    class="trustpilot-widget"
+    data-locale="en-GB"
+    data-template-id="56278e9abfbbba0bdcd568bc"
+    data-businessunit-id="6afe3e2830d26ccd32cb3a0e"
+    data-style-height="52px"
+    data-style-width="100%"
+  >
+    <a href="https://www.trustpilot.com/review/sultanofstatues.com" target="_blank" rel="noopener">Trustpilot</a>
+  </div>
+</div>

@@ -6,7 +6,7 @@
         "eyebrow": "",
         "heading": "Bring your favourite character",
         "heading_accent": "home.",
-        "body": "We deliver your statue ourselves. We can set it up in your chosen spot and store the bulky original boxes for you. When you're ready to sell, come back to us for a free buy-back quote.",
+        "body": "We drive your statue to you and carry it in, or you collect free in London. Set-up in your chosen spot and original box storage are optional extras.",
         "button_label": "Explore the collection",
         "button_link": "/collections/all",
         "button2_label": "Check my postcode",
@@ -146,28 +146,28 @@
         "r1": {
           "type": "reason",
           "settings": {
-            "title": "Your statue, brought to your door.",
-            "text": "See the delivery price for your postcode before you buy, or collect free in London. Add in-home assembly and original box storage where available.",
-            "link_label": "",
-            "link": ""
+            "title": "Personal delivery",
+            "text": "Your price by postcode, before you buy. Or collect free in London.",
+            "link_label": "Prices and bands",
+            "link": "/pages/delivery-and-guarantee"
           }
         },
         "r2": {
           "type": "reason",
           "settings": {
-            "title": "Your bonus · a free buy-back quote.",
-            "text": "Ready to make room for your next piece? Bring this one back to us for a free buy-back quote. We'll assess it and tell you what we can offer. It's your call whether to sell.",
-            "link_label": "",
-            "link": ""
+            "title": "Free buy-back quote",
+            "text": "Ready to sell? We assess the piece and make an offer if it qualifies.",
+            "link_label": "How buy-back works",
+            "link": "/pages/delivery-and-guarantee#buy-back"
           }
         },
         "r3": {
           "type": "reason",
           "settings": {
-            "title": "The Hassle-Free Handover Guarantee.",
-            "text": "The exact statue shown. The condition described. Every part listed. If it arrives damaged, a listed part is missing, or it differs from the listing, return it for a full refund. We'll arrange and pay for collection.",
-            "link_label": "Delivery & Guarantee",
-            "link": "/pages/delivery-and-guarantee"
+            "title": "Hassle-Free Handover Guarantee",
+            "text": "Damaged, missing a listed part, or not as described? Full refund, and we collect.",
+            "link_label": "Read the guarantee",
+            "link": "/pages/delivery-and-guarantee#guarantee"
           }
         }
       },
@@ -187,28 +187,28 @@
           "type": "step",
           "settings": {
             "title": "Choose your piece",
-            "text": "Order online. Ask us anything first — we'll send extra photographs of any detail."
+            "text": "Ask us anything first — we will send extra photographs of any detail."
           }
         },
         "s2": {
           "type": "step",
           "settings": {
             "title": "Check your postcode",
-            "text": "Enter it on the statue's page and you'll see your personal delivery price straight away, before you buy."
+            "text": "Your delivery price appears on the statue’s page before you buy."
           }
         },
         "s3": {
           "type": "step",
           "settings": {
-            "title": "Collect free, or we drive it to you",
-            "text": "Collect from us in London at no charge, usually ready within 24 hours. Or one of us brings it to your door and carries it in."
+            "title": "We bring it, or you collect",
+            "text": "One of us drives it to your door and carries it in. Collection in London is free."
           }
         },
         "s4": {
           "type": "step",
           "settings": {
-            "title": "Add setting up, or box storage",
-            "text": "Have us unbox and assemble it where you want it. Let us keep the original box — first month free, then £19.99 a month."
+            "title": "Optional set-up and box storage",
+            "text": "We can assemble it where you want it (£49) and keep the original box (first month free, then £19.99 a month)."
           }
         }
       },
@@ -219,9 +219,9 @@
         "s4"
       ],
       "settings": {
-        "eyebrow": "After you choose",
-        "heading": "How it reaches you",
-        "body": "<p>A statue is not a parcel. Here is exactly what happens between your order and the piece standing in your home.</p>",
+        "eyebrow": "How it works",
+        "heading": "From order to display",
+        "body": "<p>A statue is not a parcel. Here is what happens between your order and the piece standing in your home.</p>",
         "button_label": "Delivery & Guarantee",
         "button_link": "/pages/delivery-and-guarantee",
         "tint": true,
@@ -232,17 +232,6 @@
         "image_width": 1069,
         "image_height": 1520
       }
-    },
-    "guarantee_route": {
-      "type": "sos-prose",
-      "settings": {
-        "tint": false,
-        "eyebrow": "If something is wrong",
-        "heading": "The Hassle-Free Handover Guarantee",
-        "body": "<p>You'll receive the exact statue shown in the listing, in the condition described and with all the parts listed. If it arrives damaged, a listed part is missing, or the statue differs from its description, you can return it for a <strong>full refund</strong> — and we'll arrange and pay for collection.</p><p>Your statutory rights are unaffected.</p>",
-        "button_label": "Read the guarantee",
-        "button_link": "/pages/delivery-and-guarantee"
-      }
     }
   },
   "order": [
@@ -250,7 +239,6 @@
     "reasons",
     "gallery",
     "journey",
-    "sell",
-    "guarantee_route"
+    "sell"
   ]
 }

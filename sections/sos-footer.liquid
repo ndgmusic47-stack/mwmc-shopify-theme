@@ -63,6 +63,9 @@
 
       </div>
 
+      {%- comment -%} Compact Trustpilot strip, every page. {%- endcomment -%}
+      {% render 'sos-trustpilot', placement: 'footer' %}
+
       <div class="sos-footer__base">
         <p class="sos-footer__copy">&copy; {{ year }} {{ biz }}{% if s.legal_note != blank %}. {{ s.legal_note }}{% endif %}</p>
 

@@ -36,6 +36,19 @@
     {% endif %}
 
     {%- render 'meta-tags' -%}
+
+    {%- comment -%}
+      Trustpilot bootstrap. Loaded once here rather than beside each widget,
+      so two placements on one page cannot pull the script twice. Async, and
+      the widgets are initialised from sos-palace.js once it has loaded —
+      Trustpilot's auto-init only fires on first load, which leaves an empty
+      box after a Shopify section reload.
+    {%- endcomment -%}
+    <script
+      src="https://widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js"
+      async
+      data-sos-trustpilot-bootstrap
+    ></script>
     {%- render 'stylesheets' -%}
     {%- render 'card-hover-effect-styles' -%}
     {%- render 'fonts' -%}

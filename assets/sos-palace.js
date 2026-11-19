@@ -488,3 +488,42 @@
   }
   document.addEventListener('shopify:section:load', boot);
 })();
+
+/* ---------------------------------------------------------------------------
+   Trustpilot widgets.
+
+   The bootstrap script auto-initialises only on first load, so a widget that
+   arrives later — a Shopify section reload in the theme editor, or a second
+   placement injected after boot — renders as an empty box. This initialises
+   every widget explicitly once the script is available, and again after any
+   section reload.
+--------------------------------------------------------------------------- */
+(function () {
+  function initAll() {
+    if (!window.Trustpilot || typeof window.Trustpilot.loadFromElement !== 'function') return false;
+    var found = document.querySelectorAll('.trustpilot-widget');
+    if (!found.length) return true;
+    [].forEach.call(found, function (el) {
+      try { window.Trustpilot.loadFromElement(el, true); } catch (e) { /* widget stays as its fallback link */ }
+    });
+    return true;
+  }
+
+  /* The bootstrap is async, so poll briefly rather than racing it. Gives up
+     after ~10s and leaves the fallback Trustpilot link in place. */
+  function waitThenInit() {
+    if (initAll()) return;
+    var tries = 0;
+    var timer = setInterval(function () {
+      tries += 1;
+      if (initAll() || tries > 40) clearInterval(timer);
+    }, 250);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', waitThenInit);
+  } else {
+    waitThenInit();
+  }
+  document.addEventListener('shopify:section:load', waitThenInit);
+})();

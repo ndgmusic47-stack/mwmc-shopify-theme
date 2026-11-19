@@ -75,28 +75,47 @@
     <p class="sos-costs__msg" data-sos-postcode-msg role="status"></p>
   </div>
 
+  {%- comment -%}
+    Concise labels, detail on demand. Each option used to carry a paragraph a
+    shopper had to read past to reach the total. The label now states what it
+    is and what it costs; the qualifications sit in a <details> under it.
+
+    The recurring terms for box storage stay OUTSIDE the disclosure: a monthly
+    charge must be legible before the box is ticked, not after it is opened.
+  {%- endcomment -%}
   <fieldset class="sos-costs__group sos-costs__group--extras">
-    <legend class="sos-costs__legend">Would you like either of these? Both are optional.</legend>
+    <legend class="sos-costs__legend">Optional extras</legend>
 
     {%- if assembly_variant and assembly.available -%}
-      <label class="sos-costs__row">
-        <input type="checkbox" data-sos-extra="assembly">
-        <span class="sos-costs__rowBody">
-          <span class="sos-costs__rowName">Have us set it up for you</span>
-          <span class="sos-costs__rowNote">We unbox it, assemble it, and put it exactly where you want it before we leave. Added to this order and paid with it.</span>
-        </span>
-        <span class="sos-costs__rowPrice">{{ assembly_variant.price | money }}</span>
-      </label>
+      <div class="sos-costs__opt">
+        <label class="sos-costs__row">
+          <input type="checkbox" data-sos-extra="assembly">
+          <span class="sos-costs__rowBody">
+            <span class="sos-costs__rowName">In-home assembly &middot; {{ assembly_variant.price | money_without_trailing_zeros }}</span>
+          </span>
+          <span class="sos-costs__rowPrice">{{ assembly_variant.price | money }}</span>
+        </label>
+        <details class="sos-costs__more">
+          <summary>What this includes</summary>
+          <p>We unbox the piece, assemble it, and put it exactly where you want it before we leave. Charged with this order.</p>
+        </details>
+      </div>
     {%- endif -%}
 
-    <label class="sos-costs__row">
-      <input type="checkbox" data-sos-extra="storage">
-      <span class="sos-costs__rowBody">
-        <span class="sos-costs__rowName">Let us keep the box</span>
-        <span class="sos-costs__rowNote">Original boxes are bulky and worth keeping. We store yours and bring it back whenever you want it. Your first month is free from the day we collect it, then £19.99 a month. We will confirm everything in writing before a penny is charged, and you can stop any time.</span>
-      </span>
-      <span class="sos-costs__rowPrice">Free<span class="sos-costs__rowPriceSub">first month</span></span>
-    </label>
+    <div class="sos-costs__opt">
+      <label class="sos-costs__row">
+        <input type="checkbox" data-sos-extra="storage">
+        <span class="sos-costs__rowBody">
+          <span class="sos-costs__rowName">Original box storage &middot; First month free, then &pound;19.99/month</span>
+          <span class="sos-costs__rowNote sos-costs__rowNote--terms">Recurring monthly charge. Nothing is charged today, and you can stop at any time.</span>
+        </span>
+        <span class="sos-costs__rowPrice">Free<span class="sos-costs__rowPriceSub">first month</span></span>
+      </label>
+      <details class="sos-costs__more">
+        <summary>How box storage works</summary>
+        <p>Original boxes are bulky and worth keeping, because a boxed statue is worth more than an unboxed one. We store yours and bring it back whenever you want it. Your first month is free from the day we collect the box. We confirm the start date, the monthly charge and how the box comes back to you in writing before anything is charged.</p>
+      </details>
+    </div>
   </fieldset>
 
   <dl class="sos-costs__total" data-sos-summary>
