@@ -41,7 +41,12 @@
     holds for anything added later. The studio stays in when the whole
     title still fits inside Google's roughly 60-character cut, and drops
     out when it does not; it is in the meta description either way.
+
+    These titles are written to length deliberately, so the shop name is
+    NOT appended to them below — Google prints the site name beside the
+    URL anyway, and the suffix only ate the characters the studio needed.
   endcomment
+  assign sos_own_title = false
   if request.page_type == 'product' and product != blank
     assign sos_t = product.title | append: ' Resin Statue — One Piece'
     if product.vendor != blank
@@ -51,10 +56,12 @@
       endif
     endif
     assign og_title = sos_t
+    assign sos_own_title = true
   endif
 
   if request.page_type == 'collection' and collection.handle == 'one-piece-statues'
     assign og_title = 'One Piece Statues UK — Pre-Owned Resin'
+    assign sos_own_title = true
   endif
 
   assign og_url = canonical_url | default: request.origin
@@ -171,7 +178,7 @@
   {{ og_title }}
   {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
   {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
-  {%- unless og_title contains sos_brand %} &ndash; {{ sos_brand }}{% endunless -%}
+  {%- unless sos_own_title or og_title contains sos_brand %} &ndash; {{ sos_brand }}{% endunless -%}
 </title>
 
 {%- liquid
