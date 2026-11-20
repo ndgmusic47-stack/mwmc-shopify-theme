@@ -6,11 +6,39 @@
   lang="{{ request.locale.iso_code }}"
 >
   <head>
+    {%- comment -%}
+      Sultan of Statues: the favicon theme setting was never filled, so the
+      site served no icon at all and /favicon.ico answered 404 — which is
+      why Google showed a blank square beside every result. The theme ships
+      its own as an asset, so the icon does not depend on someone
+      remembering to upload one. Filling the setting still overrides it.
+    {%- endcomment -%}
     {%- if settings.favicon != blank -%}
       <link
         rel="icon"
         type="image/png"
         href="{{ settings.favicon | image_url: width: 32, height: 32 }}"
+      >
+      <link
+        rel="apple-touch-icon"
+        href="{{ settings.favicon | image_url: width: 180, height: 180 }}"
+      >
+    {%- else -%}
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="192x192"
+        href="{{ 'sos-favicon.png' | asset_url }}"
+      >
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="512x512"
+        href="{{ 'sos-favicon-512.png' | asset_url }}"
+      >
+      <link
+        rel="apple-touch-icon"
+        href="{{ 'sos-favicon-512.png' | asset_url }}"
       >
     {%- endif -%}
 
