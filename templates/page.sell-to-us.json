@@ -3,11 +3,11 @@
     "banner": {
       "type": "sos-page-hero",
       "settings": {
-        "eyebrow": "Sell your statues",
-        "heading": "We buy statues outright",
-        "body": "Tell us what you have, where you are based and its condition. We buy outright.",
-        "button_label": "Tell us about your statues",
-        "button_link": "#enquiry"
+        "eyebrow": "Sell to us",
+        "heading": "Sell your statues",
+        "body": "We buy outright — no commission, and we never sell on your behalf.",
+        "button_label": "Email us your photographs",
+        "button_link": "mailto:sultan@sultanofstatues.com?subject=Statue%20for%20sale"
       }
     },
     "how": {
@@ -50,8 +50,10 @@
       ],
       "settings": {
         "eyebrow": "How it works",
-        "heading": "What to send us",
-        "body": "<p>We buy outright. There is no commission and we do not sell on your behalf — if you accept our offer, we buy the piece from you.</p><p>In your message, tell us the character and studio, the scale if you know it, whether you still have the original box and inner packaging, and anything that affects condition — repairs, paint rubs, loose or missing parts, yellowing. Tell us roughly where in the UK you are, too.</p><p><strong>Photographs</strong></p><p>Photographs decide most offers, so please send them. The form below does not take attachments. Send the form first; we reply from a monitored email address, and you attach your photographs to that reply.</p><p>The six that help most: the piece from the front, from each side, from the back, a close shot of the face or main detail, the base and nameplate, and the outer box if you still have it. Daylight, no flash. Add a close shot of any damage rather than leaving it out — it rarely costs as much as you expect, and an accurate description means the offer does not change later.</p>"
+        "heading": "Two ways to tell us",
+        "body": "<p><strong>Email is quickest.</strong> Send photographs straight to <a href=\"mailto:sultan@sultanofstatues.com\">sultan@sultanofstatues.com</a> — no form first, no waiting for a reply before you can attach them.</p><p>Useful shots: the whole piece from the front, each side, the base, and a close-up of any chip, repair or missing part. Add the character and studio, the scale if you know it, whether you have the original box and inner packaging, and roughly where you are in the UK.</p><p>Prefer a form? Use the one below and we will reply from a monitored address you can attach photographs to.</p>",
+        "button_label": "Email sultan@sultanofstatues.com",
+        "button_link": "mailto:sultan@sultanofstatues.com?subject=Statue%20for%20sale"
       }
     },
     "enquiry": {
@@ -95,13 +97,13 @@
       "settings": {
         "anchor": "enquiry",
         "eyebrow": "Enquiry",
-        "heading": "Tell us about your statues",
+        "heading": "Or send us the details",
         "body": "<p>The more detail you give, the closer our first reply will be to a firm offer.</p>",
-        "note": "We buy outright — no commission, and we do not sell on your behalf. Sending an enquiry does not commit you to anything, and nothing is agreed until you accept an offer in writing.",
+        "note": "Sending an enquiry does not commit you to anything, and nothing is agreed until you accept an offer in writing.",
         "show_location": true,
         "message_label": "Tell us about the piece or collection",
         "message_hint": "Character, studio, scale if known, condition, original box and inner packaging, any repairs or missing parts, and your rough location in the UK.",
-        "photo_note": "Photographs: this form cannot take attachments. Send it first and we will reply from a monitored email address — attach your photographs to that reply.",
+        "photo_note": "Photographs are better sent by email — this form cannot take attachments. Send them to sultan@sultanofstatues.com and we will match them to your enquiry.",
         "submit": "Send enquiry",
         "success": "Thank you — your enquiry has been sent. We will reply by email."
       }

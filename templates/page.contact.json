@@ -5,7 +5,7 @@
       "settings": {
         "eyebrow": "Contact",
         "heading": "Get in touch",
-        "body": "Ask about a statue, an order, or selling your statues."
+        "body": "Ask about a statue, an order, or selling your statues. Email us directly at sultan@sultanofstatues.com — or use the form below."
       }
     },
     "enquiry": {
@@ -42,10 +42,22 @@
         "submit": "Send message",
         "success": "Thank you — your message has been sent. We will reply by email."
       }
+    },
+    "details": {
+      "type": "sos-prose",
+      "settings": {
+        "tint": true,
+        "eyebrow": "Contact details",
+        "heading": "One address for everything",
+        "body": "<p><strong><a href=\"mailto:sultan@sultanofstatues.com\">sultan@sultanofstatues.com</a></strong><br>We reply by email. Please include your order number if you have one.</p><p>Sultan of Statues is a trading name of South Thames Trading Company Ltd, company number 17266025, registered in England and Wales.<br>Registered office and returns address: 66 Paul Street, London, EC2A 4NA, United Kingdom.</p><p>Please contact us before returning a statue — pieces are collected by arrangement, not posted.</p>",
+        "button_label": "Email us",
+        "button_link": "mailto:sultan@sultanofstatues.com"
+      }
     }
   },
   "order": [
     "banner",
+    "details",
     "enquiry"
   ]
 }
