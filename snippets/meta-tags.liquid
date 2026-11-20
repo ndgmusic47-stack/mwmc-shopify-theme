@@ -88,6 +88,29 @@
     property="og:image:height"
     content="{{ page_image.height }}"
   >
+{%- else -%}
+  {%- comment -%}
+    Sultan of Statues: the homepage and the policy pages carry no page_image,
+    so a share of them rendered as a blank card. The palace hero stands in —
+    it is already a derivative in the theme, so this costs no extra weight.
+  {%- endcomment -%}
+  {%- assign sos_share = 'sos-hero-palace-desktop-1774.jpg' | asset_url -%}
+  <meta
+    property="og:image"
+    content="{{ sos_share }}"
+  >
+  <meta
+    property="og:image:secure_url"
+    content="{{ sos_share }}"
+  >
+  <meta
+    property="og:image:width"
+    content="1774"
+  >
+  <meta
+    property="og:image:height"
+    content="683"
+  >
 {%- endif -%}
 
 {%- if request.page_type == 'product' -%}
