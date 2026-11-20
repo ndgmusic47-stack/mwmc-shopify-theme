@@ -24,17 +24,24 @@
         href="{{ settings.favicon | image_url: width: 180, height: 180 }}"
       >
     {%- else -%}
+      {%- comment -%}
+        No type attribute: Shopify's CDN re-encodes theme image assets and
+        serves this one as image/jpeg, so declaring image/png is a mismatch
+        some browsers refuse. Letting the browser sniff it is safer.
+      {%- endcomment -%}
       <link
         rel="icon"
-        type="image/png"
         sizes="192x192"
         href="{{ 'sos-favicon.png' | asset_url }}"
       >
       <link
         rel="icon"
-        type="image/png"
         sizes="512x512"
         href="{{ 'sos-favicon-512.png' | asset_url }}"
+      >
+      <link
+        rel="shortcut icon"
+        href="{{ 'sos-favicon.png' | asset_url }}"
       >
       <link
         rel="apple-touch-icon"

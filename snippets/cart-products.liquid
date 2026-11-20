@@ -66,7 +66,12 @@
 
     <a
       class="button cart-items__empty-button"
-      href="{{ settings.empty_cart_button_link | default: routes.all_products_collection_url }}"
+      {%- comment -%}
+        Sultan of Statues: the stock fallback is /collections/all, which is
+        canonicalised away to the named collection. Send an empty cart to
+        the page we actually want people and crawlers on.
+      {%- endcomment -%}
+      href="{{ settings.empty_cart_button_link | default: '/collections/one-piece-statues' }}"
     >
       <span class="button-text">
         {{ 'actions.continue_shopping' | t }}
