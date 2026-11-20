@@ -33,6 +33,30 @@
     assign og_title = settings.sos_home_title
   endif
 
+  comment
+    Sultan of Statues: buyers search "one piece statues", "gear 5 luffy
+    statue", "one piece resin statues" — the words "statue" and "resin"
+    carry the buying intent and were missing from every product title.
+    Built here rather than typed into six admin SEO fields so the rule
+    holds for anything added later. The studio stays in when the whole
+    title still fits inside Google's roughly 60-character cut, and drops
+    out when it does not; it is in the meta description either way.
+  endcomment
+  if request.page_type == 'product' and product != blank
+    assign sos_t = product.title | append: ' Resin Statue — One Piece'
+    if product.vendor != blank
+      assign sos_long = sos_t | append: ' | ' | append: product.vendor
+      if sos_long.size <= 60
+        assign sos_t = sos_long
+      endif
+    endif
+    assign og_title = sos_t
+  endif
+
+  if request.page_type == 'collection' and collection.handle == 'one-piece-statues'
+    assign og_title = 'One Piece Statues UK — Pre-Owned Resin'
+  endif
+
   assign og_url = canonical_url | default: request.origin
   assign og_type = 'website'
   assign og_description = page_description | default: shop.description | default: shop.name
@@ -150,9 +174,21 @@
   {%- unless og_title contains sos_brand %} &ndash; {{ sos_brand }}{% endunless -%}
 </title>
 
+{%- liquid
+  comment
+    Sultan of Statues: /collections/all serves the same six pieces and the
+    same copy as /collections/one-piece-statues, so left alone the two split
+    the ranking signal for the term the shop is actually chasing. The
+    catch-all points at the named collection instead.
+  endcomment
+  assign sos_canonical = canonical_url
+  if request.page_type == 'collection' and collection.handle == 'all'
+    assign sos_canonical = shop.url | append: routes.collections_url | append: '/one-piece-statues'
+  endif
+-%}
 <link
   rel="canonical"
-  href="{{ canonical_url }}"
+  href="{{ sos_canonical }}"
 >
 
 {% if og_description != blank %}
