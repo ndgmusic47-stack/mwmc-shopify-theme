@@ -157,6 +157,30 @@
 
             <h1 class="sos-display sos-product__title">{{ p.title }}</h1>
 
+            {%- comment -%}
+              A one-line spec strip under the name. Every value comes from
+              Shopify product data — franchise tag, vendor, the scale that
+              lives in product type, condition — so nothing here is asserted
+              that is not already recorded against the piece. Collectors scan
+              for exactly these four facts, and an AI answer engine can lift
+              them as a unit.
+            {%- endcomment -%}
+            {%- liquid
+              assign spec = ''
+              if p.tags contains 'One Piece'
+                assign spec = spec | append: 'One Piece'
+              endif
+              if p.vendor != blank
+                assign spec = spec | append: ' · ' | append: p.vendor
+              endif
+              if p.type contains '1/6'
+                assign spec = spec | append: ' · 1/6 scale'
+              endif
+              assign spec = spec | append: ' · Pre-owned · UK stock'
+              assign spec = spec | remove_first: ' · '
+            -%}
+            <p class="sos-product__spec">{{ spec }}</p>
+
             <div class="sos-product__priceline">
               <span class="sos-product__price">{{ v.price | money }}</span>
               {%- if v.compare_at_price > v.price -%}

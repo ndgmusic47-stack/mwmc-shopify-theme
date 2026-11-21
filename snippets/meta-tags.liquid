@@ -38,25 +38,56 @@
     statue", "one piece resin statues" — the words "statue" and "resin"
     carry the buying intent and were missing from every product title.
     Built here rather than typed into six admin SEO fields so the rule
-    holds for anything added later. The studio stays in when the whole
-    title still fits inside Google's roughly 60-character cut, and drops
-    out when it does not; it is in the meta description either way.
+    holds for anything added later.
 
-    These titles are written to length deliberately, so the shop name is
-    NOT appended to them below — Google prints the site name beside the
-    URL anyway, and the suffix only ate the characters the studio needed.
+    The studio ALWAYS stays in. An earlier version dropped it to hold the
+    title under 60 characters and that was the wrong trade: "jimei palace"
+    is precisely what a collector types, and there is no 60-character
+    ranking rule — Google truncates on pixel width per device. Losing the
+    studio to save eight characters cost the best term on the page.
+
+    Scale is appended only where the product type records it, so nothing
+    is claimed about pieces that have not been measured. The shop name is
+    not appended below, because Google prints the site name beside the URL
+    anyway.
   endcomment
   assign sos_own_title = false
+  assign sos_own_description = false
   if request.page_type == 'product' and product != blank
-    assign sos_t = product.title | append: ' Resin Statue — One Piece'
+    assign sos_t = product.title
+    if product.type contains '1/6'
+      assign sos_t = sos_t | append: ' 1/6'
+    endif
+    assign sos_t = sos_t | append: ' Resin Statue'
     if product.vendor != blank
-      assign sos_long = sos_t | append: ' | ' | append: product.vendor
-      if sos_long.size <= 60
-        assign sos_t = sos_long
-      endif
+      assign sos_t = sos_t | append: ' – ' | append: product.vendor
+    endif
+    if product.tags contains 'One Piece'
+      assign sos_t = sos_t | append: ' | One Piece UK'
+    else
+      assign sos_t = sos_t | append: ' | UK'
     endif
     assign og_title = sos_t
     assign sos_own_title = true
+
+    comment
+      Factual product description: studio, scale, franchise, condition,
+      location. No adjectives — Google matches on the attributes a collector
+      types, and the superlatives a shop reaches for match nothing.
+    endcomment
+    capture sos_d
+      echo 'Pre-owned '
+      if product.vendor != blank
+        echo product.vendor
+        echo ' '
+      endif
+      echo product.title
+      if product.type contains '1/6'
+        echo ' 1/6'
+      endif
+      echo ' resin statue. UK stock, original box, photographs of the exact piece, inspected condition and personal UK delivery or free London collection.'
+    endcapture
+    assign sos_own_description = true
   endif
 
   if request.page_type == 'collection' and collection.handle == 'one-piece-statues'
@@ -70,6 +101,9 @@
   assign og_description = og_description | replace: shop.name, sos_brand
   if request.page_type == 'index' and settings.sos_meta_description != blank
     assign og_description = settings.sos_meta_description
+  endif
+  if sos_own_description
+    assign og_description = sos_d
   endif
 
   if request.page_type == 'product'
