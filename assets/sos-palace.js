@@ -199,7 +199,7 @@
 
       var st = prop('storage');
       st.disabled = !state.storage;
-      st.value = 'Requested — first month free from box collection, then £19.99 a month';
+      st.value = 'Interest registered — nothing charged at checkout. First month free from box collection, then £19.99 a month, invoiced monthly once agreed';
     }
 
     function quote(raw) {

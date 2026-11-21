@@ -5,9 +5,11 @@
 
     Paid at checkout   the statue, delivery if they want it, and assembly.
                        All three are real charges Shopify takes.
-    Arranged later     box storage. The first month is free from the day we
-                       collect the box, so there is nothing to pay today and
-                       nothing to pretend about.
+    Arranged later     box storage. Ticking it registers interest only: no
+                       money moves at checkout and no payment method is set
+                       up. The first month is free from the day we collect
+                       the box, and billing after that is by monthly invoice
+                       agreed separately, not a card subscription.
 
   Assembly is a real product (handle in-home-assembly) added to the basket as
   its own line, so the figure on this panel is the figure Shopify charges.
@@ -107,13 +109,15 @@
         <input type="checkbox" data-sos-extra="storage">
         <span class="sos-costs__rowBody">
           <span class="sos-costs__rowName">Original box storage &middot; First month free, then &pound;19.99/month</span>
-          <span class="sos-costs__rowNote sos-costs__rowNote--terms">Recurring monthly charge. Nothing is charged today, and you can stop at any time.</span>
+          <span class="sos-costs__rowNote sos-costs__rowNote--terms">Registers interest only &mdash; nothing is charged at checkout. Billed by monthly invoice once agreed.</span>
         </span>
         <span class="sos-costs__rowPrice">Free<span class="sos-costs__rowPriceSub">first month</span></span>
       </label>
       <details class="sos-costs__more">
         <summary>How box storage works</summary>
-        <p>Original boxes are bulky and worth keeping, because a boxed statue is worth more than an unboxed one. We store yours and bring it back whenever you want it. Your first month is free from the day we collect the box. We confirm the start date, the monthly charge and how the box comes back to you in writing before anything is charged.</p>
+        <p>Original boxes are bulky and worth keeping, because a boxed statue is generally worth more than an unboxed one. We store yours and bring it back whenever you want it.</p>
+        <p>Ticking this box records your interest only. Nothing is charged at checkout and no payment method is set up. Your first month is free from the day we collect the box, and before anything is charged we confirm the start date, the monthly amount and how the box comes back to you in writing.</p>
+        <p>Billing is by monthly invoice arranged with you directly &mdash; it is not an automatic card subscription. Stop at any time and we will return the box by arrangement.</p>
       </details>
     </div>
   </fieldset>
@@ -136,7 +140,7 @@
       <dd data-sos-amount="due">{{ v.price | money }}</dd>
     </div>
     <div class="sos-costs__line sos-costs__line--later" data-sos-line="storage" hidden>
-      <dt>Box storage <span class="sos-costs__when">nothing today — £19.99 a month from month two</span></dt>
+      <dt>Box storage <span class="sos-costs__when">nothing charged today — £19.99 a month from month two, invoiced monthly</span></dt>
       <dd data-sos-amount="storage">£0.00</dd>
     </div>
   </dl>

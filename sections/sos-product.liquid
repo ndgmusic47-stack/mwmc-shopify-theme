@@ -194,7 +194,7 @@
                 <span class="sos-dot" aria-hidden="true"></span>Sold
               {%- elsif v.inventory_management == 'shopify' and v.inventory_quantity > 0 -%}
                 <span class="sos-dot" aria-hidden="true"></span>
-                In stock{% if v.inventory_quantity == 1 %} — one only{% else %} — {{ v.inventory_quantity }} available{% endif %}
+                In stock — {% if v.inventory_quantity == 1 %}one available{% else %}{{ v.inventory_quantity }} available{% endif %}
               {%- else -%}
                 <span class="sos-dot" aria-hidden="true"></span>In stock
               {%- endif -%}

@@ -27,8 +27,18 @@
 
       <div class="sos-gpage__grid">
         <div class="sos-gpage__main">
+          {%- comment -%}
+            Each block can carry an anchor so the homepage offer strip can
+            link straight to it. The homepage pointed at #buy-back and
+            #guarantee while no element on this page carried either id, so
+            both links landed at the top of the page instead.
+          {%- endcomment -%}
           {%- for block in section.blocks -%}
-            <section class="sos-gpage__block" {{ block.shopify_attributes }}>
+            <section
+              class="sos-gpage__block"
+              {% if block.settings.anchor != blank %}id="{{ block.settings.anchor | handleize }}"{% endif %}
+              {{ block.shopify_attributes }}
+            >
               <h2 class="sos-gpage__h">{{ block.settings.title }}</h2>
               {%- if block.settings.text != blank -%}
                 <div class="sos-prose__body">{{ block.settings.text }}</div>
@@ -38,11 +48,20 @@
               {%- endif -%}
             </section>
           {%- endfor -%}
+
+          {%- comment -%}
+            The guarantee closes the main column rather than sitting in the
+            sidebar, so the reading order is delivery, then the optional
+            extras, then the buy-back bonus, then the guarantee. Still the
+            shared snippet, so this page, the product page and the bag
+            cannot drift apart.
+          {%- endcomment -%}
+          <section class="sos-gpage__block" id="guarantee">
+            {% render 'sos-guarantee', variant: 'full' %}
+          </section>
         </div>
 
         <aside class="sos-gpage__aside">
-          {% render 'sos-guarantee', variant: 'full' %}
-
           {%- if s.support_email != blank -%}
             <p class="sos-gpage__support">
               Questions about delivery, damage or missing parts?
@@ -80,6 +99,7 @@
       "name": "Section",
       "settings": [
         { "type": "text", "id": "title", "label": "Title" },
+        { "type": "text", "id": "anchor", "label": "Anchor id", "info": "Lets other pages link straight here, e.g. buy-back." },
         { "type": "richtext", "id": "text", "label": "Text" },
         { "type": "text", "id": "status", "label": "Status note", "info": "Use for services that are not running yet." }
       ]

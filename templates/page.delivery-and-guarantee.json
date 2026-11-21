@@ -16,40 +16,36 @@
           "type": "item",
           "settings": {
             "title": "Free collection in London",
-            "text": "<p>Collect from our London base at no charge, usually ready within 24 hours of your order. We'll email you to agree a time.</p>",
-            "status": ""
+            "text": "<p>Collect from our London base at no charge, usually ready within 24 hours of your order, by arrangement. We'll email you to agree a time.</p><p>Bring your order confirmation and photo ID. Statues are heavy, so bring suitable transport and, for the larger pieces, a second pair of hands.</p>",
+            "status": "",
+            "anchor": "collection"
           }
         },
         "b2": {
           "type": "item",
           "settings": {
             "title": "Personal delivery, priced before you buy",
-            "text": "<p>We deliver statues ourselves rather than handing them to a parcel carrier. One of us drives the piece to you, carries it in, and waits while you look it over.</p><p>Your price is shown on the statue's own page before you add it to your basket, and it is the price Shopify charges at checkout. Enter your postcode and you'll see the figure straight away.</p><p>Delivery is priced on the round trip from our London base, so a £144 statue and a £1,400 statue cost the same to bring to the same door.</p>",
-            "status": "Instant postcode pricing is being set up. Until then, delivery is quoted by hand."
+            "text": "<p>We deliver statues ourselves rather than handing them to a parcel carrier. One of us drives the piece to you, carries it in, and waits while you look it over.</p><p><strong>Estimated personal delivery: 3–5 business days.</strong> We'll contact you to agree a date and time window.</p><p>Your price is shown on the statue's page before you add it to your basket, worked out from the return road distance to your address. It doesn't change with the value of the piece.</p>",
+            "status": "Instant postcode pricing is being set up. Until then, delivery is quoted by hand.",
+            "anchor": "delivery"
           }
         },
         "b3": {
           "type": "item",
           "settings": {
-            "title": "Personal delivery and in-home assembly",
-            "text": "<p>We are setting up personal UK delivery with an optional in-home assembly service, so a large piece can be carried in, unboxed and set up where you want it standing.</p>",
-            "status": "Coming soon. Not yet bookable."
+            "title": "Optional assembly and box storage",
+            "text": "<p><strong>In-home assembly — £49.</strong> We unbox the piece, assemble it, and put it where you want it before we leave. Add it on the statue's page and it's charged with your order.</p><p><strong>Original box storage — first month free, then £19.99 a month.</strong> Boxes are bulky and worth keeping, because a boxed statue is worth more than an unboxed one. Ticking the box on a statue's page records your interest only — nothing is charged at checkout. We confirm the start date and terms with you separately, and billing is by monthly invoice, not an automatic card subscription. Stop whenever you like and we'll bring the box back.</p>",
+            "status": "Coming soon. Not yet bookable.",
+            "anchor": "extras"
           }
         },
         "b4": {
           "type": "item",
           "settings": {
-            "title": "Keeping your boxes",
-            "text": "<p>Original boxes and inserts are worth real money at resale, and they are awkward to store. We are setting up paid storage so we can keep yours and bring them back when you sell.</p>",
-            "status": "Coming soon. Not yet bookable."
-          }
-        },
-        "b5": {
-          "type": "item",
-          "settings": {
-            "title": "If something is wrong",
-            "text": "<p>Tell us straight away and we will put it right under the Hassle-Free Handover Guarantee. One contact handles damage, missing parts and assembly questions — you will not be passed around.</p>",
-            "status": ""
+            "title": "Free buy-back quote",
+            "text": "<p>When you're ready to move a piece on, we'll assess it and give you a quote. The assessment and the quote are free and place you under no obligation.</p><p>Any offer depends on the piece's condition, what's included with it and current resale value. It isn't a guaranteed repurchase and it isn't a refund of what you paid — you decide whether to accept. Any collection charge is shown separately on the quote.</p>",
+            "status": "",
+            "anchor": "buy-back"
           }
         }
       },
@@ -57,8 +53,7 @@
         "b1",
         "b2",
         "b3",
-        "b4",
-        "b5"
+        "b4"
       ],
       "settings": {
         "eyebrow": "Delivery & Guarantee",

@@ -136,8 +136,8 @@
       "settings": {
         "tint": false,
         "eyebrow": "The short version",
-        "heading": "What a resin statue actually is",
-        "body": "<p>A resin statue is not a figure. Figures are injection-moulded in plastic, made by the thousand, and they bounce when you drop them. These are cast in resin, pulled from the mould by hand and painted by hand, in runs of a few hundred worldwide. Then the mould goes in the bin.</p><p>That is why they are heavy. The larger pieces want two people and a surface you are not planning to move again. It is also why they chip rather than bounce. Think ceramic vase that happens to be shaped like a pirate.</p><p>What you get for it: paint transitions no factory line can do, cloth and hair with real undercuts, and a piece that looks like it was made for the shelf it ends up on. Nobody buys one of these by accident.</p>"
+        "heading": "What a resin statue is",
+        "body": "<p>These are display pieces cast in resin, finished and painted by hand, and made in limited runs rather than mass production. That is why two examples of the same statue can differ slightly, and why they are heavier than they look.</p><p>Resin chips rather than flexes, so treat one like a ceramic vase that happens to be shaped like a pirate. The larger pieces want two people and a surface you are not planning to move again.</p><p>Everything here is pre-owned. Each listing shows photographs of the actual piece you will receive, with its condition described as we find it, and its original packaging where that is included.</p>"
       }
     },
     "checks": {
@@ -147,7 +147,7 @@
           "type": "step",
           "settings": {
             "title": "Look at the actual piece",
-            "text": "Every photograph here is the statue you will receive, not a studio render. Renders are the single biggest gap between what people expect and what comes out of the box."
+            "text": "Every photograph here is of the statue you will receive, not a studio render. Renders are the biggest gap between what people expect and what arrives."
           }
         },
         "c2": {
@@ -161,14 +161,14 @@
           "type": "step",
           "settings": {
             "title": "Check the box is still around",
-            "text": "A boxed piece is worth noticeably more than an unboxed one, and the box is the only sane way to move it again. Everything here comes with its original."
+            "text": "A boxed piece is generally worth more than an unboxed one, and the box is the sensible way to move it again. Each listing says what packaging is included."
           }
         },
         "c4": {
           "type": "step",
           "settings": {
             "title": "Mind the footprint, not just the height",
-            "text": "Bases are often the widest part, and these spread further than people picture. Measure the shelf before you fall in love with something."
+            "text": "Bases are often the widest part and these spread further than people picture. Measure the shelf before you fall in love with something."
           }
         }
       },
@@ -182,7 +182,7 @@
         "tint": true,
         "eyebrow": "Buying pre-owned",
         "heading": "Four things worth checking",
-        "body": "<p>Most of this market runs on pre-order: you pay today, it ships in nine months, and you find out what you bought when the courier knocks. Everything on this page already exists. It is in the UK, it is photographed as it stands, and it can be with you this week.</p><p>Second-hand raises one fair question — what has happened to it — so here is what we would want to know if we were the ones buying.</p>"
+        "body": "<p>Much of this market runs on pre-order, where you pay now and wait months for a piece you have only seen rendered. Everything on this page already exists, is already in the UK, and is photographed as it stands.</p><p>Buying second-hand raises one fair question — what has happened to it — so here is what we would want to know if we were the ones buying.</p>"
       }
     },
     "getting": {
@@ -190,8 +190,8 @@
       "settings": {
         "tint": false,
         "eyebrow": "Getting it home",
-        "heading": "We drive it to you ourselves",
-        "body": "<p>We do not hand these to a pallet network. One of us drives the piece to your door and carries it in, because sooner or later a freight depot drops something, and we would rather it was not a one-of-one that cannot be replaced.</p><p>Put your postcode into any listing and the delivery price appears before you commit to anything. In London, collect from us free.</p><p>If a piece turns up damaged, missing a listed part, or not as described, we collect it at our cost and refund you in full. That is written down, not a slogan.</p>",
+        "heading": "We deliver it ourselves",
+        "body": "<p>We drive the piece to you and carry it in, rather than handing it to a pallet network. <strong>Estimated personal delivery: 3–5 business days.</strong> We'll contact you to agree a date and time window.</p><p>Put your postcode into any listing and the delivery price appears before you commit to anything. In London, collection is free — usually ready within 24 hours, by arrangement.</p><p>If a piece arrives damaged, is missing a listed part, or is not as described, we collect it at our cost and refund you in full. That is written down, not a slogan.</p>",
         "button_label": "Delivery & Guarantee",
         "button_link": "/pages/delivery-and-guarantee"
       }
