@@ -2132,6 +2132,13 @@
       },
       {
         "type": "text",
+        "id": "sos_site_name",
+        "label": "Site name for Google",
+        "default": "Sultan of Statues",
+        "info": "Used for og:site_name and WebSite.name. Google reads these as signals for the name shown beside a search result; it decides what to display and when."
+      },
+      {
+        "type": "text",
         "id": "sos_home_title",
         "label": "Homepage title tag",
         "default": "Sultan of Statues — Collectible Statues Bought and Sold in the UK"

@@ -14,7 +14,7 @@
       "settings": {
         "eyebrow": "The Collection",
         "heading": "One Piece Statues",
-        "body": "Pre-owned One Piece resin statues. One of each — the photographs are of the piece you receive. Check your postcode on any listing for personal delivery, or collect free in London.",
+        "body": "Pre-owned One Piece resin statues, already in the UK. We buy outright, check each piece over, and photograph it as it stands. We drive it to you and carry it in, or you collect free in London. Set-up, original box storage and a free buy-back quote are there if you want them.",
         "use_collection": true
       }
     },
@@ -126,8 +126,8 @@
       "settings": {
         "tint": true,
         "heading": "Looking for something specific?",
-        "body": "<p>Tell us the character and studio you are after and we will let you know if we can source it.</p>",
-        "button_label": "Contact us",
+        "body": "<p>Stock changes as pieces come in and go out. Tell us the character, the studio or the edition you're after and we'll let you know if one reaches us.</p>",
+        "button_label": "Tell us what you're after",
         "button_link": "/pages/contact"
       }
     },
@@ -136,8 +136,8 @@
       "settings": {
         "tint": false,
         "eyebrow": "The short version",
-        "heading": "What a resin statue is",
-        "body": "<p>These are display pieces cast in resin, finished and painted by hand, and made in limited runs rather than mass production. That is why two examples of the same statue can differ slightly, and why they are heavier than they look.</p><p>Resin chips rather than flexes, so treat one like a ceramic vase that happens to be shaped like a pirate. The larger pieces want two people and a surface you are not planning to move again.</p><p>Everything here is pre-owned. Each listing shows photographs of the actual piece you will receive, with its condition described as we find it, and its original packaging where that is included.</p>"
+        "heading": "What a resin statue is, and where ours come from",
+        "body": "<p>These are display pieces cast in resin, finished and painted by hand, and made in limited runs rather than mass production. That is why two examples of the same statue can differ slightly, and why they are heavier than they look. Resin chips rather than flexes, so treat one like a ceramic vase that happens to be shaped like a pirate.</p><p>Everything here is pre-owned and bought outright &mdash; we don't sell on anyone's behalf, so the piece is ours to describe honestly. Each listing shows photographs of the actual statue you will receive, with its condition described as we find it and its original packaging where that is included.</p><p>Got a piece to move on? <a href=\"/pages/sell-to-us\">We buy statues outright</a>, and <a href=\"/pages/about\">this is who you'd be dealing with</a>.</p>"
       }
     },
     "checks": {
@@ -182,17 +182,17 @@
         "tint": true,
         "eyebrow": "Buying pre-owned",
         "heading": "Four things worth checking",
-        "body": "<p>Much of this market runs on pre-order, where you pay now and wait months for a piece you have only seen rendered. Everything on this page already exists, is already in the UK, and is photographed as it stands.</p><p>Buying second-hand raises one fair question — what has happened to it — so here is what we would want to know if we were the ones buying.</p>"
+        "body": "<p>Much of this market runs on pre-order: you pay now and wait months for a piece you have only seen rendered. Everything on this page already exists, is already in the UK, and is photographed as it stands.</p><p>Buying second-hand raises one fair question &mdash; what has happened to it &mdash; so here is what we would want to know if we were the ones buying.</p>"
       }
     },
     "getting": {
       "type": "sos-prose",
       "settings": {
         "tint": false,
-        "eyebrow": "Getting it home",
-        "heading": "We deliver it ourselves",
-        "body": "<p>We drive the piece to you and carry it in, rather than handing it to a pallet network. <strong>Estimated personal delivery: 3–5 business days.</strong> We'll contact you to agree a date and time window.</p><p>Put your postcode into any listing and the delivery price appears before you commit to anything. In London, collection is free — usually ready within 24 hours, by arrangement.</p><p>If a piece arrives damaged, is missing a listed part, or is not as described, we collect it at our cost and refund you in full. That is written down, not a slogan.</p>",
-        "button_label": "Delivery & Guarantee",
+        "eyebrow": "After you buy",
+        "heading": "We deliver it, set it up, and store the box",
+        "body": "<p>We drive the piece to you and carry it in, rather than handing it to a pallet network. <strong>Estimated personal delivery: 3&ndash;5 business days.</strong> We'll contact you to agree a date and time window. Put your postcode into any listing and the price appears before you commit. In London, collection is free &mdash; usually ready within 24 hours, by arrangement.</p><p>Two optional extras: we'll unbox and assemble the piece where you want it standing for &pound;49, and we'll store the original box &mdash; first month free, then &pound;19.99 a month, invoiced once agreed, nothing charged at checkout.</p><p>If a piece arrives damaged, is missing a listed part, or is not as described, we collect it at our cost and refund you in full. And whenever you want to move a piece on, the buy-back quote is free and puts you under no obligation.</p>",
+        "button_label": "Delivery, guarantee and buy-back",
         "button_link": "/pages/delivery-and-guarantee"
       }
     }

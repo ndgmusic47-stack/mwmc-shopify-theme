@@ -178,9 +178,17 @@
             "label": "Contact",
             "url": "/pages/contact"
           }
+        },
+        "nav0": {
+          "type": "nav_item",
+          "settings": {
+            "label": "Home",
+            "url": "/"
+          }
         }
       },
       "block_order": [
+        "nav0",
         "nav1",
         "nav2",
         "nav3",

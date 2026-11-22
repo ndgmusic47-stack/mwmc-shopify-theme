@@ -166,18 +166,25 @@
               them as a unit.
             {%- endcomment -%}
             {%- liquid
-              assign spec = ''
+              comment
+                Built as a pipe-delimited list and joined, because appending
+                separators and stripping the first one with remove_first
+                deletes whichever separator appears first in the string, not
+                the leading one — which swallowed the gap after the
+                franchise name.
+              endcomment
+              assign parts = ''
               if p.tags contains 'One Piece'
-                assign spec = spec | append: 'One Piece'
+                assign parts = parts | append: 'One Piece|'
               endif
               if p.vendor != blank
-                assign spec = spec | append: ' · ' | append: p.vendor
+                assign parts = parts | append: p.vendor | append: '|'
               endif
               if p.type contains '1/6'
-                assign spec = spec | append: ' · 1/6 scale'
+                assign parts = parts | append: '1/6 scale|'
               endif
-              assign spec = spec | append: ' · Pre-owned · UK stock'
-              assign spec = spec | remove_first: ' · '
+              assign parts = parts | append: 'Pre-owned|UK stock'
+              assign spec = parts | split: '|' | join: ' · '
             -%}
             <p class="sos-product__spec">{{ spec }}</p>
 
@@ -317,12 +324,24 @@
               </section>
             {%- endif -%}
 
+            {%- comment -%}
+              This used to be headed "Questions, damage or missing parts" and
+              restated the damage promise that the guarantee block already
+              makes a few hundred pixels above. Two statements of the same
+              commitment on one page invite the reader to compare them for
+              differences. It is now a plain contact route, with the detail
+              one click away rather than repeated.
+            {%- endcomment -%}
             <section class="sos-spec">
-              <h2 class="sos-spec__h">Questions, damage or missing parts</h2>
+              <h2 class="sos-spec__h">Ask us anything</h2>
               <p class="sos-spec__p">
-                One contact for everything: {{ s.support_label | default: 'email us' }} at
+                One address for everything &mdash; extra photographs, measurements,
+                condition questions, or a problem after delivery:
                 <a href="mailto:{{ s.support_email | default: 'sultan@sultanofstatues.com' }}">{{ s.support_email | default: 'sultan@sultanofstatues.com' }}</a>.
-                Tell us your order number and we'll sort it.
+                Tell us your order number if you have one.
+              </p>
+              <p class="sos-spec__p">
+                <a href="/pages/delivery-and-guarantee">How delivery, collection and the guarantee work</a>
               </p>
             </section>
 

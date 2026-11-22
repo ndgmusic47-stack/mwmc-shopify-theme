@@ -166,6 +166,61 @@
   </section>
 </div>
 
+{%- comment -%}
+  Structured data for the listing itself, emitted only on a real collection
+  page that resolved real products — never on the homepage gallery or on the
+  showcase fallback, where the cards are not a catalogue.
+
+  ItemList, not Product: Google's structured data guidance does not allow
+  Product markup on a category page. Each entry carries only the URL and the
+  position, which is the summary-page form Google documents; the Product
+  detail stays on the product pages, where it already validates.
+{%- endcomment -%}
+{%- if has_products and request.page_type == 'collection' and coll != blank -%}
+  {%- capture sos_itemlist -%}
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": {{ coll.title | json }},
+      "url": {{ request.origin | append: coll.url | json }},
+      "numberOfItems": {{ coll.products_count }},
+      "itemListOrder": "https://schema.org/ItemListUnordered",
+      "itemListElement": [
+        {%- for prod in coll.products limit: limit -%}
+          {
+            "@type": "ListItem",
+            "position": {{ forloop.index }},
+            "url": {{ request.origin | append: prod.url | json }},
+            "name": {{ prod.title | json }}
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ]
+    }
+  {%- endcapture -%}
+  <script type="application/ld+json">{{ sos_itemlist }}</script>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": {{ request.origin | append: routes.root_url | json }}
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": {{ coll.title | json }},
+          "item": {{ request.origin | append: coll.url | json }}
+        }
+      ]
+    }
+  </script>
+{%- endif -%}
+
 {% schema %}
 {
   "name": "Collection gallery",

@@ -91,8 +91,30 @@
   endif
 
   if request.page_type == 'collection' and collection.handle == 'one-piece-statues'
-    assign og_title = 'One Piece Statues UK — Pre-Owned Resin'
+    comment
+      Approved copy. The title carries the brand, so the shop-name suffix
+      below is suppressed to avoid printing it twice. 58 characters.
+    endcomment
+    assign og_title = 'One Piece Resin Statues UK | Pre-Owned | Sultan of Statues'
     assign sos_own_title = true
+
+    comment
+      The inherited description described the delivery service, which is
+      what the page does AFTER the sale, not what it contains. A category
+      snippet has to answer "is what I searched for in here".
+
+      Fixed text, not generated. An earlier version interpolated
+      collection.all_vendors, which ran to 240 characters and listed both
+      "Jimei Palace" and "Anikingdom x Jimei Palace" as separate studios.
+
+      Approved copy at 159 characters, tightened to 154 by dropping the
+      word "Shop" — Google truncates around 155 on desktop and shorter on
+      mobile, and the resale hook at the end is the part worth keeping.
+    endcomment
+    capture sos_d
+      echo 'Your statue deserves more than a shipping label. Pre-owned One Piece resin statues with personal delivery, optional setup, box storage and resale support.'
+    endcapture
+    assign sos_own_description = true
   endif
 
   assign og_url = canonical_url | default: request.origin
@@ -113,11 +135,19 @@
   elsif request.page_type == 'password'
     assign og_url = request.origin
   endif
+
+  comment
+    Site name for Google's site-name feature. Google reads og:site_name and
+    WebSite.name among other signals, and asks that they agree with each
+    other; it chooses what to display and may take time, or keep showing
+    the domain. These are the signals, not a switch.
+  endcomment
+  assign sos_site_name = settings.sos_site_name | default: sos_brand
 %}
 
 <meta
   property="og:site_name"
-  content="{{ sos_brand }}"
+  content="{{ sos_site_name }}"
 >
 <meta
   property="og:url"
@@ -238,3 +268,23 @@
     content="{{ og_description | escape }}"
   >
 {% endif %}
+
+{%- comment -%}
+  Homepage only: WebSite structured data, which is one of the signals
+  Google reads for the site name shown beside a result. Emitted on the
+  index alone because Google takes the site name from the homepage, and a
+  second WebSite node on inner pages would add nothing and risk conflict.
+
+  No SearchAction is declared: the sitelinks search box it used to drive
+  was retired, and claiming a feature we do not implement is noise.
+{%- endcomment -%}
+{%- if request.page_type == 'index' -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": {{ sos_site_name | json }},
+      "url": {{ request.origin | append: routes.root_url | json }}
+    }
+  </script>
+{%- endif -%}
