@@ -1,0 +1,291 @@
+{
+  "sections": {
+    "comic": {
+      "type": "sos-webcomic",
+      "blocks": {
+        "scene1": {
+          "type": "scene",
+          "settings": {
+            "image": "",
+            "image_asset": "collectors-journey-ep001-scene-1.jpg",
+            "alt": "Three collectors crowd around a laptop showing a statue listing with five-star reviews, a sale tag and only one photograph",
+            "scene_label": "The Discovery",
+            "bubble1_speaker": "Ava",
+            "bubble1_text": "Guys, look at this. I’ve wanted one for ages.",
+            "bubble1_pos": "top-left",
+            "bubble1_tail": true,
+            "bubble2_speaker": "Malik",
+            "bubble2_text": "£680? And the seller says it’s perfect?",
+            "bubble2_pos": "below",
+            "bubble2_tail": true,
+            "bubble3_speaker": "Ren",
+            "bubble3_text": "There’s only one photograph…",
+            "bubble3_pos": "below",
+            "bubble3_tail": true,
+            "narration": ""
+          }
+        },
+        "scene2": {
+          "type": "scene",
+          "settings": {
+            "image": "",
+            "image_asset": "collectors-journey-ep001-scene-2.jpg",
+            "alt": "The three collectors hold a glowing orb, a small pink dragon and a carved bust as light spirals around them beneath a vaulted ceiling",
+            "scene_label": "The Three Relics",
+            "bubble1_speaker": "Ren",
+            "bubble1_text": "Maybe it’s time we asked someone who knows.",
+            "bubble1_pos": "top-left",
+            "bubble1_tail": true,
+            "bubble2_speaker": "",
+            "bubble2_text": "",
+            "bubble2_pos": "below",
+            "bubble2_tail": false,
+            "bubble3_speaker": "",
+            "bubble3_text": "",
+            "bubble3_pos": "below",
+            "bubble3_tail": false,
+            "narration": "The friends combine their three relic fragments, activating the Sultan and Dragon’s statue."
+          }
+        },
+        "scene3": {
+          "type": "scene",
+          "settings": {
+            "image": "",
+            "image_asset": "collectors-journey-ep001-scene-3.jpg",
+            "alt": "The Sultan statue towers above the three collectors with the pink dragon at his shoulder, lit from above",
+            "scene_label": "The Sultan Awakens",
+            "bubble1_speaker": "Sultan",
+            "bubble1_text": "An extraordinary statue. But are you buying the statue… or the photograph?",
+            "bubble1_pos": "top-right",
+            "bubble1_tail": true,
+            "bubble2_speaker": "Dragon",
+            "bubble2_text": "Let’s find out!",
+            "bubble2_pos": "below",
+            "bubble2_tail": true,
+            "bubble3_speaker": "",
+            "bubble3_text": "",
+            "bubble3_pos": "below",
+            "bubble3_tail": false,
+            "narration": ""
+          }
+        },
+        "scene4": {
+          "type": "scene",
+          "settings": {
+            "image": "",
+            "image_asset": "collectors-journey-ep001-scene-4.jpg",
+            "alt": "The collectors study the listing again as the Sultan gestures at missing studio, edition and dimension fields and crossed-out photograph slots",
+            "scene_label": "The First Clues",
+            "bubble1_speaker": "Ren",
+            "bubble1_text": "No studio name, edition details or proof these are photos of the actual piece.",
+            "bubble1_pos": "top-left",
+            "bubble1_tail": true,
+            "bubble2_speaker": "Sultan",
+            "bubble2_text": "Then we ask. Identify the exact statue before deciding what it’s worth.",
+            "bubble2_pos": "below",
+            "bubble2_tail": true,
+            "bubble3_speaker": "",
+            "bubble3_text": "",
+            "bubble3_pos": "below",
+            "bubble3_tail": false,
+            "narration": ""
+          }
+        },
+        "scene5": {
+          "type": "scene",
+          "settings": {
+            "image": "",
+            "image_asset": "collectors-journey-ep001-scene-5.jpg",
+            "alt": "Comic panels in which the collectors examine sent photographs and find a hairline crack in the cloak and a chip on the dragon’s claw",
+            "scene_label": "The Hidden Damage",
+            "bubble1_speaker": "Dragon",
+            "bubble1_text": "Aha! What’s that?",
+            "bubble1_pos": "below",
+            "bubble1_tail": true,
+            "bubble2_speaker": "Ava",
+            "bubble2_text": "A repair. I would never have seen it in the first picture.",
+            "bubble2_pos": "below",
+            "bubble2_tail": true,
+            "bubble3_speaker": "Sultan",
+            "bubble3_text": "A repair isn’t automatically a deal-breaker. An undisclosed repair is a reason to investigate.",
+            "bubble3_pos": "below",
+            "bubble3_tail": true,
+            "narration": ""
+          }
+        },
+        "scene6": {
+          "type": "scene",
+          "settings": {
+            "image": "",
+            "image_asset": "collectors-journey-ep001-scene-6.jpg",
+            "alt": "The collectors look into an opened presentation box with empty foam cut-outs where components should sit",
+            "scene_label": "The Missing Piece",
+            "bubble1_speaker": "Dragon",
+            "bubble1_text": "This compartment looks lonely.",
+            "bubble1_pos": "top-left",
+            "bubble1_tail": true,
+            "bubble2_speaker": "Malik",
+            "bubble2_text": "Is an accessory missing?",
+            "bubble2_pos": "below",
+            "bubble2_tail": true,
+            "bubble3_speaker": "Sultan",
+            "bubble3_text": "Check the complete parts list, every join and the original packaging.",
+            "bubble3_pos": "below",
+            "bubble3_tail": true,
+            "narration": ""
+          }
+        },
+        "scene7": {
+          "type": "scene",
+          "settings": {
+            "image": "",
+            "image_asset": "collectors-journey-ep001-scene-7.jpg",
+            "alt": "Panels showing the statue measured against a human silhouette, freight options being costed, and the crate travelling by road",
+            "scene_label": "The Cost Nobody Considered",
+            "bubble1_speaker": "Ava",
+            "bubble1_text": "It won’t even fit on my shelf!",
+            "bubble1_pos": "below",
+            "bubble1_tail": true,
+            "bubble2_speaker": "Malik",
+            "bubble2_text": "And who’s transporting it?",
+            "bubble2_pos": "below",
+            "bubble2_tail": true,
+            "bubble3_speaker": "Sultan",
+            "bubble3_text": "Dimensions, delivery costs and buyer protection. Understand the whole transaction.",
+            "bubble3_pos": "below",
+            "bubble3_tail": true,
+            "narration": ""
+          }
+        },
+        "scene8": {
+          "type": "scene",
+          "settings": {
+            "image": "",
+            "image_asset": "collectors-journey-ep001-scene-8.jpg",
+            "alt": "The three collectors stand with arms folded beside the Sultan statue, decided",
+            "scene_label": "The Collector’s Decision",
+            "bubble1_speaker": "Sultan",
+            "bubble1_text": "A great collection begins with good decisions.",
+            "bubble1_pos": "top-right",
+            "bubble1_tail": true,
+            "bubble2_speaker": "Malik",
+            "bubble2_text": "We’re not buying this one yet.",
+            "bubble2_pos": "below",
+            "bubble2_tail": true,
+            "bubble3_speaker": "Ava",
+            "bubble3_text": "But we know exactly what to check next time.",
+            "bubble3_pos": "below",
+            "bubble3_tail": true,
+            "narration": "To be continued…"
+          }
+        }
+      },
+      "block_order": [
+        "scene1",
+        "scene2",
+        "scene3",
+        "scene4",
+        "scene5",
+        "scene6",
+        "scene7",
+        "scene8"
+      ],
+      "settings": {
+        "eyebrow": "The Collector’s Journey — Episode 001 · The Statue That Looked Perfect",
+        "heading": "7 Things to Check Before Buying a Pre-Owned Resin Statue",
+        "standfirst": "<p>A listing can look perfect and still hide the thing that matters. Here is what to check, told as a story and then as a checklist.</p>",
+        "intro": "<p>Buying a pre-owned resin statue well comes down to seven checks: identify the exact statue, studio and edition; ask for photographs of the actual item; look for damage and repairs; confirm every component is present; verify the original packaging; plan for dimensions, weight and delivery; and total the real cost including what protection you have if it arrives wrong. Episode 001 follows three collectors making every one of those checks the hard way.</p>",
+        "fiction_note": "These scenes are illustrated fiction. The statue in the story is drawn, not photographed. Real condition evidence is always actual-item photography — every piece we list is photographed as it stands.",
+        "outro": "",
+        "share_asset": "collectors-journey-ep001-share.jpg"
+      }
+    },
+    "checklist": {
+      "type": "sos-prose",
+      "blocks": {
+        "p1": {
+          "type": "step",
+          "settings": {
+            "title": "Identify the studio, scale, edition and authenticity evidence",
+            "text": "Ask for the studio name, the scale, the edition size and any certificate or numbered plaque. Many resin statues come from small studios producing short runs, so a vague listing is often a listing the seller cannot substantiate. If a piece carries a certificate, ask for a photograph of it rather than a description."
+          }
+        },
+        "p2": {
+          "type": "step",
+          "settings": {
+            "title": "Request clear photographs of the actual statue",
+            "text": "Studio renders are made before production and show the piece at its best. What you are buying is one specific example that has been owned and displayed. Ask for photographs of that example, taken recently, in daylight, from several angles — and treat reluctance as information."
+          }
+        },
+        "p3": {
+          "type": "step",
+          "settings": {
+            "title": "Inspect chips, cracks, paintwork and previous repairs",
+            "text": "Resin chips rather than flexes, so damage tends to be at thin points: fingers, hair, weapons, flame and cloth edges. Look for colour breaks, a seam that does not line up, or a glossy patch where matte paint should be. A disclosed repair is a negotiation; an undisclosed one is a reason to ask what else was not mentioned."
+          }
+        },
+        "p4": {
+          "type": "step",
+          "settings": {
+            "title": "Confirm all parts, accessories and assembly joints",
+            "text": "These statues arrive in parts and are assembled. Swap hands, alternate heads, effect pieces, light units and power leads all go missing over time. Ask for the original parts list and a photograph of everything laid out, then check each join is sound rather than merely held together."
+          }
+        },
+        "p5": {
+          "type": "step",
+          "settings": {
+            "title": "Check original packaging and protective inserts",
+            "text": "A boxed piece is generally worth more than an unboxed one, and the moulded inserts are the only safe way to move a statue again. A box with a crushed corner is cosmetic; missing inserts are a real problem, because a replacement rarely fits the contours."
+          }
+        },
+        "p6": {
+          "type": "step",
+          "settings": {
+            "title": "Verify dimensions, weight, safe transportation and delivery costs",
+            "text": "Bases are often the widest part, and a statue that fits your shelf on paper can still be too deep for it. Get height, width, depth and weight before you commit, then ask how it will actually travel. A courier network is not designed for a fragile object of this size and value."
+          }
+        },
+        "p7": {
+          "type": "step",
+          "settings": {
+            "title": "Check total price, seller credibility, return terms and buyer protection",
+            "text": "Add delivery, any assembly and any insurance to the headline price before comparing. Then establish what happens if it arrives damaged or not as described: who collects it, who pays, and how long you have. A seller who will put that in writing is telling you something useful."
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "p5",
+        "p6",
+        "p7"
+      ],
+      "settings": {
+        "tint": true,
+        "eyebrow": "The checklist",
+        "heading": "The seven checks in full",
+        "body": "<p>The story above is fiction. These checks are not — they are the questions worth asking of any pre-owned resin statue, wherever you buy it.</p>",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "close": {
+      "type": "sos-prose",
+      "settings": {
+        "tint": false,
+        "eyebrow": "",
+        "heading": "How we handle this",
+        "body": "<p>Every piece in our <a href=\"/collections/one-piece-statues\">One Piece collection</a> is photographed as it stands, with its condition described as we find it and its original packaging listed where it is included. Delivery is priced by postcode before you add anything to a basket, and the <a href=\"/pages/delivery-and-guarantee\">Hassle-Free Handover Guarantee</a> sets out what happens if a piece arrives damaged, missing a listed part or not as described.</p><p>Chasing a specific statue, studio or edition? <a href=\"/pages/contact\">Tell us what you’re after</a> and we’ll let you know if one reaches us.</p>",
+        "button_label": "See the collection",
+        "button_link": "/collections/one-piece-statues"
+      }
+    }
+  },
+  "order": [
+    "comic",
+    "checklist",
+    "close"
+  ]
+}

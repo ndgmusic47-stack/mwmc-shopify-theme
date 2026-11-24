@@ -1,4 +1,20 @@
-{% comment %} Sultan of Statues — editorial copy, optionally with numbered steps. {% endcomment %}
+{% comment %}
+  Sultan of Statues — editorial copy, optionally with numbered steps.
+
+  Optional further-reading link: resolves a handle against the blog's
+  articles. blogs[handle].articles lists VISIBLE articles only, so a
+  hidden or scheduled article returns nothing and the link does not
+  render. That is deliberate — the link can be configured before the
+  article is published without ever pointing at a 404, and it appears
+  on its own the moment the article goes visible.
+{% endcomment %}
+{%- liquid
+  assign sos_further = null
+  if section.settings.article_handle != blank
+    assign sos_blog = section.settings.article_blog | default: 'news'
+    assign sos_further = blogs[sos_blog].articles | where: 'handle', section.settings.article_handle | first
+  endif
+-%}
 <div class="sos">
   <section class="sos-prose{% if section.settings.tint %} sos-prose--tint{% endif %}">
     <div class="sos-wrap">
@@ -25,6 +41,14 @@
           </a>
         </div>
       {%- endif -%}
+      {%- if sos_further != blank -%}
+        <div class="sos-prose__actions">
+          <a class="sos-textlink" href="{{ sos_further.url }}">
+            {{ section.settings.article_label | default: sos_further.title }}
+            {% render 'sos-icon', name: 'arrow' %}
+          </a>
+        </div>
+      {%- endif -%}
     </div>
   </section>
 </div>
@@ -37,7 +61,11 @@
     { "type": "richtext", "id": "body", "label": "Body" },
     { "type": "text", "id": "button_label", "label": "Button" },
     { "type": "url", "id": "button_link", "label": "Button link" },
-    { "type": "checkbox", "id": "tint", "label": "Tinted background", "default": false }
+    { "type": "checkbox", "id": "tint", "label": "Tinted background", "default": false },
+    { "type": "header", "content": "Further reading" },
+    { "type": "text", "id": "article_handle", "label": "Article handle", "info": "Links to a blog article. The link only appears once that article is visible, so it can be set up in advance." },
+    { "type": "text", "id": "article_blog", "label": "Blog handle", "default": "news" },
+    { "type": "text", "id": "article_label", "label": "Link label", "info": "Defaults to the article title." }
   ],
   "blocks": [{ "type": "step", "name": "Step", "settings": [
     { "type": "text", "id": "title", "label": "Title" },

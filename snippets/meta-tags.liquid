@@ -53,6 +53,7 @@
   endcomment
   assign sos_own_title = false
   assign sos_own_description = false
+  assign sos_share_asset = ''
   if request.page_type == 'product' and product != blank
     assign sos_t = product.title
     if product.type contains '1/6'
@@ -88,6 +89,31 @@
       echo ' resin statue. UK stock, original box, photographs of the exact piece, inspected condition and personal UK delivery or free London collection.'
     endcapture
     assign sos_own_description = true
+  endif
+
+  comment
+    Episode 001. The Shopify article title is the story title, which is not
+    what a buyer searches; the H1 and the search title are the question they
+    actually type. Set here so the article keeps its story title in admin
+    and in the blog index while still carrying a search-shaped title tag.
+    Title 56 characters, description 153.
+  endcomment
+  if request.page_type == 'article' and article.handle == 'the-statue-that-looked-perfect'
+    assign og_title = '7 Things to Check Before Buying a Pre-Owned Resin Statue'
+    assign sos_own_title = true
+    capture sos_d
+      echo 'Studio, actual-item photos, damage, parts, packaging, delivery and total cost — the seven checks before buying a pre-owned resin statue, told as a manga.'
+    endcapture
+    assign sos_own_description = true
+
+    comment
+      Share card. The scenes themselves are portrait (1122x1402) and crop
+      badly to the 1.91:1 that Facebook, LinkedIn and X all want, so this
+      is a landscape crop of scene one — the same artwork, nothing added.
+      Used only when the article has no featured image of its own, so
+      setting one in admin still wins.
+    endcomment
+    assign sos_share_asset = 'collectors-journey-ep001-share.jpg'
   endif
 
   if request.page_type == 'collection' and collection.handle == 'one-piece-statues'
@@ -182,6 +208,24 @@
   <meta
     property="og:image:height"
     content="{{ page_image.height }}"
+  >
+{%- elsif sos_share_asset != blank -%}
+  {%- assign sos_card = sos_share_asset | asset_url -%}
+  <meta
+    property="og:image"
+    content="{{ sos_card }}"
+  >
+  <meta
+    property="og:image:secure_url"
+    content="{{ sos_card }}"
+  >
+  <meta
+    property="og:image:width"
+    content="1200"
+  >
+  <meta
+    property="og:image:height"
+    content="630"
   >
 {%- else -%}
   {%- comment -%}
