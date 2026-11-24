@@ -97,8 +97,17 @@
     actually type. Set here so the article keeps its story title in admin
     and in the blog index while still carrying a search-shaped title tag.
     Title 56 characters, description 153.
+
+    Keyed on the template suffix, not the article handle. Shopify previews
+    a hidden article at /blogs/<blog>/articles?preview_key=..., and on that
+    route the layout head does not get a populated `article` — page_title
+    and canonical_url are right, but `article.handle` is not, so a handle
+    check silently failed to fire and the page carried the story title and
+    the shop description instead. The template object is populated, and one
+    template per episode makes the suffix an exact key either way.
+    A later episode gets its own template file and its own block here.
   endcomment
-  if request.page_type == 'article' and article.handle == 'the-statue-that-looked-perfect'
+  if request.page_type == 'article' and template.suffix == 'collectors-journey'
     assign og_title = '7 Things to Check Before Buying a Pre-Owned Resin Statue'
     assign sos_own_title = true
     capture sos_d
