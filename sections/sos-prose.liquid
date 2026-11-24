@@ -7,12 +7,27 @@
   render. That is deliberate — the link can be configured before the
   article is published without ever pointing at a 404, and it appears
   on its own the moment the article goes visible.
+
+  Found by looping rather than `| where: 'handle', ... | first`. The
+  where filter returned nothing against blog.articles on the live
+  storefront — it is a lazy article collection, not a plain array, so
+  array filters are not dependable on it. A for loop is.
+
+  Caveat for later: outside a paginate tag blog.articles returns the
+  first 50 articles, so once a blog passes 50 posts a link to an older
+  one would silently stop rendering. Fine at one article; revisit if
+  the series ever gets that long.
 {% endcomment %}
 {%- liquid
   assign sos_further = null
   if section.settings.article_handle != blank
     assign sos_blog = section.settings.article_blog | default: 'news'
-    assign sos_further = blogs[sos_blog].articles | where: 'handle', section.settings.article_handle | first
+    for sos_a in blogs[sos_blog].articles
+      if sos_a.handle == section.settings.article_handle
+        assign sos_further = sos_a
+        break
+      endif
+    endfor
   endif
 -%}
 <div class="sos">

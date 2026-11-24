@@ -185,11 +185,19 @@
             "label": "Home",
             "url": "/"
           }
+        },
+        "nav6": {
+          "type": "nav_item",
+          "settings": {
+            "label": "The Collector's Journey",
+            "url": "/blogs/news"
+          }
         }
       },
       "block_order": [
         "nav0",
         "nav1",
+        "nav6",
         "nav2",
         "nav3",
         "nav4",
