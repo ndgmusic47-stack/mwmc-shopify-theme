@@ -1,29 +1,9 @@
 {
   "sections": {
     "palace_hero": {
-      "type": "sos-hero",
+      "type": "sos-hero-extraordinary",
       "settings": {
-        "eyebrow": "",
-        "heading": "Bring your favourite character",
-        "heading_accent": "home.",
-        "body": "We drive your statue to you and carry it in, or you collect free in London. Set-up in your chosen spot and original box storage are optional extras.",
-        "button_label": "Explore the collection",
-        "button_link": "/collections/one-piece-statues",
-        "button2_label": "Check my postcode",
-        "button2_link": "/pages/delivery-and-guarantee",
-        "actions_note": "",
-        "desktop_stem": "sos-hero-palace-desktop",
-        "desktop_widths": "900,1280,1774",
-        "mobile_stem": "sos-hero-palace-mobile",
-        "mobile_widths": "480,672,860",
-        "plate_width": 1774,
-        "plate_height": 683,
-        "plate_alt": "Gear 5 Luffy statue on a gold-trimmed pedestal in a sunlit palace gallery, with arches opening onto a blue sky",
-        "focal_point": "50% 62%",
-        "piece_stem": "",
-        "plate_caption": "",
-        "mobile_width": 860,
-        "mobile_height": 752,
+        "button_label": "Explore the Collection",
         "primary_collection": "one-piece-statues"
       }
     },

@@ -1,0 +1,101 @@
+{% comment %}
+  Sultan of Statues: approved Extraordinary hero artwork.
+  Artwork and bespoke typography remain intact as a single supplied image.
+  Only the collection CTA is HTML. No existing theme globals are changed.
+{% endcomment %}
+
+{%- liquid
+  assign collection_link = section.settings.button_link | default: routes.all_products_collection_url
+  assign target = collections[section.settings.primary_collection]
+  if target != blank and target.products_count > 0
+    assign collection_link = target.url
+  endif
+  assign button_label = section.settings.button_label | default: 'Explore the collection'
+-%}
+
+<section class="sos-extraordinary" aria-labelledby="sos-extraordinary-title-{{ section.id }}">
+  <h1 class="sos-extraordinary__sr" id="sos-extraordinary-title-{{ section.id }}">
+    Make room for the extraordinary.
+  </h1>
+
+  <div class="sos-extraordinary__stage">
+    <picture>
+      <source media="(max-width: 700px)" type="image/webp"
+              srcset="{{ 'sos-hero-extraordinary-860.webp' | asset_url }}">
+      <source type="image/webp"
+              srcset="{{ 'sos-hero-extraordinary-860.webp' | asset_url }} 860w, {{ 'sos-hero-extraordinary-1672.webp' | asset_url }} 1672w"
+              sizes="100vw">
+      <img class="sos-extraordinary__art"
+           src="{{ 'sos-hero-extraordinary.png' | asset_url }}"
+           alt="An ivory Sultan holding a red dragon in an illuminated gallery, beside a swirling blue display of anime statues."
+           width="1672" height="941"
+           loading="eager" fetchpriority="high" decoding="async">
+    </picture>
+
+    <div class="sos-extraordinary__action">
+      <a class="sos-extraordinary__button" href="{{ collection_link | escape }}">
+        <span>{{ button_label | escape }}</span>
+        <span aria-hidden="true">&#8594;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.sos-extraordinary { background: #10121c; width: 100%; }
+.sos-extraordinary__sr {
+  position: absolute !important;
+  width: 1px !important; height: 1px !important;
+  padding: 0 !important; margin: -1px !important;
+  overflow: hidden !important; clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important; border: 0 !important;
+}
+.sos-extraordinary__stage { position: relative; width: 100%; }
+.sos-extraordinary__stage picture { display: block; width: 100%; }
+.sos-extraordinary__art { display: block; width: 100%; height: auto; }
+.sos-extraordinary__action {
+  position: absolute;
+  z-index: 2;
+  right: clamp(20px, 12vw, 240px);
+  bottom: clamp(18px, 3.6vw, 58px);
+  display: flex;
+  justify-content: center;
+}
+.sos-extraordinary__button {
+  box-sizing: border-box;
+  display: inline-flex; align-items: center; justify-content: center; gap: 14px;
+  min-height: 52px; padding: 14px 26px;
+  background: #073c32; border: 1px solid #d9aa65;
+  box-shadow: 0 3px 16px rgba(0,0,0,.65), inset 0 1px 0 rgba(255,255,255,.12);
+  color: #fff8e7; font-family: inherit; font-weight: 700;
+  font-size: clamp(13px, 1.15vw, 17px); letter-spacing: .07em;
+  text-transform: uppercase; text-decoration: none;
+  transition: background .16s ease, border-color .16s ease;
+}
+.sos-extraordinary__button:hover { background: #0b5645; border-color: #f6ca86; color: #fff; }
+.sos-extraordinary__button:focus-visible { outline: 3px solid white; outline-offset: 4px; }
+@media (max-width: 700px) {
+  .sos-extraordinary__action {
+    position: static; right: auto; bottom: auto;
+    background: #10121c; padding: 13px 16px 17px;
+  }
+  .sos-extraordinary__button { min-height: 48px; width: 100%; max-width: 390px; font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sos-extraordinary__button { transition: none; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Extraordinary hero",
+  "tag": "div",
+  "class": "sos-extraordinary-section",
+  "settings": [
+    { "type": "text", "id": "button_label", "label": "Collection button label", "default": "Explore the collection" },
+    { "type": "url", "id": "button_link", "label": "Collection button link" },
+    { "type": "text", "id": "primary_collection", "label": "Preferred collection handle" }
+  ],
+  "presets": [{ "name": "Extraordinary hero" }]
+}
+{% endschema %}
