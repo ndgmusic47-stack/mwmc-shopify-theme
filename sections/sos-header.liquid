@@ -46,6 +46,18 @@
     {% unless sticky %}style="position: relative;"{% endunless %}
     role="banner"
   >
+    {%- if section.settings.announcement != blank -%}
+      <div class="sos-store-announcement">
+        {%- if section.settings.announcement_url != blank -%}
+          <a href="{{ section.settings.announcement_url | escape }}">{{ section.settings.announcement | escape }}</a>
+        {%- else -%}
+          <span>{{ section.settings.announcement | escape }}</span>
+        {%- endif -%}
+        {%- if section.settings.announcement_detail != blank -%}
+          <span>{{ section.settings.announcement_detail | escape }}</span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
     <div class="sos-wrap sos-header__bar">
 
       {%- liquid
@@ -273,6 +285,11 @@
     },
     { "type": "paragraph", "content": "The store-level Shopify menus have been rewritten for Sultan of Statues, so either source is safe. Theme links stay the default because they are versioned with the theme." },
     { "type": "link_list", "id": "menu", "label": "Shopify menu (fallback)", "default": "main-menu" },
+
+    { "type": "header", "content": "Announcement strip" },
+    { "type": "text", "id": "announcement", "label": "Announcement", "default": "UK stock" },
+    { "type": "text", "id": "announcement_detail", "label": "Supporting text", "default": "Free arranged London collection" },
+    { "type": "url", "id": "announcement_url", "label": "Announcement link" },
 
     { "type": "header", "content": "Options" },
     { "type": "checkbox", "id": "sticky", "label": "Stick to top on scroll", "default": true },

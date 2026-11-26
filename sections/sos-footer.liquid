@@ -22,6 +22,12 @@
 <div class="sos">
   <footer class="sos-footer" role="contentinfo">
     <div class="sos-wrap">
+      <ul class="sos-store-benefits" aria-label="Shopping with Sultan of Statues">
+        <li><a href="/collections/one-piece-statues">{% render 'sos-icon', name: 'gem' %}<span><strong>UK stock</strong><small>Pre-owned resin statues</small></span></a></li>
+        <li><a href="/pages/delivery-and-guarantee#delivery">{% render 'sos-icon', name: 'parcel' %}<span><strong>Personal delivery</strong><small>See your price by postcode</small></span></a></li>
+        <li><a href="/pages/delivery-and-guarantee#guarantee">{% render 'sos-icon', name: 'shield' %}<span><strong>Handover guarantee</strong><small>Full refund if not as described</small></span></a></li>
+        <li><a href="https://uk.trustpilot.com/review/sultanofstatues.com">{% render 'sos-icon', name: 'layers' %}<span><strong>Trustpilot</strong><small>Visit our review profile</small></span></a></li>
+      </ul>
 
       <div class="sos-footer__grid">
 
@@ -57,15 +63,16 @@
             {%- if s.contact_email != blank -%}
               <li><a href="mailto:{{ s.contact_email }}">{{ s.contact_email }}</a></li>
             {%- endif -%}
+            {%- assign whatsapp_prefix = s.whatsapp_url | slice: 0, 14 -%}
+            {%- if whatsapp_prefix == 'https://wa.me/' -%}
+              <li><a href="{{ s.whatsapp_url | escape }}">Chat on WhatsApp</a></li>
+            {%- endif -%}
             <li><a href="{{ s.contact_link | default: '/pages/contact' }}">{{ s.contact_link_label }}</a></li>
             <li><a href="{{ s.sell_link | default: '/pages/sell-to-us' }}">{{ s.sell_link_label }}</a></li>
           </ul>
         </div>
 
       </div>
-
-      {%- comment -%} Compact Trustpilot strip, every page. {%- endcomment -%}
-      {% render 'sos-trustpilot', placement: 'footer' %}
 
       <div class="sos-footer__base">
         <p class="sos-footer__copy">&copy; {{ year }} {{ biz }}{% if s.legal_note != blank %}. {{ s.legal_note }}{% endif %}</p>
@@ -103,6 +110,7 @@
     { "type": "text", "id": "nav_heading", "label": "Links heading", "default": "Browse" },
     { "type": "text", "id": "contact_heading", "label": "Contact heading", "default": "Get in touch" },
     { "type": "text", "id": "contact_email", "label": "Contact email" },
+    { "type": "url", "id": "whatsapp_url", "label": "WhatsApp link (https://wa.me/...)" },
     { "type": "text", "id": "contact_link_label", "label": "Contact link label", "default": "Contact us" },
     { "type": "url", "id": "contact_link", "label": "Contact link" },
     { "type": "text", "id": "sell_link_label", "label": "Sell link label", "default": "Sell your statues" },

@@ -1,9 +1,5 @@
 {
   "sections": {
-    "palace_hero": {
-      "type": "sos-hero-extraordinary",
-      "settings": {}
-    },
     "gallery": {
       "type": "sos-collection",
       "blocks": {
@@ -95,127 +91,32 @@
         "s6"
       ],
       "settings": {
-        "eyebrow": "The Collection",
-        "heading": "Pre-owned anime statues",
-        "link_label": "See the One Piece collection",
+        "eyebrow": "",
+        "heading": "Anime resin statues",
+        "link_label": "Shop One Piece",
         "link_url": "/collections/one-piece-statues",
         "products_to_show": 6,
         "empty_heading": "The collection is being prepared",
         "empty_body": "New pieces are added as we find them.",
         "foot_label": "",
-        "foot_url": ""
+        "foot_url": "",
+        "catalogue_intro": "Shop pre-owned statues in UK stock. Choose personal delivery or free London collection."
       }
     },
     "sell": {
       "type": "sos-prose",
       "settings": {
         "tint": true,
-        "eyebrow": "Sell your statues",
+        "eyebrow": "",
         "heading": "Have a piece to sell?",
-        "body": "<p>We buy statues outright — no commission, and we don't sell on your behalf. Tell us what you have and we'll come back with an offer.</p>",
+        "body": "<p>Send photos and details for a free quote.</p>",
         "button_label": "Sell your statues",
         "button_link": "/pages/sell-to-us"
-      }
-    },
-    "reasons": {
-      "type": "sos-reasons",
-      "blocks": {
-        "r1": {
-          "type": "reason",
-          "settings": {
-            "title": "Personal delivery",
-            "text": "Your price by postcode, before you buy. Or collect free in London.",
-            "link_label": "Prices and bands",
-            "link": "/pages/delivery-and-guarantee"
-          }
-        },
-        "r2": {
-          "type": "reason",
-          "settings": {
-            "title": "Free buy-back quote",
-            "text": "Ready to sell? We assess the piece and make an offer if it qualifies.",
-            "link_label": "How buy-back works",
-            "link": "/pages/delivery-and-guarantee#buy-back"
-          }
-        },
-        "r3": {
-          "type": "reason",
-          "settings": {
-            "title": "Hassle-Free Handover Guarantee",
-            "text": "Damaged, missing a listed part, or not as described? Full refund, and we collect.",
-            "link_label": "Read the guarantee",
-            "link": "/pages/delivery-and-guarantee#guarantee"
-          }
-        }
-      },
-      "block_order": [
-        "r1",
-        "r2",
-        "r3"
-      ],
-      "settings": {
-        "heading": ""
-      }
-    },
-    "journey": {
-      "type": "sos-journey",
-      "blocks": {
-        "s1": {
-          "type": "step",
-          "settings": {
-            "title": "Choose your piece",
-            "text": "Browse the photographs and choose your statue."
-          }
-        },
-        "s2": {
-          "type": "step",
-          "settings": {
-            "title": "Check your postcode",
-            "text": "Your delivery price appears on the statue’s page before you buy."
-          }
-        },
-        "s3": {
-          "type": "step",
-          "settings": {
-            "title": "We bring it, or you collect",
-            "text": "Choose personal delivery or free arranged London collection."
-          }
-        },
-        "s4": {
-          "type": "step",
-          "settings": {
-            "title": "Optional set-up and box storage",
-            "text": "We can assemble it where you want it (£49) and keep the original box (first month free, then £19.99 a month)."
-          }
-        }
-      },
-      "block_order": [
-        "s1",
-        "s2",
-        "s3",
-        "s4"
-      ],
-      "settings": {
-        "eyebrow": "How it works",
-        "heading": "From order to display",
-        "body": "",
-        "button_label": "Delivery & Guarantee",
-        "button_link": "/pages/delivery-and-guarantee",
-        "tint": true,
-        "image": "",
-        "image_asset": "sos-statue-luffy-redroc.webp",
-        "image_alt": "Red Roc Luffy resin statue by Monkey D Studio",
-        "caption": "Red Roc Luffy, 1/6 scale — the piece as it stands today.",
-        "image_width": 1069,
-        "image_height": 1520
       }
     }
   },
   "order": [
-    "palace_hero",
     "gallery",
-    "reasons",
-    "journey",
     "sell"
   ]
 }

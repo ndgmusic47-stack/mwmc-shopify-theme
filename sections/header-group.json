@@ -141,7 +141,10 @@
         "logo_mode": "lockup",
         "emblem_asset": "sos-emblem.png",
         "emblem_height": 52,
-        "nav_source": "theme"
+        "nav_source": "theme",
+        "announcement": "UK stock",
+        "announcement_detail": "Free arranged London collection",
+        "announcement_url": "/pages/delivery-and-guarantee#collection"
       },
       "blocks": {
         "nav1": {
