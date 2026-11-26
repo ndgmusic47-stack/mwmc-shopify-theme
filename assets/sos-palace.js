@@ -157,6 +157,18 @@
     var msg = q('[data-sos-postcode-msg]');
     var deliveryPriceEl = q('[data-sos-delivery-price]');
     var whereEl = q('[data-sos-delivery-where]');
+    var mobileBuy = document.querySelector('[data-sos-mobile-buy]');
+    var mobileTotal = mobileBuy && mobileBuy.querySelector('[data-sos-mobile-total]');
+    var mainButton = document.querySelector('#sos-add [name="add"]');
+    if (mobileBuy && mainButton && 'IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        mobileBuy.hidden = entries[0].isIntersecting || entries[0].boundingClientRect.top < 0;
+      });
+      observer.observe(mainButton);
+      mobileBuy.querySelector('a').addEventListener('click', function () {
+        root.querySelector('[data-sos-method]:checked').focus({ preventScroll: true });
+      });
+    }
     var prop = function (name) { return root.querySelector('[data-sos-prop="' + name + '"]'); };
 
     function setLine(name, text) {
@@ -187,7 +199,10 @@
       }
 
       setLine('storage', state.storage ? '£0.00' : null);
-      root.querySelector('[data-sos-amount="due"]').textContent = money(due);
+      var awaitingQuote = state.method === 'delivery' && state.deliveryPence === null;
+      root.querySelector('[data-sos-amount="due"]').textContent = awaitingQuote ? 'Get delivery price' : money(due);
+      if (mobileTotal) mobileTotal.textContent = awaitingQuote ? 'Delivery quote needed' : money(due);
+
 
       prop('method').value = state.method === 'delivery'
         ? 'Personal delivery' + (state.postcode ? ' to ' + state.postcode : '')
@@ -259,6 +274,14 @@
       });
     });
 
+    postcodeInput.addEventListener('input', function () {
+      state.deliveryPence = null;
+      state.postcode = '';
+      deliveryPriceEl.textContent = 'By postcode';
+      msg.textContent = '';
+      render();
+    });
+
     q('[data-sos-postcode-go]').addEventListener('click', function () {
       load(root.dataset.zones).then(function () { quote(postcodeInput.value); });
     });
@@ -282,11 +305,21 @@
     var form = document.getElementById('sos-add');
     if (form) {
       form.addEventListener('submit', function (e) {
-        if (!state.assembly || !assemblyVariant) return; // plain form is fine
-        e.preventDefault();
         var button = form.querySelector('[name="add"]');
+        if (button && button.dataset.busy === 'true') { e.preventDefault(); return; }
+        if (state.method === 'delivery' && state.deliveryPence === null) {
+          e.preventDefault();
+          msg.textContent = 'Enter your postcode and get a delivery price before adding this statue.';
+          msg.className = 'sos-costs__msg is-warn';
+          postcodeInput.focus();
+          return;
+        }
+        if (button) button.dataset.busy = 'true';
+        if (!state.assembly || !assemblyVariant) return;
+        e.preventDefault();
         if (button) { button.disabled = true; button.dataset.busy = 'true'; }
 
+        var chosenVariant = Number(new FormData(form).get('id') || variantId);
         var props = {};
         Array.prototype.forEach.call(root.querySelectorAll('[data-sos-prop]'), function (input) {
           if (!input.disabled && input.value) {
@@ -299,8 +332,8 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             items: [
-              { id: Number(variantId), quantity: 1, properties: props },
-              { id: Number(assemblyVariant), quantity: 1, properties: { 'For': piece } }
+              { id: chosenVariant, quantity: 1, properties: props },
+              { id: Number(assemblyVariant), quantity: 1, properties: { 'For': piece, '_sos_parent': String(chosenVariant) } }
             ]
           })
         })
@@ -308,8 +341,7 @@
           .then(function () { window.location.href = '/cart'; })
           .catch(function () {
             if (button) { button.disabled = false; delete button.dataset.busy; }
-            msg.textContent = 'Something went wrong adding that to your bag. Please try again.';
-            msg.className = 'sos-costs__msg is-warn';
+            document.querySelector('[data-sos-add-status]').textContent = 'Could not add this configuration. Check your bag before trying again.';
           });
       });
     }
@@ -340,6 +372,14 @@
 (function () {
   var el = document.querySelector('[data-sos-cart-delivery]');
   if (!el) return;
+  var postcodes = new Set(Array.from(document.querySelectorAll('[data-sos-bag-line][data-postcode]'))
+    .map(function (line) { return line.dataset.postcode; }).filter(Boolean));
+  if (postcodes.size > 1) {
+    el.closest('.sos-cart__row').hidden = true;
+    var handoff = document.querySelector('.sos-cart__handoff');
+    handoff.textContent = 'Your bag has more than one delivery postcode. Place separate orders for different addresses.';
+    return;
+  }
   var code = (el.dataset.postcode || '').toUpperCase().replace(/\s+/g, '');
   var out = code.match(/^([A-Z]{1,2}\d[A-Z\d]?)\d[A-Z]{2}$/);
   code = out ? out[1] : code;
@@ -352,6 +392,9 @@
         if (Object.prototype.hasOwnProperty.call(d.zones, key)) {
           var band = d.bands[d.zones[key]];
           el.textContent = '£' + (band.pence / 100).toFixed(2);
+          var total = document.querySelector('[data-sos-order-total]');
+          total.textContent = '£' + ((Number(el.dataset.subtotal) + band.pence) / 100).toFixed(2);
+          total.closest('[data-sos-order-row]').hidden = false;
           return;
         }
       }
@@ -359,17 +402,111 @@
     .catch(function () { /* leave the honest fallback text in place */ });
 })();
 
-/* Echo the quoted amount into the checkout-handoff note, so the buyer knows
-   the figure to expect on the next screen rather than meeting it cold. */
+/* Keep assembly next to its statue and remove both in a single basket update. */
 (function () {
-  var src = document.querySelector('[data-sos-cart-delivery]');
-  var echo = document.querySelector('[data-sos-cart-delivery-echo]');
-  if (!src || !echo) return;
-  var tick = setInterval(function () {
-    var t = src.textContent.trim();
-    if (/^£/.test(t)) { echo.textContent = t + ' delivery'; clearInterval(tick); }
-  }, 200);
-  setTimeout(function () { clearInterval(tick); }, 6000);
+  var form = document.querySelector('.sos-cart__form');
+  if (!form) return;
+  var lines = Array.from(form.querySelectorAll('[data-sos-bag-line]'));
+  var statues = lines.filter(function (line) { return !line.classList.contains('sos-cart__line--extra'); });
+  var extras = lines.filter(function (line) { return line.classList.contains('sos-cart__line--extra'); });
+  var status = form.querySelector('[data-sos-bag-status]');
+  var removing = false;
+  form.addEventListener('submit', function (event) {
+    if (!event.submitter || event.submitter.name !== 'checkout') return;
+    var configured = statues.filter(function (line) { return line.dataset.fulfilment; });
+    var destinations = new Set(configured.map(function (line) {
+      return line.dataset.postcode || (line.dataset.fulfilment === 'Collection in London' ? 'collection' : '');
+    }));
+    if (destinations.size > 1 || destinations.has('')) {
+      event.preventDefault();
+      status.textContent = 'Use one fulfilment method and delivery postcode per order. Remove the affected statue and add it again with the correct option.';
+    }
+  });
+
+  statues.forEach(function (statue, index) {
+    statue.style.order = index * 2;
+    var related = extras.filter(function (extra) {
+      return extra.dataset.parent
+        ? extra.dataset.parent === statue.dataset.variant
+        : extra.dataset.extraFor && extra.dataset.extraFor === statue.dataset.title;
+    });
+    if (!related.length) return;
+    related.forEach(function (extra) { extra.style.order = index * 2 + 1; });
+    statue.querySelector('.sos-cart__remove').addEventListener('click', function (event) {
+      event.preventDefault();
+      if (removing) return;
+      removing = true;
+      var updates = {};
+      [statue].concat(related).forEach(function (line) { updates[line.dataset.key] = 0; });
+      fetch(window.Shopify.routes.root + 'cart/update.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ updates: updates })
+      }).then(function (response) {
+        if (!response.ok) throw new Error(response.status);
+        window.location.reload();
+      }).catch(function () {
+        status.textContent = 'Could not remove this statue and its assembly. Please try again.';
+        removing = false;
+      });
+    });
+    statue.querySelector('input[name="updates[]"]').addEventListener('input', function (event) {
+      if (event.target.value === '') return;
+      related.forEach(function (extra) {
+        var quantity = extra.querySelector('input[name="updates[]"]');
+        if (event.target.value === '0') {
+          if (quantity.dataset.beforeRemoval === undefined) quantity.dataset.beforeRemoval = quantity.value;
+          quantity.value = '0';
+        } else if (quantity.dataset.beforeRemoval !== undefined) {
+          quantity.value = quantity.dataset.beforeRemoval;
+          delete quantity.dataset.beforeRemoval;
+        }
+      });
+    });
+  });
+  extras.forEach(function (extra) { if (!extra.style.order) extra.style.order = statues.length * 2; });
+})();
+
+/* Collection controls progressively enhance the pre-rendered product links. */
+(function () {
+  function boot() {
+    document.querySelectorAll('[data-sos-catalogue]').forEach(function (catalogue) {
+      var tools = catalogue.querySelector('[data-sos-catalogue-tools]');
+      if (!tools || tools.dataset.ready) return;
+      var grid = catalogue.querySelector('.sos-grid');
+      var cards = Array.from(grid.querySelectorAll('[data-sos-retail-card]'));
+      if (!cards.length) return;
+      var studio = tools.querySelector('[data-sos-studio]');
+      var sort = tools.querySelector('[data-sos-sort]');
+      var stock = tools.querySelector('[data-sos-in-stock]');
+      var count = tools.querySelector('[data-sos-count]');
+      Array.from(new Set(cards.map(function (card) { return card.dataset.studio; })))
+        .filter(Boolean).sort().forEach(function (name) { studio.add(new Option(name, name)); });
+
+      function update() {
+        var ordered = cards.slice();
+        if (sort.value) ordered.sort(function (a, b) {
+          return (Number(a.dataset.price) - Number(b.dataset.price)) * (sort.value === 'low' ? 1 : -1);
+        });
+        var visible = 0;
+        ordered.forEach(function (card) {
+          card.hidden = (studio.value && card.dataset.studio !== studio.value) ||
+            (stock.checked && card.dataset.available !== 'true');
+          if (!card.hidden) visible += 1;
+          grid.append(card);
+        });
+        count.textContent = visible ? visible + (visible === 1 ? ' statue' : ' statues') : 'No statues match these filters.';
+      }
+
+      tools.dataset.ready = 'true';
+      tools.hidden = false;
+      tools.addEventListener('change', update);
+      update();
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+  document.addEventListener('shopify:section:load', boot);
 })();
 
 /* ---------------------------------------------------------------------------

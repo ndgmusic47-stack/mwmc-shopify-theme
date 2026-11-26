@@ -50,8 +50,8 @@
       ],
       "settings": {
         "eyebrow": "How it works",
-        "heading": "Two ways to tell us",
-        "body": "<p><strong>Email is quickest.</strong> Send photographs straight to <a href=\"mailto:sultan@sultanofstatues.com\">sultan@sultanofstatues.com</a> — no form first, no waiting for a reply before you can attach them.</p><p>Useful shots: the whole piece from the front, each side, the base, and a close-up of any chip, repair or missing part. Add the character and studio, the scale if you know it, whether you have the original box and inner packaging, and roughly where you are in the UK.</p><p>Prefer a form? Use the one below and we will reply from a monitored address you can attach photographs to.</p>",
+        "heading": "What to send",
+        "body": "<p>Send a front photo, both sides, the base and close-ups of any damage. Include the character, studio, box details and your location.</p>",
         "button_label": "Email sultan@sultanofstatues.com",
         "button_link": "mailto:sultan@sultanofstatues.com?subject=Statue%20for%20sale"
       }

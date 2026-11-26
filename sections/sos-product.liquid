@@ -60,6 +60,64 @@
       </nav>
 
       <div class="sos-product__grid">
+        <div class="sos-product__identity">
+            {%- if p.vendor != blank -%}
+              <p class="sos-eyebrow">{{ p.vendor }}</p>
+            {%- endif -%}
+
+            <h1 class="sos-display sos-product__title">{{ p.title }}</h1>
+
+            {%- comment -%}
+              A one-line spec strip under the name. Every value comes from
+              Shopify product data — franchise tag, vendor, the scale that
+              lives in product type, condition — so nothing here is asserted
+              that is not already recorded against the piece. Collectors scan
+              for exactly these four facts, and an AI answer engine can lift
+              them as a unit.
+            {%- endcomment -%}
+            {%- liquid
+              comment
+                Built as a pipe-delimited list and joined, because appending
+                separators and stripping the first one with remove_first
+                deletes whichever separator appears first in the string, not
+                the leading one — which swallowed the gap after the
+                franchise name.
+              endcomment
+              assign parts = ''
+              if p.tags contains 'One Piece'
+                assign parts = parts | append: 'One Piece|'
+              endif
+              if p.type contains '1/6'
+                assign parts = parts | append: '1/6 scale|'
+              endif
+              assign parts = parts | append: 'Pre-owned|UK stock'
+              assign spec = parts | split: '|' | join: ' · '
+            -%}
+            <p class="sos-product__spec">{{ spec }}</p>
+
+            <div class="sos-product__priceline">
+              <span class="sos-product__price">{{ v.price | money }}</span>
+              {%- if v.compare_at_price > v.price -%}
+                <s class="sos-product__was">{{ v.compare_at_price | money }}</s>
+              {%- endif -%}
+            </div>
+
+            {%- comment -%} Availability, straight from Shopify inventory. {%- endcomment -%}
+            <p class="sos-product__avail{% if sold_out %} is-sold{% endif %}">
+              {%- if sold_out -%}
+                <span class="sos-dot" aria-hidden="true"></span>Sold
+              {%- elsif v.inventory_management == 'shopify' and v.inventory_quantity > 0 -%}
+                <span class="sos-dot" aria-hidden="true"></span>
+                In stock — {% if v.inventory_quantity == 1 %}one available{% else %}{{ v.inventory_quantity }} available{% endif %}
+              {%- else -%}
+                <span class="sos-dot" aria-hidden="true"></span>In stock
+              {%- endif -%}
+            </p>
+            {%- assign confirmed_condition_handles = 'gear-5-luffy-anikingdom-jimei-palace,dracule-mihawk-lx-studio,king-monkey-d-studio,trafalgar-law-monkey-d-studio,red-roc-luffy-monkey-d-studio,sabo-jimei-palace' | split: ',' -%}
+            {%- if confirmed_condition_handles contains p.handle -%}
+              <p class="sos-product__condition">No known condition issues.</p>
+            {%- endif -%}
+        </div>
 
         {%- comment -%}
           Compact gallery: one viewport, thumbnails under it, tap or click to
@@ -74,7 +132,7 @@
         {%- endcomment -%}
         <div class="sos-product__media" data-sos-gallery>
           {%- if p.media.size > 0 -%}
-            <div class="sos-product__stage">
+            <div class="sos-product__stage" style="--sos-photo-ratio: {{ p.media.first.preview_image.aspect_ratio | default: 1.33 }};">
               {%- for media in p.media -%}
                 {%- liquid
                   assign loading = 'lazy'
@@ -151,62 +209,6 @@
         <div class="sos-product__panel">
           <div class="sos-product__sticky">
 
-            {%- if p.vendor != blank -%}
-              <p class="sos-eyebrow">{{ p.vendor }}</p>
-            {%- endif -%}
-
-            <h1 class="sos-display sos-product__title">{{ p.title }}</h1>
-
-            {%- comment -%}
-              A one-line spec strip under the name. Every value comes from
-              Shopify product data — franchise tag, vendor, the scale that
-              lives in product type, condition — so nothing here is asserted
-              that is not already recorded against the piece. Collectors scan
-              for exactly these four facts, and an AI answer engine can lift
-              them as a unit.
-            {%- endcomment -%}
-            {%- liquid
-              comment
-                Built as a pipe-delimited list and joined, because appending
-                separators and stripping the first one with remove_first
-                deletes whichever separator appears first in the string, not
-                the leading one — which swallowed the gap after the
-                franchise name.
-              endcomment
-              assign parts = ''
-              if p.tags contains 'One Piece'
-                assign parts = parts | append: 'One Piece|'
-              endif
-              if p.vendor != blank
-                assign parts = parts | append: p.vendor | append: '|'
-              endif
-              if p.type contains '1/6'
-                assign parts = parts | append: '1/6 scale|'
-              endif
-              assign parts = parts | append: 'Pre-owned|UK stock'
-              assign spec = parts | split: '|' | join: ' · '
-            -%}
-            <p class="sos-product__spec">{{ spec }}</p>
-
-            <div class="sos-product__priceline">
-              <span class="sos-product__price">{{ v.price | money }}</span>
-              {%- if v.compare_at_price > v.price -%}
-                <s class="sos-product__was">{{ v.compare_at_price | money }}</s>
-              {%- endif -%}
-            </div>
-
-            {%- comment -%} Availability, straight from Shopify inventory. {%- endcomment -%}
-            <p class="sos-product__avail{% if sold_out %} is-sold{% endif %}">
-              {%- if sold_out -%}
-                <span class="sos-dot" aria-hidden="true"></span>Sold
-              {%- elsif v.inventory_management == 'shopify' and v.inventory_quantity > 0 -%}
-                <span class="sos-dot" aria-hidden="true"></span>
-                In stock — {% if v.inventory_quantity == 1 %}one available{% else %}{{ v.inventory_quantity }} available{% endif %}
-              {%- else -%}
-                <span class="sos-dot" aria-hidden="true"></span>In stock
-              {%- endif -%}
-            </p>
-
             {%- if sold_out -%}
               <div class="sos-product__soldbox">
                 <p>This piece has been sold.</p>
@@ -227,6 +229,7 @@
                 it refers to.
               {%- endcomment -%}
               {% render 'sos-cost-panel', product: p, enquiry_page: s.enquiry_page %}
+              <p role="status" class="sos-costs__msg" data-sos-add-status></p>
               {%- form 'product', p, id: 'sos-add', class: 'sos-product__form' -%}
                 {%- unless p.has_only_default_variant -%}
                   <div class="sos-product__variants">
@@ -251,6 +254,10 @@
                   {{ s.add_label }}{% render 'sos-icon', name: 'arrow' %}
                 </button>
               {%- endform -%}
+              <div class="sos-product__mobile-buy" data-sos-mobile-buy hidden>
+                <span data-sos-mobile-total>{{ v.price | money }}</span>
+                <a class="sos-btn sos-btn--primary" href="#sos-purchase-options">Buying options</a>
+              </div>
 
               <a class="sos-textlink sos-product__ask" href="{{ s.enquiry_page | default: '/pages/contact' }}?piece={{ p.title | url_param_escape }}">
                 {{ s.ask_label }}{% render 'sos-icon', name: 'arrow' %}
@@ -262,7 +269,7 @@
             {%- endif -%}
 
             {%- if p.description != blank -%}
-              <div class="sos-product__desc sos-prose__body">{{ p.description }}</div>
+              <details class="sos-spec"><summary class="sos-spec__h">Product details</summary><div class="sos-prose__body sos-spec__body">{{ p.description }}</div></details>
             {%- endif -%}
 
             {%- liquid
@@ -280,19 +287,19 @@
               invented number would be worse than silence.
             {%- endcomment -%}
             {%- unless has_dims -%}
-              <section class="sos-spec">
-                <h2 class="sos-spec__h">Will it fit?</h2>
+              <details class="sos-spec">
+                <summary class="sos-spec__h">Will it fit?</summary>
                 <p class="sos-spec__p">
                   We haven't published measurements for this piece yet.
                   <a href="{{ s.enquiry_page | default: '/pages/contact' }}?piece={{ p.title | url_param_escape }}&amp;about=dimensions">Ask us for its dimensions</a>
                   and we'll measure it and send them before you buy.
                 </p>
-              </section>
+              </details>
             {%- endunless -%}
 
             {%- if has_dims -%}
-              <section class="sos-spec">
-                <h2 class="sos-spec__h">Will it fit?</h2>
+              <details class="sos-spec">
+                <summary class="sos-spec__h">Will it fit?</summary>
                 <dl class="sos-spec__list">
                   {%- if mf.height != blank -%}<div><dt>Assembled height</dt><dd>{{ mf.height }}</dd></div>{%- endif -%}
                   {%- if mf.width != blank -%}<div><dt>Width</dt><dd>{{ mf.width }}</dd></div>{%- endif -%}
@@ -305,7 +312,7 @@
                 {%- if mf.dims_note != blank -%}
                   <p class="sos-spec__note">{{ mf.dims_note }}</p>
                 {%- endif -%}
-              </section>
+              </details>
             {%- endif -%}
 
             {%- liquid
@@ -318,10 +325,10 @@
               assign included = mf.included | default: s.included_default
             -%}
             {%- if included != blank -%}
-              <section class="sos-spec">
-                <h2 class="sos-spec__h">What's included</h2>
+              <details class="sos-spec">
+                <summary class="sos-spec__h">What's included</summary>
                 <div class="sos-prose__body sos-spec__body">{{ included }}</div>
-              </section>
+              </details>
             {%- endif -%}
 
             {%- comment -%}
@@ -332,8 +339,8 @@
               differences. It is now a plain contact route, with the detail
               one click away rather than repeated.
             {%- endcomment -%}
-            <section class="sos-spec">
-              <h2 class="sos-spec__h">Ask us anything</h2>
+            <details class="sos-spec">
+                <summary class="sos-spec__h">Delivery, returns and support</summary>
               <p class="sos-spec__p">
                 One address for everything &mdash; extra photographs, measurements,
                 condition questions, or a problem after delivery:
@@ -343,7 +350,7 @@
               <p class="sos-spec__p">
                 <a href="/pages/delivery-and-guarantee">How delivery, collection and the guarantee work</a>
               </p>
-            </section>
+            </details>
 
             {%- if s.note != blank -%}
               <p class="sos-product__note">{{ s.note }}</p>

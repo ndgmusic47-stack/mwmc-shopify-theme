@@ -26,10 +26,11 @@
   if product.featured_media == blank and fallback_image != blank
     assign fb = fallback_image | asset_url
   endif
+  assign card_alt = product.featured_media.alt | default: product.title
   assign condition = product.metafields.sos.condition | default: 'Pre-owned, boxed'
 -%}
 
-<a class="sos-card{% if sold_out %} sos-card--sold{% endif %}" href="{{ product.url }}" {{ attrs }}>
+<a class="sos-card{% if sold_out %} sos-card--sold{% endif %}" href="{{ product.url }}" data-sos-retail-card data-studio="{{ product.vendor | escape }}" data-price="{{ product.price }}" data-available="{{ product.available }}" {{ attrs }}>
   <div class="sos-card__frame">
     {%- if product.featured_media != blank -%}
       {{ product.featured_media
@@ -37,9 +38,9 @@
          | image_tag:
            class: 'sos-card__img',
            widths: '400, 600, 900, 1200',
-           sizes: '(max-width: 760px) 92vw, (max-width: 1024px) 46vw, 31vw',
+           sizes: '(max-width: 760px) 46vw, (max-width: 1024px) 46vw, 31vw',
            loading: 'lazy',
-           alt: product.featured_media.alt | default: product.title }}
+           alt: card_alt }}
     {%- elsif fb != blank -%}
       <img class="sos-card__img" src="{{ fb }}" alt="{{ product.title | escape }}" width="1200" height="1500" loading="lazy">
     {%- endif -%}

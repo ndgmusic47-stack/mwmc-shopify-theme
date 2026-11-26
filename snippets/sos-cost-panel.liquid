@@ -25,6 +25,7 @@
 -%}
 
 <div
+  id="sos-purchase-options"
   class="sos-costs"
   data-sos-costs
   data-zones="{{ 'sos-delivery-zones.json' | asset_url }}"
@@ -37,16 +38,16 @@
     data-assembly-price="{{ assembly_variant.price }}"
   {% endif %}
 >
-  <h2 class="sos-costs__h">What it costs to get it home</h2>
+  <h2 class="sos-costs__h">Delivery &amp; collection</h2>
 
   <fieldset class="sos-costs__group">
-    <legend class="sos-costs__legend">How would you like to receive it?</legend>
+    <legend class="sos-costs__legend">Fulfilment method</legend>
 
     <label class="sos-costs__row">
       <input type="radio" name="sos-method" value="collection" checked data-sos-method>
       <span class="sos-costs__rowBody">
-        <span class="sos-costs__rowName">Collect it from us in London</span>
-        <span class="sos-costs__rowNote">Free, and usually ready within 24 hours.</span>
+        <span class="sos-costs__rowName">London collection</span>
+
       </span>
       <span class="sos-costs__rowPrice">Free</span>
     </label>
@@ -54,10 +55,10 @@
     <label class="sos-costs__row">
       <input type="radio" name="sos-method" value="delivery" data-sos-method>
       <span class="sos-costs__rowBody">
-        <span class="sos-costs__rowName">We bring it to you</span>
-        <span class="sos-costs__rowNote">One of us drives it to your door and carries it in.</span>
+        <span class="sos-costs__rowName">Personal delivery</span>
+
       </span>
-      <span class="sos-costs__rowPrice" data-sos-delivery-price>Tell us where</span>
+      <span class="sos-costs__rowPrice" data-sos-delivery-price>By postcode</span>
     </label>
   </fieldset>
 
@@ -93,13 +94,14 @@
         <label class="sos-costs__row">
           <input type="checkbox" data-sos-extra="assembly">
           <span class="sos-costs__rowBody">
-            <span class="sos-costs__rowName">In-home assembly &middot; {{ assembly_variant.price | money_without_trailing_zeros }}</span>
+            <span class="sos-costs__rowName">In-home assembly</span>
+            <span class="sos-costs__rowNote">Delivery or arranged collection</span>
           </span>
           <span class="sos-costs__rowPrice">{{ assembly_variant.price | money }}</span>
         </label>
         <details class="sos-costs__more">
           <summary>What this includes</summary>
-          <p>We unbox the piece, assemble it, and put it exactly where you want it before we leave. Charged with this order.</p>
+          <p>We unbox the piece, assemble it, and put it exactly where you want it before we leave. Available with delivery or arranged London collection. Charged with this order.</p>
         </details>
       </div>
     {%- endif -%}
@@ -108,10 +110,10 @@
       <label class="sos-costs__row">
         <input type="checkbox" data-sos-extra="storage">
         <span class="sos-costs__rowBody">
-          <span class="sos-costs__rowName">Original box storage &middot; First month free, then &pound;19.99/month</span>
-          <span class="sos-costs__rowNote sos-costs__rowNote--terms">Registers interest only &mdash; nothing is charged at checkout. Billed by monthly invoice once agreed.</span>
+          <span class="sos-costs__rowName">Box storage</span>
+          <span class="sos-costs__rowNote sos-costs__rowNote--terms">First month free, then &pound;19.99/month by invoice once agreed.</span>
         </span>
-        <span class="sos-costs__rowPrice">Free<span class="sos-costs__rowPriceSub">first month</span></span>
+
       </label>
       <details class="sos-costs__more">
         <summary>How box storage works</summary>
@@ -136,7 +138,7 @@
       <dd data-sos-amount="assembly">—</dd>
     </div>
     <div class="sos-costs__line sos-costs__line--due">
-      <dt>You pay today</dt>
+      <dt>Estimated total</dt>
       <dd data-sos-amount="due">{{ v.price | money }}</dd>
     </div>
     <div class="sos-costs__line sos-costs__line--later" data-sos-line="storage" hidden>
@@ -153,8 +155,5 @@
   <input type="hidden" name="properties[Delivery postcode]" value="" data-sos-prop="postcode" form="sos-add" disabled>
   <input type="hidden" name="properties[Box storage]" value="" data-sos-prop="storage" form="sos-add" disabled>
 
-  <p class="sos-costs__foot">
-    Delivery is priced on the round trip from our London base, so you pay the
-    same whatever the piece costs. <a href="/pages/delivery-and-guarantee">See every price band</a>.
-  </p>
+
 </div>

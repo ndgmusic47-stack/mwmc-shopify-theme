@@ -34,7 +34,7 @@
         "anchor": "enquiry",
         "eyebrow": "Enquiry",
         "heading": "Send us a message",
-        "body": "<p>Tell us what you need and we will reply by email.</p>",
+        "body": "",
         "note": "",
         "show_location": false,
         "message_label": "Your message",
@@ -57,7 +57,7 @@
   },
   "order": [
     "banner",
-    "details",
-    "enquiry"
+    "enquiry",
+    "details"
   ]
 }

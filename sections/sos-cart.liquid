@@ -17,7 +17,7 @@
   <section class="sos-cart">
     <div class="sos-wrap">
 
-      <p class="sos-eyebrow">{{ s.eyebrow }}</p>
+      {%- if s.eyebrow != blank and s.eyebrow != s.heading -%}<p class="sos-eyebrow">{{ s.eyebrow }}</p>{%- endif -%}
       <h1 class="sos-display sos-cart__title">{{ s.heading }}</h1>
 
       {%- if cart.item_count == 0 -%}
@@ -38,7 +38,11 @@
         <form action="{{ routes.cart_url }}" method="post" novalidate class="sos-cart__form">
           <ul class="sos-cart__list">
             {%- for line in cart.items -%}
-              <li class="sos-cart__line">
+              <li class="sos-cart__line{% if line.product.handle == 'in-home-assembly' %} sos-cart__line--extra{% endif %}"
+                  data-sos-bag-line data-key="{{ line.key | escape }}" data-variant="{{ line.variant_id }}"
+                  data-fulfilment="{{ line.properties['Fulfilment'] | escape }}" data-postcode="{{ line.properties['Delivery postcode'] | escape }}"
+                  data-title="{{ line.product.title | escape }}" data-extra-for="{{ line.properties['For'] | escape }}"
+                  data-parent="{{ line.properties['_sos_parent'] | escape }}">
                 <a class="sos-cart__thumb" href="{{ line.url }}">
                   {%- if line.image -%}
                     {{ line.image | image_url: width: 400 | image_tag:
@@ -63,8 +67,9 @@
                     buyer who had chosen delivery.
                   {%- endcomment -%}
                   {%- for prop in line.properties -%}
-                    {%- if prop.last != blank and prop.first != 'For' -%}
-                      <p class="sos-cart__next"><span>{{ prop.first }}:</span> {{ prop.last }}</p>
+                    {%- assign initial = prop.first | slice: 0 -%}
+                    {%- if prop.last != blank and initial != '_' -%}
+                      <p class="sos-cart__next"><span>{{ prop.first | escape }}:</span> {{ prop.last | escape }}</p>
                     {%- endif -%}
                   {%- endfor -%}
                   {%- if line.requires_shipping == false -%}
@@ -89,6 +94,7 @@
             {%- endfor -%}
           </ul>
 
+          <p class="sos-costs__msg" data-sos-bag-status role="status"></p>
           <div class="sos-cart__foot">
             <div class="sos-cart__totals">
               <div class="sos-cart__row">
@@ -109,17 +115,18 @@
               {%- endfor -%}
               {%- if quoted_postcode != blank -%}
                 <div class="sos-cart__row sos-cart__row--pending">
-                  <span>Personal delivery to {{ quoted_postcode }}</span>
+                  <span>Personal delivery to {{ quoted_postcode | escape }}</span>
                   <strong data-sos-cart-delivery
                           data-zones="{{ 'sos-delivery-zones.json' | asset_url }}"
-                          data-postcode="{{ quoted_postcode }}">added at checkout</strong>
+                          data-subtotal="{{ cart.total_price }}" data-postcode="{{ quoted_postcode | escape }}">added at checkout</strong>
+                </div>
+                <div class="sos-cart__row sos-cart__row--estimate" data-sos-order-row hidden>
+                  <span>Estimated order total</span>
+                  <strong data-sos-order-total></strong>
                 </div>
                 <p class="sos-cart__note sos-cart__handoff">
                   On the next screen, choose <strong>Ship</strong> and enter
-                  <strong>{{ quoted_postcode }}</strong>. Your {{ '' }}<span data-sos-cart-delivery-echo>delivery</span>
-                  charge appears once the address is confirmed — Shopify only
-                  prices it then. Pick <strong>Pickup</strong> only if you have
-                  changed your mind and want to collect.
+                  <strong>{{ quoted_postcode | escape }}</strong>. Shopify confirms the final delivery charge once you enter your address.
                 </p>
               {%- endif -%}
               {%- if s.tax_note != blank -%}

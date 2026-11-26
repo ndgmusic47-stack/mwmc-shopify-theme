@@ -167,7 +167,7 @@
           "type": "step",
           "settings": {
             "title": "Choose your piece",
-            "text": "Ask us anything first — we will send extra photographs of any detail."
+            "text": "Browse the photographs and choose your statue."
           }
         },
         "s2": {
@@ -181,7 +181,7 @@
           "type": "step",
           "settings": {
             "title": "We bring it, or you collect",
-            "text": "One of us drives it to your door and carries it in. Collection in London is free."
+            "text": "Choose personal delivery or free arranged London collection."
           }
         },
         "s4": {
@@ -201,7 +201,7 @@
       "settings": {
         "eyebrow": "How it works",
         "heading": "From order to display",
-        "body": "<p>A statue is not a parcel. Here is what happens between your order and the piece standing in your home.</p>",
+        "body": "",
         "button_label": "Delivery & Guarantee",
         "button_link": "/pages/delivery-and-guarantee",
         "tint": true,
@@ -216,8 +216,8 @@
   },
   "order": [
     "palace_hero",
-    "reasons",
     "gallery",
+    "reasons",
     "journey",
     "sell"
   ]

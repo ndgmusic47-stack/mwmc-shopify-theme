@@ -26,7 +26,7 @@
           "settings": {
             "title": "Personal delivery, priced before you buy",
             "text": "<p>We deliver statues ourselves rather than handing them to a parcel carrier. One of us drives the piece to you, carries it in, and waits while you look it over.</p><p><strong>Estimated personal delivery: 3–5 business days.</strong> We'll contact you to agree a date and time window.</p><p>Your price is shown on the statue's page before you add it to your basket, worked out from the return road distance to your address. It doesn't change with the value of the piece.</p>",
-            "status": "Instant postcode pricing is being set up. Until then, delivery is quoted by hand.",
+            "status": "",
             "anchor": "delivery"
           }
         },
@@ -35,7 +35,7 @@
           "settings": {
             "title": "Optional assembly and box storage",
             "text": "<p><strong>In-home assembly — £49.</strong> We unbox the piece, assemble it, and put it where you want it before we leave. Add it on the statue's page and it's charged with your order.</p><p><strong>Original box storage — first month free, then £19.99 a month.</strong> Boxes are bulky and worth keeping, because a boxed statue is worth more than an unboxed one. Ticking the box on a statue's page records your interest only — nothing is charged at checkout. We confirm the start date and terms with you separately, and billing is by monthly invoice, not an automatic card subscription. Stop whenever you like and we'll bring the box back.</p>",
-            "status": "Coming soon. Not yet bookable.",
+            "status": "",
             "anchor": "extras"
           }
         },
@@ -58,7 +58,7 @@
       "settings": {
         "eyebrow": "Delivery & Guarantee",
         "heading": "Getting your statue home",
-        "lede": "A statue is not a parcel. Here is how yours reaches you, what it costs, and what happens if anything is wrong.",
+        "lede": "Compare London collection, personal delivery and optional extras. Read our guarantee and buy-back terms.",
         "support_email": "sultan@sultanofstatues.com"
       }
     }

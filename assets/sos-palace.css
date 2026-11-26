@@ -69,7 +69,10 @@
   /* Rhythm */
   --sos-gutter:     clamp(1rem, 0.4rem + 2.4vw, 3.5rem);
   --sos-max:        1560px;
-  --sos-section-y:  clamp(3.5rem, 2rem + 5vw, 7rem);
+  --sos-space-1: 0.5rem;
+  --sos-space-2: 0.75rem;
+  --sos-space-3: 1.25rem;
+  --sos-section-y: clamp(1.35rem, 3vw, 2.75rem);
 
   /* Motion */
   --sos-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -755,7 +758,7 @@
 .sos-card--sold .sos-card__stock { color: var(--sos-ink-faint); }
 .sos-card__scale { color: var(--sos-ink-faint); }
 
-.sos-collection__foot { margin-top: clamp(2.25rem, 4vw, 3.5rem); text-align: center; }
+.sos-collection__foot { margin-top: var(--sos-space-3); text-align: center; }
 
 /* Empty state, for a catalogue still being built */
 .sos-empty {
@@ -963,7 +966,7 @@
    before a shopper saw anything to buy. A collection page's job is to show
    stock, so the banner is leaner here and leaner still on the collection
    template, where the intro does not need to be read before browsing. */
-.sos-pagehero__inner { padding-block: clamp(2rem, 3.6vw, 3.25rem); max-width: 60rem; }
+.sos-pagehero__inner { padding-block: var(--sos-section-y); max-width: 60rem; }
 .sos-collection-page .sos-pagehero__inner { padding-block: clamp(1.5rem, 2.6vw, 2.25rem); }
 .sos-collection-page .sos-pagehero__lede { font-size: 1.02rem; max-width: 62ch; }
 .sos-pagehero__title { font-size: var(--sos-fs-h2); }
@@ -1220,9 +1223,11 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
 .sos-product__grid {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-  gap: clamp(1.75rem, 4vw, 4rem);
+  grid-template-areas: "media identity" "media purchase";
+  grid-template-rows: auto 1fr;
+  gap: var(--sos-space-3) clamp(1rem, 3vw, 2.5rem);
   align-items: start;
-  margin-top: clamp(1.25rem, 3vw, 2.25rem);
+  margin-top: var(--sos-space-2);
 }
 /* Gallery -----------------------------------------------------------------
    One viewport plus thumbnails. Every shot stays in the DOM so crawlers and
@@ -1232,7 +1237,10 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
    Pieces are photographed at different aspect ratios, so the stage is a
    fixed frame and each image is contained within it — never cropped to fill
    and never stretched. */
-.sos-product__media { display: grid; gap: clamp(0.6rem, 1.6vw, 1rem); }
+.sos-product__identity { grid-area: identity; }
+.sos-product__panel { grid-area: purchase; min-width: 0; }
+.sos-product__condition { margin: 0.25rem 0 0; color: var(--sos-ink-soft); font-size: 0.9rem; }
+.sos-product__media { grid-area: media; display: grid; gap: clamp(0.6rem, 1.6vw, 1rem); }
 
 .sos-product__stage { position: relative; }
 .sos-product__shot {
@@ -1243,8 +1251,8 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
 .sos-product__shot img { display: block; width: 100%; height: auto; }
 
 .sos-product__media.is-ready .sos-product__stage {
-  aspect-ratio: 4 / 5;
-  background: var(--sos-parchment);
+  aspect-ratio: 1;
+  background: var(--sos-ivory-warm);
   border: 1px solid rgba(176, 140, 74, 0.22);
 }
 .sos-product__media.is-ready .sos-product__shot {
@@ -1363,7 +1371,7 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
   letter-spacing: 0.01em;
   color: var(--sos-ink-soft, #6b5b4b);
 }
-.sos-product__priceline { display: flex; align-items: baseline; gap: 0.85rem; margin-top: 1rem; }
+.sos-product__priceline { display: flex; align-items: baseline; gap: 0.85rem; margin-top: var(--sos-space-1); }
 .sos-product__price {
   font-family: var(--sos-display);
   font-size: clamp(1.6rem, 1.2rem + 1.1vw, 2.2rem);
@@ -1382,7 +1390,7 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
 .sos-product__avail.is-sold { color: var(--sos-ink-faint); }
 .sos-product__avail.is-sold .sos-dot { background: var(--sos-ink-faint); }
 
-.sos-product__form { margin-top: clamp(1.4rem, 3vw, 2rem); display: grid; gap: 1rem; }
+.sos-product__form { margin-top: var(--sos-space-2); display: grid; gap: var(--sos-space-2); }
 .sos-product__add { width: 100%; justify-content: center; }
 .sos-product__ask { margin-top: 1rem; display: inline-flex; }
 .sos-product__desc { margin-top: clamp(1.75rem, 4vw, 2.5rem); max-width: 54ch; font-size: 1.06rem; }
@@ -1485,7 +1493,12 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
 .sos-cart__emptyactions { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.75rem; }
 
 @media (max-width: 1000px) {
-  .sos-product__grid { grid-template-columns: minmax(0, 1fr); }
+  .sos-product__grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "identity" "media" "purchase";
+    grid-template-rows: auto;
+  }
+  .sos-product__media.is-ready .sos-product__stage { aspect-ratio: clamp(1, var(--sos-photo-ratio, 1.33), 1.8); }
   .sos-product__sticky { position: static; }
 }
 @media (max-width: 760px) {
@@ -1610,7 +1623,7 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
 .sos-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(2.25rem, 3.5vw, 3.25rem) clamp(1.25rem, 2.5vw, 2.25rem);
+  gap: clamp(1rem, 2.4vw, 1.75rem) clamp(0.65rem, 1.8vw, 1.5rem);
 }
 
 /* Product photography framed consistently: contain, never crop the sculpt.
@@ -1632,7 +1645,7 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
   object-fit: contain;
   transform: none;
   /* Keeps bases and raised arms off the frame edge. */
-  padding: clamp(0.5rem, 1.5vw, 0.9rem);
+  padding: 0;
 }
 .sos-card:hover .sos-card__img { transform: scale(1.03); }
 /* The veil darkened the lower half to keep the Sold tag legible over a dark
@@ -1654,12 +1667,16 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
 }
 
 @media (max-width: 1000px) { .sos-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 620px)  { .sos-grid { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 620px) {
+  .sos-card__body { padding: 0.6rem 0 0.8rem; }
+  .sos-card__name { font-size: 1rem; overflow-wrap: anywhere; }
+  .sos-card__maker, .sos-card__meta { font-size: 0.75rem; }
+}
 
 /* ==============================  11. REASONS / JOURNEY / GUARANTEE  ===== */
 
 /* Reasons to buy — replaces the icon strip. Text only, no decorative glyphs. */
-.sos-reasons { background: var(--sos-ivory); padding-block: clamp(2.5rem, 5vw, 4rem); border-bottom: 1px solid rgba(176,140,74,0.2); }
+.sos-reasons { background: var(--sos-ivory); padding-block: var(--sos-section-y); border-bottom: 1px solid rgba(176,140,74,0.2); }
 .sos-reasons__title { font-size: var(--sos-fs-h3); margin: 0 0 clamp(1.25rem, 2.5vw, 1.75rem); }
 .sos-reasons__list {
   list-style: none; margin: 0; padding: 0;
@@ -1680,7 +1697,7 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
 }
 .sos-journey__title { font-size: var(--sos-fs-h2); margin: 0.35rem 0 0; }
 .sos-journey__body { margin-top: 1rem; }
-.sos-journey__steps { list-style: none; margin: clamp(1.5rem, 3vw, 2.25rem) 0 0; padding: 0; display: grid; gap: 0; max-width: 54ch; }
+.sos-journey__steps { list-style: none; margin: var(--sos-space-3) 0 0; padding: 0; display: grid; gap: 0; max-width: 54ch; }
 .sos-journey__steps li {
   display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1rem;
   padding: 1.1rem 0; border-top: 1px solid rgba(176,140,74,0.26);
@@ -1724,7 +1741,7 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
 @media (max-width: 1000px) {
   .sos-reasons__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .sos-journey__grid { grid-template-columns: minmax(0, 1fr); }
-  .sos-journey__figure { order: -1; }
+  .sos-journey__figure { width: min(100%, 20rem); }
 }
 @media (max-width: 620px) {
   .sos-reasons__list { grid-template-columns: minmax(0, 1fr); gap: 1.4rem; }
@@ -1794,8 +1811,8 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
    later — so the grouping has to be legible without a wall of caveats.
    -------------------------------------------------------------------------- */
 .sos-costs {
-  margin: 1.6rem 0 0;
-  padding: 1.25rem;
+  margin: 0;
+  padding: var(--sos-space-2);
   border: 1px solid rgba(176, 140, 74, 0.3);
   border-radius: 2px;
   background: rgba(176, 140, 74, 0.045);
@@ -1806,8 +1823,8 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
   font-size: 1.12rem;
   font-variation-settings: "opsz" 20;
 }
-.sos-costs__group { margin: 0; padding: 0; border: 0; }
-.sos-costs__group--extras { margin-top: 1.5rem; }
+.sos-costs__group { margin: 0; padding: 0; border: 0; min-inline-size: 0; }
+.sos-costs__group--extras { margin-top: var(--sos-space-2); }
 .sos-costs__legend {
   padding: 0 0 0.55rem;
   font-size: 0.88rem;
@@ -1819,7 +1836,7 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
   grid-template-columns: auto 1fr auto;
   gap: 0.7rem;
   align-items: start;
-  padding: 0.75rem 0;
+  padding: 0.45rem 0;
   border-top: 1px solid rgba(176, 140, 74, 0.22);
   cursor: pointer;
 }
@@ -1875,8 +1892,8 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
 .sos-costs__msg.is-warn { color: #8a4b12; }
 
 .sos-costs__total {
-  margin: 1.5rem 0 0;
-  padding-top: 0.9rem;
+  margin: var(--sos-space-2) 0 0;
+  padding-top: var(--sos-space-1);
   border-top: 1px solid rgba(176, 140, 74, 0.34);
 }
 .sos-costs__line {
@@ -1900,10 +1917,9 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
 .sos-costs__foot { margin: 1.1rem 0 0; font-size: 0.82rem; line-height: 1.55; opacity: 0.75; }
 
 @media (max-width: 520px) {
-  .sos-costs { padding: 1rem; }
-  .sos-costs__row { grid-template-columns: auto 1fr; }
-  .sos-costs__rowPrice { grid-column: 2; text-align: left; }
-  .sos-costs__postcodeRow { flex-direction: column; }
+  .sos-costs__row { grid-template-columns: auto minmax(0, 1fr) auto; gap: var(--sos-space-1); }
+  .sos-costs__rowPrice { font-size: 0.85rem; }
+  .sos-costs__postcodeRow .sos-btn { min-width: 0; padding-inline: 0.65rem; }
 }
 
 /* Bag: the chosen fulfilment and the delivery charge that is coming. */
@@ -1925,4 +1941,71 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
   font-family: var(--sos-sans);
   font-size: 0.85rem;
   color: var(--sos-on-dark-soft);
+}
+
+.sos-catalogue-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: var(--sos-space-2) var(--sos-space-3);
+  padding-block: var(--sos-space-2);
+  margin-bottom: var(--sos-space-3);
+  border-block: 1px solid rgb(176 140 74 / 28%);
+}
+.sos-catalogue-tools[hidden], .sos-grid [hidden], .sos-cart__row[hidden], .sos-costs__line[hidden] { display: none; }
+.sos-catalogue-tools label { font-size: 0.9rem; }
+.sos-catalogue-tools select {
+  display: block;
+  min-height: 40px;
+  max-width: 100%;
+  margin-top: 0.2rem;
+  padding-inline: 0.5rem;
+  background: var(--sos-ivory);
+  color: var(--sos-ink);
+  border: 1px solid rgb(176 140 74 / 55%);
+  border-radius: 0.25rem;
+}
+.sos-catalogue-count { margin-inline-start: auto; font-size: 0.9rem; }
+.sos-nav__link { white-space: nowrap; }
+.sos-product__identity, .sos-product__panel { min-width: 0; }
+.sos-product__identity .sos-eyebrow { margin-bottom: 0; }
+.sos-product__avail { margin-block: var(--sos-space-1) 0; }
+.sos-product__panel .sos-spec { margin-block: var(--sos-space-2) 0; padding-block: var(--sos-space-2); }
+.sos-product__panel .sos-spec__h { margin: 0; cursor: pointer; }
+.sos-product__panel .sos-spec[open] > summary { margin-bottom: var(--sos-space-2); }
+.sos-cart__list { display: flex; flex-direction: column; }
+.sos-cart__line--extra { padding-block: var(--sos-space-2); margin-inline-start: var(--sos-space-3); }
+.sos-cart__row--estimate { padding-top: var(--sos-space-2); font-weight: 700; }
+@media (max-width: 760px) {
+  .sos-catalogue-tools { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; }
+  .sos-catalogue-tools select { width: 100%; }
+  .sos-cart__line--extra { margin-inline-start: var(--sos-space-1); }
+}
+
+.sos-product__mobile-buy { display: none; }
+#sos-purchase-options { scroll-margin-top: 5rem; }
+@media (max-width: 760px) {
+  .sos-product__mobile-buy:not([hidden]) {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--sos-space-2);
+    padding: var(--sos-space-1) 1rem calc(var(--sos-space-1) + env(safe-area-inset-bottom));
+    border-top: 1px solid rgb(176 140 74 / 40%);
+    background: var(--sos-ivory);
+    color: var(--sos-ink);
+    font-weight: 700;
+  }
+  .sos-product__mobile-buy .sos-btn { padding-inline: 0.9rem; min-height: 44px; }
+}
+.sos-enquiry__inner { gap: clamp(1rem, 3vw, 2.5rem); }
+.sos-prose__body > :last-child { margin-bottom: 0; }
+.sos-footer { padding-block: var(--sos-section-y); }
+@media (max-width: 560px) {
+  .sos-footer__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sos-space-3); }
+  .sos-footer__brand { grid-column: 1 / -1; }
+  .sos-footer__list a { overflow-wrap: anywhere; }
 }
