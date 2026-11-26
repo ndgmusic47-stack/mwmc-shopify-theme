@@ -1,7 +1,7 @@
 
 
 <div
-  class="page-content"
+  class="page-content{% if page.handle == 'delivery-and-guarantee' %} sos-delivery-content{% endif %}"
   style="
     {% if block.settings.text_color != blank %}
       --color: {{ block.settings.text_color }};
@@ -10,7 +10,13 @@
   "
 >
   <rte-formatter>
-    {{ page.content }}
+    {%- if page.handle == 'delivery-and-guarantee' -%}
+      {{ page.content
+        | replace: '<h3>Collect free in London</h3>', '<h3 id="collection">Collect free in London</h3>'
+        | replace: 'That is the price Shopify charges at checkout.', 'Shopify confirms the final delivery charge after you enter your address at checkout.' }}
+    {%- else -%}
+      {{ page.content }}
+    {%- endif -%}
   </rte-formatter>
 </div>
 

@@ -137,7 +137,8 @@
         "tint": false,
         "eyebrow": "The short version",
         "heading": "What a resin statue is, and where ours come from",
-        "body": "<p>These are display pieces cast in resin, finished and painted by hand, and made in limited runs rather than mass production. That is why two examples of the same statue can differ slightly, and why they are heavier than they look. Resin chips rather than flexes, so treat one like a ceramic vase that happens to be shaped like a pirate.</p><p>Everything here is pre-owned and bought outright &mdash; we don't sell on anyone's behalf, so the piece is ours to describe honestly. Each listing shows photographs of the actual statue you will receive, with its condition described as we find it and its original packaging where that is included.</p><p>Got a piece to move on? <a href=\"/pages/sell-to-us\">We buy statues outright</a>, and <a href=\"/pages/about\">this is who you'd be dealing with</a>.</p>"
+        "body": "<p>These are display pieces cast in resin, finished and painted by hand, and made in limited runs rather than mass production. That is why two examples of the same statue can differ slightly, and why they are heavier than they look. Resin chips rather than flexes, so treat one like a ceramic vase that happens to be shaped like a pirate.</p><p>Everything here is pre-owned and bought outright &mdash; we don't sell on anyone's behalf, so the piece is ours to describe honestly. Each listing shows photographs of the actual statue you will receive, with its condition described as we find it and its original packaging where that is included.</p><p>Got a piece to move on? <a href=\"/pages/sell-to-us\">We buy statues outright</a>, and <a href=\"/pages/about\">this is who you'd be dealing with</a>.</p>",
+        "collapsible": true
       }
     },
     "checks": {
@@ -185,7 +186,8 @@
         "body": "<p>Much of this market runs on pre-order: you pay now and wait months for a piece you have only seen rendered. Everything on this page already exists, is already in the UK, and is photographed as it stands.</p><p>Buying second-hand raises one fair question &mdash; what has happened to it &mdash; so here is what we would want to know if we were the ones buying.</p>",
         "article_handle": "the-statue-that-looked-perfect",
         "article_blog": "news",
-        "article_label": "Read the full seven-point checklist"
+        "article_label": "Read the full seven-point checklist",
+        "collapsible": true
       }
     },
     "getting": {
@@ -196,7 +198,8 @@
         "heading": "We deliver it, set it up, and store the box",
         "body": "<p>We drive the piece to you and carry it in, rather than handing it to a pallet network. <strong>Estimated personal delivery: 3&ndash;5 business days.</strong> We'll contact you to agree a date and time window. Put your postcode into any listing and the price appears before you commit. In London, collection is free &mdash; usually ready within 24 hours, by arrangement.</p><p>Two optional extras: we'll unbox and assemble the piece where you want it standing for &pound;49, and we'll store the original box &mdash; first month free, then &pound;19.99 a month, invoiced once agreed, nothing charged at checkout.</p><p>If a piece arrives damaged, is missing a listed part, or is not as described, we collect it at our cost and refund you in full. And whenever you want to move a piece on, the buy-back quote is free and puts you under no obligation.</p>",
         "button_label": "Delivery, guarantee and buy-back",
-        "button_link": "/pages/delivery-and-guarantee"
+        "button_link": "/pages/delivery-and-guarantee",
+        "collapsible": true
       }
     }
   },

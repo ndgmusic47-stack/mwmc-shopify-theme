@@ -55,14 +55,16 @@
           <div class="sos-catalogue-banner__copy">
             <h1 class="sos-display sos-catalogue-banner__title">{{ s.heading | escape }}</h1>
             <p>{{ s.catalogue_intro | escape }}</p>
-            <a class="sos-btn sos-btn--primary" href="#statues-{{ section.id }}">
+            <a class="sos-btn sos-btn--primary" href="{{ s.link_url | default: routes.all_products_collection_url | escape }}">
               Browse statues {% render 'sos-icon', name: 'arrow' %}
             </a>
           </div>
-          <div class="sos-catalogue-banner__art" aria-label="Featured statues">
-            <img src="{{ 'sos-statue-luffy-gear5.webp' | asset_url }}" alt="Gear 5 Luffy by Anikingdom and Jimei Palace" width="1600" height="1188" loading="eager" decoding="async">
-            <img src="{{ 'sos-statue-sabo.webp' | asset_url }}" alt="Sabo by Jimei Palace" width="1600" height="1071" loading="eager" decoding="async">
-            <img src="{{ 'sos-statue-mihawk.webp' | asset_url }}" alt="Dracule Mihawk by LX Studio" width="1153" height="982" loading="eager" decoding="async">
+          <div class="sos-catalogue-banner__art">
+            <img src="{{ 'sos-hero-statue-studio-1200.webp' | asset_url }}"
+                 srcset="{{ 'sos-hero-statue-studio-640.webp' | asset_url }} 640w, {{ 'sos-hero-statue-studio-1200.webp' | asset_url }} 1200w"
+                 sizes="(max-width: 700px) 94vw, 55vw"
+                 alt="Promotional collage of Dracule Mihawk, Red Roc Luffy and Sabo against a charcoal studio backdrop"
+                 width="1200" height="800" loading="eager" fetchpriority="high" decoding="async">
           </div>
         </div>
       {%- else -%}
@@ -100,7 +102,7 @@
           <span class="sos-catalogue-count" data-sos-count role="status"></span>
         </div>
       {%- endif -%}
-      <div class="sos-grid"{% if request.page_type == 'index' and s.catalogue_intro != blank %} id="statues-{{ section.id }}"{% endif %}>
+      <div class="sos-grid">
         {%- if has_products -%}
 
           {%- comment -%}

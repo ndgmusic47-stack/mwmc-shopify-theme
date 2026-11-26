@@ -3,10 +3,10 @@
     "banner": {
       "type": "sos-page-hero",
       "settings": {
-        "eyebrow": "Sell to us",
+        "eyebrow": "",
         "heading": "Sell your statues",
-        "body": "We buy outright — no commission, and we never sell on your behalf.",
-        "button_label": "Email us your photographs",
+        "body": "Send us photos of your statue or collection. If it fits what we buy, we’ll email you an offer. There’s no obligation to accept.",
+        "button_label": "Email your photos",
         "button_link": "mailto:sultan@sultanofstatues.com?subject=Statue%20for%20sale"
       }
     },
@@ -16,29 +16,29 @@
         "s1": {
           "type": "step",
           "settings": {
-            "title": "Tell us about the piece",
-            "text": "Character and studio, scale if you know it, and where you are based."
+            "title": "Identify the statue",
+            "text": "Include the character, studio, scale if known and your UK town or postcode."
           }
         },
         "s2": {
           "type": "step",
           "settings": {
-            "title": "Describe the condition",
-            "text": "Original box and inserts, any repairs, chips, loose parts or missing accessories."
+            "title": "Tell us about its condition",
+            "text": "Mention any chips, repairs or missing parts. Tell us whether you have the original box and inserts."
           }
         },
         "s3": {
           "type": "step",
           "settings": {
-            "title": "Share photographs",
-            "text": "Several angles in good light, including the base and any damage."
+            "title": "Send clear photos",
+            "text": "Show the front, sides, base and any damage."
           }
         },
         "s4": {
           "type": "step",
           "settings": {
-            "title": "We respond with an offer",
-            "text": "We buy outright. If we can make an offer we will set it out by email, with no obligation on you to accept."
+            "title": "Get a reply by email",
+            "text": "We buy statues directly. If we can make an offer, we’ll explain the price and how handover would work."
           }
         }
       },
@@ -49,11 +49,11 @@
         "s4"
       ],
       "settings": {
-        "eyebrow": "How it works",
+        "eyebrow": "",
         "heading": "What to send",
-        "body": "<p>Send a front photo, both sides, the base and close-ups of any damage. Include the character, studio, box details and your location.</p>",
-        "button_label": "Email sultan@sultanofstatues.com",
-        "button_link": "mailto:sultan@sultanofstatues.com?subject=Statue%20for%20sale"
+        "body": "",
+        "button_label": "",
+        "button_link": ""
       }
     },
     "enquiry": {
@@ -96,14 +96,14 @@
       ],
       "settings": {
         "anchor": "enquiry",
-        "eyebrow": "Enquiry",
-        "heading": "Or send us the details",
-        "body": "<p>The more detail you give, the closer our first reply will be to a firm offer.</p>",
-        "note": "Sending an enquiry does not commit you to anything, and nothing is agreed until you accept an offer in writing.",
+        "eyebrow": "",
+        "heading": "Use the enquiry form",
+        "body": "<p>Start with the details below. You can email photos separately.</p>",
+        "note": "",
         "show_location": true,
         "message_label": "Tell us about the piece or collection",
-        "message_hint": "Character, studio, scale if known, condition, original box and inner packaging, any repairs or missing parts, and your rough location in the UK.",
-        "photo_note": "Photographs are better sent by email — this form cannot take attachments. Send them to sultan@sultanofstatues.com and we will match them to your enquiry.",
+        "message_hint": "Include your location and any condition details we should know about.",
+        "photo_note": "Email photos to sultan@sultanofstatues.com using the same email address so we can match them to your enquiry.",
         "submit": "Send enquiry",
         "success": "Thank you — your enquiry has been sent. We will reply by email."
       }

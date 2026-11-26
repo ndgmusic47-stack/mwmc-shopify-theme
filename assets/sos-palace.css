@@ -2080,22 +2080,51 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
   color: var(--sos-on-dark-soft);
   line-height: 1.4;
 }
-.sos-catalogue-banner__art {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(0.25rem, 0.8vw, 0.75rem);
-}
 .sos .sos-catalogue-banner__art img {
   display: block;
   width: 100%;
-  height: clamp(108px, 15vw, 208px);
-  object-fit: contain;
-  border: 1px solid rgb(176 140 74 / 24%);
-  border-radius: 0.4rem;
-  background: #201711;
+  height: auto;
+  border-radius: 0.55rem;
 }
-.sos-grid[id^="statues-"] { scroll-margin-top: 7rem; }
 @media (max-width: 700px) {
-  .sos-catalogue-banner { grid-template-columns: 1fr; gap: 0.85rem; }
-  .sos .sos-catalogue-banner__art img { height: clamp(82px, 28vw, 142px); }
+  .sos-catalogue-banner { grid-template-columns: minmax(0, 1fr); gap: 0.85rem; }
 }
+
+@media (max-width: 760px) {
+  .is-ready .sos-gal__zoom { display: none; }
+}
+.sos-delivery-content { max-width: 76ch; }
+.sos-delivery-content rte-formatter { display: block; line-height: 1.65; }
+.sos-delivery-content rte-formatter > h2 {
+  margin: 1.8rem 0 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid #a87852;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  scroll-margin-top: 7rem;
+}
+.sos-delivery-content rte-formatter > h3 {
+  margin: 1.25rem 0 0.55rem;
+  padding: 0.55rem 0.8rem;
+  border-inline-start: 3px solid #a6562a;
+  background: #eee4d8;
+  color: #261d19;
+  font-size: 1.12rem;
+  scroll-margin-top: 7rem;
+}
+.sos-delivery-content rte-formatter > p { margin-block: 0 0.85rem; }
+.sos-delivery-content table { display: block; max-width: 100%; overflow-x: auto; }
+.sos-prose:has(.sos-editorial-details) { padding-block: 0.4rem; }
+.sos-editorial-details { border-block-end: 1px solid rgb(176 140 74 / 38%); }
+.sos-editorial-details > summary { cursor: pointer; padding: 0.95rem 0; font-weight: 650; }
+.sos-editorial-details__body { padding-bottom: 1rem; }
+.sos-review-link { display: inline-flex; gap: 0.35rem; align-items: center; font-weight: 500; text-underline-offset: 0.2em; }
+.sos-review-link__mark { color: #007b55; font-size: 1.05rem; }
+.sos-footer__reviews { margin-bottom: var(--sos-space-3); }
+.sos-footer__reviews .sos-review-link {
+  padding: 0.55rem 0.85rem;
+  border-radius: 0.4rem;
+  background: #edf7f1;
+  color: #183327;
+}
+.sos-header { background: #1c2029; }
+.sos-catalogue-banner { background: #161a23; border-color: #454958; }
