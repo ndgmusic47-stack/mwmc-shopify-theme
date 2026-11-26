@@ -108,7 +108,7 @@
                 <span class="sos-dot" aria-hidden="true"></span>Sold
               {%- elsif v.inventory_management == 'shopify' and v.inventory_quantity > 0 -%}
                 <span class="sos-dot" aria-hidden="true"></span>
-                In stock — {% if v.inventory_quantity == 1 %}one available{% else %}{{ v.inventory_quantity }} available{% endif %}
+                In stock. {% if v.inventory_quantity == 1 %}one available{% else %}{{ v.inventory_quantity }} available{% endif %}
               {%- else -%}
                 <span class="sos-dot" aria-hidden="true"></span>In stock
               {%- endif -%}
@@ -239,7 +239,7 @@
                         <option value="{{ variant.id }}"
                           {% if variant == v %}selected{% endif %}
                           {% unless variant.available %}disabled{% endunless %}>
-                          {{ variant.title }} — {{ variant.price | money }}{% unless variant.available %} (sold){% endunless %}
+                          {{ variant.title }} ({{ variant.price | money }}){% unless variant.available %} (sold){% endunless %}
                         </option>
                       {%- endfor -%}
                     </select>
@@ -342,7 +342,7 @@
             <details class="sos-spec">
                 <summary class="sos-spec__h">Delivery, returns and support</summary>
               <p class="sos-spec__p">
-                One address for everything &mdash; extra photographs, measurements,
+                For extra photographs, measurements,
                 condition questions, or a problem after delivery:
                 <a href="mailto:{{ s.support_email | default: 'sultan@sultanofstatues.com' }}">{{ s.support_email | default: 'sultan@sultanofstatues.com' }}</a>.
                 Tell us your order number if you have one.

@@ -147,7 +147,7 @@
                 "body": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>A UK collectible statue business. We buy and sell collectible statues — resin and polystone display pieces from specialist studios.</p>",
+                    "text": "<p>A UK collectible statue business. We buy and sell collectible resin and polystone statues from specialist studios.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -402,7 +402,7 @@
         "logo_lead": "Sultan",
         "logo_join": "of",
         "logo_tail": "Statues",
-        "description": "We buy and sell collectible statues in the United Kingdom — resin and polystone display pieces from specialist studios.",
+        "description": "We buy and sell collectible resin and polystone statues from specialist studios across the UK.",
         "location_note": "United Kingdom",
         "nav_heading": "Browse",
         "contact_heading": "Get in touch",

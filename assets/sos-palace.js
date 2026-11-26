@@ -214,7 +214,7 @@
 
       var st = prop('storage');
       st.disabled = !state.storage;
-      st.value = 'Interest registered — nothing charged at checkout. First month free from box collection, then £19.99 a month, invoiced monthly once agreed';
+      st.value = 'Interest registered. Nothing charged at checkout. First month free from box collection, then £19.99 a month, invoiced monthly once agreed';
     }
 
     function quote(raw) {
@@ -224,7 +224,7 @@
         state.deliveryPence = null;
         state.postcode = '';
         msg.textContent = raw && raw.trim()
-          ? 'That does not look like a UK postcode — could you check it?'
+          ? 'Please check that you entered a valid UK postcode.'
           : 'Pop your postcode in and we will price it straight away.';
         msg.className = 'sos-costs__msg is-warn';
         deliveryPriceEl.textContent = 'Tell us where';
@@ -238,7 +238,7 @@
         state.deliveryPence = null;
         state.postcode = code;
         msg.innerHTML = 'We would love to bring it to ' + code +
-          ', but that journey needs a price from us rather than a table — ' +
+          ', but that journey needs a price from us rather than a standard delivery band. ' +
           'a ferry, or simply a very long way. ' +
           '<a href="' + enquiry + '?piece=' + encodeURIComponent(piece) +
           '&about=delivery&postcode=' + encodeURIComponent(code) +
@@ -251,7 +251,7 @@
 
       state.deliveryPence = band.pence;
       state.postcode = code;
-      msg.textContent = 'Good news — ' + code + ' is ' + humanRange(band.label) +
+      msg.textContent = code + ' is ' + humanRange(band.label) +
         ' from us, so personal delivery is ' + money(band.pence) + '.';
       msg.className = 'sos-costs__msg is-ok';
       deliveryPriceEl.textContent = money(band.pence);
@@ -702,4 +702,33 @@
     waitThenInit();
   }
   document.addEventListener('shopify:section:load', waitThenInit);
+})();
+
+/* Desktop exit prompt. Always keep the social links available in the footer. */
+(function () {
+  var dialog = document.querySelector('[data-sos-social-exit]');
+  if (!dialog || typeof dialog.showModal !== 'function') return;
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+  var storageKey = 'sos-social-prompt-seen';
+  try { if (sessionStorage.getItem(storageKey)) return; } catch (error) { /* private browser */ }
+
+  var readyAt = Date.now() + 8000;
+  var close = dialog.querySelector('[data-sos-social-close]');
+  close.addEventListener('click', function () { dialog.close(); });
+  dialog.addEventListener('click', function (event) {
+    if (event.target !== dialog) return;
+    var bounds = dialog.getBoundingClientRect();
+    if (event.clientX < bounds.left || event.clientX > bounds.right ||
+        event.clientY < bounds.top || event.clientY > bounds.bottom) dialog.close();
+  });
+
+  document.addEventListener('mouseout', function onExit(event) {
+    if (event.relatedTarget || event.clientY > 4 || Date.now() < readyAt) return;
+    if (document.querySelector('dialog[open], [role="dialog"][aria-modal="true"]:not([hidden])')) return;
+    if (document.activeElement && document.activeElement.matches('input, textarea, select, [contenteditable="true"]')) return;
+    document.removeEventListener('mouseout', onExit);
+    dialog.showModal();
+    try { sessionStorage.setItem(storageKey, '1'); } catch (error) { /* once on this page */ }
+  });
 })();

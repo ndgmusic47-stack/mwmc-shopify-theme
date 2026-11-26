@@ -75,6 +75,26 @@
 
       </div>
 
+      {%- capture social_links -%}
+        <a class="sos-btn sos-social__primary" href="https://www.youtube.com/@SultanOfStatues" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.instagram.com/sultanofstatues/?hl=en" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.tiktok.com/@sultanofstatues" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://uk.pinterest.com/sultan_of_statues/" target="_blank" rel="noopener">Pinterest</a>
+        <a href="https://www.facebook.com/profile.php?id=61595835342958" target="_blank" rel="noopener">Facebook</a>
+      {%- endcapture -%}
+      <div class="sos-footer__social">
+        <h2 class="sos-footer__h">Follow Sultan of Statues</h2>
+        <div class="sos-social__links">{{ social_links }}</div>
+      </div>
+      {%- unless request.page_type == 'cart' or request.design_mode -%}
+        <dialog class="sos-social-dialog" data-sos-social-exit aria-labelledby="sos-social-title-{{ section.id }}">
+          <button type="button" class="sos-social-dialog__close" data-sos-social-close aria-label="Close" autofocus>{% render 'sos-icon', name: 'close' %}</button>
+          <h2 id="sos-social-title-{{ section.id }}">See the statues up close</h2>
+          <p>Follow Sultan of Statues. Start with YouTube or find us on your favourite channel.</p>
+          <div class="sos-social__links">{{ social_links }}</div>
+        </dialog>
+      {%- endunless -%}
+
       <div class="sos-footer__base">
         <p class="sos-footer__copy">&copy; {{ year }} {{ biz }}{% if s.legal_note != blank %}. {{ s.legal_note }}{% endif %}</p>
 

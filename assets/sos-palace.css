@@ -2180,3 +2180,63 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
 .sos-delivery-content rte-formatter > .sos-delivery-offer-heading { text-align: center; }
 .section-content-wrapper:has(.sos-delivery-content) > .text-block h1,
 .sos-gpage__head { width: 100%; margin-inline: auto; text-align: center; }
+
+.sos-footer__social {
+  padding-block: var(--sos-space-3);
+  border-top: 1px solid rgb(176 140 74 / 28%);
+}
+.sos-social__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem 1rem;
+}
+.sos-social__links a:not(.sos-btn) {
+  color: inherit;
+  text-underline-offset: 0.24em;
+  font-size: 0.94rem;
+}
+.sos-social__links .sos-btn { min-height: 44px; }
+.sos-social-dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  box-sizing: border-box;
+  width: min(calc(100% - 2rem), 34rem);
+  max-height: calc(100dvh - 2rem);
+  padding: clamp(1.4rem, 4vw, 2.5rem);
+  border: 1px solid #505968;
+  border-radius: 1.1rem;
+  background: radial-gradient(ellipse at 95% 0%, #37313a, #1c2029 58%);
+  color: var(--sos-on-dark);
+  box-shadow: 0 20px 70px rgb(0 0 0 / 50%);
+}
+.sos-social-dialog::backdrop { background: rgb(12 15 22 / 74%); }
+.sos .sos-social-dialog h2 {
+  margin: 0 2rem 0.65rem 0;
+  color: var(--sos-on-dark);
+  font-size: clamp(1.65rem, 3vw, 2.35rem);
+  line-height: 1.1;
+  text-wrap: balance;
+}
+.sos-social-dialog p {
+  margin: 0 0 1.25rem;
+  max-width: 40ch;
+  color: var(--sos-on-dark-soft);
+}
+.sos-social-dialog__close {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--sos-on-dark);
+  cursor: pointer;
+}
+.sos-social-dialog__close:hover { background: rgb(255 255 255 / 10%); }
+.sos-social-dialog__close:focus-visible { outline: 2px solid #ff9c50; outline-offset: -3px; }

@@ -105,7 +105,7 @@
         "message_hint": "Include your location and any condition details we should know about.",
         "photo_note": "Email photos to sultan@sultanofstatues.com using the same email address so we can match them to your enquiry.",
         "submit": "Send enquiry",
-        "success": "Thank you — your enquiry has been sent. We will reply by email."
+        "success": "Thank you. Your enquiry has been sent. We will reply by email."
       }
     }
   },
