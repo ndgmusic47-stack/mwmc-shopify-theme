@@ -409,7 +409,7 @@
         "price": {{ v.price | divided_by: 100.0 | json }},
         "availability": {{ ld_availability | json }},
         "itemCondition": "https://schema.org/UsedCondition",
-        "seller": { "@type": "Organization", "name": {{ shop.name | json }} }
+        "seller": { "@type": "Organization", "name": {{ settings.sos_brand_name | default: 'Sultan of Statues' | json }} }
       }
     }
   </script>

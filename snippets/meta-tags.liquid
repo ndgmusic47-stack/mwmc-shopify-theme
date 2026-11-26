@@ -86,7 +86,7 @@
       if product.type contains '1/6'
         echo ' 1/6'
       endif
-      echo ' resin statue. UK stock, original box, photographs of the exact piece, inspected condition and personal UK delivery or free London collection.'
+      echo ' resin statue. UK stock, original box, photographs of the exact piece, condition as described and personal UK delivery or free London collection.'
     endcapture
     assign sos_own_description = true
   endif
@@ -239,10 +239,10 @@
 {%- else -%}
   {%- comment -%}
     Sultan of Statues: the homepage and the policy pages carry no page_image,
-    so a share of them rendered as a blank card. The palace hero stands in —
+    so a share of them rendered as a blank card. The approved catalogue hero stands in —
     it is already a derivative in the theme, so this costs no extra weight.
   {%- endcomment -%}
-  {%- assign sos_share = 'sos-hero-palace-desktop-1774.jpg' | asset_url -%}
+  {%- assign sos_share = 'sos-hero-statue-studio-1200.webp' | asset_url -%}
   <meta
     property="og:image"
     content="{{ sos_share }}"
@@ -253,11 +253,11 @@
   >
   <meta
     property="og:image:width"
-    content="1774"
+    content="1200"
   >
   <meta
     property="og:image:height"
-    content="683"
+    content="800"
   >
 {%- endif -%}
 
