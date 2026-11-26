@@ -2183,10 +2183,12 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
 
 .sos-footer__social {
   display: grid;
-  grid-template-columns: clamp(64px, 10vw, 126px) minmax(0, 1fr);
+  grid-template-columns: clamp(64px, 10vw, 126px) minmax(0, max-content);
+  justify-content: center;
   align-items: center;
   gap: clamp(0.75rem, 2.5vw, 1.75rem);
-  padding-block: var(--sos-space-3);
+  padding-block: clamp(1.5rem, 3vw, 2.5rem);
+  text-align: center;
   border-top: 1px solid rgb(176 140 74 / 28%);
 }
 .sos-footer__social-emblem {
@@ -2195,6 +2197,11 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
   height: auto;
 }
 .sos-footer__social-copy .sos-footer__h { margin: 0 0 0.6rem; }
+.sos-footer__social .sos-social__links { justify-content: center; }
+@media (max-width: 540px) {
+  .sos-footer__social { grid-template-columns: minmax(0, 1fr); justify-items: center; }
+  .sos-footer__social-emblem { width: 64px; }
+}
 .sos-social__links {
   display: flex;
   flex-wrap: wrap;
