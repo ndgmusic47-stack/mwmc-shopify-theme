@@ -16,20 +16,20 @@
 }
 
 /* Brand tokens fixed by CLAUDE-NEXT.md:
-   espresso #2a1f16, ivory #f7f1e7, antique gold #b08c4a, terracotta #b4481c.
+   espresso #1c2029, ivory #f4f3f0, antique gold #b08c4a, terracotta #b4481c.
    Small gold TEXT on light surfaces fails WCAG AA at #b08c4a (2.4:1), so a
    darker companion is used for those few strings only; the brand gold stays
    on rules, borders, icons and type over espresso. */
 :root {
   /* Surfaces */
-  --sos-espresso:        #2a1f16;
-  --sos-espresso-deep:   #1b130d;
-  --sos-espresso-soft:   #3a2d21;
-  --sos-ivory:           #f7f1e7;
-  --sos-ivory-warm:      #fbf6ee;
-  --sos-parchment:       #efe3d4;
-  --sos-stone:           #ddcdb8;
-  --sos-stone-deep:      #c2ac92;
+  --sos-espresso:        #1c2029;
+  --sos-espresso-deep:   #12151c;
+  --sos-espresso-soft:   #2b313d;
+  --sos-ivory:           #f4f3f0;
+  --sos-ivory-warm:      #faf9f7;
+  --sos-parchment:       #e9ebef;
+  --sos-stone:           #d9dde4;
+  --sos-stone-deep:      #aeb6c3;
 
   /* Accents — brand */
   --sos-gold:            #b08c4a;
@@ -43,11 +43,11 @@
   --sos-bronze-text:     #8a5d20;
 
   /* Ink */
-  --sos-ink:             #2a2118;
-  --sos-ink-soft:        #5d4e3e;
-  --sos-ink-faint:       #6b5d4b;
-  --sos-on-dark:         #f7f1e7;
-  --sos-on-dark-soft:    #c9b79c;
+  --sos-ink:             #20242c;
+  --sos-ink-soft:        #494e59;
+  --sos-ink-faint:       #585e69;
+  --sos-on-dark:         #f4f3f0;
+  --sos-on-dark-soft:    #c7ccd7;
 
   /* Type — one family, hierarchy from weight and optical size */
   --sos-display: "Cal Sans", "Helvetica Neue", Arial, sans-serif;
@@ -1045,7 +1045,7 @@
    beating the storybook styling and rendering the headline in Cal Sans at
    weight 500 on the live site. It never showed in a local harness without a
    <main> wrapper. */
-main h1:not(.sos-hero__title), main h2, main h3,
+main h1:not(.sos-hero__title):not(.sos-catalogue-banner__title), main h2, main h3,
 .collection__title, .search__title, .cart__title,
 .shopify-policy__title h1, .shopify-policy__body h2 {
   font-family: var(--sos-display) !important;
@@ -1091,7 +1091,7 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
 
 .sos-footer {
   background: var(--sos-espresso);
-  color: var(--sos-on-dark, #efe3d4);
+  color: var(--sos-on-dark, #e9ebef);
   padding-block: clamp(2.75rem, 5vw, 4.25rem) clamp(1.5rem, 3vw, 2.25rem);
 }
 
@@ -2070,9 +2070,14 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
 }
 .sos .sos-catalogue-banner__title {
   margin: 0;
-  color: var(--sos-on-dark);
-  font-size: clamp(1.8rem, 3.2vw, 3rem);
-  line-height: 1.08;
+  position: relative;
+  isolation: isolate;
+  color: #ff9c50;
+  font-size: clamp(2rem, 4.25vw, 3.9rem);
+  font-weight: 700;
+  line-height: 1.02;
+  text-wrap: balance;
+  text-shadow: 0 2px 18px rgb(255 107 38 / 30%);
 }
 .sos .sos-catalogue-banner__copy p {
   max-width: 37ch;
@@ -2106,8 +2111,8 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
   margin: 1.25rem 0 0.55rem;
   padding: 0.55rem 0.8rem;
   border-inline-start: 3px solid #a6562a;
-  background: #eee4d8;
-  color: #261d19;
+  background: #e9ebef;
+  color: #20242c;
   font-size: 1.12rem;
   scroll-margin-top: 7rem;
 }
@@ -2126,5 +2131,52 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
   background: #edf7f1;
   color: #183327;
 }
-.sos-header { background: #1c2029; }
 .sos-catalogue-banner { background: #161a23; border-color: #454958; }
+
+/* Smoke sits behind the text and stays local to the homepage title. */
+.sos .sos-catalogue-banner__title::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -0.7em 0 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 24% 50% at 24% 57%, rgb(191 204 225 / 28%), transparent 76%),
+    radial-gradient(ellipse 19% 58% at 51% 47%, rgb(168 180 203 / 25%), transparent 75%),
+    radial-gradient(ellipse 27% 39% at 69% 61%, rgb(172 179 196 / 19%), transparent 76%);
+  filter: blur(0.3rem);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sos .sos-catalogue-banner__title::before {
+    animation: sos-headline-smoke 8s ease-in-out 3 alternate both;
+  }
+}
+@keyframes sos-headline-smoke {
+  from { opacity: 0.48; transform: translate(0, 0) skewX(-8deg); }
+  to { opacity: 0.86; transform: translate(0.2em, -0.12em) skewX(9deg); }
+}
+
+.sos .sos-btn, .sos-gal__dialog .sos-btn {
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: #e77a32;
+  color: #29150d;
+  box-shadow: none;
+}
+.sos .sos-btn:hover, .sos-gal__dialog .sos-btn:hover { background: #f39a59; color: #29150d; }
+.sos-btn .sos-icon--arrow { display: none; }
+.sos-gal__dialog::backdrop { background: rgb(18 21 28 / 90%); }
+.sos-gal__dialog-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 0.55rem;
+  background: #1c2029;
+  color: #f4f3f0;
+}
+.sos-gal__dialog-controls .sos-btn { padding-inline: 0.85rem; }
+.sos-gal__dialog:has(.sos-gal__dialog-controls) .sos-gal__dialogImg { max-height: calc(90dvh - 4.5rem); touch-action: pan-y pinch-zoom; }
+.sos-delivery-content rte-formatter > .sos-delivery-offer-heading { text-align: center; }
+.section-content-wrapper:has(.sos-delivery-content) > .text-block h1,
+.sos-gpage__head { width: 100%; margin-inline: auto; text-align: center; }

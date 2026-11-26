@@ -12,6 +12,7 @@
   <rte-formatter>
     {%- if page.handle == 'delivery-and-guarantee' -%}
       {{ page.content
+        | replace: '<h2 id="delivery">Getting it home</h2>', '<h2 id="delivery" class="sos-delivery-offer-heading">The Full Offer</h2>'
         | replace: '<h3>Collect free in London</h3>', '<h3 id="collection">Collect free in London</h3>'
         | replace: 'That is the price Shopify charges at checkout.', 'Shopify confirms the final delivery charge after you enter your address at checkout.' }}
     {%- else -%}

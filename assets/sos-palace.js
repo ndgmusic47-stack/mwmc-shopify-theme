@@ -581,22 +581,61 @@
 
     /* Lightbox. <dialog> gives Escape, the backdrop and focus handling. */
     var dialog = null;
-    function openZoom() {
+    function renderZoom() {
       var img = shots[index].querySelector('img');
-      if (!img) return;
+      var big = dialog.querySelector('img');
+      big.src = img.currentSrc || img.src;
+      big.alt = img.alt || '';
+      var status = dialog.querySelector('[data-sos-zoom-count]');
+      if (status) status.textContent = (index + 1) + ' / ' + shots.length;
+    }
+
+    function stepZoom(direction) {
+      show(index + direction);
+      renderZoom();
+    }
+
+    function openZoom() {
+      if (!shots[index].querySelector('img')) return;
       if (!dialog) {
         dialog = document.createElement('dialog');
         dialog.className = 'sos-gal__dialog';
         dialog.innerHTML =
           '<button type="button" class="sos-gal__close" aria-label="Close">&times;</button>' +
-          '<img class="sos-gal__dialogImg" alt="">';
+          '<img class="sos-gal__dialogImg" alt="">' +
+          (shots.length > 1
+            ? '<div class="sos-gal__dialog-controls"><button type="button" class="sos-btn" data-sos-zoom-prev>Previous</button><span data-sos-zoom-count aria-live="polite"></span><button type="button" class="sos-btn" data-sos-zoom-next>Next</button></div>'
+            : '');
+        dialog.setAttribute('aria-label', 'Enlarged product photographs');
+        if (shots.length > 1) {
+          dialog.querySelector('[data-sos-zoom-prev]').addEventListener('click', function () { stepZoom(-1); });
+          dialog.querySelector('[data-sos-zoom-next]').addEventListener('click', function () { stepZoom(1); });
+          dialog.addEventListener('keydown', function (event) {
+            if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+            event.preventDefault();
+            stepZoom(event.key === 'ArrowLeft' ? -1 : 1);
+          });
+          var start = null;
+          var enlarged = dialog.querySelector('img');
+          enlarged.addEventListener('touchstart', function (event) {
+            var point = event.touches[0];
+            start = event.touches.length === 1 ? [point.clientX, point.clientY] : null;
+          }, { passive: true });
+          enlarged.addEventListener('touchcancel', function () { start = null; });
+          enlarged.addEventListener('touchend', function (event) {
+            if (!start) return;
+            var point = event.changedTouches[0];
+            var dx = point.clientX - start[0];
+            var dy = point.clientY - start[1];
+            start = null;
+            if (Math.abs(dx) >= 45 && Math.abs(dx) > Math.abs(dy)) stepZoom(dx < 0 ? 1 : -1);
+          }, { passive: true });
+        }
         document.body.appendChild(dialog);
         dialog.querySelector('.sos-gal__close').addEventListener('click', function () { dialog.close(); });
         dialog.addEventListener('click', function (e) { if (e.target === dialog) dialog.close(); });
       }
-      var big = dialog.querySelector('img');
-      big.src = img.currentSrc || img.src;
-      big.alt = img.alt || '';
+      renderZoom();
       if (typeof dialog.showModal === 'function') { dialog.showModal(); } else { dialog.setAttribute('open', ''); }
     }
     if (zoom) zoom.addEventListener('click', openZoom);
