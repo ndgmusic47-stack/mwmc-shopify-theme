@@ -2,10 +2,7 @@
   "sections": {
     "palace_hero": {
       "type": "sos-hero-extraordinary",
-      "settings": {
-        "button_label": "Explore the Collection",
-        "primary_collection": "one-piece-statues"
-      }
+      "settings": {}
     },
     "gallery": {
       "type": "sos-collection",

@@ -212,7 +212,7 @@
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 2rem;
+  gap: clamp(0.75rem, 1.5vw, 1.5rem);
   min-height: 86px;
   padding-block: 0.75rem;
 }
@@ -277,7 +277,7 @@
 .sos-nav__list {
   display: flex;
   align-items: center;
-  gap: clamp(1.5rem, 2.6vw, 3.25rem);
+  gap: clamp(0.65rem, 1.55vw, 1.5rem);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -312,7 +312,7 @@
 .sos-nav__link svg { transition: transform 0.3s var(--sos-ease); }
 .sos-nav__item[data-open="true"] .sos-nav__link svg { transform: rotate(180deg); }
 
-.sos-nav__item { position: relative; }
+.sos-nav__item { position: relative; flex: 0 0 auto; }
 .sos-nav__panel {
   position: absolute;
   top: calc(100% + 0.9rem);
@@ -1575,12 +1575,15 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
   font-weight: 600;
   font-variation-settings: "opsz" 16;
   text-transform: none;
-  padding: 0.95rem 1.5rem;
-  border-radius: 0;
+  min-height: 44px;
+  justify-content: center;
+  padding: 0.65rem 1.25rem;
+  border-radius: 999px;
   line-height: 1.2;
 }
-.sos-btn--primary { background: var(--sos-terracotta); color: #fff; }
-.sos-btn--primary:hover { background: var(--sos-terracotta-deep); }
+.sos-btn--primary { background: #e77a32; color: #29150d; }
+.sos-btn--primary:hover { background: #f39a59; color: #29150d; }
+.sos-btn:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
 .sos-textlink {
   font-size: 0.95rem;
   font-weight: 600;
