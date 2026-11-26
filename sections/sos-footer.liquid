@@ -83,8 +83,11 @@
         <a href="https://www.facebook.com/profile.php?id=61595835342958" target="_blank" rel="noopener">Facebook</a>
       {%- endcapture -%}
       <div class="sos-footer__social">
-        <h2 class="sos-footer__h">Follow Sultan of Statues</h2>
-        <div class="sos-social__links">{{ social_links }}</div>
+        <img class="sos-footer__social-emblem" src="{{ 'sos-emblem@3x.png' | asset_url }}" width="245" height="216" alt="" loading="lazy" decoding="async">
+        <div class="sos-footer__social-copy">
+          <h2 class="sos-footer__h">Follow Sultan of Statues</h2>
+          <div class="sos-social__links">{{ social_links }}</div>
+        </div>
       </div>
       {%- unless request.page_type == 'cart' or request.design_mode -%}
         <dialog class="sos-social-dialog" data-sos-social-exit aria-labelledby="sos-social-title-{{ section.id }}">
