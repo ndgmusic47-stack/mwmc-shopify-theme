@@ -2202,7 +2202,7 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
   inset: 0;
   margin: auto;
   box-sizing: border-box;
-  width: min(calc(100% - 2rem), 34rem);
+  width: min(calc(100% - 2rem), 41rem);
   max-height: calc(100dvh - 2rem);
   padding: clamp(1.4rem, 4vw, 2.5rem);
   border: 1px solid #505968;
@@ -2240,3 +2240,22 @@ footer p, footer h3 { max-width: 46ch; overflow-wrap: break-word; }
 }
 .sos-social-dialog__close:hover { background: rgb(255 255 255 / 10%); }
 .sos-social-dialog__close:focus-visible { outline: 2px solid #ff9c50; outline-offset: -3px; }
+
+.sos-social-dialog__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.35fr);
+  align-items: center;
+  gap: clamp(0.85rem, 2.5vw, 1.75rem);
+}
+.sos-social-dialog__emblem {
+  display: block;
+  width: 100%;
+  max-width: 210px;
+  height: auto;
+  margin-inline: auto;
+  filter: drop-shadow(0 8px 14px rgb(0 0 0 / 28%));
+}
+@media (max-width: 520px) {
+  .sos-social-dialog__layout { grid-template-columns: minmax(0, 1fr); }
+  .sos-social-dialog__emblem { max-width: 105px; margin-inline: 0; }
+}

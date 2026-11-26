@@ -89,9 +89,14 @@
       {%- unless request.page_type == 'cart' or request.design_mode -%}
         <dialog class="sos-social-dialog" data-sos-social-exit aria-labelledby="sos-social-title-{{ section.id }}">
           <button type="button" class="sos-social-dialog__close" data-sos-social-close aria-label="Close" autofocus>{% render 'sos-icon', name: 'close' %}</button>
-          <h2 id="sos-social-title-{{ section.id }}">See the statues up close</h2>
-          <p>Follow Sultan of Statues. Start with YouTube or find us on your favourite channel.</p>
-          <div class="sos-social__links">{{ social_links }}</div>
+          <div class="sos-social-dialog__layout">
+            <img class="sos-social-dialog__emblem" src="{{ 'sos-emblem@3x.png' | asset_url }}" width="245" height="216" alt="" loading="lazy" decoding="async">
+            <div class="sos-social-dialog__copy">
+              <h2 id="sos-social-title-{{ section.id }}">See the statues up close</h2>
+              <p>Follow Sultan of Statues. Start with YouTube or find us on your favourite channel.</p>
+              <div class="sos-social__links">{{ social_links }}</div>
+            </div>
+          </div>
         </dialog>
       {%- endunless -%}
 
