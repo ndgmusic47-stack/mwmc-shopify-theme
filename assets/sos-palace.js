@@ -725,7 +725,10 @@
 
   document.addEventListener('mouseout', function onExit(event) {
     if (event.relatedTarget || event.clientY > 4 || Date.now() < readyAt) return;
-    if (document.querySelector('dialog[open], [role="dialog"][aria-modal="true"]:not([hidden])')) return;
+    var modals = Array.from(document.querySelectorAll('dialog[open], [role="dialog"][aria-modal="true"]'));
+    if (modals.some(function (modal) {
+      return !modal.closest('[hidden], [aria-hidden="true"]') && modal.getClientRects().length > 0;
+    })) return;
     if (document.activeElement && document.activeElement.matches('input, textarea, select, [contenteditable="true"]')) return;
     document.removeEventListener('mouseout', onExit);
     dialog.showModal();
